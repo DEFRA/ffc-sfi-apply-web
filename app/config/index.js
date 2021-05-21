@@ -7,6 +7,7 @@ const schema = joi.object({
   env: joi.string().valid('development', 'test', 'production').default('development'),
   staticCacheTimeoutMillis: joi.number().default(7 * 24 * 60 * 60 * 1000),
   googleTagManagerKey: joi.string().default(''),
+  isSameSite: joi.string().valid('Lax').default('Lax'),
   cookieOptions: joi.object({
     ttl: joi.number().default(1000 * 60 * 60 * 24 * 365),
     encoding: joi.string().valid('base64json').default('base64json'),
