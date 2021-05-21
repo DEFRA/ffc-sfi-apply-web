@@ -17,6 +17,10 @@ containerSecret:
   name: ffc-sfi-apply-web-container-secret
   type: Opaque
 
+service:
+  port: 80
+  type: ClusterIP
+
 deployment:
   restartPolicy: Always
   priorityClassName: default
