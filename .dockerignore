@@ -13,3 +13,5 @@ README.md
 jsconfig.json
 .vscode
 .gitignore
+sonar-project.properties
+test/acceptance
