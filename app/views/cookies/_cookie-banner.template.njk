@@ -82,4 +82,6 @@
   }) }}
 </div>
 
-<script src="/static/scripts/cookies.js"></script>
+<% htmlWebpackPlugin.files.js.forEach(file => { %>
+  <script src="<%= file.replace('../dist/', 'static/') %>"></script>
+<% }) %>

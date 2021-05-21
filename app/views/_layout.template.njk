@@ -9,7 +9,6 @@
   <link href="<%= file.replace('../dist/', '/static/') %>" rel="stylesheet">
   <% }) %>
   <!--<![endif]-->
-
   {# For Internet Explorer 8, you need to compile specific stylesheet #}
   {# see https://github.com/alphagov/govuk-frontend/blob/master/docs/installation/supporting-internet-explorer-8.md #}
   <!--[if IE 8]>
@@ -33,7 +32,7 @@
 
 {% block bodyStart %}
   {% if cookiesPolicy and not cookiesPolicy.confirmed %}
-    {% include "./cookies/cookie-banner.njk" %}
+    {% include "./cookies/_cookie-banner.njk" %}
   {% endif %}
 
   {% if cookiesPolicy and cookiesPolicy.analytics %}

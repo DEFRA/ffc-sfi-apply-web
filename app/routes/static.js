@@ -2,18 +2,6 @@ const config = require('../config')
 
 module.exports = [{
   method: 'GET',
-  path: '/robots.txt',
-  options: {
-    handler: {
-      file: 'app/static/robots.txt'
-    },
-    cache: {
-      expiresIn: config.staticCacheTimeoutMillis,
-      privacy: 'private'
-    }
-  }
-}, {
-  method: 'GET',
   path: '/assets/{path*}',
   options: {
     handler: {
@@ -36,8 +24,7 @@ module.exports = [{
       directory: {
         path: [
           'app/dist',
-          'node_modules/govuk-frontend/govuk/assets',
-          'app/static'
+          'node_modules/govuk-frontend/govuk/assets'
         ]
       }
     },
