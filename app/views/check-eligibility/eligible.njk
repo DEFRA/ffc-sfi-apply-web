@@ -1,0 +1,28 @@
+{% extends '_layout.njk' %}
+{% set mainClasses = "govuk-main-wrapper--auto-spacing" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% block content %}
+  <div class="govuk-grid-row guidance-layout">
+    <div class="govuk-grid-column-two-thirds">
+        <form method="POST" action="/check-eligibility/eligible" novalidate>
+          <h1 class="govuk-heading-l">You're eligible for Sustainable Farming Incentive</h1>
+
+          <p>Based on your answers, you can apply for Sustainable Farming Incentive 2022 scheme.</p>
+
+          <h2 class="govuk-heading-m">Before you start</h2>
+          <p>You’ll need to know:</p>
+
+          <ul class="govuk-list govuk-list--bullet">
+            <li>Your SBI (Single Business Identifier)
+            <li>your Rural Payments Agency (RPA) account details</li>
+          </ul>
+
+          {{ govukButton({
+            text: "Continue"
+          }) }}
+        </form>
+      </div>
+    </div>
+  </div>
+{% endblock %}

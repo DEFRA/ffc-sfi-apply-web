@@ -4,7 +4,11 @@ const routes = [].concat(
   require('../routes/static'),
   require('../routes/home'),
   require('../routes/cookies'),
-  require('../routes/application-task-list')
+  require('../routes/application-task-list'),
+  require('../routes/check-eligibility/bps'),
+  require('../routes/check-eligibility/land-types'),
+  require('../routes/check-eligibility/farming-pilot'),
+  require('../routes/check-eligibility/eligible')
 )
 
 module.exports = {
