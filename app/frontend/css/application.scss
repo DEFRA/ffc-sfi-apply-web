@@ -1,5 +1,6 @@
 $govuk-assets-path: "~govuk-frontend/govuk/assets/";
 @import "~govuk-frontend/govuk/all";
+@import "./app-task-list";
 
 .nojs-hidden {
   display: none;

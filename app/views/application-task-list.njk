@@ -1,0 +1,149 @@
+{% extends '_layout.njk' %}
+{% set mainClasses = "govuk-main-wrapper--auto-spacing" %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+        text: "Back",
+        href: "/home"
+      }) }}
+{% endblock %}
+
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <span class="govuk-caption-l">Sustainable Farming Incentive</span>
+      <h1 class="govuk-heading-l">
+        Apply for land funding
+      </h1>
+
+      <h2 class="govuk-heading-s govuk-!-margin-bottom-2">Application incomplete</h2>
+      <p class="govuk-body govuk-!-margin-bottom-7">You have completed 0 of 5 sections.</p>
+
+      <ol class="app-task-list">
+        <li>
+          <h2 class="app-task-list__section">
+            <span class="app-task-list__section-number">1. </span> Check before you start
+          </h2>
+          <ul class="app-task-list__items">
+            <li class="app-task-list__item">
+              <span class="app-task-list__task-name">
+                <a href="bps" aria-describedby="eligibility-status">
+                  Check eligibility
+                </a>
+              </span>
+              <strong class="govuk-tag govuk-tag--grey app-task-list__tag" id="list-convictions-status">Not started</strong>
+            </li>
+          </ul>
+        </li>
+
+        <li>
+          <h2 class="app-task-list__section">
+            <span class="app-task-list__section-number">2. </span> Land and business details
+          </h2>
+          <ul class="app-task-list__items">
+            <li class="app-task-list__item">
+              <span class="app-task-list__task-name">
+                  Confirm your land and business details
+              </span>
+              <strong class="govuk-tag govuk-tag--grey app-task-list__tag" id=" ">Cannot start yet</strong>
+            </li>
+          </ul>
+        </li>
+
+        <li>
+          <h2 class="app-task-list__section">
+            <span class="app-task-list__section-number">3. </span> Funding options
+          </h2>
+          <ul class="app-task-list__items">
+            <li class="app-task-list__item">
+              <span class="app-task-list__task-name">
+                  Choose funding type
+              </span>
+              <strong class="govuk-tag govuk-tag--grey app-task-list__tag" id=" ">Cannot start yet</strong>
+            </li>
+            <li class="app-task-list__item">
+              <span class="app-task-list__task-name">
+                  Choose actions
+              </span>
+              <strong class="govuk-tag govuk-tag--grey app-task-list__tag" id=" ">Cannot start yet</strong>
+            </li>
+            <li class="app-task-list__item">
+              <span class="app-task-list__task-name">
+                  Add the amount of land you'll use
+              </span>
+              <strong class="govuk-tag govuk-tag--grey app-task-list__tag" id=" ">Cannot start yet</strong>
+            </li>
+            <li class="app-task-list__item">
+              <span class="app-task-list__task-name">
+                  Review your actions
+              </span>
+              <strong class="govuk-tag govuk-tag--grey app-task-list__tag" id=" ">Cannot start yet</strong>
+            </li>
+          </ul>
+        </li>
+
+        <li>
+          <h2 class="app-task-list__section">
+            <span class="app-task-list__section-number">4. </span> Create your agreement
+          </h2>
+          <ul class="app-task-list__items">
+            <li class="app-task-list__item">
+              <span class="app-task-list__task-name">
+                  Tell us how you will carry out your chosen actions
+              </span>
+              <strong class="govuk-tag govuk-tag--grey app-task-list__tag" id=" ">Cannot start yet</strong>
+            </li>
+            <li class="app-task-list__item">
+              <span class="app-task-list__task-name">
+                Set up your agreement length and renewal period
+              </span>
+              <strong class="govuk-tag govuk-tag--grey app-task-list__tag" id=" ">Cannot start yet</strong>
+            </li>
+            <li class="app-task-list__item">
+              <span class="app-task-list__task-name">
+                Review your agreement
+              </span>
+              <strong class="govuk-tag govuk-tag--grey app-task-list__tag" id=" ">Cannot start yet</strong>
+            </li>
+          </ul>
+        </li>
+
+        <li>
+          <h2 class="app-task-list__section">
+            <span class="app-task-list__section-number">5. </span> Payment details
+          </h2>
+          <ul class="app-task-list__items">
+            <li class="app-task-list__item">
+              <span class="app-task-list__task-name">
+                  Choose your payment options
+              </span>
+              <strong class="govuk-tag govuk-tag--grey app-task-list__tag" id=" ">Cannot start yet</strong>
+            </li>
+            <li class="app-task-list__item">
+              <span class="app-task-list__task-name">
+                  Confirm your bank details
+              </span>
+              <strong class="govuk-tag govuk-tag--grey app-task-list__tag" id=" ">Cannot start yet</strong>
+            </li>
+          </ul>
+        </li>
+
+        <li>
+          <h2 class="app-task-list__section">
+            <span class="app-task-list__section-number">6. </span> Submit your application
+          </h2>
+          <ul class="app-task-list__items">          
+            <li class="app-task-list__item">
+              <span class="app-task-list__task-name">
+                Submit your application
+              </span>
+              <strong class="govuk-tag govuk-tag--grey app-task-list__tag" id=" ">Cannot start yet</strong>
+            </li>
+          </ul>
+        </li>
+      </ol>
+    </div>
+  </div>
+{% endblock %}
