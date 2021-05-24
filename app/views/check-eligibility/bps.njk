@@ -7,39 +7,24 @@
 {% block beforeContent %}
   {{ govukBackLink({
         text: "Back",
-        href: "/application-task-list"
-      }) }}
+        href: "/application-task-list",
+        attributes: {
+          id: "back"
+        }
+      }) 
+    }}
 {% endblock %}
-
 
 {% block content %}
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
     <form method="POST" action="/check-eligibility/bps" novalidate>
-      {{ govukRadios({
-        idPrefix: "bps",
-        name: "bps",
-        fieldset: {
-          legend: {
-            text: "Have you received Basic Payment Scheme (BPS) funding in the last 12 months?",
-            isPageHeading: true,
-            classes: "govuk-fieldset__legend--l"
-          }
-        },
-        items: [
-          {
-            value: "yes",
-            text: "Yes"
-          },
-          {
-            value: "no",
-            text: "No"
-          }
-        ]
-      }) }}
-
+      {{ govukRadios(model) }}
       {{ govukButton({
-        text: "Continue"
+        text: "Continue",
+        attributes: {
+          id: "submit"
+        }
       }) }}
     </form>
     </div>

@@ -36,7 +36,8 @@ describe('check-eligibility land-types route', () => {
   test('POST /check-eligibility/land-types returns 302', async () => {
     const options = {
       method: 'POST',
-      url: '/check-eligibility/land-types'
+      url: '/check-eligibility/land-types',
+      payload: { landTypes: ['arableHorticultural', 'permanentGrassland'] }
     }
 
     const result = await server.inject(options)
@@ -46,11 +47,23 @@ describe('check-eligibility land-types route', () => {
   test('POST /check-eligibility/land-types redirects to farming-pilot', async () => {
     const options = {
       method: 'POST',
-      url: '/check-eligibility/land-types'
+      url: '/check-eligibility/land-types',
+      payload: { landTypes: ['arableHorticultural', 'permanentGrassland'] }
     }
 
     const result = await server.inject(options)
     expect(result.statusCode).toBe(302)
     expect(result.headers.location).toBe('farming-pilot')
+  })
+
+  test('POST /check-eligibility/land-types returns 400', async () => {
+    const options = {
+      method: 'POST',
+      url: '/check-eligibility/land-types',
+      payload: {}
+    }
+
+    const result = await server.inject(options)
+    expect(result.statusCode).toBe(400)
   })
 })

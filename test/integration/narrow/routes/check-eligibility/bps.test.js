@@ -36,21 +36,34 @@ describe('check-eligibility bps route', () => {
   test('POST /check-eligibility/bps returns 302', async () => {
     const options = {
       method: 'POST',
-      url: '/check-eligibility/bps'
+      url: '/check-eligibility/bps',
+      payload: { bps: 'yes' }
     }
 
     const result = await server.inject(options)
     expect(result.statusCode).toBe(302)
   })
 
-  test('POST /check-eligibility/bps redirects to calculation', async () => {
+  test('POST /check-eligibility/bps redirects to land-types', async () => {
     const options = {
       method: 'POST',
-      url: '/check-eligibility/bps'
+      url: '/check-eligibility/bps',
+      payload: { bps: 'yes' }
     }
 
     const result = await server.inject(options)
     expect(result.statusCode).toBe(302)
     expect(result.headers.location).toBe('land-types')
+  })
+
+  test('POST /check-eligibility/bps returns 400', async () => {
+    const options = {
+      method: 'POST',
+      url: '/check-eligibility/bps',
+      payload: {}
+    }
+
+    const result = await server.inject(options)
+    expect(result.statusCode).toBe(400)
   })
 })

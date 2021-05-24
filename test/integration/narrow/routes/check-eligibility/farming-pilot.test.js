@@ -36,7 +36,8 @@ describe('check-eligibility farming-pilot route', () => {
   test('POST /check-eligibility/farming-pilot returns 302', async () => {
     const options = {
       method: 'POST',
-      url: '/check-eligibility/farming-pilot'
+      url: '/check-eligibility/farming-pilot',
+      payload: { farmingPilot: 'yes' }
     }
 
     const result = await server.inject(options)
@@ -46,11 +47,23 @@ describe('check-eligibility farming-pilot route', () => {
   test('POST /check-eligibility/farming-pilot redirects to eligible', async () => {
     const options = {
       method: 'POST',
-      url: '/check-eligibility/farming-pilot'
+      url: '/check-eligibility/farming-pilot',
+      payload: { farmingPilot: 'yes' }
     }
 
     const result = await server.inject(options)
     expect(result.statusCode).toBe(302)
     expect(result.headers.location).toBe('eligible')
+  })
+
+  test('POST /check-eligibility/farming-pilot redirects to land-types', async () => {
+    const options = {
+      method: 'POST',
+      url: '/check-eligibility/farming-pilot',
+      payload: {}
+    }
+
+    const result = await server.inject(options)
+    expect(result.statusCode).toBe(400)
   })
 })

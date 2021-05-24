@@ -7,39 +7,25 @@
 {% block beforeContent %}
   {{ govukBackLink({
         text: "Back",
-        href: "/check-eligibility/land-types"
-      }) }}
+        href: "/check-eligibility/land-types",
+        attributes: {
+          id: "back"
+        }
+      }) 
+    }}
 {% endblock %}
-
 
 {% block content %}
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
     <form method="POST" action="/check-eligibility/farming-pilot" novalidate>
-      {{ govukRadios({
-        idPrefix: "farming-pilot",
-        name: "farming-pilot",
-        fieldset: {
-          legend: {
-            text: "Are you taking part in the Sustainable Farming Pilot?",
-            isPageHeading: true,
-            classes: "govuk-fieldset__legend--l"
-          }
-        },
-        items: [
-          {
-            value: "yes",
-            text: "Yes"
-          },
-          {
-            value: "no",
-            text: "No"
-          }
-        ]
-      }) }}
+      {{ govukRadios(model) }}
 
       {{ govukButton({
-        text: "Continue"
+        text: "Continue",
+        attributes: {
+          id: "submit"
+        }
       }) }}
     </form>
     </div>
