@@ -24,7 +24,7 @@ function ViewModel (value, error) {
   // If error is passed to model then this error property is added to the model
   if (error) {
     this.model.errorMessage = {
-      text: 'Please select whether you want to enter a single value.'
+      text: 'Please select if you have received Basic Payment Scheme (BPS) funding in the last 12 months.'
     }
   }
 }

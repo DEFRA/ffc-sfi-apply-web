@@ -47,7 +47,7 @@ function ViewModel (value, error) {
   // If error is passed to model then this error property is added to the model
   if (error) {
     this.model.errorMessage = {
-      text: 'Please any of these land types you have registered in England.'
+      text: 'Please choose which of these land types you have registered in England.'
     }
   }
 }

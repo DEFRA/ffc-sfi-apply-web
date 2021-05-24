@@ -16,9 +16,7 @@ module.exports = [{
   options: {
     validate: {
       payload: joi.object({
-        landTypes: joi.array().single().items(
-          joi.any().valid('gold', 'coal', 'iron', 'other')
-        )
+        landTypes: joi.array().allow('arableHorticultural', 'permanentGrassland', 'livestock', 'organic', 'trees', 'uplands', 'woodland').required()
       }),
       failAction: async (request, h, error) => {
         console.log(request.payload.landTypes)
