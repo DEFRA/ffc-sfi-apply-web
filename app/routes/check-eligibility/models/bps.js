@@ -12,11 +12,11 @@ function ViewModel (value, error) {
     },
     items: [
       {
-        value: 'yes',
+        value: true,
         text: 'Yes'
       },
       {
-        value: 'no',
+        value: false,
         text: 'No'
       }
     ]
