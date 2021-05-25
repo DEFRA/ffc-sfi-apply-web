@@ -16,7 +16,7 @@ module.exports = [{
   options: {
     validate: {
       payload: joi.object({
-        farmingPilot: joi.string().required()
+        farmingPilot: joi.boolean().required()
       }),
       failAction: async (request, h, error) => {
         return h.view('check-eligibility/farming-pilot', new ViewModel(request.payload.farmingPilot, error)).code(400).takeover()
