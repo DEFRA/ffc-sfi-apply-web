@@ -15,7 +15,8 @@ const routes = [].concat(
   require('../routes/create-agreement/soil-management'),
   require('../routes/create-agreement/tillage'),
   require('../routes/create-agreement/soil-compaction'),
-  require('../routes/create-agreement/soil-quality')
+  require('../routes/create-agreement/soil-quality'),
+  require('../routes/create-agreement/agreement-length')
 )
 
 module.exports = {
