@@ -1,0 +1,50 @@
+{% extends "_layout.njk" %}
+
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
+{% from "govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+
+{% block beforeContent %}
+  {{ govukBreadcrumbs({
+    items: [
+      {
+        text: "Home",
+        href: "/"
+      }
+    ]
+  }) }}
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <form method="POST" action="/search-land-business-details">      
+      <h1 class="govuk-heading-l">
+      Check your details
+      </h1>
+      <p class="govuk-body">Your Rural Payments Agency (RPA) account details.</p>              
+      <hr class="govuk-section-break govuk-section-break--xl govuk-section-break--visible">
+      <h2 class="govuk-heading-m">Your business</h2>
+      <p class="govuk-body">E Groves &amp; Son<br>
+          Bank Top Farm, Warren Lane, Otley LS21 1HT</p>      
+      <h2 class="govuk-heading-m">Your land</h2>
+      <p class="govuk-body">270 hectares of land<br>5100 metres of boundaries</p>
+      <hr class="govuk-section-break govuk-section-break--xl govuk-section-break--visible">
+
+      {{ govukButton({
+        text: "Confirm and continue",
+        href: "/application-task-list"
+      }) 
+      }}
+      
+      <p class="govuk-body">
+        <a href="change-land-business-details">My details have changed</a>
+      </p>
+    </form>
+  </div>
+  <div>
+</div>
+{% endblock %}
