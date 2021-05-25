@@ -8,7 +8,13 @@ const routes = [].concat(
   require('../routes/check-eligibility/bps'),
   require('../routes/check-eligibility/land-types'),
   require('../routes/check-eligibility/farming-pilot'),
-  require('../routes/check-eligibility/eligible')
+  require('../routes/check-eligibility/eligible'),
+  require('../routes/funding-options/what-funding'),
+  require('../routes/funding-options/actions-arable-all'),
+  require('../routes/funding-options/land-primary-actions'),
+  require('../routes/funding-options/land-increased-actions'),
+  require('../routes/funding-options/application-value'),
+  require('../routes/funding-options/change')
 )
 
 module.exports = {
