@@ -61,21 +61,12 @@ const primaryActions = (value, error) => {
 
 const paymentActions = (value, error) => {
   const items = [
-    buildCheckBoxItems(value?.primaryActions, 'Establish green cover on land at risk of flooding. £114 a hectare', 'establishGreenCover'),
-    buildCheckBoxItems(value?.primaryActions, 'Convert arable land to permanent grass. £311 a hectare', 'convertArableLand')
+    buildCheckBoxItems(value?.paymentActions, 'Establish green cover on land at risk of flooding. £114 a hectare', 'establishGreenCover'),
+    buildCheckBoxItems(value?.paymentActions, 'Convert arable land to permanent grass. £311 a hectare', 'convertArableLand')
   ]
 
-  const primaryActionsModel = buildCheckBoxes(items,
+  return buildCheckBoxes(items,
     { id: 'paymentActions', text: 'Increased payment actions', hint: 'Choose the extra optional actions you want to do.' })
-
-  // If error is passed to model then this error property is added to the model
-  if (error?.output.payload.message.includes('paymentActions')) {
-    primaryActionsModel.errorMessage = {
-      text: 'Please choose which funding you want to apply for.'
-    }
-  }
-
-  return primaryActionsModel
 }
 
 module.exports = ViewModel
