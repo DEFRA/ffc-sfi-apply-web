@@ -65,7 +65,7 @@ const primaryActions = (value, error) => {
   }]
 
   const primaryActionsModel = buildCheckBoxes(items,
-    { id: 'primaryActions', text: 'Primary actions', hint: 'Choose at least 4 primary actions.'})
+    { id: 'primaryActions', text: 'Primary actions', hint: 'Choose at least 4 primary actions.' })
 
   console.log(primaryActionsModel)
 
@@ -92,7 +92,7 @@ const paymentActions = (value, error) => {
   }]
 
   const primaryActionsModel = buildCheckBoxes(items,
-    { id: 'paymentActions', text: 'Increased payment actions', hint: 'Choose the extra optional actions you want to do.'})
+    { id: 'paymentActions', text: 'Increased payment actions', hint: 'Choose the extra optional actions you want to do.' })
 
   // If error is passed to model then this error property is added to the model
   if (error?.output.payload.message.includes('paymentActions')) {
