@@ -1,0 +1,32 @@
+{% extends '_layout.njk' %}
+{% set mainClasses = "govuk-main-wrapper--auto-spacing" %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+        text: "Back",
+        href: "/create-agreement/soil-cover",
+        attributes: {
+          id: "back"
+        }
+      }) 
+    }}
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+    <form method="POST" action="/create-agreement/soil-management" novalidate>
+      {{ govukRadios(model) }}
+      {{ govukButton({
+        text: "Continue",
+        attributes: {
+          id: "submit"
+        }
+      }) }}
+    </form>
+    </div>
+  </div>
+{% endblock %}
