@@ -5,6 +5,7 @@
 {% from "govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
 {% from "govuk/components/input/macro.njk" import govukInput %}
 {% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+{% from "govuk/components/details/macro.njk" import govukDetails %}
 
 {% block beforeContent %}
   {{ govukBreadcrumbs({
@@ -19,13 +20,14 @@
 
 {% block content %}
 <div class="govuk-grid-row">
-  <div class="govuk-grid-column-two-thirds">
-    <form method="POST" action="/search-land-business-details">
-      {{ govukInput(model) }}
-      {{ govukButton({
-        text: "Continue"
-      }) }}
-    </form>
+  <div class="govuk-grid-column-two-thirds">    
+    <h1 class="govuk-heading-l">
+      Change your land details
+    </h1>
+    <p class="govuk-body">Check your details before you apply for Sustainable Farming Incentive (SFI) funding.</p>
+    <p class="govuk-body">If you need to make changes, contact the Rural Payments team:<br>
+    Email: ruralpayments@defra.gov.uk<br>
+    Telephone on 03000 200 301</p>
   </div>
   <div>
 </div>

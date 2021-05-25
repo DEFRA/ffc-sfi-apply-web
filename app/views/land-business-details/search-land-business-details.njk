@@ -1,0 +1,61 @@
+{% extends "_layout.njk" %}
+
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
+{% from "govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+
+
+
+{% block beforeContent %}
+  {{ govukBreadcrumbs({
+    items: [
+      {
+        text: "Home",
+        href: "/"
+      }
+    ]
+  }) }}
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <form method="POST" action="/search-land-business-details">
+      {{ govukInput(model) }}
+
+      <details class="govuk-details" data-module="govuk-details">
+        <summary class="govuk-details__summary">
+          <span class="govuk-details__summary-text">
+            Find your SBI
+          </span>
+        </summary>
+        <div class="govuk-details__text">
+          To find you SBI, <a href="https://www.gov.uk/claim-rural-payments/sign-in/prove-identity" target="_blank">sign into your Defra account (opens in a new tab)</a>
+        </div>
+        <div class="govuk-details__text">
+          If you can’t log in, contact the Rural Payments team:<br>
+          Email: ruralpayments@defra.gov.uk<br>
+          Telephone on 03000 200 301      
+        </div>
+      </details>
+      <details class="govuk-details" data-module="govuk-details">
+        <summary class="govuk-details__summary">
+          <span class="govuk-details__summary-text">
+            Why are we asking this?
+          </span>
+        </summary>
+        <div class="govuk-details__text">          
+          Your SBI will show all the land you have registered with Defra.
+        </div>       
+      </details>
+      {{ govukButton({
+        text: "Continue"
+      }) }}
+    </form>
+  </div>
+  <div>
+</div>
+{% endblock %}
