@@ -27,42 +27,24 @@ const buildCheckBoxes = (items, properties) => {
   }
 }
 
+const buildCheckBoxItems = (payloadValues, checkBoxtext, checkBoxValue) => {
+  return {
+    value: checkBoxValue,
+    text: checkBoxtext,
+    checked: checkValue(payloadValues, checkBoxValue)
+  }
+}
+
 const primaryActions = (value, error) => {
-  const items = [{
-    value: 'cultivateDrillSlope',
-    text: 'Cultivate and drill across the slope',
-    checked: checkValue(value?.primaryActions, 'cultivateDrillSlope')
-  },
-  {
-    value: 'stripTillageNotil',
-    text: 'Use strip tillage or no-till on temporary grassland at high risk of surface runoff or soil erosion',
-    checked: checkValue(value?.primaryActions, 'stripTillageNotil')
-  },
-  {
-    value: 'soilManagementPlan',
-    text: 'Produce a soil management plan and review it every 2 years',
-    checked: checkValue(value?.primaryActions, 'soilManagementPlan')
-  },
-  {
-    value: 'avoidMachineryTraffic',
-    text: 'Avoid machinery traffic and cultivation on wet soil',
-    checked: checkValue(value?.primaryActions, 'avoidMachineryTraffic')
-  },
-  {
-    value: 'soilAssessment',
-    text: 'Carry out soil assessment on at least 25% the land in the scheme',
-    checked: checkValue(value?.primaryActions, 'soilAssessment')
-  },
-  {
-    value: 'useShallow',
-    text: 'Use shallow, minimum or no tillage on 25% of the arable land in the scheme',
-    checked: checkValue(value?.primaryActions, 'useShallow')
-  },
-  {
-    value: 'addOrganicMatter',
-    text: 'Add organic matter or certified compost to 25%, 40% or 50% of the land in the scheme',
-    checked: checkValue(value?.primaryActions, 'addOrganicMatter')
-  }]
+  const items = [
+    buildCheckBoxItems(value?.primaryActions, 'Cultivate and drill across the slope', 'cultivateDrillSlope'),
+    buildCheckBoxItems(value?.primaryActions, 'Use strip tillage or no-till on temporary grassland at high risk of surface runoff or soil erosion', 'stripTillageNotil'),
+    buildCheckBoxItems(value?.primaryActions, 'Produce a soil management plan and review it every 2 years', 'soilManagementPlan'),
+    buildCheckBoxItems(value?.primaryActions, 'Avoid machinery traffic and cultivation on wet soil', 'avoidMachineryTraffic'),
+    buildCheckBoxItems(value?.primaryActions, 'Carry out soil assessment on at least 25% the land in the scheme', 'soilAssessment'),
+    buildCheckBoxItems(value?.primaryActions, 'Use shallow, minimum or no tillage on 25% of the arable land in the scheme','useShallow'),
+    buildCheckBoxItems(value?.primaryActions, 'Add organic matter or certified compost to 25%, 40% or 50% of the land in the scheme','addOrganicMatter')
+  ]
 
   const primaryActionsModel = buildCheckBoxes(items,
     { id: 'primaryActions', text: 'Primary actions', hint: 'Choose at least 4 primary actions.' })
@@ -80,16 +62,10 @@ const primaryActions = (value, error) => {
 }
 
 const paymentActions = (value, error) => {
-  const items = [{
-    value: 'establishGreenCover',
-    text: 'Establish green cover on land at risk of flooding. £114 a hectare',
-    checked: checkValue(value?.paymentActions, 'establishGreenCover')
-  },
-  {
-    value: 'convertArableLand',
-    text: 'Convert arable land to permanent grass. £311 a hectare',
-    checked: checkValue(value?.paymentActions, 'convertArableLand')
-  }]
+  const items = [
+    buildCheckBoxItems(value?.primaryActions, 'Establish green cover on land at risk of flooding. £114 a hectare', 'establishGreenCover'),
+    buildCheckBoxItems(value?.primaryActions, 'Convert arable land to permanent grass. £311 a hectare', 'convertArableLand')
+  ]
 
   const primaryActionsModel = buildCheckBoxes(items,
     { id: 'paymentActions', text: 'Increased payment actions', hint: 'Choose the extra optional actions you want to do.' })
