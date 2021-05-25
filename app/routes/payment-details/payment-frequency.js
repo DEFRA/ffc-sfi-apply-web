@@ -19,7 +19,7 @@ module.exports = [{
         bps: joi.string().required()
       }),
       failAction: async (request, h, error) => {
-        return h.view('payment-details/payment-frequency', new ViewModel(request.payload.payment - frequency, error)).code(400).takeover()
+        return h.view('payment-details/payment-frequency', new ViewModel(request.payload.paymentFrequency, error)).code(400).takeover()
       }
     },
     handler: async (request, h) => {
