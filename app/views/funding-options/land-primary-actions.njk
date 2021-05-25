@@ -1,0 +1,28 @@
+{% extends '_layout.njk' %}
+{% set mainClasses = "govuk-main-wrapper--auto-spacing" %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% block beforeContent %}
+  <a id="back" href="#" onclick="history.back()" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <span class="govuk-caption-l">Arable and horticultural soils</span>
+      <h1 class="govuk-heading-l">How much of your land will you use for the primary actions?</h1>
+      <form method="POST" action="/funding-options/land-primary-actions" novalidate>
+        {{ govukInput(model) }}
+
+        {{ govukButton({
+          text: "Continue",
+          attributes: {
+            id: "submit"
+          }
+        }) }}
+      </form>
+    </div>
+  </div>
+{% endblock %}
