@@ -8,7 +8,9 @@ const routes = [].concat(
   require('../routes/check-eligibility/bps'),
   require('../routes/check-eligibility/land-types'),
   require('../routes/check-eligibility/farming-pilot'),
-  require('../routes/check-eligibility/eligible')
+  require('../routes/check-eligibility/eligible'),
+  require('../routes/submit'),
+  require('../routes/confirmation')
 )
 
 module.exports = {
