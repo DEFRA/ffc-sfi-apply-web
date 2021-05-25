@@ -14,7 +14,7 @@ function ViewModel (values, errors) {
 }
 
 const createInput = (value, error, properties) => {
-  const createInputModel = {
+  return {
     label: {
       text: 'Land, in hectares'
     },
@@ -27,14 +27,6 @@ const createInput = (value, error, properties) => {
     spellcheck: false,
     value
   }
-  // If error is passed to model then this error property is added to the model
-  if (error?.output.payload.message.includes('greenCover')) {
-    createInputModel.errorMessage = {
-      text: properties.errorMessage
-    }
-  }
-
-  return createInputModel
 }
 
 module.exports = ViewModel
