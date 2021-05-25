@@ -23,7 +23,6 @@ module.exports = [{
       }
     },
     handler: async (request, h) => {
-      console.log(request.payload)
       return h.redirect('actions-arable-all')
     }
   }

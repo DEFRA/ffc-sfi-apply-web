@@ -17,7 +17,7 @@ module.exports = [{
     validate: {
       payload: joi.object({
         primaryActions: joi.array().allow('cultivateDrillSlope', 'stripTillageNotil', 'soilManagementPlan', 'avoidMachineryTraffic', 'soilAssessment', 'useShallow', 'addOrganicMatter').required().min(4),
-        paymentActions: joi.array().allow('establishGreenCover', 'convertArableLand').required()
+        paymentActions: joi.array().allow('establishGreenCover', 'convertArableLand')
       }),
       failAction: async (request, h, error) => {
         return h.view('funding-options/actions-arable-all',
