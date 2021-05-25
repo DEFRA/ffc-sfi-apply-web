@@ -37,7 +37,7 @@ describe('check-eligibility farming-pilot route', () => {
     const options = {
       method: 'POST',
       url: '/check-eligibility/farming-pilot',
-      payload: { farmingPilot: 'yes' }
+      payload: { farmingPilot: true }
     }
 
     const result = await server.inject(options)
@@ -48,7 +48,7 @@ describe('check-eligibility farming-pilot route', () => {
     const options = {
       method: 'POST',
       url: '/check-eligibility/farming-pilot',
-      payload: { farmingPilot: 'yes' }
+      payload: { farmingPilot: true }
     }
 
     const result = await server.inject(options)

@@ -16,7 +16,7 @@ module.exports = [{
   options: {
     validate: {
       payload: joi.object({
-        bps: joi.string().required()
+        bps: joi.boolean().required()
       }),
       failAction: async (request, h, error) => {
         return h.view('check-eligibility/bps', new ViewModel(request.payload.bps, error)).code(400).takeover()
