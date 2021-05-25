@@ -42,8 +42,8 @@ const primaryActions = (value, error) => {
     buildCheckBoxItems(value?.primaryActions, 'Produce a soil management plan and review it every 2 years', 'soilManagementPlan'),
     buildCheckBoxItems(value?.primaryActions, 'Avoid machinery traffic and cultivation on wet soil', 'avoidMachineryTraffic'),
     buildCheckBoxItems(value?.primaryActions, 'Carry out soil assessment on at least 25% the land in the scheme', 'soilAssessment'),
-    buildCheckBoxItems(value?.primaryActions, 'Use shallow, minimum or no tillage on 25% of the arable land in the scheme','useShallow'),
-    buildCheckBoxItems(value?.primaryActions, 'Add organic matter or certified compost to 25%, 40% or 50% of the land in the scheme','addOrganicMatter')
+    buildCheckBoxItems(value?.primaryActions, 'Use shallow, minimum or no tillage on 25% of the arable land in the scheme', 'useShallow'),
+    buildCheckBoxItems(value?.primaryActions, 'Add organic matter or certified compost to 25%, 40% or 50% of the land in the scheme', 'addOrganicMatter')
   ]
 
   const primaryActionsModel = buildCheckBoxes(items,
