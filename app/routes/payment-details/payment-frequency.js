@@ -16,14 +16,14 @@ module.exports = [{
   options: {
     validate: {
       payload: joi.object({
-        bps: joi.string().required()
+        paymentFrequency: joi.string().required()
       }),
       failAction: async (request, h, error) => {
         return h.view('payment-details/payment-frequency', new ViewModel(request.payload.paymentFrequency, error)).code(400).takeover()
       }
     },
     handler: async (request, h) => {
-      return h.redirect('application-task-list')
+      return h.redirect('bank-details')
     }
   }
 }]

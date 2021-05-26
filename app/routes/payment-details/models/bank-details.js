@@ -1,8 +1,8 @@
 function ViewModel (value, error) {
   // Constructor function to create logic dependent nunjucks page
   this.model = {
-    id: 'bank-details',
-    name: 'bank-details',
+    id: 'bankDetails',
+    name: 'bankDetails',
     fieldset: {
       legend: {
         text: 'Are these bank details correct',
