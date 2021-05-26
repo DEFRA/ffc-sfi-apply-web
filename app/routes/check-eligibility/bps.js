@@ -1,5 +1,6 @@
 const joi = require('joi')
 const ViewModel = require('./models/bps')
+const sessionHandler = require('../../services/session-handler')
 
 module.exports = [{
   method: 'GET',
@@ -23,6 +24,7 @@ module.exports = [{
       }
     },
     handler: async (request, h) => {
+      sessionHandler.set(request, 'apply', h)
       return h.redirect('land-types')
     }
   }
