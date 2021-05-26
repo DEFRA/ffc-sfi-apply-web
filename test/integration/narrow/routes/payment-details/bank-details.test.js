@@ -32,15 +32,4 @@ describe('payment-details bank-details route', () => {
     expect(result.request.response.variety).toBe('view')
     expect(result.request.response.source.template).toBe('payment-details/bank-details')
   })
-
-  test('POST /payment-details/bank-details returns 302', async () => {
-    const options = {
-      method: 'POST',
-      url: '/payment-details/bank-details',
-      payload: {}
-    }
-
-    const result = await server.inject(options)
-    expect(result.statusCode).toBe(302)
-  })
 })
