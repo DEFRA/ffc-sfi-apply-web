@@ -53,10 +53,10 @@ describe('payment-details bank-details route', () => {
 
     const result = await server.inject(options)
     expect(result.statusCode).toBe(302)
-    expect(result.headers.location).toBe('application-task-list')
+    expect(result.headers.location).toBe('/application-task-list')
   })
 
-  test('POST /payment-details/bank-details returns 400', async () => {
+  test('POST /payment-details/bank-details returns 302', async () => {
     const options = {
       method: 'POST',
       url: '/payment-details/bank-details',
@@ -64,6 +64,6 @@ describe('payment-details bank-details route', () => {
     }
 
     const result = await server.inject(options)
-    expect(result.statusCode).toBe(400)
+    expect(result.statusCode).toBe(302)
   })
 })
