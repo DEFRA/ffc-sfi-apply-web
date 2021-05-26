@@ -48,7 +48,7 @@ describe('payment-details payment-frequency route', () => {
     const options = {
       method: 'POST',
       url: '/payment-details/payment-frequency',
-      payload: { bps: 'yes' }
+      payload: { paymentFrequency: 'monthly' }
     }
 
     const result = await server.inject(options)
