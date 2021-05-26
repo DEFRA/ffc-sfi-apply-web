@@ -14,7 +14,7 @@ module.exports = [{
   path: '/payment-details/payment-frequency',
   options: {
     handler: async (request, h) => {
-      return h.redirect('/application-task-list')
+      return h.redirect('bank-details')
     }
   }
 }]
