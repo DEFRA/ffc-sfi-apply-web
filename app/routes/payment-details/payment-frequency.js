@@ -1,4 +1,3 @@
-const joi = require('joi')
 const ViewModel = require('./models/payment-frequency')
 
 module.exports = [{
