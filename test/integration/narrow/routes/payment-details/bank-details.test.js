@@ -36,7 +36,7 @@ describe('payment-details bank-details route', () => {
   test('POST /payment-details/bank-details returns 302', async () => {
     const options = {
       method: 'POST',
-      url: '/payment-detailsbank-details',
+      url: '/payment-details/bank-details',
       payload: { bps: 'monthly' }
     }
 
