@@ -1,0 +1,36 @@
+{% extends '_layout.njk' %}
+{% set mainClasses = "govuk-main-wrapper--auto-spacing" %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% block beforeContent %}
+  <a id="back" href="#" onclick="history.back()" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+    <span class="govuk-caption-l">Arable and horticultural soils</span>
+    <h1 class="govuk-heading-l">Choose actions to protect and improve your arable soil</h1>
+    <p>Your payment rate depends on the number of primary actions you choose. Choose at least 4.</p>
+    <ul class="govuk-list">
+      <li><strong>4 actions: £6 ha</strong></li>
+      <li><strong>5 actions: £8 ha</strong></li>
+      <li><strong>6 actions: £10 ha</strong></li>
+    </ul>
+    <p>You can choose to increase your payments by opting to also carry out the increased payment actions. </p>
+    <form method="POST" action="/funding-options/actions-arable-all" novalidate>
+      {{ govukCheckboxes(model.primaryActions) }}
+      {{ govukCheckboxes(model.paymentActions) }}
+
+      {{ govukButton({
+        text: "Continue",
+        attributes: {
+          id: "submit"
+        }
+      }) }}
+    </form>
+    </div>
+  </div>
+{% endblock %}

@@ -19,7 +19,6 @@ module.exports = [{
         landTypes: joi.array().allow('arableHorticultural', 'permanentGrassland', 'livestock', 'organic', 'trees', 'uplands', 'woodland').required()
       }),
       failAction: async (request, h, error) => {
-        console.log(request.payload.landTypes)
         return h.view('check-eligibility/land-types', new ViewModel(request.payload.landTypes, error)).code(400).takeover()
       }
     },

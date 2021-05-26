@@ -37,7 +37,7 @@ describe('check-eligibility bps route', () => {
     const options = {
       method: 'POST',
       url: '/check-eligibility/bps',
-      payload: { bps: 'yes' }
+      payload: { bps: true }
     }
 
     const result = await server.inject(options)
@@ -48,7 +48,7 @@ describe('check-eligibility bps route', () => {
     const options = {
       method: 'POST',
       url: '/check-eligibility/bps',
-      payload: { bps: 'yes' }
+      payload: { bps: true }
     }
 
     const result = await server.inject(options)

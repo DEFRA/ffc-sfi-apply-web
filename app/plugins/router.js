@@ -5,12 +5,32 @@ const routes = [].concat(
   require('../routes/home'),
   require('../routes/cookies'),
   require('../routes/application-task-list'),
+  require('../routes/land-business-details/search-land-business-details'),
+  require('../routes/land-business-details/land-business-details'),
+  require('../routes/land-business-details/change-land-business-details'),
   require('../routes/check-eligibility/bps'),
   require('../routes/check-eligibility/land-types'),
   require('../routes/check-eligibility/farming-pilot'),
   require('../routes/check-eligibility/eligible'),
   require('../routes/payment-details/payment-frequency'),
-  require('../routes/payment-details/bank-details')
+  require('../routes/payment-details/bank-details'),
+  require('../routes/funding-options/what-funding'),
+  require('../routes/funding-options/actions-arable-all'),
+  require('../routes/funding-options/land-primary-actions'),
+  require('../routes/funding-options/land-increased-actions'),
+  require('../routes/funding-options/application-value'),
+  require('../routes/funding-options/change'),
+  require('../routes/create-agreement/soil-assessment'),
+  require('../routes/create-agreement/soil-protection'),
+  require('../routes/create-agreement/soil-cover'),
+  require('../routes/create-agreement/soil-management'),
+  require('../routes/create-agreement/tillage'),
+  require('../routes/create-agreement/soil-compaction'),
+  require('../routes/create-agreement/soil-quality'),
+  require('../routes/create-agreement/agreement-length'),
+  require('../routes/create-agreement/review'),
+  require('../routes/submit'),
+  require('../routes/confirmation')
 )
 
 module.exports = {

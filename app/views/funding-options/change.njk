@@ -1,0 +1,57 @@
+{% extends '_layout.njk' %}
+{% set mainClasses = "govuk-main-wrapper--auto-spacing" %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% block beforeContent %}
+  <a id="back" href="#" onclick="history.back()" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <h1 class="govuk-heading-l">Choose land and boundary options</h1>
+      <p class="govuk-body">Add the land and boundaries you want to include in the scheme. You can count any actions you're already doing towards it.</p>
+
+      <form method="POST" action="/funding-options/land-increased-actions" novalidate>
+        <h2 class="govuk-heading-m" id="improved-grassland">
+          Improved grassland
+        </h2>
+        <p class="govuk-body">Find out all the <a href="../../guidance/v7/standards/improved-grassland" target="_blank"> actions you need to take (opens in a new tab)</a>.</p>
+        {{ govukInput(model.improvedGrassland) }}
+        <hr class="govuk-section-break govuk-section-break--xl govuk-section-break--visible ">
+        <h2 class="govuk-heading-m" id="arable">
+          Arable and horticultural land
+        </h2>
+        <p class="govuk-body">Find out all the <a href="../../guidance/v7/standards/arable-land" target="_blank"> actions you need to take (opens in a new tab)</a>.</p>
+        {{ govukInput(model.arableHorticulturalLand) }}
+        <hr class="govuk-section-break govuk-section-break--xl govuk-section-break--visible ">
+        <h2 class="govuk-heading-m" id="hedgerows">
+          Hedgerows
+        </h2>
+        <p class="govuk-body">Find out all the <a href="../../guidance/v7/standards/hedgerows" target="_blank"> actions you need to take (opens in new tab)</a>.</p>
+        {{ govukInput(model.hedgerows) }}
+        <hr class="govuk-section-break govuk-section-break--xl govuk-section-break--visible ">
+        <h2 class="govuk-heading-m" id="waterbody">
+          Waterbody buffering
+        </h2>
+        <p class="govuk-body">Find out all the <a href="../../guidance/v7/standards/waterbody-buffering" target="_blank"> actions you need to take (opens in new tab)</a>.</p>
+        {{ govukInput(model.waterbodyBuffering) }}
+        <hr class="govuk-section-break govuk-section-break--xl govuk-section-break--visible ">
+        <h2 class="govuk-heading-m" id="woodland">
+          Farm woodland
+        </h2>
+        <p class="govuk-body">Find out all the <a href="../../guidance/v7/standards/farm-woodland" target="_blank"> actions you need to take (opens in a new tab)</a>.</p>
+        {{ govukInput(model.farmWoodland) }}
+        <hr class="govuk-section-break govuk-section-break--xl govuk-section-break--visible ">
+        {{ govukButton({
+          text: "Continue",
+          attributes: {
+            id: "submit"
+          }
+        }) }}
+      </form>
+    </div>
+  </div>
+{% endblock %}

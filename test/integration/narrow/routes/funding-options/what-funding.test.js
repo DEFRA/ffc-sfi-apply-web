@@ -1,4 +1,4 @@
-describe('check-eligibility farming-pilot route', () => {
+describe('check-eligibility funding-options/what-funding route', () => {
   let createServer
   let server
 
@@ -12,54 +12,54 @@ describe('check-eligibility farming-pilot route', () => {
     await server.stop()
   })
 
-  test('GET /check-eligibility/farming-pilot returns 200', async () => {
+  test('GET /funding-options/what-funding returns 200', async () => {
     const options = {
       method: 'GET',
-      url: '/check-eligibility/farming-pilot'
+      url: '/funding-options/what-funding'
     }
 
     const result = await server.inject(options)
     expect(result.statusCode).toBe(200)
   })
 
-  test('GET /check-eligibility/farming-pilot returns farming-pilot view', async () => {
+  test('GET /funding-options/what-funding returns what-funding view', async () => {
     const options = {
       method: 'GET',
-      url: '/check-eligibility/farming-pilot'
+      url: '/funding-options/what-funding'
     }
 
     const result = await server.inject(options)
     expect(result.request.response.variety).toBe('view')
-    expect(result.request.response.source.template).toBe('check-eligibility/farming-pilot')
+    expect(result.request.response.source.template).toBe('funding-options/what-funding')
   })
 
-  test('POST /check-eligibility/farming-pilot returns 302', async () => {
+  test('POST /funding-options/what-funding returns 302', async () => {
     const options = {
       method: 'POST',
-      url: '/check-eligibility/farming-pilot',
-      payload: { farmingPilot: true }
+      url: '/funding-options/what-funding',
+      payload: { funding: ['arableHorticulturalSoils'] }
     }
 
     const result = await server.inject(options)
     expect(result.statusCode).toBe(302)
   })
 
-  test('POST /check-eligibility/farming-pilot redirects to eligible', async () => {
+  test('POST /funding-options/what-funding redirects to actions-arable-all', async () => {
     const options = {
       method: 'POST',
-      url: '/check-eligibility/farming-pilot',
-      payload: { farmingPilot: true }
+      url: '/funding-options/what-funding',
+      payload: { funding: ['arableHorticulturalSoils'] }
     }
 
     const result = await server.inject(options)
     expect(result.statusCode).toBe(302)
-    expect(result.headers.location).toBe('eligible')
+    expect(result.headers.location).toBe('actions-arable-all')
   })
 
-  test('POST /check-eligibility/farming-pilot redirects to land-types', async () => {
+  test('POST /funding-options/what-funding returns 400', async () => {
     const options = {
       method: 'POST',
-      url: '/check-eligibility/farming-pilot',
+      url: '/funding-options/what-funding',
       payload: {}
     }
 
