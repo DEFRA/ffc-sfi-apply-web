@@ -1,3 +1,4 @@
+const joi = require('joi')
 const ViewModel = require('./models/payment-frequency')
 
 module.exports = [{
@@ -13,6 +14,10 @@ module.exports = [{
   method: 'POST',
   path: '/payment-details/payment-frequency',
   options: {
+    validate: {
+      payload: joi.object({
+        paymentFrequency: joi.string().required()
+      }),
     handler: async (request, h) => {
       return h.redirect('bank-details')
     }
