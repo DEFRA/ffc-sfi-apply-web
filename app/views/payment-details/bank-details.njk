@@ -1,0 +1,61 @@
+{% extends "_layout.njk" %}
+
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+
+
+{% block beforeContent %}
+  {{ govukBackLink({
+        text: "Back",
+        href: "/application-task-list",
+        attributes: {
+          id: "back"
+        }
+      }) 
+    }}
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <form method="POST" action="/bank-details">      
+      <h1 class="govuk-heading-l">Your bank or building society account details</h1>
+
+      <div class="govuk-form-group">
+        <label class="govuk-label" for="name-on-the-account">
+          Name on the account
+        </label>
+        <div class="govuk-body">Geoff Jones</div></div>
+
+      <div class="govuk-form-group">
+        <label class="govuk-label" for="sort-code">
+          Sort code
+        </label>
+        <div class="govuk-body">12-34-59</div>        
+      </div>
+
+      <div class="govuk-form-group">
+        <label class="govuk-label" for="account-number">
+          Account number
+        </label>
+        <div class="govuk-body">12345678</div> 
+      </div>
+
+      {{ govukButton({
+        text: "Confirm and continue",
+        href: "/application-task-list"
+      }) 
+      }}
+      
+      <p class="govuk-body">
+        <a href="/change-land-business-details">My details have changed</a>
+      </p>
+    </form>
+  </div>
+  <div>
+</div>
+{% endblock %}
