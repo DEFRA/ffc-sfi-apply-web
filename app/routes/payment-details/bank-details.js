@@ -19,7 +19,7 @@ module.exports = [{
         bankDetails: joi.string().required()
       }),
       failAction: async (request, h, error) => {
-        return h.view('payment-details/bank-details', new ViewModel(request.payload.bankDetails, error)).code(400).takeover()
+        return h.view('payment-details/bank-details').code(400).takeover()
       }
     },
     handler: async (request, h) => {

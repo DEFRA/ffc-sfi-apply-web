@@ -18,8 +18,9 @@ module.exports = [{
       payload: joi.object({
         paymentFrequency: joi.string().required()
       }),
-    handler: async (request, h) => {
-      return h.redirect('bank-details')
+      handler: async (request, h) => {
+        return h.redirect('bank-details')
+      }
     }
   }
 }]
