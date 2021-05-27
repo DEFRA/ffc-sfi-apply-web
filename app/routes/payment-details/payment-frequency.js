@@ -18,9 +18,12 @@ module.exports = [{
       payload: joi.object({
         paymentFrequency: joi.string().required()
       }),
-      handler: async (request, h) => {
-        return h.redirect('bank-details')
+      failAction: async (request, h, error) => {
+        return h.view('payment-details/payment-frequency', new ViewModel(request.payload.paymentFrequency, error)).code(400).takeover()
       }
+    },
+    handler: async (request, h) => {
+      return h.redirect('bank-details')
     }
   }
 }]

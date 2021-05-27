@@ -37,14 +37,14 @@ describe('payment-details payment-frequency route', () => {
     const options = {
       method: 'POST',
       url: '/payment-details/payment-frequency',
-      payload: { bps: 'monthly' }
+      payload: { paymentFrequency: 'monthly' }
     }
 
     const result = await server.inject(options)
     expect(result.statusCode).toBe(302)
   })
 
-  test('POST payment-details/payment-frequency redirects to application-task-list', async () => {
+  test('POST payment-details/payment-frequency redirects to bank-details', async () => {
     const options = {
       method: 'POST',
       url: '/payment-details/payment-frequency',
@@ -53,10 +53,10 @@ describe('payment-details payment-frequency route', () => {
 
     const result = await server.inject(options)
     expect(result.statusCode).toBe(302)
-    expect(result.headers.location).toBe('/application-task-list')
+    expect(result.headers.location).toBe('bank-details')
   })
 
-  test('POST /payment-details/payment-frequency returns 302', async () => {
+  test('POST /payment-details/payment-frequency returns 400', async () => {
     const options = {
       method: 'POST',
       url: '/payment-details/payment-frequency',
@@ -64,6 +64,6 @@ describe('payment-details payment-frequency route', () => {
     }
 
     const result = await server.inject(options)
-    expect(result.statusCode).toBe(302)
+    expect(result.statusCode).toBe(400)
   })
 })
