@@ -1,5 +1,6 @@
 const joi = require('joi')
 const ViewModel = require('./models/land-increased-actions')
+const { sendAgreementCalculateMessage } = require('../../messaging')
 
 module.exports = [{
   method: 'GET',
@@ -25,6 +26,7 @@ module.exports = [{
       }
     },
     handler: async (request, h) => {
+      await sendAgreementCalculateMessage({ id: 1 })
       return h.redirect('application-value')
     }
   }

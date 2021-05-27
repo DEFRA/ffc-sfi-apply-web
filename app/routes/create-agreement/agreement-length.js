@@ -23,7 +23,7 @@ module.exports = [{
       }
     },
     handler: async (request, h) => {
-      return h.redirect('/application-task-list')
+      return h.redirect('review')
     }
   }
 }]

@@ -1,5 +1,6 @@
 const joi = require('joi')
 const ViewModel = require('./models/farming-pilot')
+const { sendEligibilityCheckMessage } = require('../../messaging')
 
 module.exports = [{
   method: 'GET',
@@ -23,6 +24,7 @@ module.exports = [{
       }
     },
     handler: async (request, h) => {
+      await sendEligibilityCheckMessage({ id: 1 })
       return h.redirect('eligible')
     }
   }

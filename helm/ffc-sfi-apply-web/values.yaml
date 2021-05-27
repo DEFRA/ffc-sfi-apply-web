@@ -39,6 +39,12 @@ container:
   limitCpu: 40m
   port: 3000
   googleTagManagerKey:
+  messageQueueHost:
+  eligibilityTopicAddress: ffc-sfi-eligibility-check
+  standardsTopicAddress: ffc-sfi-standards-request
+  validateTopicAddress: ffc-sfi-agreement-validate
+  calculateTopicAddress: ffc-sfi-agreement-calculate
+  submitTopicAddress: ffc-sfi-agreement-submit
 
 ingress:
   class: nginx

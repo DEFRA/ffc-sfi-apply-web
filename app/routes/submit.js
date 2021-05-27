@@ -1,5 +1,6 @@
 const joi = require('joi')
 const ViewModel = require('./models/submit')
+const { sendAgreementSubmitMessage } = require('../messaging')
 
 module.exports = [{
   method: 'GET',
@@ -24,6 +25,7 @@ module.exports = [{
     },
     handler: async (request, h) => {
       if (request.payload.submit) {
+        await sendAgreementSubmitMessage({ id: 1 })
         return h.redirect('/confirmation')
       }
       return h.redirect('/application-task-list')
