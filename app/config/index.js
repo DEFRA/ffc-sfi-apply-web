@@ -20,7 +20,11 @@ const schema = joi.object({
   agreementCalculatorEndpoint: joi.string().uri().required(),
   sitiAgriEndpoint: joi.string().uri().required(),
   restClientTimeoutMillis: joi.number().default(60000),
-  useAgreementCalculator: joi.bool().default(false)
+  useAgreementCalculator: joi.bool().default(false),
+  polling: joi.object({
+    interval: joi.number().default(60),
+    retries: joi.number().default(10)
+  })
 })
 
 // Build config
@@ -41,7 +45,11 @@ const config = {
   agreementCalculatorEndpoint: process.env.AGREEMENT_CALCULATOR_ENDPOINT,
   sitiAgriEndpoint: process.env.SITI_AGRI_ENDPOINT,
   restClientTimeoutMillis: process.env.REST_CLIENT_TIMEOUT_IN_MILLIS,
-  useAgreementCalculator: process.env.USE_AGREEMENT_CALCULATOR
+  useAgreementCalculator: process.env.USE_AGREEMENT_CALCULATOR,
+  polling: {
+    interval: process.env.POLLING_INTERVAL,
+    retries: process.env.POLLING_RETRIES
+  }
 }
 
 // Validate config
