@@ -22,7 +22,7 @@ const schema = joi.object({
   restClientTimeoutMillis: joi.number().default(60000),
   useAgreementCalculator: joi.bool().default(false),
   polling: joi.object({
-    interval: joi.number().default(60),
+    interval: joi.number().default(500),
     retries: joi.number().default(10)
   })
 })
