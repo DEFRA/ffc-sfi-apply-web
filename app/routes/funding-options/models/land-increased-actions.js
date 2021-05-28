@@ -19,8 +19,9 @@ const greenCover = (value, error) => {
       text: 'ha'
     },
     spellcheck: false,
-    value
+    value: value
   }
+
   // If error is passed to model then this error property is added to the model
   if (error?.output.payload.message.includes('greenCover')) {
     greenCoverModel.errorMessage = {
@@ -45,8 +46,9 @@ const permanentGrass = (value, error) => {
       text: 'ha'
     },
     spellcheck: false,
-    value
+    value: value
   }
+
   // If error is passed to model then this error property is added to the model
   if (error?.output.payload.message.includes('permanentGrass')) {
     permanentGrassModel.errorMessage = {

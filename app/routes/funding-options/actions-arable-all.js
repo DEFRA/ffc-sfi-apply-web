@@ -1,12 +1,15 @@
 const joi = require('joi')
 const ViewModel = require('./models/actions-arable-all')
+const sessionHandler = require('../../session/session-handler')
 
 module.exports = [{
   method: 'GET',
   path: '/funding-options/actions-arable-all',
   options: {
     handler: (request, h) => {
-      return h.view('funding-options/actions-arable-all', new ViewModel())
+      const agreement = sessionHandler.get(request, 'agreement')
+      console.log(agreement)
+      return h.view('funding-options/actions-arable-all', new ViewModel({ primaryActions: agreement.primaryActions !== undefined ? agreement.primaryActions : null, paymentActions: agreement.paymentActions !== undefined ? agreement.paymentActions : null }))
     }
   }
 },
@@ -25,6 +28,7 @@ module.exports = [{
       }
     },
     handler: async (request, h) => {
+      sessionHandler.update(request, 'agreement', request.payload)
       return h.redirect('land-primary-actions')
     }
   }

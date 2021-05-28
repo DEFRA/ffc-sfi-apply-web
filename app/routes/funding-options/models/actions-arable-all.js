@@ -1,7 +1,42 @@
 function ViewModel (values, errors) {
+  console.log(values)
   this.model = {
     primaryActions: primaryActions(values, errors),
     paymentActions: paymentActions(values, errors)
+  }
+  console.log(this.model)
+  if (values !== null) {
+    if ((values.primaryActions !== null && values.primaryActions !== undefined) && Array.isArray(values.primaryActions)) {
+      values.primaryActions.forEach(value => {
+        const item = this.model.primaryActions.items.find(x => x.value === value)
+        if (item != null) {
+          item.checked = true
+        }
+      })
+    } else {
+      if (values.primaryActions !== null && values.primaryActions !== undefined) {
+        const primaryAction = this.model.primaryActions.items.find(x => x.value === values.primaryActions)
+        if (primaryAction != null) {
+          primaryAction.checked = true
+        }
+      }
+    }
+
+    if ((values.paymentActions !== null && values.paymentActions !== undefined) && Array.isArray(values.paymentActions)) {
+      values.paymentActions.forEach(value => {
+        const item = this.model.paymentActions.items.find(x => x.value === value)
+        if (item != null) {
+          item.checked = true
+        }
+      })
+    } else {
+      if (values.paymentActions !== null && values.paymentActions !== undefined) {
+        const paymentAction = this.model.paymentActions.items.find(x => x.value === values.paymentActions)
+        if (paymentAction !== null) {
+          paymentAction.checked = true
+        }
+      }
+    }
   }
 }
 

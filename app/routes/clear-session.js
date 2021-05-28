@@ -1,11 +1,11 @@
-const sessionHandler = require('../services/session-handler')
+const sessionHandler = require('../session/session-handler')
 
 module.exports = {
   method: 'GET',
   path: '/clear-session',
   options: {
     handler: (request, h) => {
-      sessionHandler.clear(request, 'apply')
+      sessionHandler.clear(request, 'agreement')
       return h.redirect('/')
     }
   }
