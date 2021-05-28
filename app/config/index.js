@@ -16,7 +16,11 @@ const schema = joi.object({
     isHttpOnly: joi.bool().default(true),
     clearInvalid: joi.bool().default(false),
     strictHeader: joi.bool().default(true)
-  })
+  }),
+  agreementCalculatorEndpoint: joi.string().uri().required(),
+  sitiAgriEndpoint: joi.string().uri().required(),
+  restClientTimeoutMillis: joi.number().default(60000),
+  useAgreementCalculator: joi.bool().default(false)
 })
 
 // Build config
@@ -33,7 +37,11 @@ const config = {
     isHttpOnly: true,
     clearInvalid: false,
     strictHeader: true
-  }
+  },
+  agreementCalculatorEndpoint: process.env.AGREEMENT_CALCULATOR_ENDPOINT,
+  sitiAgriEndpoint: process.env.SITI_AGRI_ENDPOINT,
+  restClientTimeoutMillis: process.env.REST_CLIENT_TIMEOUT_IN_MILLIS,
+  useAgreementCalculator: process.env.USE_AGREEMENT_CALCULATOR
 }
 
 // Validate config
@@ -56,5 +64,9 @@ value.calculateTopic = mqConfig.calculateTopic
 value.submitTopic = mqConfig.submitTopic
 
 value.isDev = (value.env === 'development' || value.env === 'test')
+
+if (!value.useAgreementCalculator) {
+  value.agreementCalculatorEndpoint = value.sitiAgriEndpoint
+}
 
 module.exports = value

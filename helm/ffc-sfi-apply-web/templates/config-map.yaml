@@ -12,5 +12,8 @@ data:
   VALIDATE_TOPIC_ADDRESS: {{ quote .Values.container.validateTopicAddress }}
   CALCULATE_TOPIC_ADDRESS: {{ quote .Values.container.calculateTopicAddress }}
   SUBMIT_TOPIC_ADDRESS: {{ quote .Values.container.submitTopicAddress }}
+  AGREEMENT_CALCULATOR_ENDPONT: {{ quote .Values.container.agreementCalculatorEndpoint }}
+  SITI_AGRI_ENDPONT: {{ quote .Values.container.sitiAgriEndpoint }}
+  USE_AGREEMENT_CALCULATOR: {{ quote .Values.container.useAgreementCalculator }}
   {{- end }}
 {{- end -}}
