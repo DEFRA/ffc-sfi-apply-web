@@ -12,6 +12,8 @@ const routes = [].concat(
   require('../routes/check-eligibility/land-types'),
   require('../routes/check-eligibility/farming-pilot'),
   require('../routes/check-eligibility/eligible'),
+  require('../routes/payment-details/payment-frequency'),
+  require('../routes/payment-details/bank-details'),
   require('../routes/funding-options/what-funding'),
   require('../routes/funding-options/actions-arable-all'),
   require('../routes/funding-options/land-primary-actions'),
