@@ -6,6 +6,7 @@
   <div class="govuk-grid-row guidance-layout">
     <div class="govuk-grid-column-two-thirds">
         <form method="POST" action="/check-eligibility/eligible" novalidate>
+          <input type="hidden" name="crumb" value="{{crumb}}"/>
           <h1 class="govuk-heading-l">You're eligible for Sustainable Farming Incentive</h1>
 
           <p>Based on your answers, you can apply for Sustainable Farming Incentive 2022 scheme.</p>

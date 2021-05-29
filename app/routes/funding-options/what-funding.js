@@ -7,7 +7,7 @@ module.exports = [{
   path: '/funding-options/what-funding',
   options: {
     handler: async (request, h) => {
-      await sendStandardsRequestMessage({ id: 1 })
+      await sendStandardsRequestMessage({ id: 1 }, request.yar.id)
       return h.view('funding-options/what-funding', new ViewModel())
     }
   }
@@ -25,7 +25,7 @@ module.exports = [{
       }
     },
     handler: async (request, h) => {
-      await sendAgreementValidateMessage({ id: 1 })
+      await sendAgreementValidateMessage({ id: 1 }, request.yar.id)
       return h.redirect('actions-arable-all')
     }
   }

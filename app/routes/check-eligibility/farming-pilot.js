@@ -24,7 +24,7 @@ module.exports = [{
       }
     },
     handler: async (request, h) => {
-      await sendEligibilityCheckMessage({ id: 1 })
+      await sendEligibilityCheckMessage({ id: 1 }, request.yar.id)
       return h.redirect('eligible')
     }
   }

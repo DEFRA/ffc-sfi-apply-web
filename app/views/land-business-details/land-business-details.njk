@@ -21,11 +21,12 @@
 {% block content %}
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    <form method="POST" action="/search-land-business-details">      
+    <form method="POST" action="/search-land-business-details">
+      <input type="hidden" name="crumb" value="{{crumb}}"/>
       <h1 class="govuk-heading-l">
       Check your details
       </h1>
-      <p class="govuk-body">Your Rural Payments Agency (RPA) account details.</p>              
+      <p class="govuk-body">Your Rural Payments Agency (RPA) account details.</p>
       <hr class="govuk-section-break govuk-section-break--xl govuk-section-break--visible">
       <h2 class="govuk-heading-m">Your business</h2>
       <p class="govuk-body">E Groves &amp; Son<br>

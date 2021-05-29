@@ -26,7 +26,7 @@ module.exports = [{
       }
     },
     handler: async (request, h) => {
-      await sendAgreementCalculateMessage({ id: 1 })
+      await sendAgreementCalculateMessage({ id: 1 }, request.yar.id)
       return h.redirect('application-value')
     }
   }

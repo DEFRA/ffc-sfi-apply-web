@@ -25,7 +25,7 @@ module.exports = [{
     },
     handler: async (request, h) => {
       if (request.payload.submit) {
-        await sendAgreementSubmitMessage({ id: 1 })
+        await sendAgreementSubmitMessage({ id: 1 }, request.yar.id)
         return h.redirect('/confirmation')
       }
       return h.redirect('/application-task-list')

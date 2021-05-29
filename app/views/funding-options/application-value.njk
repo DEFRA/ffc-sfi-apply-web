@@ -84,6 +84,7 @@
         </tbody>
       </table>
       <form method="POST" action="/funding-options/application-value" novalidate>
+        <input type="hidden" name="crumb" value="{{crumb}}"/>
         {{ govukButton({
           text: "Continue",
           attributes: {
