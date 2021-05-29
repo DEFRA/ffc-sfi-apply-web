@@ -85,9 +85,11 @@ value.calculateTopic = mqConfig.calculateTopic
 value.submitTopic = mqConfig.submitTopic
 
 value.isDev = (value.env === 'development' || value.env === 'test')
+value.isTest = value.env === 'test'
+value.isProd = value.env === 'production'
 
 // Don't try to connect to Redis for testing or if Redis not available
-value.useRedis = !value.isTest && value.redisHost !== undefined
+value.useRedis = !value.isTest && value.redisHost
 
 if (!value.useRedis) {
   console.info('Redis disabled, using in memory cache')

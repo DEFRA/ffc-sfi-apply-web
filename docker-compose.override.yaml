@@ -14,6 +14,8 @@ services:
     ports:
       - "3000:3000"
       - "9229:9229"
+    environment: 
+      REDIS_HOSTNAME: redis
     volumes:
       - ./app/:/home/node/app/
       - ./package.json:/home/node/package.json

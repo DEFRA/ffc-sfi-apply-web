@@ -1,4 +1,7 @@
 describe('check-eligibility land-types route', () => {
+  jest.mock('ffc-messaging')
+  jest.mock('../../../../../app/api')
+  jest.mock('../../../../../app/plugins/crumb')
   let createServer
   let server
 
