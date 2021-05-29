@@ -48,6 +48,11 @@ container:
   agreementCalculatorEndpoint: http://ffc-sfi-agreement-calculator.ffc-sfi
   sitiAgriEndpoint: http://ffc-sfi-apply-api.ffc-sfi
   useAgreementCalculator: false
+  redisHostname: redis-redis-ha.default
+  redisPassword: redis
+  redisPort: 6379
+  redisPartition: ffc-sfi-apply-web
+  cookiePassword: passwordpasswordpasswordpasswordpassword
 
 ingress:
   class: nginx

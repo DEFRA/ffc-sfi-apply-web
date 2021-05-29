@@ -20,3 +20,5 @@ services:
       SUBMIT_TOPIC_ADDRESS: ${SUBMIT_TOPIC_ADDRESS:-notset}
       AGREEMENT_CALCULATOR_ENDPOINT: http://ffc-sfi-agreement-calculator:3001
       SITI_AGRI_ENDPOINT: http://ffc-sfi-apply-api:3001
+      COOKIE_PASSWORD: cookiecookiecookiecookiecookiecookie
+      REDIS_HOSTNAME: redis
