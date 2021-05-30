@@ -1,6 +1,7 @@
 const joi = require('joi')
 const ViewModel = require('./models/what-funding')
 const { sendStandardsRequestMessage, sendAgreementValidateMessage } = require('../../messaging')
+const getPollingResponse = require('../../polling')
 
 module.exports = [{
   method: 'GET',
@@ -8,7 +9,12 @@ module.exports = [{
   options: {
     handler: async (request, h) => {
       await sendStandardsRequestMessage({ id: 1 }, request.yar.id)
-      return h.view('funding-options/what-funding', new ViewModel())
+      const response = await getPollingResponse(request.yar.id, '/standards')
+      if (response) {
+        console.info('Standards request received', response)
+        return h.view('funding-options/what-funding', new ViewModel())
+      }
+      return h.view('no-response')
     }
   }
 },

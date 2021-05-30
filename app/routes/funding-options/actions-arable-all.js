@@ -1,12 +1,18 @@
 const joi = require('joi')
 const ViewModel = require('./models/actions-arable-all')
+const getPollingResponse = require('../../polling')
 
 module.exports = [{
   method: 'GET',
   path: '/funding-options/actions-arable-all',
   options: {
-    handler: (request, h) => {
-      return h.view('funding-options/actions-arable-all', new ViewModel())
+    handler: async (request, h) => {
+      const response = await getPollingResponse(request.yar.id, '/validate')
+      if (response) {
+        console.info('Validation result received', response)
+        return h.view('funding-options/actions-arable-all', new ViewModel())
+      }
+      return h.view('no-response')
     }
   }
 },
