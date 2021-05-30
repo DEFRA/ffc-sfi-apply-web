@@ -8,7 +8,7 @@ module.exports = [{
       const response = await getPollingResponse(request.yar.id, '/calculate')
       if (response) {
         console.info('Calculation result received', response)
-        return h.view('funding-options/application-value')
+        return h.view('funding-options/application-value', { paymentAmount: response.paymentAmount })
       }
       return h.view('no-response')
     }
