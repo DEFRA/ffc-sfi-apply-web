@@ -29,7 +29,7 @@ const schema = joi.object({
   useAgreementCalculator: joi.bool().default(false),
   polling: joi.object({
     interval: joi.number().default(500),
-    retries: joi.number().default(10)
+    retries: joi.number().default(20)
   })
 })
 
