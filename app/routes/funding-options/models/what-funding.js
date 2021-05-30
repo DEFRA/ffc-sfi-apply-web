@@ -1,4 +1,4 @@
-function ViewModel (value, error) {
+function ViewModel (standards, selected, error) {
   // Constructor function to create logic dependent nunjucks page
   this.model = {
     id: 'funding',
@@ -13,20 +13,7 @@ function ViewModel (value, error) {
     hint: {
       text: 'Choose all that apply.'
     },
-    items: [
-      {
-        value: 'arableHorticulturalSoils',
-        text: 'Protect and improve my arable and horticultural soils'
-      },
-      {
-        value: 'permanentGrasslandSoils',
-        text: 'Protect and improve my permanent grassland soils'
-      },
-      {
-        value: 'welfareAssessmentLivestock',
-        text: 'Carry out a welfare assessment on my livestock'
-      }
-    ]
+    items: mapStandards(standards, selected)
   }
   // If error is passed to model then this error property is added to the model
   if (error) {
@@ -34,6 +21,34 @@ function ViewModel (value, error) {
       text: 'Please choose which funding you want to apply for.'
     }
   }
+}
+
+const mapStandards = (standards, selected) => {
+  return getAllStandards()
+    .filter(x => standards.some(y => y.name === x.value && y.name === x.value))
+    .map(x => {
+      return {
+        ...x,
+        checked: selected?.some(y => selected.includes(x.value)) ?? false
+      }
+    })
+}
+
+const getAllStandards = () => {
+  return [
+    {
+      value: 'soilProtection',
+      text: 'Protect and improve my arable and horticultural soils'
+    },
+    {
+      value: 'permanentGrasslandProtection',
+      text: 'Protect and improve my permanent grassland soils'
+    },
+    {
+      value: 'livestockWelfare',
+      text: 'Carry out a welfare assessment on my livestock'
+    }
+  ]
 }
 
 module.exports = ViewModel
