@@ -10,7 +10,10 @@ module.exports = [{
       const response = await getPollingResponse(request.yar.id, '/validate')
       if (response) {
         console.info('Validation result received', response)
-        return h.view('funding-options/actions-arable-all', new ViewModel())
+        if (response.isValid) {
+          return h.view('funding-options/actions-arable-all', new ViewModel())
+        }
+        return h.view('funding-options/not-valid')
       }
       return h.view('no-response')
     }
