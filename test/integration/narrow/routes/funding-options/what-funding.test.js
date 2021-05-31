@@ -2,6 +2,8 @@ describe('check-eligibility funding-options/what-funding route', () => {
   jest.mock('ffc-messaging')
   jest.mock('../../../../../app/api')
   jest.mock('../../../../../app/plugins/crumb')
+  jest.mock('../../../../../app/polling')
+  const getPollingResponse = require('../../../../../app/polling')
   let createServer
   let server
 
@@ -13,6 +15,7 @@ describe('check-eligibility funding-options/what-funding route', () => {
 
   afterEach(async () => {
     await server.stop()
+    jest.clearAllMocks()
   })
 
   test('GET /funding-options/what-funding returns 200', async () => {
@@ -26,6 +29,19 @@ describe('check-eligibility funding-options/what-funding route', () => {
   })
 
   test('GET /funding-options/what-funding returns what-funding view', async () => {
+    getPollingResponse.mockResolvedValue({
+      standards: [{
+        id: 1,
+        name: 'soilProtection'
+      },
+      {
+        id: 2,
+        name: 'permanentGrasslandProtection'
+      }, {
+        id: 3,
+        name: 'livestockWelfare'
+      }]
+    })
     const options = {
       method: 'GET',
       url: '/funding-options/what-funding'

@@ -2,6 +2,8 @@ describe('check-eligibility funding-options/actions-arable-all route', () => {
   jest.mock('ffc-messaging')
   jest.mock('../../../../../app/api')
   jest.mock('../../../../../app/plugins/crumb')
+  jest.mock('../../../../../app/polling')
+  const getPollingResponse = require('../../../../../app/polling')
   let createServer
   let server
 
@@ -13,9 +15,11 @@ describe('check-eligibility funding-options/actions-arable-all route', () => {
 
   afterEach(async () => {
     await server.stop()
+    jest.clearAllMocks()
   })
 
   test('GET /funding-options/actions-arable-all returns 200', async () => {
+    getPollingResponse.mockResolvedValue({ isValid: true })
     const options = {
       method: 'GET',
       url: '/funding-options/actions-arable-all'
@@ -26,6 +30,7 @@ describe('check-eligibility funding-options/actions-arable-all route', () => {
   })
 
   test('GET /funding-options/actions-arable-all returns actions-arable-all view', async () => {
+    getPollingResponse.mockResolvedValue({ isValid: true })
     const options = {
       method: 'GET',
       url: '/funding-options/actions-arable-all'

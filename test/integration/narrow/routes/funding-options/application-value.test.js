@@ -2,6 +2,8 @@ describe('check-eligibility funding-options/application-value route', () => {
   jest.mock('ffc-messaging')
   jest.mock('../../../../../app/api')
   jest.mock('../../../../../app/plugins/crumb')
+  jest.mock('../../../../../app/polling')
+  const getPollingResponse = require('../../../../../app/polling')
   let createServer
   let server
 
@@ -13,6 +15,7 @@ describe('check-eligibility funding-options/application-value route', () => {
 
   afterEach(async () => {
     await server.stop()
+    jest.clearAllMocks()
   })
 
   test('GET /funding-options/application-value returns 200', async () => {
@@ -26,6 +29,7 @@ describe('check-eligibility funding-options/application-value route', () => {
   })
 
   test('GET /funding-options/application-value returns application-value view', async () => {
+    getPollingResponse.mockResolvedValue({ paymentAmount: 1000 })
     const options = {
       method: 'GET',
       url: '/funding-options/application-value'
