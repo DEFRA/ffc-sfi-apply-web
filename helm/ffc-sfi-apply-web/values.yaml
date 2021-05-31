@@ -36,7 +36,7 @@ container:
   requestMemory: 10Mi
   requestCpu: 10m
   limitMemory: 120Mi
-  limitCpu: 40m
+  limitCpu: 120m
   port: 3000
   googleTagManagerKey:
   messageQueueHost: namespace.servicebus.windows.net
