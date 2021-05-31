@@ -9,7 +9,7 @@ const schema = joi.object({
   redisHost: joi.string(),
   redisPort: joi.number().default(6379),
   redisPassword: joi.string().default(''),
-  redisPartition: joi.string().default('ffc-demo'),
+  redisPartition: joi.string().default('ffc-sfi-apply-web'),
   cookiePassword: joi.string().required(),
   sessionTimeoutMinutes: joi.number().default(60),
   staticCacheTimeoutMillis: joi.number().default(7 * 24 * 60 * 60 * 1000),
