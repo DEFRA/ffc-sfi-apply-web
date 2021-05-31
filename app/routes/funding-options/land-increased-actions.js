@@ -8,6 +8,7 @@ module.exports = [{
   options: {
     handler: (request, h) => {
       const agreement = sessionHandler.get(request, 'agreement')
+      console.log(agreement)
       return h.view('funding-options/land-increased-actions', new ViewModel({ greenCover: agreement.greenCover !== '' ? agreement.greenCover : '', permanentGrass: agreement.permanentGrass !== '' ? agreement.permanentGrass : '' }))
     }
   }

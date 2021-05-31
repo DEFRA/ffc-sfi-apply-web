@@ -1,8 +1,11 @@
+const sessionHandler = require('../../session/session-handler')
+
 module.exports = [{
   method: 'GET',
   path: '/funding-options/application-value',
   options: {
     handler: (request, h) => {
+      const agreement = sessionHandler.get(request, 'agreement')
       return h.view('funding-options/application-value')
     }
   }

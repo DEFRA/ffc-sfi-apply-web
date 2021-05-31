@@ -7,7 +7,7 @@ module.exports = [{
   options: {
     handler: (request, h) => {
       const agreement = sessionHandler.get(request, 'agreement')
-      return h.view('funding-options/change', new ViewModel({ improvedGrassland: agreement.improvedGrassland !== '' ? agreement.improvedGrassland : '', arableHorticulturalLand: agreement.arableHorticulturalLand !== '' ? agreement.arableHorticulturalLand : '', hedgerows: agreement.hedgerows !== '' ? agreement.hedgerows : '', waterbodyBuffering: agreement.waterbodyBuffering !== '' ? agreement.waterbodyBuffering : '', farmWoodland: agreement.farmWoodland !== '' ? agreement.farmWoodland : '' }))
+      return h.view('funding-options/change', new ViewModel({ improvedGrassland: agreement.improveGrassland !== '' ? agreement.improveGrassland : '', arableHorticulturalLand: agreement.arableHorticulturalLand !== '' ? agreement.arableHorticulturalLand : '', hedgerows: agreement.hedgerows !== '' ? agreement.hedgerows : '', waterbodyBuffering: agreement.waterbodyBuffering !== '' ? agreement.waterbodyBuffering : '', farmWoodland: agreement.farmWoodland !== '' ? agreement.farmWoodland : '' }))
     }
   }
 },

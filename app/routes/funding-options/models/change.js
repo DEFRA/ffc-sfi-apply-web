@@ -1,4 +1,6 @@
 function ViewModel (values, errors) {
+  console.log(values)
+
   this.model = {
     improvedGrassland: createInput(values?.improvedGrassland || '', errors,
       { id: 'improveGrassland', suffix: 'ha', errorMessage: 'Please enter land, in hectares.' }),

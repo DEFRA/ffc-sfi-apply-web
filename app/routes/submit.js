@@ -1,12 +1,14 @@
 const joi = require('joi')
 const ViewModel = require('./models/submit')
+const sessionHandler = require('../session/session-handler')
 
 module.exports = [{
   method: 'GET',
   path: '/submit',
   options: {
     handler: (request, h) => {
-      return h.view('submit', new ViewModel())
+      const agreement = sessionHandler.get(request, 'agreement')
+      return h.view('submit', new ViewModel(agreement.submit))
     }
   }
 },
@@ -23,6 +25,7 @@ module.exports = [{
       }
     },
     handler: async (request, h) => {
+      sessionHandler.update(request, 'agreement', request.payload)
       if (request.payload.submit) {
         return h.redirect('/confirmation')
       }
