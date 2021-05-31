@@ -7,7 +7,6 @@ module.exports = [{
   options: {
     handler: (request, h) => {
       const agreement = sessionHandler.get(request, 'agreement')
-      console.log(agreement)
       return h.view('create-agreement/review', new ViewModel(agreement))
     }
   }

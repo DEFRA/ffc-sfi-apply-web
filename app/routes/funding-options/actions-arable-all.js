@@ -8,7 +8,6 @@ module.exports = [{
   options: {
     handler: (request, h) => {
       const agreement = sessionHandler.get(request, 'agreement')
-      console.log(agreement)
       return h.view('funding-options/actions-arable-all', new ViewModel({ primaryActions: agreement.primaryActions !== undefined ? agreement.primaryActions : null, paymentActions: agreement.paymentActions !== undefined ? agreement.paymentActions : null }))
     }
   }

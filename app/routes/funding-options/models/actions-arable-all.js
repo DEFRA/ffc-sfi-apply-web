@@ -1,10 +1,8 @@
 function ViewModel (values, errors) {
-  console.log(values)
   this.model = {
     primaryActions: primaryActions(values, errors),
     paymentActions: paymentActions(values, errors)
   }
-  console.log(this.model)
   if (values !== null) {
     if ((values.primaryActions !== null && values.primaryActions !== undefined) && Array.isArray(values.primaryActions)) {
       values.primaryActions.forEach(value => {

@@ -8,7 +8,6 @@ module.exports = [{
   options: {
     handler: (request, h) => {
       const agreement = sessionHandler.get(request, 'agreement')
-      console.log(agreement)
       return h.view('check-eligibility/land-types', new ViewModel(agreement.landTypes))
     }
   }

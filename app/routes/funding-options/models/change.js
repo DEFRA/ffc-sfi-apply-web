@@ -1,5 +1,4 @@
 function ViewModel (values, errors) {
-  console.log(values)
 
   this.model = {
     improvedGrassland: createInput(values?.improvedGrassland || '', errors,
