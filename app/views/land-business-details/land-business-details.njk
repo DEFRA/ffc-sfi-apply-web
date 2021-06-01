@@ -21,30 +21,28 @@
 {% block content %}
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    <form method="POST" action="/search-land-business-details">
-      <input type="hidden" name="crumb" value="{{crumb}}"/>
-      <h1 class="govuk-heading-l">
-      Check your details
-      </h1>
-      <p class="govuk-body">Your Rural Payments Agency (RPA) account details.</p>
-      <hr class="govuk-section-break govuk-section-break--xl govuk-section-break--visible">
-      <h2 class="govuk-heading-m">Your business</h2>
-      <p class="govuk-body">E Groves &amp; Son<br>
-          Bank Top Farm, Warren Lane, Otley LS21 1HT</p>      
-      <h2 class="govuk-heading-m">Your land</h2>
-      <p class="govuk-body">270 hectares of land<br>5100 metres of boundaries</p>
-      <hr class="govuk-section-break govuk-section-break--xl govuk-section-break--visible">
+    <h1 class="govuk-heading-l">
+    Check your details
+    </h1>
+    <p class="govuk-body">Your Rural Payments Agency (RPA) account details.</p>
+    <hr class="govuk-section-break govuk-section-break--xl govuk-section-break--visible">
+    <h2 class="govuk-heading-m">Your business</h2>
+    <p class="govuk-body">{{sbi}}</p>
+    <p class="govuk-body">E Groves &amp; Son<br>
+        Bank Top Farm, Warren Lane, Otley LS21 1HT</p>
+    <h2 class="govuk-heading-m">Your land</h2>
+    <p class="govuk-body">270 hectares of land<br>5100 metres of boundaries</p>
+    <hr class="govuk-section-break govuk-section-break--xl govuk-section-break--visible">
 
-      {{ govukButton({
-        text: "Confirm and continue",
-        href: "/application-task-list"
-      }) 
-      }}
-      
-      <p class="govuk-body">
-        <a href="change-land-business-details">My details have changed</a>
-      </p>
-    </form>
+    {{ govukButton({
+      text: "Confirm and continue",
+      href: "/application-task-list"
+    }) 
+    }}
+    
+    <p class="govuk-body">
+      <a href="change-land-business-details">My details have changed</a>
+    </p>
   </div>
   <div>
 </div>

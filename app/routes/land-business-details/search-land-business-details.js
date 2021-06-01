@@ -6,8 +6,8 @@ module.exports = [{
   method: 'GET',
   path: '/search-land-business-details',
   options: {
-    handler: (request, h) => {
-      const agreement = cache.get(request, 'agreement')
+    handler: async (request, h) => {
+      const agreement = await cache.get('agreement', request.yar.id)
       return h.view('land-business-details/search-land-business-details', new ViewModel(agreement.sbi))
     }
   }
@@ -22,8 +22,8 @@ module.exports = [{
       }
     },
     handler: async (request, h) => {
-      cache.update(request, 'agreement', request.payload)
-      return h.redirect(`land-business-details?sbi=${request.payload.sbi}`)
+      await cache.update('agreement', request.yar.id, request.payload)
+      return h.redirect('land-business-details')
     }
   }
 }]
