@@ -5,7 +5,7 @@ module.exports = [{
   method: 'GET',
   path: '/funding-options/change',
   options: {
-    handler: (request, h) => {
+    handler: async (request, h) => {
       const agreement = await cache.get('agreement', request.yar.id)
       return h.view('funding-options/change', new ViewModel({ improvedGrassland: agreement.improveGrassland !== '' ? agreement.improveGrassland : '', arableHorticulturalLand: agreement.arableHorticulturalLand !== '' ? agreement.arableHorticulturalLand : '', hedgerows: agreement.hedgerows !== '' ? agreement.hedgerows : '', waterbodyBuffering: agreement.waterbodyBuffering !== '' ? agreement.waterbodyBuffering : '', farmWoodland: agreement.farmWoodland !== '' ? agreement.farmWoodland : '' }))
     }
