@@ -1,6 +1,7 @@
 const joi = require('joi')
 const ViewModel = require('./models/submit')
 const { sendAgreementSubmitMessage } = require('../messaging')
+const cache = require('../cache')
 
 module.exports = [{
   method: 'GET',
@@ -25,7 +26,9 @@ module.exports = [{
     },
     handler: async (request, h) => {
       if (request.payload.submit) {
-        await sendAgreementSubmitMessage({ id: 1 }, request.yar.id)
+        const agreement = await cache.get('agreement', request.yar.id)
+        await sendAgreementSubmitMessage(agreement, request.yar.id)
+        await cache.update('progress', request.yar.id, { submitted: true })
         return h.redirect('/confirmation')
       }
       return h.redirect('/application-task-list')

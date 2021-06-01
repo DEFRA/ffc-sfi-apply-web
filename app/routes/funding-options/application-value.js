@@ -21,6 +21,7 @@ module.exports = [{
   path: '/funding-options/application-value',
   options: {
     handler: async (request, h) => {
+      await cache.update('progress', request.yar.id, { eligibility: true })
       return h.redirect('/application-task-list')
     }
   }

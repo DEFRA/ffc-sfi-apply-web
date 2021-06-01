@@ -23,6 +23,7 @@ module.exports = [{
     },
     handler: async (request, h) => {
       await cache.update('agreement', request.yar.id, request.payload)
+      await cache.update('progress', request.yar.id, { businessDetails: true })
       return h.redirect('land-business-details')
     }
   }

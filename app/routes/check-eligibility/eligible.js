@@ -1,4 +1,5 @@
 const getPollingResponse = require('../../polling')
+const cache = require('../../cache')
 
 module.exports = [{
   method: 'GET',
@@ -9,6 +10,7 @@ module.exports = [{
       if (response) {
         console.info('Eligibility result received', response)
         if (response.isEligible) {
+          await cache.update('progress', request.yar.id, { eligibility: true })
           return h.view('check-eligibility/eligible')
         }
         return h.view('check-eligibility/not-eligible')
