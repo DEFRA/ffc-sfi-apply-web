@@ -81,3 +81,10 @@ $govuk-assets-path: "~govuk-frontend/govuk/assets/";
     @extend %govuk-section-break--xl;
   }
 }
+
+.disabled {
+  pointer-events: none;
+  text-decoration: none;
+  cursor: default;
+  color: black;
+}
