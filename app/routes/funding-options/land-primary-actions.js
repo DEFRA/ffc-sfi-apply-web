@@ -1,13 +1,13 @@
 const joi = require('joi')
 const ViewModel = require('./models/land-primary-actions')
-const sessionHandler = require('../../session/session-handler')
+const cache = require('../../cache')
 
 module.exports = [{
   method: 'GET',
   path: '/funding-options/land-primary-actions',
   options: {
     handler: (request, h) => {
-      const agreement = sessionHandler.get(request, 'agreement')
+      const agreement = cache.get(request, 'agreement')
       return h.view('funding-options/land-primary-actions', new ViewModel(agreement.landInHectares))
     }
   }
@@ -25,7 +25,7 @@ module.exports = [{
       }
     },
     handler: async (request, h) => {
-      sessionHandler.update(request, 'agreement', request.payload)
+      cache.update(request, 'agreement', request.payload)
       return h.redirect('land-increased-actions')
     }
   }

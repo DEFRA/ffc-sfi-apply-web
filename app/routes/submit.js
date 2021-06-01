@@ -1,14 +1,14 @@
 const joi = require('joi')
 const ViewModel = require('./models/submit')
 const { sendAgreementSubmitMessage } = require('../messaging')
-const sessionHandler = require('../session/session-handler')
+const cache = require('../cache')
 
 module.exports = [{
   method: 'GET',
   path: '/submit',
   options: {
     handler: (request, h) => {
-      const agreement = sessionHandler.get(request, 'agreement')
+      const agreement = cache.get(request, 'agreement')
       return h.view('submit', new ViewModel(agreement.submit))
     }
   }
@@ -26,7 +26,7 @@ module.exports = [{
       }
     },
     handler: async (request, h) => {
-      sessionHandler.update(request, 'agreement', request.payload)
+      cache.update(request, 'agreement', request.payload)
       if (request.payload.submit) {
         await sendAgreementSubmitMessage({ id: 1 }, request.yar.id)
         return h.redirect('/confirmation')

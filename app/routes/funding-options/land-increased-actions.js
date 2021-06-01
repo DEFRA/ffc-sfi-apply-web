@@ -1,14 +1,14 @@
 const joi = require('joi')
 const ViewModel = require('./models/land-increased-actions')
 const { sendAgreementCalculateMessage } = require('../../messaging')
-const sessionHandler = require('../../session/session-handler')
+const cache = require('../../cache')
 
 module.exports = [{
   method: 'GET',
   path: '/funding-options/land-increased-actions',
   options: {
     handler: (request, h) => {
-      const agreement = sessionHandler.get(request, 'agreement')
+      const agreement = cache.get(request, 'agreement')
       return h.view('funding-options/land-increased-actions', new ViewModel({ greenCover: agreement.greenCover !== '' ? agreement.greenCover : '', permanentGrass: agreement.permanentGrass !== '' ? agreement.permanentGrass : '' }))
     }
   }
@@ -28,7 +28,7 @@ module.exports = [{
       }
     },
     handler: async (request, h) => {
-      sessionHandler.update(request, 'agreement', request.payload)
+      cache.update(request, 'agreement', request.payload)
       await sendAgreementCalculateMessage({ id: 1 }, request.yar.id)
       return h.redirect('application-value')
     }

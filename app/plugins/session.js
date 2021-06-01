@@ -8,7 +8,7 @@ module.exports = {
     maxCookieSize: config.useRedis ? 0 : 1024,
     cache: {
       cache: 'session',
-      expiresIn: config.sessionTimeoutMinutes * 60 * 1000
+      expiresIn: config.cacheConfig.defaultExpiresIn
     },
     cookieOptions: {
       password: config.cookiePassword,

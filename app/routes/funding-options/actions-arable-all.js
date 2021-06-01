@@ -1,14 +1,14 @@
 const joi = require('joi')
 const ViewModel = require('./models/actions-arable-all')
 const getPollingResponse = require('../../polling')
-const sessionHandler = require('../../session/session-handler')
+const cache = require('../../cache')
 
 module.exports = [{
   method: 'GET',
   path: '/funding-options/actions-arable-all',
   options: {
     handler: async (request, h) => {
-      const agreement = sessionHandler.get(request, 'agreement')
+      const agreement = cache.get(request, 'agreement')
       const response = await getPollingResponse(request.yar.id, '/validate')
       if (response) {
         console.info('Validation result received', response)
@@ -36,7 +36,7 @@ module.exports = [{
       }
     },
     handler: async (request, h) => {
-      sessionHandler.update(request, 'agreement', request.payload)
+      cache.update(request, 'agreement', request.payload)
       return h.redirect('land-primary-actions')
     }
   }
