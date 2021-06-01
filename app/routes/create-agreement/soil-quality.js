@@ -6,7 +6,7 @@ module.exports = [{
   method: 'GET',
   path: '/create-agreement/soil-quality',
   options: {
-    handler: (request, h) => {
+    handler: async (request, h) => {
       const agreement = await cache.get('agreement', request.yar.id)
       return h.view('create-agreement/soil-quality', new ViewModel(agreement.soilQuality))
     }
