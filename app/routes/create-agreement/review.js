@@ -6,7 +6,7 @@ module.exports = [{
   path: '/create-agreement/review',
   options: {
     handler: (request, h) => {
-      const agreement = cache.get(request, 'agreement')
+      const agreement = await cache.get('agreement', request.yar.id)
       return h.view('create-agreement/review', new ViewModel(agreement))
     }
   }

@@ -6,7 +6,7 @@ module.exports = [{
   path: '/funding-options/change',
   options: {
     handler: (request, h) => {
-      const agreement = cache.get(request, 'agreement')
+      const agreement = await cache.get('agreement', request.yar.id)
       return h.view('funding-options/change', new ViewModel({ improvedGrassland: agreement.improveGrassland !== '' ? agreement.improveGrassland : '', arableHorticulturalLand: agreement.arableHorticulturalLand !== '' ? agreement.arableHorticulturalLand : '', hedgerows: agreement.hedgerows !== '' ? agreement.hedgerows : '', waterbodyBuffering: agreement.waterbodyBuffering !== '' ? agreement.waterbodyBuffering : '', farmWoodland: agreement.farmWoodland !== '' ? agreement.farmWoodland : '' }))
     }
   }
@@ -16,7 +16,7 @@ module.exports = [{
   path: '/funding-options/change',
   options: {
     handler: async (request, h) => {
-      cache.update(request, 'agreement', request.payload)
+      await cache.update('agreement', request.yar.id, request.payload)
       return h.redirect('application-value')
     }
   }

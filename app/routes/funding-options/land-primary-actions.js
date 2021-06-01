@@ -6,8 +6,8 @@ module.exports = [{
   method: 'GET',
   path: '/funding-options/land-primary-actions',
   options: {
-    handler: (request, h) => {
-      const agreement = cache.get(request, 'agreement')
+    handler: async (request, h) => {
+      const agreement = await cache.get('agreement', request.yar.id)
       return h.view('funding-options/land-primary-actions', new ViewModel(agreement.landInHectares))
     }
   }
@@ -25,7 +25,7 @@ module.exports = [{
       }
     },
     handler: async (request, h) => {
-      cache.update(request, 'agreement', request.payload)
+      await cache.update('agreement', request.yar.id, request.payload)
       return h.redirect('land-increased-actions')
     }
   }

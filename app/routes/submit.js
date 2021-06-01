@@ -8,7 +8,7 @@ module.exports = [{
   path: '/submit',
   options: {
     handler: (request, h) => {
-      const agreement = cache.get(request, 'agreement')
+      const agreement = await cache.get('agreement', request.yar.id)
       return h.view('submit', new ViewModel(agreement.submit))
     }
   }
@@ -26,7 +26,7 @@ module.exports = [{
       }
     },
     handler: async (request, h) => {
-      cache.update(request, 'agreement', request.payload)
+      await cache.update('agreement', request.yar.id, request.payload)
       if (request.payload.submit) {
         await sendAgreementSubmitMessage({ id: 1 }, request.yar.id)
         return h.redirect('/confirmation')

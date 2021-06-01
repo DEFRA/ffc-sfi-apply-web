@@ -7,8 +7,8 @@ module.exports = [{
   method: 'GET',
   path: '/funding-options/land-increased-actions',
   options: {
-    handler: (request, h) => {
-      const agreement = cache.get(request, 'agreement')
+    handler: async (request, h) => {
+      const agreement = await cache.get('agreement', request.yar.id)
       return h.view('funding-options/land-increased-actions', new ViewModel({ greenCover: agreement.greenCover !== '' ? agreement.greenCover : '', permanentGrass: agreement.permanentGrass !== '' ? agreement.permanentGrass : '' }))
     }
   }
@@ -28,8 +28,8 @@ module.exports = [{
       }
     },
     handler: async (request, h) => {
-      cache.update(request, 'agreement', request.payload)
-      await sendAgreementCalculateMessage({ id: 1 }, request.yar.id)
+      const agreement = await cache.update('agreement', request.yar.id, request.payload)
+      await sendAgreementCalculateMessage(agreement, request.yar.id)
       return h.redirect('application-value')
     }
   }

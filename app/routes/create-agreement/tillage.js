@@ -7,7 +7,7 @@ module.exports = [{
   path: '/create-agreement/tillage',
   options: {
     handler: (request, h) => {
-      const agreement = cache.get(request, 'agreement')
+      const agreement = await cache.get('agreement', request.yar.id)
       return h.view('create-agreement/tillage', new ViewModel(agreement.tillage))
     }
   }
@@ -25,7 +25,7 @@ module.exports = [{
       }
     },
     handler: async (request, h) => {
-      cache.update(request, 'agreement', request.payload)
+      await cache.update('agreement', request.yar.id, request.payload)
       return h.redirect('soil-compaction')
     }
   }

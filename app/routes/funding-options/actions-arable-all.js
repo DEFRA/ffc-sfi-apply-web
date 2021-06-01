@@ -8,7 +8,7 @@ module.exports = [{
   path: '/funding-options/actions-arable-all',
   options: {
     handler: async (request, h) => {
-      const agreement = cache.get(request, 'agreement')
+      const agreement = await cache.get('agreement', request.yar.id)
       const response = await getPollingResponse(request.yar.id, '/validate')
       if (response) {
         console.info('Validation result received', response)
@@ -36,7 +36,7 @@ module.exports = [{
       }
     },
     handler: async (request, h) => {
-      cache.update(request, 'agreement', request.payload)
+      await cache.update('agreement', request.yar.id, request.payload)
       return h.redirect('land-primary-actions')
     }
   }

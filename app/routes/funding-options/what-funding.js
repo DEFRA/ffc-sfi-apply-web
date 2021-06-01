@@ -9,7 +9,8 @@ module.exports = [{
   path: '/funding-options/what-funding',
   options: {
     handler: async (request, h) => {
-      await sendStandardsRequestMessage({ id: 1 }, request.yar.id)
+      const agreement = await cache.get('agreement', request.yar.id)
+      await sendStandardsRequestMessage(agreement, request.yar.id)
       const response = await getPollingResponse(request.yar.id, '/standards')
       if (response) {
         console.info('Standards request received', response)
@@ -28,7 +29,8 @@ module.exports = [{
         funding: joi.array().allow('soilProtection', 'permanentGrasslandProtection', 'livestockWelfare').required()
       }),
       failAction: async (request, h, error) => {
-        await sendStandardsRequestMessage({ id: 1 }, request.yar.id)
+        const agreement = await cache.get('agreement', request.yar.id)
+        await sendStandardsRequestMessage(agreement, request.yar.id)
         const response = await getPollingResponse(request.yar.id, '/standards')
         if (response) {
           console.info('Standards request received', response)
@@ -38,8 +40,8 @@ module.exports = [{
       }
     },
     handler: async (request, h) => {
-      cache.update(request, 'agreement', request.payload)
-      await sendAgreementValidateMessage({ id: 1 }, request.yar.id)
+      const agreement = await await cache.update('agreement', request.yar.id, request.payload)
+      await sendAgreementValidateMessage(agreement, request.yar.id)
       return h.redirect('actions-arable-all')
     }
   }
