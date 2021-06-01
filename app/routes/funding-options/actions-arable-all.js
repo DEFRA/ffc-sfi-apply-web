@@ -18,6 +18,7 @@ module.exports = [{
         return h.view('funding-options/not-valid')
       }
       return h.view('no-response')
+    }
   }
 },
 {

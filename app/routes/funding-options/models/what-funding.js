@@ -16,21 +16,21 @@ function ViewModel (standards, selected, error) {
     items: mapStandards(standards, selected)
   }
 
-  if (values != null) {
-    if (Array.isArray(values)) {
-      values.forEach(value => {
-        const item = this.model.items.find(x => x.value === value)
-        if (item != null) {
-          item.checked = true
-        }
-      })
-    } else {
-      const item = this.model.items.find(x => x.value === values)
-      if (item != null) {
-        item.checked = true
-      }
-    }
-  }
+  // if (values != null) {
+  //   if (Array.isArray(values)) {
+  //     values.forEach(value => {
+  //       const item = this.model.items.find(x => x.value === value)
+  //       if (item != null) {
+  //         item.checked = true
+  //       }
+  //     })
+  //   } else {
+  //     const item = this.model.items.find(x => x.value === values)
+  //     if (item != null) {
+  //       item.checked = true
+  //     }
+  //   }
+  // }
   // If error is passed to model then this error property is added to the model
   if (error) {
     this.model.errorMessage = {
@@ -41,7 +41,7 @@ function ViewModel (standards, selected, error) {
 
 const mapStandards = (standards, selected) => {
   return getAllStandards()
-    .filter(x => standards.some(y => y.name === x.value && y.name === x.value))
+    .filter(x => standards.some(y => y.name === x.value))
     .map(x => {
       return {
         ...x,
