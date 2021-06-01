@@ -10,7 +10,7 @@ module.exports = {
     name: 'agreement',
     expiresIn: defaultExpiresIn
   },
-  calculationSegment: {
+  progressSegment: {
     name: 'calculation',
     expiresIn: defaultExpiresIn
   },

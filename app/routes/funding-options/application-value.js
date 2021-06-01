@@ -1,4 +1,5 @@
 const getPollingResponse = require('../../polling')
+const cache = require('../../cache')
 
 module.exports = [{
   method: 'GET',
@@ -8,6 +9,7 @@ module.exports = [{
       const response = await getPollingResponse(request.yar.id, '/calculate')
       if (response) {
         console.info('Calculation result received', response)
+        await cache.update('agreement', request.yar.id, { paymentAmount: response.paymentAmount })
         return h.view('funding-options/application-value', { paymentAmount: response.paymentAmount })
       }
       return h.view('no-response')
