@@ -13,6 +13,9 @@ function ViewModel (value, error) {
     spellcheck: false,
     value
   }
+  if (value != null) {
+    this.model.value = value
+  }
   // If error is passed to model then this error property is added to the model
   if (error) {
     this.model.errorMessage = {

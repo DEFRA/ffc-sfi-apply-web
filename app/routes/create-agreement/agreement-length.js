@@ -1,12 +1,14 @@
 const joi = require('joi')
 const ViewModel = require('./models/agreement-length')
+const sessionHandler = require('../../session/session-handler')
 
 module.exports = [{
   method: 'GET',
   path: '/create-agreement/agreement-length',
   options: {
     handler: (request, h) => {
-      return h.view('create-agreement/agreement-length', new ViewModel())
+      const agreement = sessionHandler.get(request, 'agreement')
+      return h.view('create-agreement/agreement-length', new ViewModel(agreement.agreementLength))
     }
   }
 },
@@ -23,6 +25,7 @@ module.exports = [{
       }
     },
     handler: async (request, h) => {
+      sessionHandler.update(request, 'agreement', request.payload)
       return h.redirect('review')
     }
   }

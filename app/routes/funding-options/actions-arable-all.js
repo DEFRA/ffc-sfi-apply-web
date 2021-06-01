@@ -1,22 +1,23 @@
 const joi = require('joi')
 const ViewModel = require('./models/actions-arable-all')
 const getPollingResponse = require('../../polling')
+const sessionHandler = require('../../session/session-handler')
 
 module.exports = [{
   method: 'GET',
   path: '/funding-options/actions-arable-all',
   options: {
     handler: async (request, h) => {
+      const agreement = sessionHandler.get(request, 'agreement')
       const response = await getPollingResponse(request.yar.id, '/validate')
       if (response) {
         console.info('Validation result received', response)
         if (response.isValid) {
-          return h.view('funding-options/actions-arable-all', new ViewModel())
+          return h.view('funding-options/actions-arable-all', new ViewModel({ primaryActions: agreement.primaryActions !== undefined ? agreement.primaryActions : null, paymentActions: agreement.paymentActions !== undefined ? agreement.paymentActions : null }))
         }
         return h.view('funding-options/not-valid')
       }
       return h.view('no-response')
-    }
   }
 },
 {
@@ -34,6 +35,7 @@ module.exports = [{
       }
     },
     handler: async (request, h) => {
+      sessionHandler.update(request, 'agreement', request.payload)
       return h.redirect('land-primary-actions')
     }
   }

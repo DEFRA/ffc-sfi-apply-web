@@ -2,6 +2,7 @@ const joi = require('joi')
 const ViewModel = require('./models/what-funding')
 const { sendStandardsRequestMessage, sendAgreementValidateMessage } = require('../../messaging')
 const getPollingResponse = require('../../polling')
+const sessionHandler = require('../../session/session-handler')
 
 module.exports = [{
   method: 'GET',
@@ -37,6 +38,7 @@ module.exports = [{
       }
     },
     handler: async (request, h) => {
+      sessionHandler.update(request, 'agreement', request.payload)
       await sendAgreementValidateMessage({ id: 1 }, request.yar.id)
       return h.redirect('actions-arable-all')
     }
