@@ -17,6 +17,10 @@ function ViewModel (value, error) {
     autocomplete: 'off'
   }
 
+  if (value != null) {
+    this.model.value = value
+  }
+
   if (error) {
     this.model.errorMessage = {
       text: error.message

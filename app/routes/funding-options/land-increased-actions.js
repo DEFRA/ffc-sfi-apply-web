@@ -1,12 +1,14 @@
 const joi = require('joi')
 const ViewModel = require('./models/land-increased-actions')
+const sessionHandler = require('../../session/session-handler')
 
 module.exports = [{
   method: 'GET',
   path: '/funding-options/land-increased-actions',
   options: {
     handler: (request, h) => {
-      return h.view('funding-options/land-increased-actions', new ViewModel())
+      const agreement = sessionHandler.get(request, 'agreement')
+      return h.view('funding-options/land-increased-actions', new ViewModel({ greenCover: agreement.greenCover !== '' ? agreement.greenCover : '', permanentGrass: agreement.permanentGrass !== '' ? agreement.permanentGrass : '' }))
     }
   }
 },
@@ -21,10 +23,11 @@ module.exports = [{
       }),
       failAction: async (request, h, error) => {
         return h.view('funding-options/land-increased-actions',
-          new ViewModel({ greenCover: request.payload.greenCover || '', permanentGrass: request.payload.permanentGrass }, error)).code(400).takeover()
+          new ViewModel({ greenCover: request.payload.greenCover || '', permanentGrass: request.payload.permanentGrass || '' }, error)).code(400).takeover()
       }
     },
     handler: async (request, h) => {
+      sessionHandler.update(request, 'agreement', request.payload)
       return h.redirect('application-value')
     }
   }
