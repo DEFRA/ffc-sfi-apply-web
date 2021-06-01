@@ -1,12 +1,14 @@
 const joi = require('joi')
 const ViewModel = require('./models/bps')
+const sessionHandler = require('../../session/session-handler')
 
 module.exports = [{
   method: 'GET',
   path: '/check-eligibility/bps',
   options: {
     handler: (request, h) => {
-      return h.view('check-eligibility/bps', new ViewModel())
+      const agreement = sessionHandler.get(request, 'agreement')
+      return h.view('check-eligibility/bps', new ViewModel(agreement.bps))
     }
   }
 },
@@ -23,6 +25,7 @@ module.exports = [{
       }
     },
     handler: async (request, h) => {
+      sessionHandler.update(request, 'agreement', request.payload)
       return h.redirect('land-types')
     }
   }
