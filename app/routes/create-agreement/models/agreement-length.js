@@ -25,6 +25,14 @@ function ViewModel (value, error) {
       }
     ]
   }
+
+  if (value != null) {
+    const item = this.model.items.find(x => x.value === value)
+    if (item != null) {
+      item.checked = true
+    }
+  }
+
   // If error is passed to model then this error property is added to the model
   if (error) {
     this.model.errorMessage = {

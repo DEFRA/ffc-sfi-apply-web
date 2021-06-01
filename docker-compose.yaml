@@ -10,3 +10,5 @@ services:
     environment:
       APPINSIGHTS_CLOUDROLE: ffc-sfi-apply-web-local
       APPINSIGHTS_INSTRUMENTATIONKEY: ${APPINSIGHTS_INSTRUMENTATIONKEY}
+      COOKIE_PASSWORD: cookiecookiecookiecookiecookiecookie
+      REDIS_HOSTNAME: redis

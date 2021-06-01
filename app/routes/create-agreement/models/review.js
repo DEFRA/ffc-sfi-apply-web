@@ -1,5 +1,35 @@
-function ViewModel () {
-  // Constructor function to create logic dependent nunjucks page
+function ViewModel (values) {
+  const agreementOptions = [
+    {
+      value: 'myself',
+      text: 'I\'ll do it myself'
+    },
+    {
+      value: 'agronomist',
+      text: 'I\'ll pay an agronomist'
+    },
+    {
+      value: 'completed',
+      text: 'I\'ve already done one'
+    },
+    {
+      value: 'unable',
+      text: 'I cannot do this'
+    },
+    {
+      value: 'yes',
+      text: 'Yes, I can do this'
+    },
+    {
+      value: 'unknown',
+      text: 'I don\'t know yet'
+    },
+    {
+      value: 'no',
+      text: 'I cannot do this'
+    }
+  ]
+
   this.model = {
     rows: [
       {
@@ -7,7 +37,7 @@ function ViewModel () {
           text: 'Soil assessment'
         },
         value: {
-          text: 'I\'ll do it myself'
+          text: agreementOptions.find(x => x.value === values.soilAssessment).text
         },
         actions: {
           items: [
@@ -24,7 +54,7 @@ function ViewModel () {
           text: 'Soil protection'
         },
         value: {
-          text: 'Yes, I can do this'
+          text: agreementOptions.find(x => x.value === values.soilProtection).text
         },
         actions: {
           items: [
@@ -41,7 +71,7 @@ function ViewModel () {
           text: 'Soil cover'
         },
         value: {
-          text: 'Yes, I can do this'
+          text: agreementOptions.find(x => x.value === values.soilCover).text
         },
         actions: {
           items: [
@@ -58,7 +88,7 @@ function ViewModel () {
           text: 'Soil management'
         },
         value: {
-          text: 'I\'ll do it myself'
+          text: agreementOptions.find(x => x.value === values.soilManagement).text
         },
         actions: {
           items: [
@@ -75,7 +105,7 @@ function ViewModel () {
           text: 'Tillage'
         },
         value: {
-          text: 'Yes, I can do this'
+          text: agreementOptions.find(x => x.value === values.tillage).text
         },
         actions: {
           items: [
@@ -92,7 +122,7 @@ function ViewModel () {
           text: 'Soil compaction'
         },
         value: {
-          text: 'Yes, I can do this'
+          text: agreementOptions.find(x => x.value === values.soilCompaction).text
         },
         actions: {
           items: [
@@ -109,7 +139,7 @@ function ViewModel () {
           text: 'Soil quality'
         },
         value: {
-          text: 'I\'ll do it myself'
+          text: agreementOptions.find(x => x.value === values.soilQuality).text
         },
         actions: {
           items: [
