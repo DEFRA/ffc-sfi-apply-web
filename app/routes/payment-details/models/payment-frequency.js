@@ -5,7 +5,7 @@ function ViewModel (value, error) {
     name: 'paymentFrequency',
     fieldset: {
       legend: {
-        text: 'How often would you like to recieve your payments',
+        text: 'How often would you like to receive your payments',
         isPageHeading: true,
         classes: 'govuk-fieldset__legend--l'
       }
@@ -13,11 +13,13 @@ function ViewModel (value, error) {
     items: [
       {
         value: 'monthly',
-        text: 'Monthly'
+        text: 'Monthly',
+        checked: value === 'monthly'
       },
       {
         value: 'annually',
-        text: 'Annually'
+        text: 'Annually',
+        checked: value === 'annually'
       }
     ]
   }

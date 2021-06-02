@@ -11,7 +11,7 @@
 {% block beforeContent %}
   {{ govukBackLink({
         text: "Back",
-        href: "/application-task-list",
+        href: "/payment-details/payment-frequency",
         attributes: {
           id: "back"
         }
@@ -22,7 +22,8 @@
 {% block content %}
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    <form method="POST" action="/bank-details">      
+    <form method="POST" action="/bank-details">
+      <input type="hidden" name="crumb" value="{{crumb}}"/>
       <h1 class="govuk-heading-l">Your bank or building society account details</h1>
 
       <div class="govuk-form-group">
@@ -35,7 +36,7 @@
         <label class="govuk-label" for="sort-code">
           Sort code
         </label>
-        <div class="govuk-body">12-34-59</div>        
+        <div class="govuk-body">12-34-59</div>
       </div>
 
       <div class="govuk-form-group">

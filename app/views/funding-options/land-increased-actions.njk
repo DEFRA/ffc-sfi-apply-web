@@ -14,6 +14,7 @@
       <span class="govuk-caption-l">Arable and horticultural soils</span>
       <h1 class="govuk-heading-l">Increased payment actions</h1>
       <form method="POST" action="/funding-options/land-increased-actions" novalidate>
+        <input type="hidden" name="crumb" value="{{crumb}}"/>
         {{ govukInput(model.greenCover) }}
         {{ govukInput(model.permanentGrass) }}
 

@@ -1,12 +1,13 @@
 const ViewModel = require('./models/review')
-const sessionHandler = require('../../session/session-handler')
+const cache = require('../../cache')
 
 module.exports = [{
   method: 'GET',
   path: '/create-agreement/review',
   options: {
-    handler: (request, h) => {
-      const agreement = sessionHandler.get(request, 'agreement')
+    handler: async (request, h) => {
+      const agreement = await cache.get('agreement', request.yar.id)
+      await cache.update('progress', request.yar.id, { createAgreement: true })
       return h.view('create-agreement/review', new ViewModel(agreement))
     }
   }

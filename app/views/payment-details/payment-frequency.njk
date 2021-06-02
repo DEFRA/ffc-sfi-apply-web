@@ -5,13 +5,21 @@
 {% from "govuk/components/button/macro.njk" import govukButton %}
 
 {% block beforeContent %}
- <a id="back" href="#" onclick="history.back()" class="govuk-back-link">Back</a>
+  {{ govukBackLink({
+        text: "Back",
+        href: "/application-task-list",
+        attributes: {
+          id: "back"
+        }
+      }) 
+    }}
 {% endblock %}
 
 {% block content %}
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
     <form method="POST" action="/payment-details/payment-frequency" novalidate>
+      <input type="hidden" name="crumb" value="{{crumb}}"/>
       {{ govukRadios(model) }}
       {{ govukButton({
         text: "Continue",

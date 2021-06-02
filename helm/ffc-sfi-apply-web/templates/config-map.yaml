@@ -7,9 +7,18 @@ data:
   {{- if .Values.container.googleTagManagerKey }}
   GOOGLE_TAG_MANAGER_KEY: {{ quote .Values.container.googleTagManagerKey }}
   {{- end }}
+  MESSAGE_QUEUE_HOST: {{ quote .Values.container.messageQueueHost }}
+  ELIGIBILITY_TOPIC_ADDRESS: {{ quote .Values.container.eligibilityTopicAddress }}
+  STANDARDS_TOPIC_ADDRESS: {{ quote .Values.container.standardsTopicAddress }}
+  VALIDATE_TOPIC_ADDRESS: {{ quote .Values.container.validateTopicAddress }}
+  CALCULATE_TOPIC_ADDRESS: {{ quote .Values.container.calculateTopicAddress }}
+  SUBMIT_TOPIC_ADDRESS: {{ quote .Values.container.submitTopicAddress }}
+  AGREEMENT_CALCULATOR_ENDPOINT: {{ quote .Values.container.agreementCalculatorEndpoint }}
+  SITI_AGRI_ENDPOINT: {{ quote .Values.container.sitiAgriEndpoint }}
+  USE_AGREEMENT_CALCULATOR: {{ quote .Values.container.useAgreementCalculator }}
   {{- if .Values.container.redisHostname }}
   REDIS_HOSTNAME: {{ quote .Values.container.redisHostname }}
-  {{- end }}  
+  {{- end }}
   REDIS_PORT: {{ quote .Values.container.redisPort }}
   REDIS_PARTITION: {{ quote .Values.container.redisPartition }}
 {{- end -}}

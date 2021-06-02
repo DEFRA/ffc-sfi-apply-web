@@ -1,3 +1,5 @@
+const cache = require('../../cache')
+
 module.exports = [{
   method: 'GET',
   path: '/payment-details/bank-details',
@@ -12,6 +14,7 @@ module.exports = [{
   path: '/payment-details/bank-details',
   options: {
     handler: async (request, h) => {
+      await cache.update('progress', request.yar.id, { paymentDetails: true })
       return h.redirect('/application-task-list')
     }
   }

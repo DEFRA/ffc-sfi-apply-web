@@ -1,4 +1,5 @@
 describe('cookies route', () => {
+  jest.mock('ffc-messaging')
   let createServer
   let server
 

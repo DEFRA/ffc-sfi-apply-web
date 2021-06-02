@@ -19,6 +19,7 @@
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
     <form method="POST" action="/create-agreement/soil-management" novalidate>
+      <input type="hidden" name="crumb" value="{{crumb}}"/>
       {{ govukRadios(model) }}
       {{ govukButton({
         text: "Continue",

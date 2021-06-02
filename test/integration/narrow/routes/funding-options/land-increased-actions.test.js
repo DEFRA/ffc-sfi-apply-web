@@ -1,4 +1,7 @@
 describe('check-eligibility funding-options/land-increased-actions route', () => {
+  jest.mock('ffc-messaging')
+  jest.mock('../../../../../app/api')
+  jest.mock('../../../../../app/plugins/crumb')
   let createServer
   let server
 
@@ -44,7 +47,7 @@ describe('check-eligibility funding-options/land-increased-actions route', () =>
     expect(result.statusCode).toBe(302)
   })
 
-  test('POST /funding-options/land-increased-actions redirects to application-value', async () => {
+  test('POST /funding-options/land-increased-actions redirects to calculation', async () => {
     const options = {
       method: 'POST',
       url: '/funding-options/land-increased-actions',
@@ -53,7 +56,7 @@ describe('check-eligibility funding-options/land-increased-actions route', () =>
 
     const result = await server.inject(options)
     expect(result.statusCode).toBe(302)
-    expect(result.headers.location).toBe('application-value')
+    expect(result.headers.location).toBe('calculation')
   })
 
   test('POST /funding-options/land-increased-actions returns 400', async () => {
