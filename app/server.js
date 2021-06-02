@@ -41,7 +41,7 @@ async function createServer () {
     await server.register(require('./plugins/logging'))
   }
 
-  await cache.setup(server)
+  cache.setup(server)
 
   return server
 }
