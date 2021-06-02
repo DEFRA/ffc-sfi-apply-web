@@ -1,18 +1,6 @@
-const joi = require('joi')
 const sessionHandler = require('../session/session-handler')
 const agreementStatus = require('../task-list')
 const ViewModel = require('./models/application-task-list')
-
-const validateCheckEligibility = (agreement) => {
-  const schema = joi.object().keys({
-    bps: joi.boolean().required(),
-    landTypes: joi.array().required(),
-    farmingPilot: joi.boolean().required(),
-    test: joi.boolean().required()
-  })
-
-  return schema.validate(agreement)
-}
 
 module.exports = {
   method: 'GET',
@@ -20,7 +8,7 @@ module.exports = {
   options: {
     handler: (request, h) => {
       const agreement = sessionHandler.get(request, 'agreement')
-      console.log(agreement, validateCheckEligibility(agreement))
+      console.log(agreement)
       return h.view('application-task-list', new ViewModel(agreementStatus))
     }
   }
