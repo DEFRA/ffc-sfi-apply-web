@@ -22,86 +22,20 @@
       <p class="govuk-body govuk-!-margin-bottom-7">You have completed 0 of 5 sections.</p>
  
       <ol class="app-task-list">
-        <li>
-          <h2 class="app-task-list__section">
-            <span class="app-task-list__section-number">1. </span> Check before you start
-          </h2>
-          <ul class="app-task-list__items">           
-            <li class="app-task-list__item"> 
-              {{ taskLink('COMPLETED', 'Check eligibility', 'check-eligibility/bps') }}
-            </li>
-          </ul>
-        </li>
-
-        <li>
-          <h2 class="app-task-list__section">
-            <span class="app-task-list__section-number">2. </span> Land and business details
-          </h2>
-          <ul class="app-task-list__items">
-            <li class="app-task-list__item">
-              {{ taskLink('CANNOT START YET', 'Confirm your land and business details', 'search-land-business-details') }}
-            </li>
-          </ul>
-        </li>
-
-        <li>
-          <h2 class="app-task-list__section">
-            <span class="app-task-list__section-number">3. </span> Funding options
-          </h2>
-          <ul class="app-task-list__items">
-            <li class="app-task-list__item">
-              {{ taskLink('CANNOT START YET','Choose funding type', 'funding-options/what-funding') }}
-            </li>
-            <li class="app-task-list__item">
-             {{ taskLink('CANNOT START YET', 'Choose actions', 'funding-options/actions-arable-all') }}
-            </li>
-            <li class="app-task-list__item">
-             {{ taskLink('CANNOT START YET', "Add the amount of land you'll use", 'funding-options/land-primary-actions') }}
-            </li>
-          </ul>
-        </li>
-
-        <li>
-          <h2 class="app-task-list__section">
-            <span class="app-task-list__section-number">4. </span> Create your agreement
-          </h2>
-          <ul class="app-task-list__items">
-            <li class="app-task-list__item">
-              {{ taskLink('CANNOT START YET', 'Tell us how you will carry out your chosen actions', 'create-agreement/soil-assessment') }}
-            </li>
-            <li class="app-task-list__item">
-              {{ taskLink('CANNOT START YET', ' Set up your agreement length and renewal period', 'create-agreement/agreement-length') }}
-            </li>
-            <li class="app-task-list__item">
-              {{ taskLink('CANNOT START YET', 'Review your agreement', 'create-agreement/review') }}
-            </li>
-          </ul>
-        </li>
-
-        <li>
-          <h2 class="app-task-list__section">
-            <span class="app-task-list__section-number">5. </span> Payment details
-          </h2>
-          <ul class="app-task-list__items">
-            <li class="app-task-list__item">
-              {{ taskLink('CANNOT START YET', 'Choose your payment options', 'payment-details/payment-frequency') }}
-            </li>
-            <li class="app-task-list__item">
-              {{ taskLink('CANNOT START YET', 'Confirm your bank details', 'payment-details/bank-details') }}
-            </li>
-          </ul>
-        </li>
-
-        <li>
-          <h2 class="app-task-list__section">
-            <span class="app-task-list__section-number">6. </span> Submit your application
-          </h2>
-          <ul class="app-task-list__items">
-            <li class="app-task-list__item">
-              {{ taskLink('CANNOT START YET', 'Submit your application', '/submit') }}
-            </li>
-          </ul>
-        </li>
+        {% for taskGroup in model.taskList %}
+          <li>
+            <h2 class="app-task-list__section">
+              <span class="app-task-list__section-number">1. </span> {{ taskGroup.taskGroup }}
+            </h2>
+            <ul class="app-task-list__items">   
+              {% for task in taskGroup.tasks %}        
+                <li class="app-task-list__item"> 
+                  {{ taskLink(task.status, task.taskName, task.url) }}
+                </li>
+              {% endfor %}
+            </ul>
+          </li>
+        {% endfor %}
       </ol>
     </div>
   </div>
