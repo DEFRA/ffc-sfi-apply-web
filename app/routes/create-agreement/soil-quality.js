@@ -1,6 +1,7 @@
 const joi = require('joi')
 const ViewModel = require('./models/soil-quality')
 const cache = require('../../cache')
+const schema = require('./schemas/eligibility')
 
 module.exports = [{
   method: 'GET',
@@ -25,7 +26,13 @@ module.exports = [{
       }
     },
     handler: async (request, h) => {
-      await cache.update('agreement', request.yar.id, request.payload)
+      const agreement = await cache.update('agreement', request.yar.id, request.payload)
+      // ensure that all soil data has been supplied
+      const result = schema.validate(agreement, { allowUnknown: true })
+      if (result.error) {
+        console.info(`Soil data is incomplete for ${request.yar.id}, restarting journey`)
+        return h.redirect('soil-assessment')
+      }
       await cache.update('progress', request.yar.id, {
         createAgreement: { how: true }
       })
