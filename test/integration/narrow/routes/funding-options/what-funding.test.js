@@ -1,4 +1,4 @@
-describe('check-eligibility funding-options/what-funding route', () => {
+describe('check-eligibility funding-options/standards route', () => {
   jest.mock('ffc-messaging')
   jest.mock('../../../../../app/api')
   jest.mock('../../../../../app/plugins/crumb')
@@ -18,17 +18,17 @@ describe('check-eligibility funding-options/what-funding route', () => {
     jest.clearAllMocks()
   })
 
-  test('GET /funding-options/what-funding returns 200', async () => {
+  test('GET /funding-options/standards returns 200', async () => {
     const options = {
       method: 'GET',
-      url: '/funding-options/what-funding'
+      url: '/funding-options/standards'
     }
 
     const result = await server.inject(options)
     expect(result.statusCode).toBe(200)
   })
 
-  test('GET /funding-options/what-funding returns what-funding view', async () => {
+  test('GET /funding-options/standards returns standards view', async () => {
     getPollingResponse.mockResolvedValue({
       standards: [{
         id: 1,
@@ -44,18 +44,18 @@ describe('check-eligibility funding-options/what-funding route', () => {
     })
     const options = {
       method: 'GET',
-      url: '/funding-options/what-funding'
+      url: '/funding-options/standards'
     }
 
     const result = await server.inject(options)
     expect(result.request.response.variety).toBe('view')
-    expect(result.request.response.source.template).toBe('funding-options/what-funding')
+    expect(result.request.response.source.template).toBe('funding-options/standards')
   })
 
-  test('POST /funding-options/what-funding returns 302', async () => {
+  test('POST /funding-options/standards returns 302', async () => {
     const options = {
       method: 'POST',
-      url: '/funding-options/what-funding',
+      url: '/funding-options/standards',
       payload: { funding: ['arableHorticulturalSoils'] }
     }
 
@@ -63,22 +63,22 @@ describe('check-eligibility funding-options/what-funding route', () => {
     expect(result.statusCode).toBe(302)
   })
 
-  test('POST /funding-options/what-funding redirects to actions-arable-all', async () => {
+  test('POST /funding-options/standards redirects to actions', async () => {
     const options = {
       method: 'POST',
-      url: '/funding-options/what-funding',
+      url: '/funding-options/standards',
       payload: { funding: ['arableHorticulturalSoils'] }
     }
 
     const result = await server.inject(options)
     expect(result.statusCode).toBe(302)
-    expect(result.headers.location).toBe('actions-arable-all')
+    expect(result.headers.location).toBe('actions')
   })
 
-  test('POST /funding-options/what-funding returns 400', async () => {
+  test('POST /funding-options/standards returns 400', async () => {
     const options = {
       method: 'POST',
-      url: '/funding-options/what-funding',
+      url: '/funding-options/standards',
       payload: {}
     }
 

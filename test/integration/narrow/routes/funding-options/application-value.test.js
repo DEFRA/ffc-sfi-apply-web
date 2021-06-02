@@ -1,4 +1,4 @@
-describe('check-eligibility funding-options/application-value route', () => {
+describe('check-eligibility funding-options/calculation route', () => {
   jest.mock('ffc-messaging')
   jest.mock('../../../../../app/api')
   jest.mock('../../../../../app/plugins/crumb')
@@ -18,42 +18,42 @@ describe('check-eligibility funding-options/application-value route', () => {
     jest.clearAllMocks()
   })
 
-  test('GET /funding-options/application-value returns 200', async () => {
+  test('GET /funding-options/calculation returns 200', async () => {
     const options = {
       method: 'GET',
-      url: '/funding-options/application-value'
+      url: '/funding-options/calculation'
     }
 
     const result = await server.inject(options)
     expect(result.statusCode).toBe(200)
   })
 
-  test('GET /funding-options/application-value returns application-value view', async () => {
+  test('GET /funding-options/calculation returns calculation view', async () => {
     getPollingResponse.mockResolvedValue({ paymentAmount: 1000 })
     const options = {
       method: 'GET',
-      url: '/funding-options/application-value'
+      url: '/funding-options/calculation'
     }
 
     const result = await server.inject(options)
     expect(result.request.response.variety).toBe('view')
-    expect(result.request.response.source.template).toBe('funding-options/application-value')
+    expect(result.request.response.source.template).toBe('funding-options/calculation')
   })
 
-  test('POST /funding-options/application-value returns 302', async () => {
+  test('POST /funding-options/calculation returns 302', async () => {
     const options = {
       method: 'POST',
-      url: '/funding-options/application-value'
+      url: '/funding-options/calculation'
     }
 
     const result = await server.inject(options)
     expect(result.statusCode).toBe(302)
   })
 
-  test('POST /funding-options/application-value redirects to /application-task-list', async () => {
+  test('POST /funding-options/calculation redirects to /application-task-list', async () => {
     const options = {
       method: 'POST',
-      url: '/funding-options/application-value'
+      url: '/funding-options/calculation'
     }
 
     const result = await server.inject(options)

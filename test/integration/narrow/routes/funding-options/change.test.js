@@ -46,7 +46,7 @@ describe('check-eligibility funding-options/change route', () => {
     expect(result.statusCode).toBe(302)
   })
 
-  test('POST /funding-options/change redirects to application-value', async () => {
+  test('POST /funding-options/change redirects to calculation', async () => {
     const options = {
       method: 'POST',
       url: '/funding-options/change'
@@ -54,6 +54,6 @@ describe('check-eligibility funding-options/change route', () => {
 
     const result = await server.inject(options)
     expect(result.statusCode).toBe(302)
-    expect(result.headers.location).toBe('application-value')
+    expect(result.headers.location).toBe('calculation')
   })
 })

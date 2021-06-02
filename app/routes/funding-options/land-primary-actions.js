@@ -18,7 +18,7 @@ module.exports = [{
   options: {
     validate: {
       payload: joi.object({
-        landInHectares: joi.string().required()
+        landInHectares: joi.number().greater(0).required()
       }),
       failAction: async (request, h, error) => {
         return h.view('funding-options/land-primary-actions', new ViewModel(request.payload.landInHectares, error)).code(400).takeover()

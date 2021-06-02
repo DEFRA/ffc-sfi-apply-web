@@ -17,7 +17,7 @@ module.exports = [{
   options: {
     handler: async (request, h) => {
       await cache.update('agreement', request.yar.id, request.payload)
-      return h.redirect('application-value')
+      return h.redirect('calculation')
     }
   }
 }]

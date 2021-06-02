@@ -9,7 +9,7 @@ module.exports = [{
   options: {
     handler: async (request, h) => {
       const agreement = await cache.get('agreement', request.yar.id)
-      return h.view('funding-options/land-increased-actions', new ViewModel({ greenCover: agreement.greenCover !== '' ? agreement.greenCover : '', permanentGrass: agreement.permanentGrass !== '' ? agreement.permanentGrass : '' }))
+      return h.view('funding-options/land-increased-actions', new ViewModel({ greenCover: agreement.greenCover, permanentGrass: agreement.permanentGrass }))
     }
   }
 },
@@ -19,18 +19,18 @@ module.exports = [{
   options: {
     validate: {
       payload: joi.object({
-        greenCover: joi.string().required(),
-        permanentGrass: joi.string().required()
+        greenCover: joi.number().greater(0).required(),
+        permanentGrass: joi.number().greater(0).required()
       }),
       failAction: async (request, h, error) => {
         return h.view('funding-options/land-increased-actions',
-          new ViewModel({ greenCover: request.payload.greenCover || '', permanentGrass: request.payload.permanentGrass || '' }, error)).code(400).takeover()
+          new ViewModel({ greenCover: request.payload.greenCover, permanentGrass: request.payload.permanentGrass }, error)).code(400).takeover()
       }
     },
     handler: async (request, h) => {
       const agreement = await cache.update('agreement', request.yar.id, request.payload)
       await sendAgreementCalculateMessage(agreement, request.yar.id)
-      return h.redirect('application-value')
+      return h.redirect('calculation')
     }
   }
 }]

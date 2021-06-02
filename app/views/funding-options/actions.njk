@@ -20,7 +20,7 @@
       <li><strong>6 actions: £10 ha</strong></li>
     </ul>
     <p>You can choose to increase your payments by opting to also carry out the increased payment actions. </p>
-    <form method="POST" action="/funding-options/actions-arable-all" novalidate>
+    <form method="POST" action="/funding-options/actions" novalidate>
       <input type="hidden" name="crumb" value="{{crumb}}"/>
       {{ govukCheckboxes(model.primaryActions) }}
       {{ govukCheckboxes(model.paymentActions) }}

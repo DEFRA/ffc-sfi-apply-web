@@ -1,8 +1,8 @@
 function ViewModel (standards, selected, error) {
   // Constructor function to create logic dependent nunjucks page
   this.model = {
-    id: 'funding',
-    name: 'funding',
+    id: 'standards',
+    name: 'standards',
     fieldset: {
       legend: {
         text: 'What funding do you want to apply for?',
@@ -15,22 +15,6 @@ function ViewModel (standards, selected, error) {
     },
     items: mapStandards(standards, selected)
   }
-
-  // if (values != null) {
-  //   if (Array.isArray(values)) {
-  //     values.forEach(value => {
-  //       const item = this.model.items.find(x => x.value === value)
-  //       if (item != null) {
-  //         item.checked = true
-  //       }
-  //     })
-  //   } else {
-  //     const item = this.model.items.find(x => x.value === values)
-  //     if (item != null) {
-  //       item.checked = true
-  //     }
-  //   }
-  // }
   // If error is passed to model then this error property is added to the model
   if (error) {
     this.model.errorMessage = {

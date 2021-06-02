@@ -1,4 +1,4 @@
-describe('check-eligibility funding-options/actions-arable-all route', () => {
+describe('check-eligibility funding-options/actions route', () => {
   jest.mock('ffc-messaging')
   jest.mock('../../../../../app/api')
   jest.mock('../../../../../app/plugins/crumb')
@@ -18,33 +18,33 @@ describe('check-eligibility funding-options/actions-arable-all route', () => {
     jest.clearAllMocks()
   })
 
-  test('GET /funding-options/actions-arable-all returns 200', async () => {
+  test('GET /funding-options/actions returns 200', async () => {
     getPollingResponse.mockResolvedValue({ isValid: true })
     const options = {
       method: 'GET',
-      url: '/funding-options/actions-arable-all'
+      url: '/funding-options/actions'
     }
 
     const result = await server.inject(options)
     expect(result.statusCode).toBe(200)
   })
 
-  test('GET /funding-options/actions-arable-all returns actions-arable-all view', async () => {
+  test('GET /funding-options/actions returns actions view', async () => {
     getPollingResponse.mockResolvedValue({ isValid: true })
     const options = {
       method: 'GET',
-      url: '/funding-options/actions-arable-all'
+      url: '/funding-options/actions'
     }
 
     const result = await server.inject(options)
     expect(result.request.response.variety).toBe('view')
-    expect(result.request.response.source.template).toBe('funding-options/actions-arable-all')
+    expect(result.request.response.source.template).toBe('funding-options/actions')
   })
 
-  test('POST /funding-options/actions-arable-all returns 302', async () => {
+  test('POST /funding-options/actions returns 302', async () => {
     const options = {
       method: 'POST',
-      url: '/funding-options/actions-arable-all',
+      url: '/funding-options/actions',
       payload: { primaryActions: ['cultivateDrillSlope', 'stripTillageNotil', 'soilManagementPlan', 'avoidMachineryTraffic'], paymentActions: ['establishGreenCover'] }
     }
 
@@ -52,10 +52,10 @@ describe('check-eligibility funding-options/actions-arable-all route', () => {
     expect(result.statusCode).toBe(302)
   })
 
-  test('POST /funding-options/actions-arable-all redirects to land-primary-actions', async () => {
+  test('POST /funding-options/actions redirects to land-primary-actions', async () => {
     const options = {
       method: 'POST',
-      url: '/funding-options/actions-arable-all',
+      url: '/funding-options/actions',
       payload: { primaryActions: ['cultivateDrillSlope', 'stripTillageNotil', 'soilManagementPlan', 'avoidMachineryTraffic'], paymentActions: ['establishGreenCover'] }
     }
 
@@ -64,10 +64,10 @@ describe('check-eligibility funding-options/actions-arable-all route', () => {
     expect(result.headers.location).toBe('land-primary-actions')
   })
 
-  test('POST /funding-options/actions-arable-all returns 400', async () => {
+  test('POST /funding-options/actions returns 400', async () => {
     const options = {
       method: 'POST',
-      url: '/funding-options/actions-arable-all',
+      url: '/funding-options/actions',
       payload: {}
     }
 

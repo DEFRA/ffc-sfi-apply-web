@@ -47,7 +47,7 @@ describe('check-eligibility funding-options/land-primary-actions route', () => {
     expect(result.statusCode).toBe(302)
   })
 
-  test('POST /funding-options/land-primary-actions redirects to actions-arable-all', async () => {
+  test('POST /funding-options/land-primary-actions redirects to actions', async () => {
     const options = {
       method: 'POST',
       url: '/funding-options/land-primary-actions',
