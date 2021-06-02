@@ -2,6 +2,7 @@ const joi = require('joi')
 const ViewModel = require('./models/submit')
 const { sendAgreementSubmitMessage } = require('../messaging')
 const cache = require('../cache')
+const schema = require('./schemas/agreement')
 
 module.exports = [{
   method: 'GET',
@@ -27,6 +28,13 @@ module.exports = [{
     handler: async (request, h) => {
       if (request.payload.submit) {
         const agreement = await cache.get('agreement', request.yar.id)
+        const result = schema.validate(agreement, { allowUnknown: true })
+        if (result.error) {
+          console.info(`Agreement data is incomplete for ${request.yar.id}, restarting journey`)
+          console.info(agreement)
+          await cache.clear('progress', request.yar.id)
+          return h.redirect('/application-task-list')
+        }
         await sendAgreementSubmitMessage(agreement, request.yar.id)
         await cache.update('progress', request.yar.id, { submitted: true })
         return h.redirect('/confirmation')
