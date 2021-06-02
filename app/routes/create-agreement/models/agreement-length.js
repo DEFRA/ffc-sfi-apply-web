@@ -13,24 +13,20 @@ function ViewModel (value, error) {
     items: [
       {
         value: '1 year',
-        text: '1 year only'
+        text: '1 year only',
+        checked: value === '1 year'
       },
       {
         value: 'rolling',
-        text: 'Rolling agreement (minimum 1 year)'
+        text: 'Rolling agreement (minimum 1 year)',
+        checked: value === 'rolling'
       },
       {
         value: '2 years+',
-        text: '2 years or more'
+        text: '2 years or more',
+        checked: value === '2 years +'
       }
     ]
-  }
-
-  if (value != null) {
-    const item = this.model.items.find(x => x.value === value)
-    if (item != null) {
-      item.checked = true
-    }
   }
 
   // If error is passed to model then this error property is added to the model
