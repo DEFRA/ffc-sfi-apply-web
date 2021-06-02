@@ -14,6 +14,7 @@
       <span class="govuk-caption-l">Arable and horticultural soils</span>
       <h1 class="govuk-heading-l">How much of your land will you use for the primary actions?</h1>
       <form method="POST" action="/funding-options/land-primary-actions" novalidate>
+        <input type="hidden" name="crumb" value="{{crumb}}"/>
         {{ govukInput(model) }}
 
         {{ govukButton({

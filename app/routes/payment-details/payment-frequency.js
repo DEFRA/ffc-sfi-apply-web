@@ -1,12 +1,14 @@
 const joi = require('joi')
 const ViewModel = require('./models/payment-frequency')
+const cache = require('../../cache')
 
 module.exports = [{
   method: 'GET',
   path: '/payment-details/payment-frequency',
   options: {
-    handler: (request, h) => {
-      return h.view('payment-details/payment-frequency', new ViewModel())
+    handler: async (request, h) => {
+      const agreement = await cache.get('agreement', request.yar.id)
+      return h.view('payment-details/payment-frequency', new ViewModel(agreement.paymentFrequency))
     }
   }
 },
@@ -23,6 +25,10 @@ module.exports = [{
       }
     },
     handler: async (request, h) => {
+      await cache.update('agreement', request.yar.id, request.payload)
+      await cache.update('progress', request.yar.id, {
+        paymentOptions: { paymentFrequency: true }
+      })
       return h.redirect('bank-details')
     }
   }

@@ -1,7 +1,7 @@
 function ViewModel (values, errors) {
   this.model = {
-    greenCover: greenCover(values?.greenCover || '', errors),
-    permanentGrass: permanentGrass(values?.permanentGrass || '', errors)
+    greenCover: greenCover(values?.greenCover, errors),
+    permanentGrass: permanentGrass(values?.permanentGrass, errors)
   }
 }
 

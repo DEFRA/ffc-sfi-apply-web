@@ -1,13 +1,13 @@
 const joi = require('joi')
 const ViewModel = require('./models/agreement-length')
-const sessionHandler = require('../../session/session-handler')
+const cache = require('../../cache')
 
 module.exports = [{
   method: 'GET',
   path: '/create-agreement/agreement-length',
   options: {
-    handler: (request, h) => {
-      const agreement = sessionHandler.get(request, 'agreement')
+    handler: async (request, h) => {
+      const agreement = await cache.get('agreement', request.yar.id)
       return h.view('create-agreement/agreement-length', new ViewModel(agreement.agreementLength))
     }
   }
@@ -25,8 +25,11 @@ module.exports = [{
       }
     },
     handler: async (request, h) => {
-      sessionHandler.update(request, 'agreement', request.payload)
-      return h.redirect('/application-task-list')
+      await cache.update('agreement', request.yar.id, request.payload)
+      await cache.update('progress', request.yar.id, {
+        createAgreement: { agreementLength: true }
+      })
+      return h.redirect('review')
     }
   }
 }]

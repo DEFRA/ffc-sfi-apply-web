@@ -32,18 +32,27 @@ deployment:
   minReadySeconds: 0
 
 container:
-  redisHostname: redis-redis-ha.default
-  redisPassword: redis
-  redisPort: 6379
-  redisPartition: ffc-demo
   imagePullPolicy: IfNotPresent
   requestMemory: 10Mi
   requestCpu: 10m
-  limitMemory: 40Mi
-  limitCpu: 40m
+  limitMemory: 120Mi
+  limitCpu: 120m
   port: 3000
-  cookiePassword: passwordpasswordpasswordpasswordpassword
   googleTagManagerKey:
+  messageQueueHost: namespace.servicebus.windows.net
+  eligibilityTopicAddress: ffc-sfi-eligibility-check
+  standardsTopicAddress: ffc-sfi-standards-request
+  validateTopicAddress: ffc-sfi-agreement-validate
+  calculateTopicAddress: ffc-sfi-agreement-calculate
+  submitTopicAddress: ffc-sfi-agreement-submit
+  agreementCalculatorEndpoint: http://ffc-sfi-agreement-calculator.ffc-sfi
+  sitiAgriEndpoint: http://ffc-sfi-apply-api.ffc-sfi
+  useAgreementCalculator: false
+  redisHostname: redis-redis-ha.default
+  redisPassword: redis
+  redisPort: 6379
+  redisPartition: ffc-sfi-apply-web
+  cookiePassword: passwordpasswordpasswordpasswordpassword
 
 ingress:
   class: nginx

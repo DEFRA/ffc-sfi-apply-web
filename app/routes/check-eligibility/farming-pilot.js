@@ -1,14 +1,15 @@
 const joi = require('joi')
 const ViewModel = require('./models/farming-pilot')
-const sessionHandler = require('../../session/session-handler')
+const { sendEligibilityCheckMessage } = require('../../messaging')
+const cache = require('../../cache')
 
 module.exports = [{
   method: 'GET',
   path: '/check-eligibility/farming-pilot',
   options: {
-    handler: (request, h) => {
-      const agreement = sessionHandler.get(request, 'agreement')
-      return h.view('check-eligibility/farming-pilot', new ViewModel(agreement.farmingPilot))
+    handler: async (request, h) => {
+      const eligibilityData = await cache.get('eligibility', request.yar.id)
+      return h.view('check-eligibility/farming-pilot', new ViewModel(eligibilityData.farmingPilot))
     }
   }
 },
@@ -25,7 +26,8 @@ module.exports = [{
       }
     },
     handler: async (request, h) => {
-      sessionHandler.update(request, 'agreement', request.payload)
+      const eligibilityData = await cache.update('eligibility', request.yar.id, request.payload)
+      await sendEligibilityCheckMessage(eligibilityData, request.yar.id)
       return h.redirect('eligible')
     }
   }

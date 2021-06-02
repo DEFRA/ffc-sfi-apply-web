@@ -5,27 +5,25 @@
 {% block content %}
   <div class="govuk-grid-row guidance-layout">
     <div class="govuk-grid-column-two-thirds">
-        <form method="POST" action="/check-eligibility/eligible" novalidate>
-          <h1 class="govuk-heading-l">You're eligible for Sustainable Farming Incentive</h1>
+      <h1 class="govuk-heading-l">You're eligible for Sustainable Farming Incentive</h1>
 
-          <p>Based on your answers, you can apply for Sustainable Farming Incentive 2022 scheme.</p>
+      <p>Based on your answers, you can apply for Sustainable Farming Incentive 2022 scheme.</p>
 
-          <h2 class="govuk-heading-m">Before you start</h2>
-          <p>You’ll need to know:</p>
+      <h2 class="govuk-heading-m">Before you start</h2>
+      <p>You’ll need to know:</p>
 
-          <ul class="govuk-list govuk-list--bullet">
-            <li>Your SBI (Single Business Identifier)
-            <li>your Rural Payments Agency (RPA) account details</li>
-          </ul>
+      <ul class="govuk-list govuk-list--bullet">
+        <li>Your SBI (Single Business Identifier)
+        <li>your Rural Payments Agency (RPA) account details</li>
+      </ul>
 
-          {{ govukButton({
-            text: "Continue",
-            attributes: {
-              id: "submit"
-            }
-          }) }}
-        </form>
-      </div>
+      {{ govukButton({
+        text: "Continue",
+        href: "/application-task-list",
+        attributes: {
+          id: "submit"
+        }
+      }) }}
     </div>
   </div>
 {% endblock %}

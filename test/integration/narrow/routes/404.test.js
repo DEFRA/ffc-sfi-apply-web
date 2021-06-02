@@ -1,4 +1,5 @@
 describe('404', () => {
+  jest.mock('ffc-messaging')
   let createServer
   let server
 

@@ -13,27 +13,23 @@ function ViewModel (value, error) {
     items: [
       {
         value: 'yes',
-        text: 'Yes, I can do this'
+        text: 'Yes, I can do this',
+        checked: value === 'yes'
       },
       {
         value: 'unknown',
-        text: 'I don\'t know yet'
+        text: 'I don\'t know yet',
+        checked: value === 'unknown'
       },
       {
         divider: 'or'
       },
       {
         value: 'no',
-        text: 'I cannot do this'
+        text: 'I cannot do this',
+        checked: value === 'no'
       }
     ]
-  }
-
-  if (value != null) {
-    const item = this.model.items.find(x => x.value === value)
-    if (item != null) {
-      item.checked = true
-    }
   }
 
   // If error is passed to model then this error property is added to the model

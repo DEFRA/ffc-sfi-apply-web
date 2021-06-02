@@ -1,4 +1,7 @@
 describe('payment-details payment-frequency route', () => {
+  jest.mock('ffc-messaging')
+  jest.mock('../../../../../app/api')
+  jest.mock('../../../../../app/plugins/crumb')
   let createServer
   let server
 

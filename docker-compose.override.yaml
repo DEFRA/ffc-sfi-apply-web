@@ -5,6 +5,8 @@ version: '3.8'
 
 services:
   ffc-sfi-apply-web:
+    depends_on: 
+      - redis
     build:
       target: development
     image: ffc-sfi-apply-web-development
@@ -12,10 +14,11 @@ services:
     ports:
       - "3000:3000"
       - "9229:9229"
+    environment: 
+      REDIS_HOSTNAME: redis
     volumes:
       - ./app/:/home/node/app/
       - ./package.json:/home/node/package.json
-  
   redis:
     image: redis:4.0.14
     volumes:
@@ -25,4 +28,3 @@ services:
 
 volumes:
   redis_data:
-

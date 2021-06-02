@@ -1,13 +1,13 @@
 const joi = require('joi')
 const ViewModel = require('./models/soil-management')
-const sessionHandler = require('../../session/session-handler')
+const cache = require('../../cache')
 
 module.exports = [{
   method: 'GET',
   path: '/create-agreement/soil-management',
   options: {
-    handler: (request, h) => {
-      const agreement = sessionHandler.get(request, 'agreement')
+    handler: async (request, h) => {
+      const agreement = await cache.get('agreement', request.yar.id)
       return h.view('create-agreement/soil-management', new ViewModel(agreement.soilManagement))
     }
   }
@@ -25,7 +25,7 @@ module.exports = [{
       }
     },
     handler: async (request, h) => {
-      sessionHandler.update(request, 'agreement', request.payload)
+      await cache.update('agreement', request.yar.id, request.payload)
       return h.redirect('tillage')
     }
   }

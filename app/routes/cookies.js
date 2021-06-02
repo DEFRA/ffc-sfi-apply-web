@@ -12,6 +12,9 @@ module.exports = [{
   method: 'POST',
   path: '/cookies',
   options: {
+    plugins: {
+      crumb: false
+    },
     validate: {
       payload: joi.object({
         analytics: joi.boolean(),

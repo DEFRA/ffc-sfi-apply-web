@@ -11,7 +11,8 @@
 {% block content %}
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
-    <form method="POST" action="/funding-options/what-funding" novalidate>
+    <form method="POST" action="/funding-options/standards" novalidate>
+      <input type="hidden" name="crumb" value="{{crumb}}"/>
       {{ govukCheckboxes(model) }}
 
       {{ govukButton({

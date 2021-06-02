@@ -14,7 +14,7 @@
     <div class="govuk-grid-column-two-thirds">
       <h1 class="govuk-heading-l">Summary</h1>
       <p class="govuk-inset-text govuk-body-l">
-       You'll get<strong> £6,168</strong> for the scheme actions you've chosen.</p>
+       You'll get <strong>£{{ paymentAmount }}</strong> for the scheme actions you've chosen.</p>
       <p class="govuk-body">You can get paid more if you add land or actions.</p>
       <table class="govuk-table">
         <caption class="govuk-table__caption govuk-table__caption--m">Funding breakdown</caption>
@@ -83,7 +83,8 @@
           </tr>
         </tbody>
       </table>
-      <form method="POST" action="/funding-options/application-value" novalidate>
+      <form method="POST" action="/funding-options/calculation" novalidate>
+        <input type="hidden" name="crumb" value="{{crumb}}"/>
         {{ govukButton({
           text: "Continue",
           attributes: {
