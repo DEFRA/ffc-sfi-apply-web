@@ -56,7 +56,7 @@ describe('check-eligibility funding-options/standards route', () => {
     const options = {
       method: 'POST',
       url: '/funding-options/standards',
-      payload: { funding: ['arableHorticulturalSoils'] }
+      payload: { standards: ['soilProtection'] }
     }
 
     const result = await server.inject(options)
@@ -67,7 +67,7 @@ describe('check-eligibility funding-options/standards route', () => {
     const options = {
       method: 'POST',
       url: '/funding-options/standards',
-      payload: { funding: ['arableHorticulturalSoils'] }
+      payload: { standards: ['soilProtection'] }
     }
 
     const result = await server.inject(options)
