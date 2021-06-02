@@ -25,7 +25,7 @@
         {% for taskGroup in model.taskList %}
           <li>
             <h2 class="app-task-list__section">
-              <span class="app-task-list__section-number">1. </span> {{ taskGroup.taskGroup }}
+              <span class="app-task-list__section-number">{{loop.index}}. </span> {{ taskGroup.taskGroup }}
             </h2>
             <ul class="app-task-list__items">   
               {% for task in taskGroup.tasks %}        
