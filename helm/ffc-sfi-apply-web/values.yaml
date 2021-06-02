@@ -32,17 +32,12 @@ deployment:
   minReadySeconds: 0
 
 container:
-  redisHostname: redis-redis-ha.default
-  redisPassword: redis
-  redisPort: 6379
-  redisPartition: ffc-demo
   imagePullPolicy: IfNotPresent
   requestMemory: 10Mi
   requestCpu: 10m
   limitMemory: 120Mi
   limitCpu: 120m
   port: 3000
-  cookiePassword: passwordpasswordpasswordpasswordpassword
   googleTagManagerKey:
   messageQueueHost: namespace.servicebus.windows.net
   eligibilityTopicAddress: ffc-sfi-eligibility-check
