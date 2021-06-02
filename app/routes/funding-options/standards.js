@@ -42,6 +42,9 @@ module.exports = [{
     handler: async (request, h) => {
       const agreement = await await cache.update('agreement', request.yar.id, request.payload)
       await sendAgreementValidateMessage(agreement, request.yar.id)
+      await cache.update('progress', request.yar.id, {
+        fundingOptions: { standards: true }
+      })
       return h.redirect('actions')
     }
   }

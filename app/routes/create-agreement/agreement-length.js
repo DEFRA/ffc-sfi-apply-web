@@ -26,7 +26,9 @@ module.exports = [{
     },
     handler: async (request, h) => {
       await cache.update('agreement', request.yar.id, request.payload)
-      await cache.update('progress', request.yar.id, { createAgreement: true })
+      await cache.update('progress', request.yar.id, {
+        createAgreement: { agreementLength: true }
+      })
       return h.redirect('review')
     }
   }

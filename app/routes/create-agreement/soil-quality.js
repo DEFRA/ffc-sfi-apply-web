@@ -26,6 +26,9 @@ module.exports = [{
     },
     handler: async (request, h) => {
       await cache.update('agreement', request.yar.id, request.payload)
+      await cache.update('progress', request.yar.id, {
+        createAgreement: { how: true }
+      })
       return h.redirect('/application-task-list')
     }
   }

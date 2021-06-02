@@ -26,8 +26,7 @@ module.exports = [{
       }
     },
     handler: async (request, h) => {
-      await cache.update('eligibility', request.yar.id, request.payload)
-      const eligibilityData = await cache.get('eligibility', request.yar.id)
+      const eligibilityData = await cache.update('eligibility', request.yar.id, request.payload)
       await sendEligibilityCheckMessage(eligibilityData, request.yar.id)
       return h.redirect('eligible')
     }

@@ -30,6 +30,9 @@ module.exports = [{
     handler: async (request, h) => {
       const agreement = await cache.update('agreement', request.yar.id, request.payload)
       await sendAgreementCalculateMessage(agreement, request.yar.id)
+      await cache.update('progress', request.yar.id, {
+        fundingOptions: { land: true }
+      })
       return h.redirect('calculation')
     }
   }
