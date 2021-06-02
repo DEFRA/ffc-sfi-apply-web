@@ -20,13 +20,8 @@ module.exports = {
   options: {
     handler: (request, h) => {
       const agreement = sessionHandler.get(request, 'agreement')
-<<<<<<< HEAD
-      console.log(agreement)
-      return h.view('application-task-list')
-=======
       console.log(agreement, validateCheckEligibility(agreement))
       return h.view('application-task-list', new ViewModel(agreementStatus))
->>>>>>> 0159346d6e20e7319183cb681e6500213ce7e686
     }
   }
 }
