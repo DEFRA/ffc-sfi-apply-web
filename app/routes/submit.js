@@ -2,6 +2,7 @@ const joi = require('joi')
 const ViewModel = require('./models/submit')
 const { sendAgreementSubmitMessage } = require('../messaging')
 const cache = require('../cache')
+const generateAgreementNumber = require('../agreement-number')
 
 module.exports = [{
   method: 'GET',
@@ -27,6 +28,10 @@ module.exports = [{
     handler: async (request, h) => {
       if (request.payload.submit) {
         const agreement = await cache.get('agreement', request.yar.id)
+        if (!agreement.agreementNumber) {
+          const agreementNumber = generateAgreementNumber()
+          await cache.update('agreement', request.yar.id, { agreementNumber })
+        }
         await sendAgreementSubmitMessage(agreement, request.yar.id)
         await cache.update('progress', request.yar.id, { submitted: true })
         return h.redirect('/confirmation')
