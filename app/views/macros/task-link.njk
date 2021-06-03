@@ -2,7 +2,7 @@
 
 {% macro taskLink(status, linkText, href) %}
   <span class="app-task-list__task-name">
-    <a href="{{href}}" class="{{ 'disabled' if (status !== 'NOT STARTED') and (status !== 'COMPLETED') }}" aria-describedby="{{ status | replace(" ", "-") }}">
+    <a href="{{href}}" class="{{ 'disabled' if (status !== 'NOT STARTED' and status !== 'COMPLETED') }}" aria-describedby="{{ status | replace(" ", "-") }}">
       {{linkText}}
     </a>
   </span>  

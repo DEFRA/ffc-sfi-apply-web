@@ -19,20 +19,26 @@ const taskList = [{
   }]
 },
 {
-  id: 'fundingOption',
+  id: 'fundingDetails',
   taskGroup: 'Funding options',
   dependsOn: 'businessDetails',
   tasks: [{
+    id: 'standards',
+    dependsOn: 'fundingOptions',
     taskName: 'Choose funding type',
     status: 'CANNOT START YET',
-    url: 'funding-options/what-funding'
+    url: 'funding-options/standards'
   },
   {
+    id: 'actions',
+    dependsOn: 'fundingOptions',
     taskName: 'Choose actions',
     status: 'CANNOT START YET',
-    url: 'funding-options/actions-arable-all'
+    url: 'funding-options/actions'
   },
   {
+    id: 'land',
+    dependsOn: 'fundingOptions',
     taskName: 'Add the amount of land you\'ll use',
     status: 'CANNOT START YET',
     url: 'funding-options/land-primary-actions'
@@ -40,13 +46,17 @@ const taskList = [{
 }, {
   id: 'createAgreement',
   taskGroup: 'Create your agreement',
-  dependsOn: 'fundingOption',
+  dependsOn: 'fundingDetails',
   tasks: [{
+    id: 'how',
+    dependsOn: 'createAgreementOptions',
     taskName: 'Tell us how you will carry out your chosen actions',
     status: 'CANNOT START YET',
     url: 'create-agreement/soil-assessment'
   },
   {
+    id: 'agreementLength',
+    dependsOn: 'createAgreementOptions',
     taskName: 'Set up your agreement length and renewal period',
     status: 'CANNOT START YET',
     url: 'create-agreement/agreement-length'
@@ -57,10 +67,12 @@ const taskList = [{
     url: 'create-agreement/review'
   }]
 }, {
-  id: 'paymentFrequency',
+  id: 'paymentDetails',
   taskGroup: 'Payment details',
   dependsOn: 'createAgreement',
   tasks: [{
+    id: 'paymentFrequency',
+    dependsOn: 'paymentOptions',
     taskName: 'Choose your payment options',
     status: 'CANNOT START YET',
     url: 'payment-details/payment-frequency'
@@ -72,9 +84,9 @@ const taskList = [{
   }]
 },
 {
-  id: 'submitApplication',
+  id: 'submitted',
   taskGroup: 'Submit your application',
-  dependsOn: 'paymentFrequency',
+  dependsOn: 'paymentDetails',
   tasks: [{
     taskName: 'Submit your application',
     status: 'CANNOT START YET',
