@@ -22,13 +22,13 @@
         </createTable>
     </changeSet>
 	<changeSet author="liquibase (generated)" id="1596113695617">
-        <createTable tableName="status">
-            <column autoIncrement="false" name="statusId" type="SMALLINT">
-                <constraints nullable="true" primaryKey="true" primaryKeyName="status_pkey"/>
-            </column>
-            <column name="status" type="VARCHAR(255)"/>            
-        </createTable>
-        <insert tableName="status">
+    <createTable tableName="status">
+      <column autoIncrement="false" name="statusId" type="SMALLINT">
+        <constraints nullable="true" primaryKey="true" primaryKeyName="status_pkey"/>
+      </column>
+      <column name="status" type="VARCHAR(255)"/>
+    </createTable>
+    <insert tableName="status">
 			<column name="statusId" value="1"/>
 			<column name="status" value="In Progress"/>
 		</insert>
