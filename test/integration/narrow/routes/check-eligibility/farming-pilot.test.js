@@ -2,6 +2,8 @@ describe('check-eligibility farming-pilot route', () => {
   jest.mock('ffc-messaging')
   jest.mock('../../../../../app/api')
   jest.mock('../../../../../app/plugins/crumb')
+  jest.mock('../../../../../app/routes/check-eligibility/schemas/eligibility')
+  const schema = require('../../../../../app/routes/check-eligibility/schemas/eligibility')
   let createServer
   let server
 
@@ -13,6 +15,7 @@ describe('check-eligibility farming-pilot route', () => {
 
   afterEach(async () => {
     await server.stop()
+    jest.clearAllMocks()
   })
 
   test('GET /check-eligibility/farming-pilot returns 200', async () => {
@@ -37,6 +40,7 @@ describe('check-eligibility farming-pilot route', () => {
   })
 
   test('POST /check-eligibility/farming-pilot returns 302', async () => {
+    schema.validate.mockResolvedValue({})
     const options = {
       method: 'POST',
       url: '/check-eligibility/farming-pilot',
