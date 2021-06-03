@@ -1,6 +1,8 @@
 {% extends '_layout.njk' %}
 {% set mainClasses = "govuk-main-wrapper--auto-spacing" %}
 {% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{% from "govuk/components/tag/macro.njk" import govukTag %}
+{% from "macros/task-link.njk" import taskLink %}
 
 {% block beforeContent %}
   {{ govukBackLink({
@@ -17,138 +19,23 @@
       <h1 class="govuk-heading-l">{{serviceName}}</h1>
 
       <h2 class="govuk-heading-s govuk-!-margin-bottom-2">Application incomplete</h2>
-      <p class="govuk-body govuk-!-margin-bottom-7">You have completed 0 of 5 sections.</p>
-
+      <p class="govuk-body govuk-!-margin-bottom-7">You have completed {{ model.completedSections }} of 6 sections.</p>
+ 
       <ol class="app-task-list">
-        <li>
-          <h2 class="app-task-list__section">
-            <span class="app-task-list__section-number">1. </span> Check before you start
-          </h2>
-          <ul class="app-task-list__items">
-            <li class="app-task-list__item">
-              <span class="app-task-list__task-name">
-                <a href="check-eligibility/bps" aria-describedby="eligibility-status">
-                  Check eligibility
-                </a>
-              </span>
-              <strong class="govuk-tag govuk-tag--grey app-task-list__tag" id="list-convictions-status">Not started</strong>
-            </li>
-          </ul>
-        </li>
-
-        <li>
-          <h2 class="app-task-list__section">
-            <span class="app-task-list__section-number">2. </span> Land and business details
-          </h2>
-          <ul class="app-task-list__items">
-            <li class="app-task-list__item">
-              <span class="app-task-list__task-name">
-                <a href="search-land-business-details" aria-describedby="eligibility-status">
-                  Confirm your land and business details
-                </a>
-              </span>
-              <strong class="govuk-tag govuk-tag--grey app-task-list__tag" id=" ">Cannot start yet</strong>
-            </li>
-          </ul>
-        </li>
-
-        <li>
-          <h2 class="app-task-list__section">
-            <span class="app-task-list__section-number">3. </span> Funding options
-          </h2>
-          <ul class="app-task-list__items">
-            <li class="app-task-list__item">
-              <span class="app-task-list__task-name">
-                  <a href="funding-options/standards">Choose funding type</a>
-              </span>
-              <strong class="govuk-tag govuk-tag--grey app-task-list__tag" id=" ">Cannot start yet</strong>
-            </li>
-            <li class="app-task-list__item">
-              <span class="app-task-list__task-name">
-                  <a href='funding-options/actions'>Choose actions</a>
-              </span>
-              <strong class="govuk-tag govuk-tag--grey app-task-list__tag" id=" ">Cannot start yet</strong>
-            </li>
-            <li class="app-task-list__item">
-              <span class="app-task-list__task-name">
-                  <a href="funding-options/land-primary-actions">Add the amount of land you'll use</a>
-              </span>
-              <strong class="govuk-tag govuk-tag--grey app-task-list__tag" id=" ">Cannot start yet</strong>
-            </li>
-          </ul>
-        </li>
-
-        <li>
-          <h2 class="app-task-list__section">
-            <span class="app-task-list__section-number">4. </span> Create your agreement
-          </h2>
-          <ul class="app-task-list__items">
-            <li class="app-task-list__item">
-              <span class="app-task-list__task-name">
-                <a href="create-agreement/soil-assessment">
-                  Tell us how you will carry out your chosen actions
-                </a>
-              </span>
-              <strong class="govuk-tag govuk-tag--grey app-task-list__tag" id=" ">Cannot start yet</strong>
-            </li>
-            <li class="app-task-list__item">
-              <span class="app-task-list__task-name">
-                <a href="create-agreement/agreement-length">
-                  Set up your agreement length and renewal period
-                </a>
-              </span>
-              <strong class="govuk-tag govuk-tag--grey app-task-list__tag" id=" ">Cannot start yet</strong>
-            </li>
-            <li class="app-task-list__item">
-              <span class="app-task-list__task-name">
-                <a href="create-agreement/review">
-                  Review your agreement
-                </a>
-              </span>
-              <strong class="govuk-tag govuk-tag--grey app-task-list__tag" id=" ">Cannot start yet</strong>
-            </li>
-          </ul>
-        </li>
-
-        <li>
-          <h2 class="app-task-list__section">
-            <span class="app-task-list__section-number">5. </span> Payment details
-          </h2>
-          <ul class="app-task-list__items">
-            <li class="app-task-list__item">
-              <span class="app-task-list__task-name">
-              <a href="payment-details/payment-frequency" aria-describedby="payment-frequency">
-                  Choose your payment options
-                  </a>
-              </span>
-              <strong class="govuk-tag govuk-tag--grey app-task-list__tag" id=" ">Cannot start yet</strong>
-            </li>
-            <li class="app-task-list__item">
-              <span class="app-task-list__task-name">
-                  <a href="payment-details/bank-details" aria-describedby="bank-details">
-                  Confirm your bank details
-                </a>
-              </span>
-              <strong class="govuk-tag govuk-tag--grey app-task-list__tag" id=" ">Cannot start yet</strong>
-            </li>
-          </ul>
-        </li>
-
-        <li>
-          <h2 class="app-task-list__section">
-            <span class="app-task-list__section-number">6. </span> Submit your application
-          </h2>
-          <ul class="app-task-list__items">
-            <li class="app-task-list__item">
-              <span class="app-task-list__task-name">
-                <a href="/submit">
-                  Submit your application
-                </a>
-              </span>
-              <strong class="govuk-tag govuk-tag--grey app-task-list__tag" id=" ">Cannot start yet</strong>
-            </li>
-          </ul>
-        </li>
+        {% for taskGroup in model.taskList %}
+          <li>
+            <h2 class="app-task-list__section">
+              <span class="app-task-list__section-number">{{loop.index}}. </span> {{ taskGroup.taskGroup }}
+            </h2>
+            <ul class="app-task-list__items">   
+              {% for task in taskGroup.tasks %}        
+                <li class="app-task-list__item"> 
+                  {{ taskLink(task.status, task.taskName, task.url) }}
+                </li>
+              {% endfor %}
+            </ul>
+          </li>
+        {% endfor %}
       </ol>
     </div>
   </div>

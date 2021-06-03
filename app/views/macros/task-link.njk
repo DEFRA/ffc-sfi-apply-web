@@ -1,0 +1,10 @@
+{% from "govuk/components/tag/macro.njk" import govukTag %}
+
+{% macro taskLink(status, linkText, href) %}
+  <span class="app-task-list__task-name">
+    <a href="{{href}}" class="{{ 'disabled' if (status !== 'NOT STARTED' and status !== 'COMPLETED') }}" aria-describedby="{{ status | replace(" ", "-") }}">
+      {{linkText}}
+    </a>
+  </span>  
+  <strong class="govuk-tag app-task-list__tag {{ 'govuk-tag--grey' if status !== 'COMPLETED'}} ">{{status}}</strong>
+{% endmacro %}

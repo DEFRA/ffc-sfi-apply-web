@@ -35,7 +35,7 @@
     "@hapi/good-squeeze": "^6.0.0",
     "@hapi/hapi": "^20.1.0",
     "@hapi/inert": "^6.0.3",
-    "@hapi/vision": "^6.0.1",
+    "@hapi/vision": "^6.1.0",
     "@hapi/wreck": "^17.1.0",
     "@hapi/yar": "^10.1.1",
     "applicationinsights": "^1.8.10",
@@ -52,7 +52,7 @@
   "devDependencies": {
     "@hapi/catbox-memory": "^5.0.1",
     "clean-webpack-plugin": "^3.0.0",
-    "css-loader": "^5.2.4",
+    "css-loader": "^5.2.6",
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^5.3.1",
     "jest": "^26.6.3",
@@ -66,7 +66,7 @@
     "snyk": "^1.621.0",
     "standard": "^14.3.4",
     "style-loader": "^2.0.0",
-    "webpack": "^5.37.0",
+    "webpack": "^5.38.1",
     "webpack-cli": "^4.7.0"
   },
   "standard": {
