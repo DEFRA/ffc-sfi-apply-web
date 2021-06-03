@@ -1,6 +1,7 @@
-function ViewModel (taskList) {
+function ViewModel (taskList, completedSections) {
   this.model = {
-    taskList: taskList
+    taskList: taskList,
+    completedSections: completedSections
   }
 }
 
