@@ -29,17 +29,19 @@ module.exports = [{
     handler: async (request, h) => {
       if (request.payload.submit) {
         const agreement = await cache.get('agreement', request.yar.id)
-        if(!agreement.submitted) {
+        if (!agreement.submitted) {
           if (!agreement.agreementNumber) {
-            const agreementNumber = generateAgreementNumber()
-            await cache.update('agreement', request.yar.id, { agreementNumber })
+            agreement.agreementNumber = generateAgreementNumber()
+            await cache.update('agreement', request.yar.id, { agreementNumber: agreement.agreementNumber })
           }
           const result = schema.validate(agreement, { allowUnknown: true })
           if (result.error) {
             console.info(`Agreement data is incomplete for ${request.yar.id}, restarting journey`)
             console.info(agreement)
+            console.info(result.error)
             await cache.clear('progress', request.yar.id)
             return h.redirect('/application-task-list')
+          }
           await sendAgreementSubmitMessage(agreement, request.yar.id)
           await cache.update('progress', request.yar.id, { submitted: true })
         }
