@@ -6,7 +6,16 @@
     <changeSet author="Fay Toward" id="1596113695614-1">
       <tagDatabase tag="v1.0.0" />
     </changeSet>
-    <changeSet author="liquibase (generated)" id="1596113695614-2">
+    <changeSet author="Fareed Mohammed" id="1596113695615-1">
+      <tagDatabase tag="v1.1.0" />
+    </changeSet>
+    <changeSet author="Fareed Mohammed" id="1596113695616-1">
+      <tagDatabase tag="v1.2.0" />
+    </changeSet>
+    <changeSet author="Fareed Mohammed" id="1596113695617-1">
+      <tagDatabase tag="v1.3.0" />
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1596113695615-1">
         <createTable tableName="agreements">
             <column autoIncrement="true" name="agreementId" type="INTEGER">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="agreement_pkey"/>
@@ -21,7 +30,7 @@
             </column>
         </createTable>
     </changeSet>
-	<changeSet author="liquibase (generated)" id="1596113695615-1">
+	<changeSet author="liquibase (generated)" id="1596113695616-1">
         <createTable tableName="status">
             <column autoIncrement="false" name="statusId" type="SMALLINT">
                 <constraints nullable="true" primaryKey="true" primaryKeyName="status_pkey"/>
@@ -45,7 +54,7 @@
 			<column name="status" value="Deleted"/>
 		</insert>
     </changeSet>
-    <changeSet author="liquibase (generated)" id="1596113695616-1">
+    <changeSet author="liquibase (generated)" id="1596113695617-1">
 		<addColumn schemaName= "public" tableName="agreements" >
 			<column afterColumn="updatedAt" name="statusId"  type="SMALLINT" defaultValue="1" />
 		</addColumn>
