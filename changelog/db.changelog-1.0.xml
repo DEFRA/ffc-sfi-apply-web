@@ -1,21 +1,12 @@
 <?xml version="1.1" encoding="UTF-8" standalone="no"?>
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:pro="http://www.liquibase.org/xml/ns/pro" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-3.9.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
-    <changeSet author="Fay Toward" id="1596113695614-0">
+    <changeSet author="Fay Toward" id="1596113695614">
       <tagDatabase tag="v0.0.0" />
     </changeSet>
-    <changeSet author="Fay Toward" id="1596113695614-1">
+    <changeSet author="Fay Toward" id="1596113695615">
       <tagDatabase tag="v1.0.0" />
     </changeSet>
-    <changeSet author="Fareed Mohammed" id="1596113695615-1">
-      <tagDatabase tag="v1.1.0" />
-    </changeSet>
-    <changeSet author="Fareed Mohammed" id="1596113695616-1">
-      <tagDatabase tag="v1.2.0" />
-    </changeSet>
-    <changeSet author="Fareed Mohammed" id="1596113695617-1">
-      <tagDatabase tag="v1.3.0" />
-    </changeSet>
-    <changeSet author="liquibase (generated)" id="1596113695615-1">
+    <changeSet author="liquibase (generated)" id="1596113695616">
         <createTable tableName="agreements">
             <column autoIncrement="true" name="agreementId" type="INTEGER">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="agreement_pkey"/>
@@ -30,7 +21,7 @@
             </column>
         </createTable>
     </changeSet>
-	<changeSet author="liquibase (generated)" id="1596113695616-1">
+	<changeSet author="liquibase (generated)" id="1596113695617">
         <createTable tableName="status">
             <column autoIncrement="false" name="statusId" type="SMALLINT">
                 <constraints nullable="true" primaryKey="true" primaryKeyName="status_pkey"/>
@@ -54,7 +45,7 @@
 			<column name="status" value="Deleted"/>
 		</insert>
     </changeSet>
-    <changeSet author="liquibase (generated)" id="1596113695617-1">
+    <changeSet author="liquibase (generated)" id="1596113695618">
 		<addColumn schemaName= "public" tableName="agreements" >
 			<column afterColumn="updatedAt" name="statusId"  type="SMALLINT" defaultValue="1" />
 		</addColumn>
