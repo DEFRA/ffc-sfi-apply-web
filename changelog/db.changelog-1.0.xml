@@ -46,7 +46,7 @@
 		</insert>
     </changeSet>
     <changeSet author="liquibase (generated)" id="1596113695618">
-		<addColumn schemaName= "public" tableName="agreements" >
+		<addColumn tableName="agreements" >
 			<column afterColumn="updatedAt" name="statusId"  type="SMALLINT" defaultValue="1" />
 		</addColumn>
 		<addForeignKeyConstraint baseColumnNames="statusId"
