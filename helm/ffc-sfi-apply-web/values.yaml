@@ -54,6 +54,17 @@ container:
   redisPartition: ffc-sfi-apply-web
   cookiePassword: passwordpasswordpasswordpasswordpassword
 
+postgresService:
+  postgresDb: ffc_sfi_apply_web
+  # postgresExternalName is the external host name to which PostgreSQL
+  # requests should be forwarded. If empty, PostgreSQL is assumed to be
+  # within the cluster and accessible via postgresHost
+  postgresExternalName:
+  postgresHost: ffc-sfi-apply-web-postgres
+  postgresPort: 5432
+  postgresSchema: public
+  postgresUser: postgres
+
 ingress:
   class: nginx
   endpoint: ffc-sfi-apply-web

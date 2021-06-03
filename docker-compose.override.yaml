@@ -25,6 +25,13 @@ services:
       - redis_data:/data
     ports:
       - "6379:6379"
+  
+  ffc-sfi-apply-web-postgres:
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
 
 volumes:
   redis_data:
+  postgres_data: {}
