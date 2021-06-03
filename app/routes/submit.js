@@ -37,8 +37,6 @@ module.exports = [{
           const result = schema.validate(agreement, { allowUnknown: true })
           if (result.error) {
             console.info(`Agreement data is incomplete for ${request.yar.id}, restarting journey`)
-            console.info(agreement)
-            console.info(result.error)
             await cache.clear('progress', request.yar.id)
             return h.redirect('/application-task-list')
           }
