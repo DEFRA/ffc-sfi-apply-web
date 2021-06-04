@@ -1,14 +1,16 @@
-const ViewModel = require('../models/search')
+const ViewModel = require('./models/search')
 const schema = require('../schemas/sbi')
 const cache = require('../../cache')
+const { getAgreements } = require('../../agreement/get-agreements')
 
 module.exports = [{
   method: 'GET',
   path: '/search-land-business-details',
   options: {
     handler: async (request, h) => {
+      const agreementData = await getAgreements()
       const agreement = await cache.get('agreement', request.yar.id)
-      return h.view('land-business-details/search-land-business-details', new ViewModel(agreement.sbi))
+      return h.view('land-business-details/search-land-business-details', new ViewModel(agreement.sbi, agreementData))
     }
   }
 }, {
@@ -18,7 +20,8 @@ module.exports = [{
     validate: {
       payload: schema,
       failAction: async (request, h, error) => {
-        return h.view('land-business-details/search-land-business-details', new ViewModel(request.payload.sbi, error)).code(400).takeover()
+        const agreementData = await getAgreements()
+        return h.view('land-business-details/search-land-business-details', new ViewModel(request.payload.sbi, agreementData, error)).code(400).takeover()
       }
     },
     handler: async (request, h) => {

@@ -25,8 +25,7 @@
   <div class="govuk-grid-column-two-thirds">
     <form method="POST" action="/search-land-business-details">
       <input type="hidden" name="crumb" value="{{crumb}}"/>
-      {{ govukInput(model) }}
-
+      {{ govukInput(model.searchSbiNumber) }}
       <details class="govuk-details" data-module="govuk-details">
         <summary class="govuk-details__summary">
           <span class="govuk-details__summary-text">
@@ -52,6 +51,29 @@
           Your SBI will show all the land you have registered with Defra.
         </div>       
       </details>
+      <table class="govuk-table">
+        <caption class="govuk-table__caption govuk-table__caption--m">Agreements</caption>
+        <thead class="govuk-table__head">
+          <tr class="govuk-table__row">
+            <th scope="col" class="govuk-table__header">Id</th>
+            <th scope="col" class="govuk-table__header">SBI Number</th>
+            <th scope="col" class="govuk-table__header">Date</th>
+            <th scope="col" class="govuk-table__header">Status</th>
+          </tr>
+        </thead>
+        <tbody class="govuk-table__body">
+          {% for agreement in model.agreements %}
+            <tr class="govuk-table__row">
+              <th scope="row" class="govuk-table__header">{{ agreement.agreementId }}</th>
+              <td class="govuk-table__cell">{{ agreement.sbi }}</td>
+              <td class="govuk-table__cell">{{ agreement.updatedAt }}</td>
+              <td class="govuk-table__cell">
+                <a href="/agreement?agreementId={{agreement.agreementId}}">IN PROGRESS</a>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
       {{ govukButton({
         text: "Continue"
       }) }}

@@ -8,7 +8,9 @@ function ViewModel (progressCache) {
 }
 
 const validateSchema = (progressCache) => {
-  return taskList.map((taskGroup) => {
+  const taskListData = JSON.parse(JSON.stringify(taskList))
+
+  return taskListData.map((taskGroup) => {
     progressCache[taskGroup.dependsOn] && updateStatus(progressCache, taskGroup, 'NOT STARTED')
     progressCache[taskGroup.id] && updateStatus(progressCache, taskGroup, 'COMPLETED')
     return taskGroup

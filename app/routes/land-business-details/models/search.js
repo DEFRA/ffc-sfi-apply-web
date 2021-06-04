@@ -1,5 +1,12 @@
-function ViewModel (value, error) {
+function ViewModel (value, agreements, error) {
   this.model = {
+    searchSbiNumber: buildSearchSbiNumber(value, error),
+    agreements: agreements
+  }
+}
+
+const buildSearchSbiNumber = (value, error) => {
+  const model = {
     label: {
       text: 'What is your Single Business Identifier (SBI) number?',
       classes: 'govuk-label--l',
@@ -18,14 +25,16 @@ function ViewModel (value, error) {
   }
 
   if (value != null) {
-    this.model.value = value
+    model.value = value
   }
 
   if (error) {
-    this.model.errorMessage = {
+    model.errorMessage = {
       text: error.message
     }
   }
+
+  return model
 }
 
 module.exports = ViewModel
