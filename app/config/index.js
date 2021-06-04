@@ -1,6 +1,7 @@
 const joi = require('joi')
 const cacheConfig = require('./cache')
 const mqConfig = require('./mq-config')
+const dbConfig = require('./db-config')
 
 // Define config schema
 const schema = joi.object({
@@ -99,5 +100,7 @@ value.catboxOptions = {
 if (!value.useAgreementCalculator) {
   value.agreementCalculatorEndpoint = value.sitiAgriEndpoint
 }
+
+value.dbConfig = dbConfig
 
 module.exports = value
