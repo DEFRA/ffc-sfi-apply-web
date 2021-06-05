@@ -41,6 +41,7 @@ module.exports = [{
             return h.redirect('/application-task-list')
           }
           await sendAgreementSubmitMessage(agreement, request.yar.id)
+          await cache.update('agreement', request.yar.id, { submitted: true })
           await cache.update('progress', request.yar.id, { submitted: true })
         }
         return h.redirect('/confirmation')

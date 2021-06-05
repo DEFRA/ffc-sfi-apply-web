@@ -20,6 +20,7 @@ services:
       VALIDATE_TOPIC_ADDRESS: ${VALIDATE_TOPIC_ADDRESS:-notset}
       CALCULATE_TOPIC_ADDRESS: ${CALCULATE_TOPIC_ADDRESS:-notset}
       SUBMIT_TOPIC_ADDRESS: ${SUBMIT_TOPIC_ADDRESS:-notset}
+      WITHDRAW_TOPIC_ADDRESS: ${WITHDRAW_TOPIC_ADDRESS:-notset}
       AGREEMENT_CALCULATOR_ENDPOINT: http://ffc-sfi-agreement-calculator:3003
       SITI_AGRI_ENDPOINT: http://ffc-sfi-apply-api:3001
       COOKIE_PASSWORD: cookiecookiecookiecookiecookiecookie
