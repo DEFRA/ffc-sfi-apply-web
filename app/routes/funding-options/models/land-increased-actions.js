@@ -18,6 +18,7 @@ const greenCover = (value, error) => {
     suffix: {
       text: 'ha'
     },
+    autocomplete: false,
     spellcheck: false,
     value: value
   }

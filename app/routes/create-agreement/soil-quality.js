@@ -29,7 +29,7 @@ module.exports = [{
       await cache.update('progress', request.yar.id, {
         createAgreementOptions: { how: true }
       })
-      return h.redirect('/application-task-list')
+      return h.redirect('agreement-length')
     }
   }
 }]

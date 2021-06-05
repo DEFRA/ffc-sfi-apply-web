@@ -99,6 +99,7 @@ value.catboxOptions = {
 
 if (!value.useAgreementCalculator) {
   value.agreementCalculatorEndpoint = value.sitiAgriEndpoint
+  console.info('Using Siti Agri')
 }
 
 value.dbConfig = dbConfig
