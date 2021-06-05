@@ -24,6 +24,7 @@ const createInput = (value, error, properties) => {
     suffix: {
       text: properties.suffix
     },
+    autocomplete: false,
     spellcheck: false,
     value
   }
