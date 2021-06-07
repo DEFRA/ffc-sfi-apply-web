@@ -10,7 +10,9 @@ module.exports = [{
       if (response) {
         console.info('Eligibility result received', response)
         if (response.isEligible) {
-          await cache.update('progress', request.yar.id, { eligibility: true })
+          await cache.clear('progress', request.yar.id)
+          await cache.clear('agreement', request.yar.id)
+          await cache.update('progress', request.yar.id, { progressId: 0, progress: { eligibility: true } })
           return h.view('check-eligibility/eligible')
         }
         return h.view('check-eligibility/not-eligible')
