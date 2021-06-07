@@ -1,7 +1,7 @@
 const joi = require('joi')
 const cache = require('../../cache')
-const { getAgreement } = require('../../agreement/get-agreements')
-const getProgress = require('../../agreement/get-progress')
+const { getAgreement } = require('../../agreement')
+const { getProgress } = require('../../progress')
 
 module.exports = [{
   method: 'GET',

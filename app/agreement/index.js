@@ -1,9 +1,7 @@
 const { sequelize } = require('../data')
 
 async function getAgreements () {
-  return sequelize.models.agreement.findAll({
-    raw: true
-  })
+  return sequelize.models.agreement.findAll()
 }
 
 async function getAgreement (agreementId) {

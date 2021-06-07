@@ -1,7 +1,7 @@
 const ViewModel = require('./models/search')
 const schema = require('../schemas/sbi')
 const cache = require('../../cache')
-const { getAgreements } = require('../../agreement/get-agreements')
+const { getAgreements } = require('../../agreement')
 
 module.exports = [{
   method: 'GET',

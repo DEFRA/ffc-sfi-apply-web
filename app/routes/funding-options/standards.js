@@ -10,6 +10,7 @@ module.exports = [{
   options: {
     handler: async (request, h) => {
       const agreement = await cache.get('agreement', request.yar.id)
+      console.log('agreement', agreement)
       await sendStandardsRequestMessage(agreement, request.yar.id)
       const response = await getPollingResponse(request.yar.id, '/standards')
       if (response) {
@@ -40,7 +41,7 @@ module.exports = [{
       }
     },
     handler: async (request, h) => {
-      const agreement = await await cache.update('agreement', request.yar.id, request.payload)
+      const agreement = await cache.update('agreement', request.yar.id, request.payload)
       await sendAgreementValidateMessage(agreement, request.yar.id)
       await cache.update('progress', request.yar.id, {
         fundingOptions: { standards: true }

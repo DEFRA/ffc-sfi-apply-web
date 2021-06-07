@@ -6,7 +6,13 @@ module.exports = (sequelize, DataTypes) => {
     statusId: DataTypes.INTEGER,
     progressId: DataTypes.INTEGER,
     createdAt: DataTypes.DATE,
-    updatedAt: DataTypes.DATE
+    updatedAt: DataTypes.DATEONLY,
+    updatedAtFormated: {
+      type: DataTypes.VIRTUAL,
+      get () {
+        return `${this.updatedAt.toLocaleDateString('en-GB', { year: 'numeric', month: '2-digit', day: '2-digit' })}`
+      }
+    }
   },
   {
     tableName: 'agreements',
