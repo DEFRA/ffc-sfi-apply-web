@@ -20,7 +20,7 @@ async function saveAgreement (agreement, progressId) {
       await db.agreement.create({ sbi: agreement.sbi, agreementData: agreement, progressId }, { transaction })
       console.info(`Saved agreement: ${agreement.sbi}`)
     } else {
-      await db.agreement.update({ agreementData: agreement, progressId, statusId: agreement.statusId }, { where: { sbi: agreement.sbi }, transaction: transaction })
+      await db.agreement.update({ agreementData: agreement, progressId, statusId: agreement.statusId ?? 1 }, { where: { sbi: agreement.sbi }, transaction: transaction })
       console.info(`Updated agreement: ${agreement.sbi}`)
     }
   })

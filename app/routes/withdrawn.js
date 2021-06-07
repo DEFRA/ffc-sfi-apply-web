@@ -1,4 +1,4 @@
-const cache = require('../cache')
+
 const ViewModel = require('./models/withdrawn')
 
 module.exports = {
@@ -6,8 +6,7 @@ module.exports = {
   path: '/withdrawn',
   options: {
     handler: async (request, h) => {
-      const agreement = await cache.get('agreement', request.yar.id)
-      return h.view('withdrawn', new ViewModel(agreement.agreementNumber))
+      return h.view('withdrawn', new ViewModel(request.query.agreementNumber))
     }
   }
 }

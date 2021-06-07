@@ -39,7 +39,7 @@ module.exports = [{
           await cache.clear('eligibility', request.yar.id)
           await cache.clear('agreement', request.yar.id)
           await cache.clear('progress', request.yar.id)
-          return h.redirect('/withdrawn')
+          return h.redirect(`/withdrawn?agreementNumber=${agreement.agreementNumber}`)
         }
       }
       return h.redirect('/application-task-list')
