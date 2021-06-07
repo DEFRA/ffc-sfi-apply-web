@@ -23,8 +23,6 @@ module.exports = [{
   options: {
     handler: async (request, h) => {
       await cache.update('progress', request.yar.id, { fundingDetails: true })
-      // const agreement = await cache.get('agreement', request.yar.id)
-      // console.log(agreement)
       await saveAgreement(await cache.get('agreement', request.yar.id))
 
       return h.redirect('/application-task-list')
