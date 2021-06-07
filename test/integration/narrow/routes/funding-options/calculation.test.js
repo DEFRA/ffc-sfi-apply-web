@@ -3,6 +3,7 @@ describe('check-eligibility funding-options/calculation route', () => {
   jest.mock('../../../../../app/api')
   jest.mock('../../../../../app/plugins/crumb')
   jest.mock('../../../../../app/polling')
+  jest.mock('../../../../../app/agreement')
   const getPollingResponse = require('../../../../../app/polling')
   let createServer
   let server

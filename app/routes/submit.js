@@ -4,6 +4,7 @@ const { sendAgreementSubmitMessage } = require('../messaging')
 const cache = require('../cache')
 const schema = require('./schemas/agreement')
 const generateAgreementNumber = require('../agreement-number')
+const { saveAgreement } = require('../agreement')
 
 module.exports = [{
   method: 'GET',
@@ -42,6 +43,7 @@ module.exports = [{
           }
           await sendAgreementSubmitMessage(agreement, request.yar.id)
           await cache.update('progress', request.yar.id, { submitted: true })
+          await saveAgreement(await cache.get('agreement', request.yar.id))
         }
         return h.redirect('/confirmation')
       }
