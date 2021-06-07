@@ -33,6 +33,7 @@ const routes = [].concat(
   require('../routes/confirmation'),
   require('../routes/withdraw'),
   require('../routes/withdrawn'),
+  require('../routes/agreement'),
   require('../routes/clear-session')
 )
 

@@ -54,5 +54,21 @@
                              constraintName="fk_agreements_statusId"
                              referencedColumnNames="statusId"
                              referencedTableName="status"/>
-    </changeSet>
+  </changeSet>
+  <changeSet author="Steve Dickinson" id="1596113695619">
+    <createTable tableName="progress">
+      <column autoIncrement="true" name="progressId" type="SMALLINT">
+        <constraints nullable="true" primaryKey="true" primaryKeyName="progress_pkey"/>
+      </column>
+      <column name="progress" type="JSON"/>
+    </createTable>
+    <addColumn tableName="agreements" >
+			<column afterColumn="statusId" name="progressId"  type="SMALLINT" />
+		</addColumn>
+    <addForeignKeyConstraint baseColumnNames="progressId"
+                             baseTableName="agreements"
+                             constraintName="fk_agreements_progressId"
+                             referencedColumnNames="progressId"
+                             referencedTableName="progress"/>
+  </changeSet>
 </databaseChangeLog>
