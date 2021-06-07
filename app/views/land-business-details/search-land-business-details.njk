@@ -6,8 +6,7 @@
 {% from "govuk/components/input/macro.njk" import govukInput %}
 {% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
 {% from "govuk/components/details/macro.njk" import govukDetails %}
-
-
+{% from "./macros/agreements.njk" import agreements %}
 
 {% block beforeContent %}
   {{ govukBreadcrumbs({
@@ -25,8 +24,7 @@
   <div class="govuk-grid-column-two-thirds">
     <form method="POST" action="/search-land-business-details">
       <input type="hidden" name="crumb" value="{{crumb}}"/>
-      {{ govukInput(model) }}
-
+      {{ govukInput(model.searchSbiNumber) }}
       <details class="govuk-details" data-module="govuk-details">
         <summary class="govuk-details__summary">
           <span class="govuk-details__summary-text">
@@ -52,6 +50,7 @@
           Your SBI will show all the land you have registered with Defra.
         </div>       
       </details>
+      {{ agreements(model.agreements) }}
       {{ govukButton({
         text: "Continue"
       }) }}

@@ -1,6 +1,7 @@
 const getPollingResponse = require('../../polling')
 const cache = require('../../cache')
 const { saveAgreement } = require('../../agreement')
+const { saveProgress } = require('../../progress')
 
 module.exports = [{
   method: 'GET',
@@ -22,8 +23,12 @@ module.exports = [{
   path: '/funding-options/calculation',
   options: {
     handler: async (request, h) => {
-      await cache.update('progress', request.yar.id, { fundingDetails: true })
-      await saveAgreement(await cache.get('agreement', request.yar.id))
+      await cache.update('progress', request.yar.id, { progress: { fundingDetails: true } })
+      const progressId = await saveProgress(await cache.get('progress', request.yar.id))
+      await cache.update('progress', request.yar.id, { progressId })
+
+      const agreement = await cache.get('agreement', request.yar.id)
+      await saveAgreement(agreement, progressId)
 
       return h.redirect('/application-task-list')
     }
