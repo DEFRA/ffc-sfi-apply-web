@@ -1,11 +1,11 @@
 const db = require('../data')
 
 async function getAgreements () {
-  return db.sequelize.models.agreement.findAll()
+  return db.agreement.findAll()
 }
 
 async function getAgreement (agreementId) {
-  return db.sequelize.models.agreement.findOne({
+  return db.agreement.findOne({
     raw: true,
     where: { agreementId }
   })
@@ -13,12 +13,12 @@ async function getAgreement (agreementId) {
 
 async function saveAgreement (agreement, progressId) {
   await db.sequelize.transaction(async (transaction) => {
-    const existingAgreement = await db.sequelize.models.agreement.findOne({ where: { sbi: agreement.sbi } }, { transaction })
+    const existingAgreement = await db.agreement.findOne({ where: { sbi: agreement.sbi } }, { transaction })
     if (!existingAgreement) {
-      await db.sequelize.models.agreement.create({ sbi: agreement.sbi, agreementData: agreement, progressId }, { transaction })
+      await db.agreement.create({ sbi: agreement.sbi, agreementData: agreement, progressId }, { transaction })
       console.info(`Saved agreement: ${agreement.sbi}`)
     } else {
-      await db.sequelize.models.agreement.update({ agreementData: agreement, progressId, statusId: agreement.statusId }, { where: { sbi: agreement.sbi }, transaction: transaction })
+      await db.agreement.update({ agreementData: agreement, progressId, statusId: agreement.statusId }, { where: { sbi: agreement.sbi }, transaction: transaction })
       console.info(`Updated agreement: ${agreement.sbi}`)
     }
   })

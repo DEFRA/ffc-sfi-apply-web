@@ -13,7 +13,6 @@ module.exports = [{
       })
 
       const progressId = await saveProgress(await cache.get('progress', request.yar.id))
-
       const agreement = await cache.get('agreement', request.yar.id)
       await saveAgreement(agreement, progressId)
 

@@ -1,7 +1,7 @@
 function ViewModel (value, agreements, error) {
   this.model = {
     searchSbiNumber: buildSearchSbiNumber(value, error),
-    agreements: agreements
+    agreements
   }
 }
 
@@ -21,11 +21,8 @@ const buildSearchSbiNumber = (value, error) => {
     inputmode: 'numeric',
     pattern: '[0-9]*',
     spellcheck: false,
-    autocomplete: 'off'
-  }
-
-  if (value != null) {
-    model.value = value
+    autocomplete: 'off',
+    value
   }
 
   if (error) {
