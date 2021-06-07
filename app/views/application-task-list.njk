@@ -27,8 +27,8 @@
             <h2 class="app-task-list__section">
               <span class="app-task-list__section-number">{{loop.index}}. </span> {{ taskGroup.taskGroup }}
             </h2>
-            <ul class="app-task-list__items">   
-              {% for task in taskGroup.tasks %}        
+            <ul class="app-task-list__items">
+              {% for task in taskGroup.tasks %}
                 <li class="app-task-list__item"> 
                   {{ taskLink(task.status, task.taskName, task.url) }}
                 </li>
