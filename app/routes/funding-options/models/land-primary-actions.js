@@ -10,6 +10,7 @@ function ViewModel (value, error) {
     suffix: {
       text: 'ha'
     },
+    autocomplete: false,
     spellcheck: false,
     value
   }

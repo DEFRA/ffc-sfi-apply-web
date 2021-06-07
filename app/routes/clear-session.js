@@ -7,7 +7,7 @@ module.exports = {
     handler: async (request, h) => {
       await cache.clear('eligibility', request.yar.id)
       await cache.clear('agreement', request.yar.id)
-      await cache.clear('calculation', request.yar.id)
+      await cache.clear('progress', request.yar.id)
       return h.redirect('/')
     }
   }

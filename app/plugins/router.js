@@ -31,7 +31,8 @@ const routes = [].concat(
   require('../routes/create-agreement/review'),
   require('../routes/submit'),
   require('../routes/confirmation'),
-  require('../routes/agreement')
+  require('../routes/agreement'),
+  require('../routes/clear-session')
 )
 
 module.exports = {
