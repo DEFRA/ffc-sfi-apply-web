@@ -57,7 +57,7 @@
   </changeSet>
   <changeSet author="Steve Dickinson" id="1596113695619">
     <createTable tableName="progress">
-      <column autoIncrement="false" name="progressId" type="SMALLINT">
+      <column autoIncrement="true" name="progressId" type="SMALLINT">
         <constraints nullable="true" primaryKey="true" primaryKeyName="progress_pkey"/>
       </column>
       <column name="progress" type="JSON"/>

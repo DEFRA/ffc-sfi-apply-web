@@ -7,7 +7,6 @@ module.exports = {
   options: {
     handler: async (request, h) => {
       const progress = await cache.get('progress', request.yar.id)
-      console.log('PROGRESS', progress)
       return h.view('application-task-list', new ViewModel(progress))
     }
   }

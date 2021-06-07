@@ -25,7 +25,7 @@ module.exports = [{
 
       if (agreement) {
         const progress = await getProgress(agreement.progressId)
-        await cache.update('progress', request.yar.id, progress.progress)
+        await cache.update('progress', request.yar.id, progress)
       }
 
       return h.redirect('/application-task-list')
