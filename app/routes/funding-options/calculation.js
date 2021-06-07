@@ -23,10 +23,8 @@ module.exports = [{
   path: '/funding-options/calculation',
   options: {
     handler: async (request, h) => {
-      await cache.update('progress', request.yar.id, { progress: { fundingDetails: true } })
       const progressId = await saveProgress(await cache.get('progress', request.yar.id))
-      await cache.update('progress', request.yar.id, { progressId })
-
+      await cache.update('progress', request.yar.id, { progressId, progress: { fundingDetails: true } })
       const agreement = await cache.get('agreement', request.yar.id)
       await saveAgreement(agreement, progressId)
 
