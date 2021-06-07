@@ -14,7 +14,7 @@ const buildSearchSbiNumber = (value, error) => {
     },
     classes: 'govuk-input--width-10',
     hint: {
-      text: 'Single Business Idenifier (SBI)'
+      text: 'Single Business Identifier (SBI)'
     },
     id: 'sbi',
     name: 'sbi',
