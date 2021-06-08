@@ -57,8 +57,6 @@ const mapStyles = [
   'Light_27700']
 
 const buildMapLayers = (parcelSource, apiKey) => {
-  console.log('build layers', parcelSource, apiKey)
-
   const parcelLayer = new VectorLayer({ source: parcelSource, style: styleFunction })
 
   const layers = []
