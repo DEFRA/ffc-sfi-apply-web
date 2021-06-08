@@ -6,21 +6,9 @@
 
 {% block beforeContent %}
   <% htmlWebpackPlugin.files.css.forEach(file => { %>
-    <link href="<%= file.replace('../dist/', '/static/') %>" rel="stylesheet">
+    <link href="<%= file.replace('../dist/', 'static/') %>" rel="stylesheet">
   <% }) %>
-  <div class="govuk-breadcrumbs">
-    <ol class="govuk-breadcrumbs__list">
-      <li class="govuk-breadcrumbs__list-item">
-        <a class="govuk-breadcrumbs__link" href=".">Home</a>
-      </li>
-      <li class="govuk-breadcrumbs__list-item">
-        <a class="govuk-breadcrumbs__link" href="/search">Search</a>
-      </li>
-      <li class="govuk-breadcrumbs__list-item">
-        <a id="myLand" class="govuk-breadcrumbs__link" href="">My land</a>
-      </li>
-    </ol>
-  </div>
+  <a href="#" id="myLand" class="govuk-back-link" href="">Back</a>
 {% endblock %}
 
 {% block content %}
@@ -118,7 +106,7 @@
   </div>
 </div>
 <% htmlWebpackPlugin.files.js.forEach(file => { %>
-  <script src="<%= file.replace('../dist/', '/static/') %>"></script>
+  <script src="<%= file.replace('../dist/', 'static/') %>"></script>
 <% }) %>
 <script>
   const myLandBreadcrumbHref = '/map?sbi={{sbi}}&mapStyle='
