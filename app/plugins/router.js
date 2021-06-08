@@ -32,8 +32,8 @@ const routes = [].concat(
   require('../routes/submit'),
   require('../routes/confirmation'),
   require('../routes/clear-session'),
-  require('../routes/search'),
-  require('../routes/map')
+  require('../routes/map'),
+  require('../routes/map/parcel')
 )
 
 module.exports = {

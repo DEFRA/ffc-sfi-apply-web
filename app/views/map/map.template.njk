@@ -7,9 +7,9 @@
 {% from "govuk/components/back-link/macro.njk" import govukBackLink %}
 
 {% block beforeContent %}
-  
-    <link href="../static/css/map.2870bf644341987c4ad1.css" rel="stylesheet">
-  
+  <% htmlWebpackPlugin.files.css.forEach(file => { %>
+    <link href="<%= file.replace('../dist/', 'static/') %>" rel="stylesheet">
+  <% }) %>
   {{ govukBackLink({
         text: "Back",
         href: "/application-task-list",
@@ -62,9 +62,9 @@
     </table>
   </div>
 </div>
-
-  <script src="../static/js/map.2870bf644341987c4ad1.js"></script>
-
+<% htmlWebpackPlugin.files.js.forEach(file => { %>
+  <script src="<%= file.replace('../dist/', 'static/') %>"></script>
+<% }) %>
 <script>
   const parcels = {{ parcels | dump | safe }}
   const center = {{ center | dump | safe }}

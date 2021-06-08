@@ -46,7 +46,7 @@ const hightlightOnMouseOver = (parcelSource) => {
   document.querySelectorAll('#parcels tr').forEach(e => e.addEventListener('mouseout', () => {
     if (e.id) {
       const selectedFeature = parcelSource.getFeatureById(e.id)
-      selectedFeature.setStyle(landParcelStyles)
+      selectedFeature.setStyle(landParcelStyles.Polygon)
     }
   }))
 }
@@ -57,6 +57,8 @@ const mapStyles = [
   'Light_27700']
 
 const buildMapLayers = (parcelSource, apiKey) => {
+  console.log('build layers', parcelSource, apiKey)
+
   const parcelLayer = new VectorLayer({ source: parcelSource, style: styleFunction })
 
   const layers = []

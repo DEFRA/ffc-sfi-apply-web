@@ -53,6 +53,7 @@ container:
   redisPort: 6379
   redisPartition: ffc-sfi-apply-web
   cookiePassword: passwordpasswordpasswordpasswordpassword
+  osMapApiKey:
 
 postgresService:
   postgresDb: ffc_sfi_apply_web
