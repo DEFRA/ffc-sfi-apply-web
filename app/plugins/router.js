@@ -35,7 +35,7 @@ const routes = [].concat(
   require('../routes/withdrawn'),
   require('../routes/agreement'),
   require('../routes/clear-session'),
-  require('../routes/delete')
+  require('../routes/agreement/delete')
 )
 
 module.exports = {

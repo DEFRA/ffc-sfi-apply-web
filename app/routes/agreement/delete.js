@@ -1,27 +1,27 @@
 const joi = require('joi')
 const ViewModel = require('./models/delete')
-const { deleteAgreement } = require('../agreement')
-const cache = require('../cache')
+const { deleteAgreement } = require('../../agreement')
+const cache = require('../../cache')
 
 module.exports = [{
   method: 'GET',
-  path: '/delete',
+  path: '/agreement/delete',
   options: {
     handler: async (request, h) => {
-      return h.view('delete', new ViewModel())
+      return h.view('agreement/delete', new ViewModel())
     }
   }
 },
 {
   method: 'POST',
-  path: '/delete',
+  path: '/agreement/delete',
   options: {
     validate: {
       payload: joi.object({
         delete: joi.boolean().required()
       }),
       failAction: async (request, h, error) => {
-        return h.view('delete', new ViewModel(request.payload.delete, error)).code(400).takeover()
+        return h.view('agreement/delete', new ViewModel(request.payload.delete, error)).code(400).takeover()
       }
     },
     handler: async (request, h) => {
