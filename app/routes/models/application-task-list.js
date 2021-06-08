@@ -8,11 +8,18 @@ function ViewModel (progressCache) {
 }
 
 const validateSchema = (progressCache) => {
-  return taskList.map((taskGroup) => {
-    progressCache[taskGroup.dependsOn] && updateStatus(progressCache, taskGroup, 'NOT STARTED')
-    progressCache[taskGroup.id] && updateStatus(progressCache, taskGroup, 'COMPLETED')
-    return taskGroup
-  })
+  const taskListData = JSON.parse(JSON.stringify(taskList))
+
+  if (progressCache?.progress) {
+    const progress = progressCache.progress
+    return taskListData.map((taskGroup) => {
+      progress[taskGroup.dependsOn] && updateStatus(progress, taskGroup, 'NOT STARTED')
+      progress[taskGroup.id] && updateStatus(progress, taskGroup, 'COMPLETED')
+      return taskGroup
+    })
+  }
+
+  return taskListData
 }
 
 const updateStatus = (progressCache, taskGroup, status) => {

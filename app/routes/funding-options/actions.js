@@ -11,7 +11,7 @@ module.exports = [{
       const agreement = await cache.get('agreement', request.yar.id)
       const response = await getPollingResponse(request.yar.id, '/validate')
       if (response) {
-        console.info('Validation result received', response)
+        console.info('Validation result received', response, request.yar.id)
         if (response.isValid) {
           return h.view('funding-options/actions', new ViewModel({ primaryActions: agreement.primaryActions, paymentActions: agreement.paymentActions }))
         }
@@ -40,7 +40,9 @@ module.exports = [{
     handler: async (request, h) => {
       await cache.update('agreement', request.yar.id, request.payload)
       await cache.update('progress', request.yar.id, {
-        fundingOptions: { actions: true }
+        progress: {
+          fundingOptions: { actions: true }
+        }
       })
       return h.redirect('land-primary-actions')
     }

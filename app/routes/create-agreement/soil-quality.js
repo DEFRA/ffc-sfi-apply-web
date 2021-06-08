@@ -1,7 +1,6 @@
 const joi = require('joi')
 const ViewModel = require('./models/soil-quality')
 const cache = require('../../cache')
-const { saveAgreement } = require('../../agreement')
 
 module.exports = [{
   method: 'GET',
@@ -28,10 +27,9 @@ module.exports = [{
     handler: async (request, h) => {
       await cache.update('agreement', request.yar.id, request.payload)
       await cache.update('progress', request.yar.id, {
-        createAgreementOptions: { how: true }
+        progress: { createAgreementOptions: { how: true } }
       })
-      await saveAgreement(await cache.get('agreement', request.yar.id))
-      return h.redirect('/application-task-list')
+      return h.redirect('agreement-length')
     }
   }
 }]

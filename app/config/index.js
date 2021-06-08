@@ -79,6 +79,7 @@ value.standardsTopic = mqConfig.standardsTopic
 value.validateTopic = mqConfig.validateTopic
 value.calculateTopic = mqConfig.calculateTopic
 value.submitTopic = mqConfig.submitTopic
+value.withdrawTopic = mqConfig.withdrawTopic
 
 value.cacheConfig = cacheConfig
 
