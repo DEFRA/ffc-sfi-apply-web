@@ -40,9 +40,14 @@ async function loadAgreement (request) {
   }
 }
 
+async function deleteAgreement (agreement) {
+  await db.agreement.update({ statusId: 4 }, { where: { sbi: agreement.sbi } })
+}
+
 module.exports = {
   getAgreements,
   getAgreement,
   saveAgreement,
-  loadAgreement
+  loadAgreement,
+  deleteAgreement
 }
