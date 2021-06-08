@@ -17,7 +17,6 @@ module.exports = [{
   options: {
     handler: async (request, h) => {
       await cache.update('progress', request.yar.id, { progress: { paymentDetails: true } })
-
       const progressId = await saveProgress(await cache.get('progress', request.yar.id))
 
       await saveAgreement(await cache.get('agreement', request.yar.id), progressId)

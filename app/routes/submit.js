@@ -43,12 +43,12 @@ module.exports = [{
             return h.redirect('/application-task-list')
           }
           await sendAgreementSubmitMessage(agreement, request.yar.id)
-          await cache.update('progress', request.yar.id, { progress: { submitted: true } })
 
-          const progressId = await saveProgress(await cache.get('progress', request.yar.id))
+          const progress = await cache.update('progress', request.yar.id, { progress: { submitted: true } })
+          const progressId = await saveProgress(progress)
 
-          await cache.update('agreement', request.yar.id, { statusId: 2 })
-          await saveAgreement(await cache.get('agreement', request.yar.id), progressId)
+          const updatedAgreement = await cache.update('agreement', request.yar.id, { statusId: 2, submitted: true })
+          await saveAgreement(updatedAgreement, progressId)
         }
         return h.redirect('/confirmation')
       }

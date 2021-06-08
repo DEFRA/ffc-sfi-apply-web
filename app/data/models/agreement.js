@@ -23,8 +23,6 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: 'statusId',
       as: 'status'
     })
-  }
-  agreement.associate = function (models) {
     agreement.hasOne(models.progress, {
       foreignKey: 'progressId',
       as: 'progress'

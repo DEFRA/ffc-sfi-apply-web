@@ -1,29 +1,43 @@
 {% macro agreements(agreements) %}
-  <table class="govuk-table">
-    <caption class="govuk-table__caption govuk-table__caption--m">Agreements</caption>
-    <thead class="govuk-table__head">
-      <tr class="govuk-table__row">
-        <th scope="col" class="govuk-table__header">Id</th>
-        <th scope="col" class="govuk-table__header">SBI Number</th>
-        <th scope="col" class="govuk-table__header">Date</th>
-        <th scope="col" class="govuk-table__header">Status</th>
-      </tr>
-    </thead>
-    <tbody class="govuk-table__body">
-      {% for agreement in agreements %}
+  {% if agreements.length %}
+    <table class="govuk-table">
+      <caption class="govuk-table__caption govuk-table__caption--m">Agreements</caption>
+      <thead class="govuk-table__head">
         <tr class="govuk-table__row">
-          <th scope="row" class="govuk-table__header">{{ agreement.agreementId }}</th>
-          <td class="govuk-table__cell">{{ agreement.sbi }}</td>
-          <td class="govuk-table__cell">{{ agreement.updatedAtFormated }}</td>
-          <td class="govuk-table__cell">
-            {% if agreement.statusId === 1 %}
-              <a href="/agreement?agreementId={{agreement.agreementId}}">IN PROGRESS</a>
-            {% else %}
-              COMPLETED
-            {% endif %}
-          </td>
+          <th scope="col" class="govuk-table__header">Id</th>
+          <th scope="col" class="govuk-table__header">SBI</th>
+          <th scope="col" class="govuk-table__header">Date</th>
+          <th scope="col" class="govuk-table__header">Status</th>
+          <th scope="col" class="govuk-table__header"></th>
         </tr>
-      {% endfor %}
-    </tbody>
-  </table>
+      </thead>
+      <tbody class="govuk-table__body">
+        {% for agreement in agreements %}
+          <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">{{ agreement.agreementId }}</th>
+            <td class="govuk-table__cell">{{ agreement.sbi }}</td>
+            <td class="govuk-table__cell">{{ agreement.updatedAtFormated }}</td>
+            <td class="govuk-table__cell">
+              {% switch agreement.statusId %}
+              {% case 1 %}
+                <a href="/agreement?agreementId={{agreement.agreementId}}">IN PROGRESS</a>
+              {% case 2 %}
+                SUBMITTED
+              {% case 3 %}
+                WITHDRAWN
+              {% case 4 %}
+                DELETED
+              {% default %}
+              {% endswitch %}
+            </td>
+            <td class="govuk-table__cell">
+              {% if agreement.statusId === 2 %}
+                <a href="/withdraw?agreementId={{agreement.agreementId}}">Withdraw</a>
+              {% endif %}
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% endif %}
 {% endmacro %}

@@ -13,6 +13,7 @@ data:
   VALIDATE_TOPIC_ADDRESS: {{ quote .Values.container.validateTopicAddress }}
   CALCULATE_TOPIC_ADDRESS: {{ quote .Values.container.calculateTopicAddress }}
   SUBMIT_TOPIC_ADDRESS: {{ quote .Values.container.submitTopicAddress }}
+  WITHDRAW_TOPIC_ADDRESS: {{ quote .Values.container.withdrawTopicAddress }}
   AGREEMENT_CALCULATOR_ENDPOINT: {{ quote .Values.container.agreementCalculatorEndpoint }}
   SITI_AGRI_ENDPOINT: {{ quote .Values.container.sitiAgriEndpoint }}
   USE_AGREEMENT_CALCULATOR: {{ quote .Values.container.useAgreementCalculator }}
