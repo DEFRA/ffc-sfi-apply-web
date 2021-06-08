@@ -26,10 +26,16 @@ async function sendAgreementSubmitMessage (payload, correlationId) {
   console.info('Agreement submitted')
 }
 
+async function sendAgreementWithdrawMessage (payload, correlationId) {
+  await sendMessage(payload, 'uk.gov.sfi.agreement.withdraw', correlationId, config.withdrawTopic)
+  console.info('Agreement withdrawn')
+}
+
 module.exports = {
   sendEligibilityCheckMessage,
   sendStandardsRequestMessage,
   sendAgreementValidateMessage,
   sendAgreementCalculateMessage,
-  sendAgreementSubmitMessage
+  sendAgreementSubmitMessage,
+  sendAgreementWithdrawMessage
 }

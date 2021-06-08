@@ -1,7 +1,7 @@
 function ViewModel (value, agreements, error) {
   this.model = {
     searchSbiNumber: buildSearchSbiNumber(value, error),
-    agreements: agreements
+    agreements
   }
 }
 
@@ -14,18 +14,15 @@ const buildSearchSbiNumber = (value, error) => {
     },
     classes: 'govuk-input--width-10',
     hint: {
-      text: 'Single Business Idenifier (SBI)'
+      text: 'Single Business Identifier (SBI)'
     },
     id: 'sbi',
     name: 'sbi',
     inputmode: 'numeric',
     pattern: '[0-9]*',
     spellcheck: false,
-    autocomplete: 'off'
-  }
-
-  if (value != null) {
-    model.value = value
+    autocomplete: 'off',
+    value
   }
 
   if (error) {
