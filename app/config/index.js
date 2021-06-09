@@ -27,7 +27,9 @@ const schema = joi.object({
   polling: joi.object({
     interval: joi.number().default(500),
     retries: joi.number().default(20)
-  })
+  }),
+  publicApi: joi.string().default('https://environment.data.gov.uk/arcgis/rest/services/RPA/'),
+  osMapApiKey: joi.string().default('').allow('')
 })
 
 // Build config
@@ -47,6 +49,8 @@ const config = {
     clearInvalid: false,
     strictHeader: true
   },
+  publicApi: process.env.PUBLIC_API,
+  osMapApiKey: process.env.OS_MAP_API_KEY,
   agreementCalculatorEndpoint: process.env.AGREEMENT_CALCULATOR_ENDPOINT,
   sitiAgriEndpoint: process.env.SITI_AGRI_ENDPOINT,
   restClientTimeoutMillis: process.env.REST_CLIENT_TIMEOUT_IN_MILLIS,

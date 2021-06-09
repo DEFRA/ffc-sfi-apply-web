@@ -10,7 +10,8 @@ console.log(`Running webpack in ${isDev ? 'development' : 'production'} mode`)
 module.exports = {
   entry: {
     core: './app/frontend/css/index.js',
-    cookies: './app/frontend/js/cookies.js'
+    cookies: './app/frontend/js/cookies.js',
+    map: './app/frontend/js/map.js'
   },
   mode: isDev ? 'development' : 'production',
   module: {
@@ -77,6 +78,18 @@ module.exports = {
       filename: '../views/cookies/_cookie-banner.njk',
       template: 'app/views/cookies/_cookie-banner.template.njk',
       chunks: ['cookies']
+    }),
+    new HtmlWebpackPlugin({
+      inject: false,
+      filename: '../views/map/map.njk',
+      template: 'app/views/map/map.template.njk',
+      chunks: ['map']
+    }),
+    new HtmlWebpackPlugin({
+      inject: false,
+      filename: '../views/map/parcel.njk',
+      template: 'app/views/map/parcel.template.njk',
+      chunks: ['map']
     }),
     new MiniCssExtractPlugin({
       filename: 'css/[name].[fullhash].css'
