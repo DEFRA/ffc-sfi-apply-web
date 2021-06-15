@@ -8,6 +8,7 @@ module.exports = [{
   path: '/search-land-business-details',
   options: {
     handler: async (request, h) => {
+      await cache.update('progress', request.yar.id, { progressId: 0, progress: { eligibility: true } })
       const agreementData = await getAgreements()
       const agreement = await cache.get('agreement', request.yar.id)
       return h.view('land-business-details/search-land-business-details', new ViewModel(agreement.sbi, agreementData))
