@@ -1,7 +1,7 @@
 const taskList = [{
   id: 'businessDetails',
   taskGroup: 'Land and business details',
-  dependsOn: 'eligibility',
+  dependsOn: '',
   tasks: [{
     taskName: 'Confirm your land and business details',
     status: 'NOT STARTED',
