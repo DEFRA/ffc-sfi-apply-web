@@ -45,6 +45,10 @@ const getAllStandards = () => {
       text: 'Protect and improve my permanent grassland soils'
     },
     {
+      value: 'moorlandGrazing',
+      text: 'Protect and improve my moorland and rough grazing'
+    },
+    {
       value: 'livestockWelfare',
       text: 'Carry out a welfare assessment on my livestock'
     }
