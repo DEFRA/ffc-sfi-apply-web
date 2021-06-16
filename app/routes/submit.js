@@ -34,7 +34,11 @@ module.exports = [{
         if (!agreement.submitted) {
           if (!agreement.agreementNumber) {
             agreement.agreementNumber = generateAgreementNumber()
-            await cache.update('agreement', request.yar.id, { agreementNumber: agreement.agreementNumber })
+            await cache.update('agreement', request.yar.id,
+              {
+                agreementNumber: agreement.agreementNumber,
+                agreementLength: 'rolling'
+              })
           }
           const result = schema.validate(agreement, { allowUnknown: true })
           if (result.error) {
