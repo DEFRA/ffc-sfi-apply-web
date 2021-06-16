@@ -45,13 +45,6 @@ const taskList = [{
     url: 'create-agreement/soil-assessment'
   },
   {
-    id: 'agreementLength',
-    dependsOn: 'createAgreementOptions',
-    taskName: 'Set up your agreement length and renewal period',
-    status: 'CANNOT START YET',
-    url: 'create-agreement/agreement-length'
-  },
-  {
     taskName: 'Review your agreement',
     status: 'CANNOT START YET',
     url: 'create-agreement/review'
