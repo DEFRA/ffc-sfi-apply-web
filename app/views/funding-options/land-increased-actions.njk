@@ -15,9 +15,12 @@
       <h1 class="govuk-heading-l">Increased payment actions</h1>
       <form method="POST" action="/funding-options/land-increased-actions" novalidate>
         <input type="hidden" name="crumb" value="{{crumb}}"/>
-        {{ govukInput(model.greenCover) }}
-        {{ govukInput(model.permanentGrass) }}
-
+        {% if model.establishGreenCover%}
+          {{ govukInput(model.greenCover) }}
+        {% endif %}
+        {% if model.convertArableLand %}
+          {{ govukInput(model.permanentGrass) }}
+        {% endif %}
         {{ govukButton({
           text: "Continue",
           attributes: {

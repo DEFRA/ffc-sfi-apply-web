@@ -9,7 +9,7 @@ module.exports = [{
   options: {
     handler: async (request, h) => {
       const agreement = await cache.get('agreement', request.yar.id)
-      return h.view('funding-options/land-increased-actions', new ViewModel({ greenCover: agreement.greenCover, permanentGrass: agreement.permanentGrass }))
+      return h.view('funding-options/land-increased-actions', new ViewModel({ paymentActions: agreement.paymentActions, greenCover: agreement.greenCover, permanentGrass: agreement.permanentGrass }))
     }
   }
 },

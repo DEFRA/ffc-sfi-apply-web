@@ -1,5 +1,7 @@
 function ViewModel (values, errors) {
   this.model = {
+    convertArableLand: values?.paymentActions.length > 0 && values?.paymentActions.includes('convertArableLand'),
+    establishGreenCover: values?.paymentActions.length > 0 && values?.paymentActions.includes('establishGreenCover'),
     greenCover: greenCover(values?.greenCover, errors),
     permanentGrass: permanentGrass(values?.permanentGrass, errors)
   }

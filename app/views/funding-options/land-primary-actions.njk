@@ -15,8 +15,48 @@
       <h1 class="govuk-heading-l">How much of your land will you use for the primary actions?</h1>
       <form method="POST" action="/funding-options/land-primary-actions" novalidate>
         <input type="hidden" name="crumb" value="{{crumb}}"/>
-        {{ govukInput(model) }}
-
+                        
+        {% if landParcels.features.length %}
+          <table id="parcels" class="govuk-table">
+            <thead class="govuk-table__head">
+              <tr class="govuk-table__row">
+                <th scope="col" class="govuk-table__header">Parcel Number</th>
+                <th scope="col" class="govuk-table__header">Total Area</th>
+                <th scope="col" class="govuk-table__header">Land in hectares</th>
+              </tr>
+            </thead>
+            <tbody class="govuk-table__body">
+              {% for feature in landParcels.features %}
+              <tr class="govuk-table__row" id="{{feature.id}}">
+                <td class="govuk-table__cell">
+                    {{ feature.properties.sheet_id }} {{ feature.properties.parcel_id }}
+                </td>
+                <td class="govuk-table__cell">
+                  {{ feature.properties.area_ha | round(4) }}
+                </td>
+                <td class="govuk-table__cell">
+                  {% if landInHectares.length > 0 %}
+                    {% for landInHectare in landInHectares %}                      
+                      {% set parcelNumber = [feature.properties.sheet_id, feature.properties.parcel_id] | join %}                     
+                      {% if parcelNumber === landInHectare.name %}
+                        <div class="govuk-input__wrapper">
+                            <input class="govuk-input govuk-input--width-5" id="{{feature.properties.sheet_id}}{{feature.properties.parcel_id}}" name="{{feature.properties.sheet_id}}{{feature.properties.parcel_id}}" type="text" spellcheck="false" autocomplete="false" inputMode="decimal" value="{{landInHectare.value}}" area="{{ feature.properties.area_ha | round(4) }}">
+                            <div class="govuk-input__suffix" aria-hidden="true">ha</div>
+                        </div>
+                      {% endif %}
+                    {% endfor %}                  
+                  {% else %}
+                    <div class="govuk-input__wrapper">
+                      <input class="govuk-input govuk-input--width-5" id="{{feature.properties.sheet_id}}{{feature.properties.parcel_id}}" name="{{feature.properties.sheet_id}}{{feature.properties.parcel_id}}" type="text" spellcheck="false" autocomplete="false" inputMode="decimal">
+                      <div class="govuk-input__suffix" aria-hidden="true">ha</div>
+                    </div>
+                  {% endif %}
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        {% endif %}
         {{ govukButton({
           text: "Continue",
           attributes: {
@@ -27,3 +67,6 @@
     </div>
   </div>
 {% endblock %}
+<script>
+  document.getElementById("govuk-form-group").style.marginBottom = "unset";
+</script>

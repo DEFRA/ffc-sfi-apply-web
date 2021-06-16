@@ -1,26 +1,31 @@
 function ViewModel (value, error) {
-  // Constructor function to create logic dependent nunjucks page
   this.model = {
+    landInHectares: landInHectares(value?.landInHectares, value?.landParcels, error),
+    landParcels: value?.landParcels
+  }
+}
+
+const landInHectares = (value, landParcels, error) => {
+  const rows = []
+
+  landParcels.features.forEach(element => {
+    rows.push(createRowItem(element.feature.properties.sheet_id + element.feature.properties.parcel_id))
+  })
+
+  return rows
+}
+
+const createRowItem = (id) => {
+  return {
     label: {
       text: 'Land in hectares'
     },
-    classes: 'govuk-input--width-5',
-    id: 'landInHectares',
-    name: 'landInHectares',
-    suffix: {
-      text: 'ha'
+    id: id,
+    key: {
+      text: id
     },
-    autocomplete: false,
-    spellcheck: false,
-    value
-  }
-  if (value) {
-    this.model.value = value
-  }
-  // If error is passed to model then this error property is added to the model
-  if (error) {
-    this.model.errorMessage = {
-      text: 'Please enter how much of your land will you use for the primary actions.'
+    value: {
+      text: ''// agreementOptions.find(x => x.value === values.soilAssessment).text
     }
   }
 }
