@@ -3,6 +3,10 @@ info:
   title: FFC SFI Apply Web
   version: '1.0.0'
 channels:
+  eligibility/check:
+    publish:
+      message:
+        $ref: '#/components/messages/EligibilityCheck'
   agreement/submit:
     publish:
       message:
@@ -10,10 +14,17 @@ channels:
   agreement/withdraw:
     publish:
       message:
-        $ref: '#/components/messages/WithdrawAgreement'
+        $ref: '#/components/messages/WithdrawAgreement'  
 
 components:
   messages:
+    EligibilityCheck:
+      payload:
+        type: object
+        properties:
+          sbi:
+            type: number
+            description: Single Business Identifier
     SubmitAgreement:
       payload:
         type: object
