@@ -97,4 +97,4 @@ components:
       properties:
         area:
           type: decimal
-          description: Declared area in hectares
+          description: Eligible area in hectares
