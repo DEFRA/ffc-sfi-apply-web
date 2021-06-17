@@ -1,0 +1,24 @@
+asyncapi: 2.0.0
+info:
+  title: FFC SFI Apply Web
+  version: '1.0.0'
+channels:
+  agreement/submit:
+    publish:
+      message:
+        $ref: '#/components/messages/SubmitAgreement'
+
+components:
+  messages:
+    SubmitAgreement:
+      payload:
+        type: object
+        properties:
+          sbi:
+            type: number
+            description: Single Business Identifier
+          agreementNumber:
+            type: string
+            description: Unique agreement reference
+          agreement:
+            type: object
