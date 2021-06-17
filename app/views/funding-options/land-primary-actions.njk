@@ -3,6 +3,7 @@
 {% from "govuk/components/back-link/macro.njk" import govukBackLink %}
 {% from "govuk/components/input/macro.njk" import govukInput %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
 
 {% block beforeContent %}
   <a id="back" href="#" onclick="history.back()" class="govuk-back-link">Back</a>
@@ -15,7 +16,16 @@
       <h1 class="govuk-heading-l">How much of your land will you use for the primary actions?</h1>
       <form method="POST" action="/funding-options/land-primary-actions" novalidate>
         <input type="hidden" name="crumb" value="{{crumb}}"/>
-                        
+        {% if errors %}
+          {{ govukErrorSummary({
+          titleText: "There is a problem",
+          errorList: [
+            {
+              text: "Please enter valid values"
+            }
+            ]
+          }) }}
+        {% endif%}
         {% if landParcels.features.length %}
           <table id="parcels" class="govuk-table">
             <thead class="govuk-table__head">
@@ -36,19 +46,20 @@
                 </td>
                 <td class="govuk-table__cell">
                   {% if landInHectares.length > 0 %}
-                    {% for landInHectare in landInHectares %}                      
-                      {% set parcelNumber = [feature.properties.sheet_id, feature.properties.parcel_id] | join %}                     
+                    {% for landInHectare in landInHectares %}
+                      {% set parcelNumber = [feature.properties.sheet_id, feature.properties.parcel_id] | join %}
                       {% if parcelNumber === landInHectare.name %}
                         <div class="govuk-input__wrapper">
-                            <input class="govuk-input govuk-input--width-5" id="{{feature.properties.sheet_id}}{{feature.properties.parcel_id}}" name="{{feature.properties.sheet_id}}{{feature.properties.parcel_id}}" type="text" spellcheck="false" autocomplete="false" inputMode="decimal" value="{{landInHectare.value}}" area="{{ feature.properties.area_ha | round(4) }}">
+                            <input class="govuk-input govuk-input--width-5" id="{{feature.properties.sheet_id}}{{feature.properties.parcel_id}}" name="{{feature.properties.sheet_id}}{{feature.properties.parcel_id}}" type="text" spellcheck="false" autocomplete="false" inputMode="decimal" value="{{landInHectare.value}}">
                             <div class="govuk-input__suffix" aria-hidden="true">ha</div>
+                            <input type="text" style="display:none" name="{{parcelNumber}}" value="{{ feature.properties.area_ha | round(4) }}" hidden>
                         </div>
                       {% endif %}
-                    {% endfor %}                  
+                    {% endfor %}
                   {% else %}
                     <div class="govuk-input__wrapper">
                       <input class="govuk-input govuk-input--width-5" id="{{feature.properties.sheet_id}}{{feature.properties.parcel_id}}" name="{{feature.properties.sheet_id}}{{feature.properties.parcel_id}}" type="text" spellcheck="false" autocomplete="false" inputMode="decimal">
-                      <div class="govuk-input__suffix" aria-hidden="true">ha</div>
+                      <div class="govuk-input__suffix" aria-hidden="true">ha</div>                      
                     </div>
                   {% endif %}
                 </td>
