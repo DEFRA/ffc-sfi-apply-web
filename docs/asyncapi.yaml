@@ -38,7 +38,7 @@ components:
             description: Single Business Identifier
           agreementNumber:
             type: string
-            description: Unique agreement reference
+            description: unique agreement reference
           calculation:
             $ref: '#/components/schemas/Calculation'
     SubmitAgreement:
@@ -50,7 +50,7 @@ components:
             description: Single Business Identifier
           agreementNumber:
             type: string
-            description: Unique agreement reference
+            description: unique agreement reference
           agreement:
             type: object
     WithdrawAgreement:
@@ -62,7 +62,7 @@ components:
             description: Single Business Identifier
           agreementNumber:
             type: string
-            description: Unique agreement reference
+            description: unique agreement reference
 
   schemas:
     Calculation:
@@ -97,4 +97,4 @@ components:
       properties:
         area:
           type: number
-          description: Eligible area in hectares
+          description: eligible area in hectares
