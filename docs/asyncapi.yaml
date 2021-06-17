@@ -7,6 +7,10 @@ channels:
     publish:
       message:
         $ref: '#/components/messages/SubmitAgreement'
+  agreement/withdraw:
+    publish:
+      message:
+        $ref: '#/components/messages/WithdrawAgreement'
 
 components:
   messages:
@@ -22,3 +26,13 @@ components:
             description: Unique agreement reference
           agreement:
             type: object
+    WithdrawAgreement:
+      payload:
+        type: object
+        properties:
+          sbi:
+            type: number
+            description: Single Business Identifier
+          agreementNumber:
+            type: string
+            description: Unique agreement reference
