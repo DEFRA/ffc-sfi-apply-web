@@ -1,20 +1,10 @@
 const taskList = [{
-  id: 'eligibility',
-  taskGroup: 'Check before you start',
-  dependsOn: '',
-  tasks: [{
-    taskName: 'Check eligibility',
-    status: 'NOT STARTED',
-    url: 'check-eligibility/bps'
-  }]
-},
-{
   id: 'businessDetails',
   taskGroup: 'Land and business details',
-  dependsOn: 'eligibility',
+  dependsOn: '',
   tasks: [{
     taskName: 'Confirm your land and business details',
-    status: 'CANNOT START YET',
+    status: 'NOT STARTED',
     url: 'search-land-business-details'
   }]
 },
@@ -53,13 +43,6 @@ const taskList = [{
     taskName: 'Tell us how you will carry out your chosen actions',
     status: 'CANNOT START YET',
     url: 'create-agreement/soil-assessment'
-  },
-  {
-    id: 'agreementLength',
-    dependsOn: 'createAgreementOptions',
-    taskName: 'Set up your agreement length and renewal period',
-    status: 'CANNOT START YET',
-    url: 'create-agreement/agreement-length'
   },
   {
     taskName: 'Review your agreement',
