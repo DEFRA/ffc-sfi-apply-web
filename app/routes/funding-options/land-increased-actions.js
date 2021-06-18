@@ -19,12 +19,13 @@ module.exports = [{
   options: {
     validate: {
       payload: joi.object({
-        greenCover: joi.number().greater(0).required(),
-        permanentGrass: joi.number().greater(0).required()
+        greenCover: joi.number().greater(0).optional(),
+        permanentGrass: joi.number().greater(0).optional()
       }),
       failAction: async (request, h, error) => {
+        const agreement = await cache.get('agreement', request.yar.id)
         return h.view('funding-options/land-increased-actions',
-          new ViewModel({ greenCover: request.payload.greenCover, permanentGrass: request.payload.permanentGrass }, error)).code(400).takeover()
+          new ViewModel({ paymentActions: agreement.paymentActions, greenCover: request.payload.greenCover, permanentGrass: request.payload.permanentGrass }, error)).code(400).takeover()
       }
     },
     handler: async (request, h) => {
