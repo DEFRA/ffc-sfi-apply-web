@@ -5,9 +5,6 @@ module.exports = joi.object({
 }).error(errors => {
   errors.forEach(err => {
     switch (err.code) {
-      case 'number.greater':
-        err.message = 'The SBI is too short.'
-        break
       case 'number.less':
         err.message = 'The SBI is too long.'
         break
