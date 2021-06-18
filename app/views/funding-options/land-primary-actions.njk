@@ -45,9 +45,9 @@
                   {{ feature.properties.area_ha | round(4) }}
                 </td>
                 <td class="govuk-table__cell">
+                  {% set parcelNumber = [feature.properties.sheet_id, feature.properties.parcel_id] | join %}
                   {% if landInHectares.length > 0 %}
                     {% for landInHectare in landInHectares %}
-                      {% set parcelNumber = [feature.properties.sheet_id, feature.properties.parcel_id] | join %}
                       {% if parcelNumber === landInHectare.name %}
                         <div class="govuk-input__wrapper">
                             <input class="govuk-input govuk-input--width-5" id="{{feature.properties.sheet_id}}{{feature.properties.parcel_id}}" name="{{feature.properties.sheet_id}}{{feature.properties.parcel_id}}" type="text" spellcheck="false" autocomplete="false" inputMode="decimal" value="{{landInHectare.value}}">
@@ -59,7 +59,8 @@
                   {% else %}
                     <div class="govuk-input__wrapper">
                       <input class="govuk-input govuk-input--width-5" id="{{feature.properties.sheet_id}}{{feature.properties.parcel_id}}" name="{{feature.properties.sheet_id}}{{feature.properties.parcel_id}}" type="text" spellcheck="false" autocomplete="false" inputMode="decimal">
-                      <div class="govuk-input__suffix" aria-hidden="true">ha</div>                      
+                      <div class="govuk-input__suffix" aria-hidden="true">ha</div>
+                      <input type="text" style="display:none" name="{{parcelNumber}}" value="{{ feature.properties.area_ha | round(4) }}" hidden>
                     </div>
                   {% endif %}
                 </td>
