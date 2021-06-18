@@ -8,9 +8,6 @@ describe('check-eligibility funding-options/land-primary-actions route', () => {
 
   const { getParcels } = require('../../../../../app/api/map')
 
-  /*   jest.mock('../../../../../app/api/map', () => ({
-    getParcels: () => {}
-  })) */
   getParcels.mockResolvedValue({ parcels: null })
 
   beforeEach(async () => {
