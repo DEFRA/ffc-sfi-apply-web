@@ -61,7 +61,7 @@ describe('check-eligibility funding-options/land-primary-actions route', () => {
 
     const result = await server.inject(options)
     expect(result.statusCode).toBe(302)
-    expect(result.headers.location).toBe('calculation')
+    expect(result.headers.location).toBe('validation')
   })
 
   test('POST /funding-options/land-primary-actions returns 400', async () => {
