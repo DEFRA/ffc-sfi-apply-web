@@ -1,6 +1,6 @@
 const joi = require('joi')
 const ViewModel = require('./models/standards')
-const { sendStandardsRequestMessage, sendAgreementValidateMessage } = require('../../messaging')
+const { sendStandardsRequestMessage } = require('../../messaging')
 const getPollingResponse = require('../../polling')
 const cache = require('../../cache')
 
@@ -40,8 +40,7 @@ module.exports = [{
       }
     },
     handler: async (request, h) => {
-      const agreement = await cache.update('agreement', request.yar.id, request.payload)
-      await sendAgreementValidateMessage(agreement, request.yar.id)
+      await cache.update('agreement', request.yar.id, request.payload)
       await cache.update('progress', request.yar.id, {
         progress: {
           fundingOptions: { standards: true }

@@ -1,4 +1,4 @@
-const { sendAgreementCalculateMessage } = require('../../messaging')
+const { sendAgreementValidateMessage } = require('../../messaging')
 const cache = require('../../cache')
 const { getParcels } = require('../../api/map')
 
@@ -28,18 +28,13 @@ module.exports = [{
           { landInHectares: landInHectares, landParcels: parcels, errors: true }).code(400).takeover()
       } else {
         await cache.update('agreement', request.yar.id, { landInHectares: landInHectares })
-
-        if (agreement.paymentActions !== undefined && agreement.paymentActions.length > 0) {
-          return h.redirect('land-increased-actions')
-        } else {
-          await sendAgreementCalculateMessage(agreement, request.yar.id)
-          await cache.update('progress', request.yar.id, {
-            progress: {
-              fundingOptions: { land: true }
-            }
-          })
-          return h.redirect('calculation')
-        }
+        await sendAgreementValidateMessage(agreement, request.yar.id)
+        await cache.update('progress', request.yar.id, {
+          progress: {
+            fundingOptions: { land: true }
+          }
+        })
+        return h.redirect('validation')
       }
     }
   }
