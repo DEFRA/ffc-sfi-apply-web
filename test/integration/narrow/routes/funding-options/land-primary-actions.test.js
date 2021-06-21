@@ -2,8 +2,13 @@ describe('check-eligibility funding-options/land-primary-actions route', () => {
   jest.mock('ffc-messaging')
   jest.mock('../../../../../app/api')
   jest.mock('../../../../../app/plugins/crumb')
+  jest.mock('../../../../../app/api/map')
   let createServer
   let server
+
+  const { getParcels } = require('../../../../../app/api/map')
+
+  getParcels.mockResolvedValue({ parcels: null })
 
   beforeEach(async () => {
     createServer = require('../../../../../app/server')
@@ -40,7 +45,7 @@ describe('check-eligibility funding-options/land-primary-actions route', () => {
     const options = {
       method: 'POST',
       url: '/funding-options/land-primary-actions',
-      payload: { landInHectares: '100' }
+      payload: { landInHectares: [{ name: 'SE98491742', value: 2, valid: true }] }
     }
 
     const result = await server.inject(options)
@@ -51,19 +56,19 @@ describe('check-eligibility funding-options/land-primary-actions route', () => {
     const options = {
       method: 'POST',
       url: '/funding-options/land-primary-actions',
-      payload: { landInHectares: '100' }
+      payload: { landInHectares: [{ name: 'SE98491742', value: 2, valid: true }] }
     }
 
     const result = await server.inject(options)
     expect(result.statusCode).toBe(302)
-    expect(result.headers.location).toBe('land-increased-actions')
+    expect(result.headers.location).toBe('calculation')
   })
 
   test('POST /funding-options/land-primary-actions returns 400', async () => {
     const options = {
       method: 'POST',
       url: '/funding-options/land-primary-actions',
-      payload: {}
+      payload: { SE98491742: ['23', '8.2'] }
     }
 
     const result = await server.inject(options)
