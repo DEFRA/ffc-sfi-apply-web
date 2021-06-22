@@ -52,7 +52,7 @@ module.exports = [
             landInHectares: landInHectares,
             landParcels: parcels,
             errors: true
-          })
+          }).code(400).takeover()
         } else {
           await cache.update('agreement', request.yar.id, { landInHectares: landInHectares })
 

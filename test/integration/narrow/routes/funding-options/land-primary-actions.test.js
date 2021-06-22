@@ -8,7 +8,7 @@ describe('check-eligibility funding-options/land-primary-actions route', () => {
 
   const { getParcels } = require('../../../../../app/api/map')
 
-  getParcels.mockResolvedValue({ parcels: null })
+  getParcels.mockReturnValue({ parcels: { features: [{ properties: { area_ha: 8.234, parcel_id: '1742', sheet_id: 'SE9849' } }] } })
 
   beforeEach(async () => {
     createServer = require('../../../../../app/server')
@@ -45,7 +45,7 @@ describe('check-eligibility funding-options/land-primary-actions route', () => {
     const options = {
       method: 'POST',
       url: '/funding-options/land-primary-actions',
-      payload: { landInHectares: [{ name: 'SE98491742', value: 2, valid: true }] }
+      payload: { SE9849_1742: 2 }
     }
 
     const result = await server.inject(options)
@@ -56,7 +56,7 @@ describe('check-eligibility funding-options/land-primary-actions route', () => {
     const options = {
       method: 'POST',
       url: '/funding-options/land-primary-actions',
-      payload: { landInHectares: [{ name: 'SE98491742', value: 2, valid: true }] }
+      payload: { SE9849_1742: 2 }
     }
 
     const result = await server.inject(options)
@@ -68,7 +68,7 @@ describe('check-eligibility funding-options/land-primary-actions route', () => {
     const options = {
       method: 'POST',
       url: '/funding-options/land-primary-actions',
-      payload: { SE98491742: ['23', '8.2'] }
+      payload: { SE9849_1742: 23 }
     }
 
     const result = await server.inject(options)
