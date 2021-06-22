@@ -37,7 +37,7 @@ module.exports = [{
             await cache.clear('progress', request.yar.id)
             return h.redirect('/application-task-list')
           }
-          await sendAgreementSubmitMessage(agreement, request.yar.id)
+          await sendAgreementSubmitMessage({ sbi: agreement.sbi, agreementNumber: agreement.agreementNumber, agreement }, request.yar.id)
 
           const progress = await cache.update('progress', request.yar.id, { progress: { submitted: true } })
           const progressId = await saveProgress(progress)
