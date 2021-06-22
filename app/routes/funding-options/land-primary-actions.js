@@ -15,7 +15,7 @@ function getLandInHectares (payload, parcels) {
     return {
       name,
       value,
-      valid: value < feature.properties.area_ha
+      valid: value <= feature.properties.area_ha
     }
   })
 }
