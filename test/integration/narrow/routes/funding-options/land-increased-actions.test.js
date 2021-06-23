@@ -63,7 +63,7 @@ describe('check-eligibility funding-options/land-increased-actions route', () =>
     const options = {
       method: 'POST',
       url: '/funding-options/land-increased-actions',
-      payload: {}
+      payload: { greenCover: '' }
     }
 
     const result = await server.inject(options)
