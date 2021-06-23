@@ -1,6 +1,5 @@
 const joi = require('joi')
 const ViewModel = require('./models/actions')
-const getPollingResponse = require('../../polling')
 const cache = require('../../cache')
 
 module.exports = [{
@@ -9,15 +8,7 @@ module.exports = [{
   options: {
     handler: async (request, h) => {
       const agreement = await cache.get('agreement', request.yar.id)
-      const response = await getPollingResponse(request.yar.id, '/validate')
-      if (response) {
-        console.info('Validation result received', response, request.yar.id)
-        if (response.isValid) {
-          return h.view('funding-options/actions', new ViewModel({ primaryActions: agreement.primaryActions, paymentActions: agreement.paymentActions }))
-        }
-        return h.view('funding-options/not-valid')
-      }
-      return h.redirect('standards?referrer=actions')
+      return h.view('funding-options/actions', new ViewModel({ primaryActions: agreement.primaryActions, paymentActions: agreement.paymentActions }))
     }
   }
 },
