@@ -26,7 +26,9 @@ module.exports = [{
   options: {
     validate: {
       payload: joi.object({
-        standards: joi.array().allow('soilProtection', 'permanentGrasslandProtection', 'livestockWelfare', 'moorlandGrazing').required()
+        standards: joi.array().items(
+          joi.string().allow('soilProtection', 'permanentGrasslandProtection', 'livestockWelfare', 'moorlandGrazing').required()
+        ).single().required()
       }),
       failAction: async (request, h, error) => {
         const agreement = await cache.get('agreement', request.yar.id)
