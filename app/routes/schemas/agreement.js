@@ -2,7 +2,7 @@ const joi = require('joi')
 
 module.exports = joi.object({
   sbi: joi.number().required(),
-  standards: joi.alternatives().try(joi.array().required(), joi.string().required()),
+  standards: joi.array().items().required().single().required(),
   primaryActions: joi.array().required(),
   landInHectares: joi.number().required(),
   greenCover: joi.number().required(),

@@ -28,9 +28,9 @@ module.exports = [{
     validate: {
       payload: joi.object({
         primaryActions: joi.array().items(joi.string().allow('cultivateDrillSlope', 'stripTillageNotil', 'soilManagementPlan', 'avoidMachineryTraffic', 'soilAssessment', 'useShallow', 'addOrganicMatter')).required().min(4),
-        paymentActions: joi.alternatives().try(
-          joi.array().items(joi.string().allow('establishGreenCover', 'convertArableLand')),
-          joi.string())
+        paymentActions: joi.array().items(
+          joi.string().allow('establishGreenCover', 'convertArableLand').required()
+        ).single()
       }),
       failAction: async (request, h, error) => {
         return h.view('funding-options/actions',
@@ -38,6 +38,7 @@ module.exports = [{
       }
     },
     handler: async (request, h) => {
+      console.log('#########', request.payload)
       await cache.update('agreement', request.yar.id, request.payload)
       await cache.update('progress', request.yar.id, {
         progress: {
