@@ -3,6 +3,7 @@
 {% from "govuk/components/back-link/macro.njk" import govukBackLink %}
 {% from "govuk/components/input/macro.njk" import govukInput %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
 
 {% block beforeContent %}
   <a id="back" href="#" onclick="history.back()" class="govuk-back-link">Back</a>
@@ -15,8 +16,57 @@
       <h1 class="govuk-heading-l">How much of your land will you use for the primary actions?</h1>
       <form method="POST" action="/funding-options/land-primary-actions" novalidate>
         <input type="hidden" name="crumb" value="{{crumb}}"/>
-        {{ govukInput(model) }}
-
+        {% if errors %}
+          {{ govukErrorSummary({
+            titleText: "There is a problem",
+            errorList: [
+              {
+                text: "Please enter valid values"
+              }
+            ]
+          }) }}
+        {% endif %}
+        {% if landParcels.features.length %}
+          <table id="parcels" class="govuk-table">
+            <thead class="govuk-table__head">
+              <tr class="govuk-table__row">
+                <th scope="col" class="govuk-table__header">Parcel Number</th>
+                <th scope="col" class="govuk-table__header">Total Area</th>
+                <th scope="col" class="govuk-table__header">Land in hectares</th>
+              </tr>
+            </thead>
+            <tbody class="govuk-table__body">
+              {% for feature in landParcels.features %}
+              <tr class="govuk-table__row" id="{{feature.id}}">
+                <td class="govuk-table__cell">
+                  {{ feature.properties.sheet_id }} {{ feature.properties.parcel_id }}
+                </td>
+                <td class="govuk-table__cell">
+                  {{ feature.properties.area_ha | round(4) }}
+                </td>
+                <td class="govuk-table__cell">
+                  {% set parcelNumber = [feature.properties.sheet_id, feature.properties.parcel_id] | join('_') %}
+                  {% if landInHectares.length > 0 %}
+                    {% for landInHectare in landInHectares %}
+                      {% if parcelNumber === landInHectare.name %}
+                        <div class="govuk-input__wrapper">
+                          <input class="govuk-input govuk-input--width-5" name="{{feature.properties.sheet_id}}_{{feature.properties.parcel_id}}" type="text" spellcheck="false" autocomplete="false" inputMode="decimal" value="{{landInHectare.value}}">
+                          <div class="govuk-input__suffix" aria-hidden="true">ha</div>
+                        </div>
+                      {% endif %}
+                    {% endfor %}
+                  {% else %}
+                    <div class="govuk-input__wrapper">
+                      <input class="govuk-input govuk-input--width-5" name="{{feature.properties.sheet_id}}_{{feature.properties.parcel_id}}" type="text" spellcheck="false" autocomplete="false" inputMode="decimal">
+                      <div class="govuk-input__suffix" aria-hidden="true">ha</div>
+                    </div>
+                  {% endif %}
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        {% endif %}
         {{ govukButton({
           text: "Continue",
           attributes: {
@@ -27,3 +77,6 @@
     </div>
   </div>
 {% endblock %}
+<script>
+  document.getElementById("govuk-form-group").style.marginBottom = "unset";
+</script>
