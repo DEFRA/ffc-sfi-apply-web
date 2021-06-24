@@ -3,6 +3,7 @@ describe('check-eligibility funding-options/land-primary-actions route', () => {
   jest.mock('../../../../../app/api')
   jest.mock('../../../../../app/plugins/crumb')
   jest.mock('../../../../../app/api/map')
+  jest.mock('../../../../../app/calculation')
   let createServer
   let server
 
