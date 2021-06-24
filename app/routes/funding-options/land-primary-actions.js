@@ -60,7 +60,7 @@ module.exports = [
           if (agreement.paymentActions?.length > 0) {
             return h.redirect('land-increased-actions')
           } else {
-            await sendAgreementValidateMessage(buildMessage(agreement), request.yar.id)
+            await sendAgreementValidateMessage(buildMessage(await cache.get('agreement', request.yar.id)), request.yar.id)
             await cache.update('progress', request.yar.id, {
               progress: {
                 fundingOptions: { land: true }

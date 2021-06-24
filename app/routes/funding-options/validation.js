@@ -17,7 +17,6 @@ module.exports = [{
           if (agreement.paymentActions !== undefined && agreement.paymentActions.length > 0) {
             return h.redirect('land-increased-actions')
           } else {
-            console.log('validation', agreement)
             await sendAgreementCalculateMessage(buildMessage(agreement), request.yar.id)
             return h.redirect('calculation')
           }
