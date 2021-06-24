@@ -1,6 +1,7 @@
 const getPollingResponse = require('../../polling')
 const { sendAgreementCalculateMessage } = require('../../messaging')
 const cache = require('../../cache')
+const buildMessage = require('../../calculation')
 
 module.exports = [{
   method: 'GET',
@@ -16,7 +17,8 @@ module.exports = [{
           if (agreement.paymentActions !== undefined && agreement.paymentActions.length > 0) {
             return h.redirect('land-increased-actions')
           } else {
-            await sendAgreementCalculateMessage(agreement, request.yar.id)
+            console.log('validation', agreement)
+            await sendAgreementCalculateMessage(buildMessage(agreement), request.yar.id)
             return h.redirect('calculation')
           }
         } else {

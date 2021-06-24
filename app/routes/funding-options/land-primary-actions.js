@@ -2,6 +2,7 @@ const { sendAgreementValidateMessage } = require('../../messaging')
 const joi = require('joi')
 const cache = require('../../cache')
 const { getParcels } = require('../../api/map')
+const buildMessage = require('../../calculation') 
 
 function getLandInHectares (payload, parcels) {
   return Object.entries(payload).map(entry => {
@@ -59,7 +60,7 @@ module.exports = [
           if (agreement.paymentActions?.length > 0) {
             return h.redirect('land-increased-actions')
           } else {
-            await sendAgreementValidateMessage(agreement, request.yar.id)
+            await sendAgreementValidateMessage(buildMessage(agreement), request.yar.id)
             await cache.update('progress', request.yar.id, {
               progress: {
                 fundingOptions: { land: true }
