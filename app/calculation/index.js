@@ -15,11 +15,11 @@ const buildMessage = (agreement) => {
             addOrganicMatter: buildActions('addOrganicMatter', agreement),
             establishGreenCover: buildPropertyAction('greenCover', agreement),
             convertArableLand: buildPropertyAction('permanentGrass', agreement)
-          },
-          permanentGrasslandProtection: { actions: [] },
-          moorlandGrazing: { actions: [] },
-          livestockWelfare: { actions: [] }
-        }
+          }
+        },
+        permanentGrasslandProtection: { actions: [] },
+        moorlandGrazing: { actions: [] },
+        livestockWelfare: { actions: [] }
       }
     }
   }
