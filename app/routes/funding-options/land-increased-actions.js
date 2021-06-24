@@ -31,6 +31,7 @@ module.exports = [{
     },
     handler: async (request, h) => {
       const agreement = await cache.update('agreement', request.yar.id, request.payload)
+      console.log('###########', JSON.stringify(buildMessage(agreement)))
       await sendAgreementCalculateMessage(buildMessage(agreement), request.yar.id)
       await cache.update('progress', request.yar.id, {
         progress: {
