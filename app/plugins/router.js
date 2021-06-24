@@ -20,6 +20,7 @@ const routes = [].concat(
   require('../routes/funding-options/land-increased-actions'),
   require('../routes/funding-options/calculation'),
   require('../routes/funding-options/change'),
+  require('../routes/funding-options/validation'),
   require('../routes/create-agreement/soil-assessment'),
   require('../routes/create-agreement/soil-protection'),
   require('../routes/create-agreement/soil-cover'),
