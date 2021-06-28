@@ -7,16 +7,24 @@ module.exports = [{
   options: {
     handler: async (request, h) => {
       const response = await getPollingResponse(request.yar.id, '/eligibility')
+
       if (response) {
         console.info('Eligibility result received', response)
+
         if (response.isEligible) {
-          await cache.clear('progress', request.yar.id)
-          await cache.clear('agreement', request.yar.id)
-          await cache.update('progress', request.yar.id, { progressId: 0, progress: { eligibility: true } })
+          await cache.update('progress', request.yar.id, {
+            progressId: 0,
+            progress: {
+              eligibility: true
+            }
+          })
+
           return h.view('check-eligibility/eligible')
         }
+
         return h.view('check-eligibility/not-eligible')
       }
+
       return h.view('no-response')
     }
   }
