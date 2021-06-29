@@ -1,7 +1,7 @@
 describe('check-eligibility funding-options/land-increased-actions route', () => {
   jest.mock('ffc-messaging')
   jest.mock('../../../../../app/api')
-  jest.mock('../../../../../app/calculation')
+  jest.mock('../../../../../app/messaging/create-calculation-message')
   jest.mock('../../../../../app/plugins/crumb')
   let createServer
   let server
