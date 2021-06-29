@@ -2,7 +2,7 @@ const joi = require('joi')
 const ViewModel = require('./models/land-increased-actions')
 const { sendAgreementCalculateMessage } = require('../../messaging')
 const cache = require('../../cache')
-const buildMessage = require('../../calculation')
+const buildMessage = require('../../messaging/create-calculation-message')
 
 module.exports = [{
   method: 'GET',

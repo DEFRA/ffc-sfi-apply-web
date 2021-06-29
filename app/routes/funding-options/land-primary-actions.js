@@ -2,7 +2,7 @@ const { sendAgreementValidateMessage } = require('../../messaging')
 const joi = require('joi')
 const cache = require('../../cache')
 const { getParcels } = require('../../api/map')
-const buildMessage = require('../../calculation')
+const buildMessage = require('../../messaging/create-calculation-message')
 
 function getLandInHectares (payload, parcels) {
   return Object.entries(payload).map(entry => {
