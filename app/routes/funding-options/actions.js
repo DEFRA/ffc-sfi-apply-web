@@ -29,7 +29,6 @@ module.exports = [{
       }
     },
     handler: async (request, h) => {
-      console.log('#########', request.payload)
       await cache.update('agreement', request.yar.id, request.payload)
       await cache.update('progress', request.yar.id, {
         progress: {

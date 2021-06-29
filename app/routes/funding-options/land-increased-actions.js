@@ -2,6 +2,7 @@ const joi = require('joi')
 const ViewModel = require('./models/land-increased-actions')
 const { sendAgreementCalculateMessage } = require('../../messaging')
 const cache = require('../../cache')
+const buildMessage = require('../../messaging/create-calculation-message')
 
 module.exports = [{
   method: 'GET',
@@ -30,7 +31,7 @@ module.exports = [{
     },
     handler: async (request, h) => {
       const agreement = await cache.update('agreement', request.yar.id, request.payload)
-      await sendAgreementCalculateMessage(agreement, request.yar.id)
+      await sendAgreementCalculateMessage(buildMessage(agreement), request.yar.id)
       await cache.update('progress', request.yar.id, {
         progress: {
           fundingOptions: { land: true }
