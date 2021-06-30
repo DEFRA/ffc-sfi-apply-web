@@ -34,14 +34,15 @@
     <p class="govuk-body">270 hectares of land<br>5100 metres of boundaries</p>
     <p class="govuk-body"><a href="/map?sbi={{sbi}}">View your land parcels</a></p>
     <hr class="govuk-section-break govuk-section-break--xl govuk-section-break--visible">
-    {{ govukButton({
-      text: "Confirm and continue",
-      href: "/application-task-list",
-      attributes: {
+    <form method="POST">
+      <input type="hidden" name="crumb" value="{{crumb}}"/>
+      {{ govukButton({
+        text: "Confirm and check eligibility",
+        attributes: {
           id: "submit"
         }
-    }) 
-    }}
+      }) }}
+    </form>
     
     <p class="govuk-body">
       <a href="change-land-business-details">My details have changed</a>
