@@ -55,7 +55,7 @@ container:
   redisPartition: ffc-sfi-apply-web
   cookiePassword: passwordpasswordpasswordpasswordpassword
   osMapApiKey:
-  chApi:
+  chApiGateway:
 
 postgresService:
   postgresDb: ffc_sfi_apply_web

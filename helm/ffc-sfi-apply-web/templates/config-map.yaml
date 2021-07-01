@@ -26,7 +26,7 @@ data:
   POSTGRES_HOST: {{ quote .Values.postgresService.postgresHost }}
   POSTGRES_PORT: {{ quote .Values.postgresService.postgresPort }}
   POSTGRES_SCHEMA_NAME: {{ quote .Values.postgresService.postgresSchema }}
-  CH_API: {{ quote .Values.container.chApi }}
+  CH_API_GATEWAY: {{ quote .Values.container.chApiGateway }}
   {{- if .Values.container.osMapApiKey }}
   OS_MAP_API_KEY: {{ quote .Values.container.osMapApiKey }}
   {{- end }}
