@@ -10,12 +10,12 @@ module.exports = [
       handler: async (request, h) => {
         const agreement = await cache.get('agreement', request.yar.id)
         const organisation = await getOrganisation(agreement.sbi)
-        const address = [organisation.address.address1,
+        const address = organisation?.address ? [organisation.address.address1,
           organisation.address.address2,
           organisation.address.address3,
-          organisation.address.postalCode].join(', ')
-        console.log(organisation)
-        return h.view('land-business-details/land-business-details', { sbi: agreement.sbi, name: organisation.name, address })
+          organisation.address.postalCode].join(', ') : ''
+        const name = organisation?.name ? organisation.name : ''
+        return h.view('land-business-details/land-business-details', { sbi: agreement.sbi, name, address })
       }
     }
   },
