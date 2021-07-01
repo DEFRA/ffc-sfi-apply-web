@@ -29,7 +29,7 @@ const schema = joi.object({
     retries: joi.number().default(20)
   }),
   publicApi: joi.string().default('https://environment.data.gov.uk/arcgis/rest/services/RPA/'),
-  chApi: joi.string().default(''),
+  chApi: joi.string().default('').allow(''),
   osMapApiKey: joi.string().default('').allow('')
 })
 
