@@ -1,0 +1,60 @@
+[
+  {
+    "id": "4762",
+    "area": 2.649885,
+    "coversArea": 0.703491,
+    "covers": [
+      {
+        "code": "130",
+        "description": "Permanent grassland",
+        "area": 0.703491
+      }
+    ]
+  },
+  {
+    "id": "0403",
+    "area": 3.5967990000000003,
+    "coversArea": 3.36255,
+    "covers": [
+      {
+        "code": "130",
+        "description": "Permanent grassland",
+        "area": 2.0701330000000002
+      },
+      {
+        "code": "130",
+        "description": "Permanent grassland",
+        "area": 1.292417
+      }
+    ]
+  },
+  {
+    "id": "9151",
+    "area": 2.146251,
+    "coversArea": 2.146249,
+    "covers": [
+      {
+        "code": "130",
+        "description": "Permanent grassland",
+        "area": 2.146249
+      }
+    ]
+  },
+  {
+    "id": "4452",
+    "area": 5.723751,
+    "coversArea": 0.656381,
+    "covers": [
+      {
+        "code": "130",
+        "description": "Permanent grassland",
+        "area": 0.068797
+      },
+      {
+        "code": "130",
+        "description": "Permanent grassland",
+        "area": 0.587584
+      }
+    ]
+  }
+]

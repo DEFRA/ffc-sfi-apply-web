@@ -1,0 +1,302 @@
+[
+  {
+    "id": "1742",
+    "area": 8.204569999999999,
+    "coversArea": 8.204569,
+    "covers": [
+      {
+        "code": "110",
+        "description": "Arable land",
+        "area": 8.204569
+      }
+    ]
+  },
+  {
+    "id": "3295",
+    "area": 17.975428,
+    "coversArea": 17.975428,
+    "covers": [
+      {
+        "code": "110",
+        "description": "Arable land",
+        "area": 17.975428
+      }
+    ]
+  },
+  {
+    "id": "8771",
+    "area": 16.422548,
+    "coversArea": 16.422548,
+    "covers": [
+      {
+        "code": "110",
+        "description": "Arable land",
+        "area": 16.422548
+      }
+    ]
+  },
+  {
+    "id": "0843",
+    "area": 9.626997999999999,
+    "coversArea": 7.445153,
+    "covers": [
+      {
+        "code": "110",
+        "description": "Arable land",
+        "area": 7.445153
+      }
+    ]
+  },
+  {
+    "id": "1351",
+    "area": 22.254941,
+    "coversArea": 22.254941,
+    "covers": [
+      {
+        "code": "110",
+        "description": "Arable land",
+        "area": 22.254941
+      }
+    ]
+  },
+  {
+    "id": "4752",
+    "area": 18.651714000000002,
+    "coversArea": 18.651714000000002,
+    "covers": [
+      {
+        "code": "110",
+        "description": "Arable land",
+        "area": 18.651714000000002
+      }
+    ]
+  },
+  {
+    "id": "5459",
+    "area": 8.072752,
+    "coversArea": 8.072752,
+    "covers": [
+      {
+        "code": "110",
+        "description": "Arable land",
+        "area": 8.072752
+      }
+    ]
+  },
+  {
+    "id": "4781",
+    "area": 0.237617,
+    "coversArea": 0.237617,
+    "covers": [
+      {
+        "code": "110",
+        "description": "Arable land",
+        "area": 0.237617
+      }
+    ]
+  },
+  {
+    "id": "4908",
+    "area": 12.495979,
+    "coversArea": 12.495979,
+    "covers": [
+      {
+        "code": "110",
+        "description": "Arable land",
+        "area": 12.495979
+      }
+    ]
+  },
+  {
+    "id": "1092",
+    "area": 16.452132000000002,
+    "coversArea": 16.452132000000002,
+    "covers": [
+      {
+        "code": "110",
+        "description": "Arable land",
+        "area": 16.452132000000002
+      }
+    ]
+  },
+  {
+    "id": "7079",
+    "area": 2.76445,
+    "coversArea": 2.76445,
+    "covers": [
+      {
+        "code": "110",
+        "description": "Arable land",
+        "area": 2.76445
+      }
+    ]
+  },
+  {
+    "id": "0324",
+    "area": 59.903076999999996,
+    "coversArea": 59.903076999999996,
+    "covers": [
+      {
+        "code": "110",
+        "description": "Arable land",
+        "area": 59.903076999999996
+      }
+    ]
+  },
+  {
+    "id": "8166",
+    "area": 28.96152349,
+    "coversArea": 28.96152349,
+    "covers": [
+      {
+        "code": "110",
+        "description": "Arable Land",
+        "area": 28.96152349
+      }
+    ]
+  },
+  {
+    "id": "2466",
+    "area": 4.130904,
+    "coversArea": 4.130904,
+    "covers": [
+      {
+        "code": "110",
+        "description": "Arable land",
+        "area": 4.130904
+      }
+    ]
+  },
+  {
+    "id": "9341",
+    "area": 8.145292,
+    "coversArea": 8.145292,
+    "covers": [
+      {
+        "code": "110",
+        "description": "Arable land",
+        "area": 8.145292
+      }
+    ]
+  },
+  {
+    "id": "3542",
+    "area": 4.518409999999999,
+    "coversArea": 4.518409999999999,
+    "covers": [
+      {
+        "code": "110",
+        "description": "Arable land",
+        "area": 4.518409999999999
+      }
+    ]
+  },
+  {
+    "id": "5065",
+    "area": 37.451134999999994,
+    "coversArea": 37.451134999999994,
+    "covers": [
+      {
+        "code": "110",
+        "description": "Arable land",
+        "area": 37.451134999999994
+      }
+    ]
+  },
+  {
+    "id": "1502",
+    "area": 15.428969,
+    "coversArea": 15.428969,
+    "covers": [
+      {
+        "code": "110",
+        "description": "Arable land",
+        "area": 15.428969
+      }
+    ]
+  },
+  {
+    "id": "9070",
+    "area": 25.769161,
+    "coversArea": 25.769161,
+    "covers": [
+      {
+        "code": "110",
+        "description": "Arable land",
+        "area": 25.769161
+      }
+    ]
+  },
+  {
+    "id": "2273",
+    "area": 5.691431,
+    "coversArea": 5.489664,
+    "covers": [
+      {
+        "code": "110",
+        "description": "Arable land",
+        "area": 5.489664
+      }
+    ]
+  },
+  {
+    "id": "0119",
+    "area": 0.506985,
+    "coversArea": 0.506985,
+    "covers": [
+      {
+        "code": "110",
+        "description": "Arable land",
+        "area": 0.506985
+      }
+    ]
+  },
+  {
+    "id": "8226",
+    "area": 25.707584999999998,
+    "coversArea": 25.707584999999998,
+    "covers": [
+      {
+        "code": "110",
+        "description": "Arable land",
+        "area": 25.707584999999998
+      }
+    ]
+  },
+  {
+    "id": "6981",
+    "area": 11.711903,
+    "coversArea": 11.711903,
+    "covers": [
+      {
+        "code": "110",
+        "description": "Arable land",
+        "area": 11.711903
+      }
+    ]
+  },
+  {
+    "id": "1872",
+    "area": 23.628636,
+    "coversArea": 23.628636,
+    "covers": [
+      {
+        "code": "110",
+        "description": "Arable land",
+        "area": 23.628636
+      }
+    ]
+  },
+  {
+    "id": "3455",
+    "area": 3.0866279999999997,
+    "coversArea": 2.993843,
+    "covers": [
+      {
+        "code": "110",
+        "description": "Arable land",
+        "area": 2.993843
+      }
+    ]
+  }
+]

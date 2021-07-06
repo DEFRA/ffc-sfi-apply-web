@@ -1,0 +1,37 @@
+{% extends "_layout.njk" %}
+
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
+{% from "./proto/sidebar.njk" import sidebar %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "/proto/add-std-parcels"
+  }) }}
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <form method="POST" autocomplete="off" novalidate>
+      <input type="hidden" name="crumb" value="{{crumb}}"/>
+
+      {{ govukWarningText({
+        text: "For each level we can calculate how much land is needed for
+        each action",
+        iconFallbackText: "Warning"
+      }) }}
+
+      {{ govukRadios(radios) }}
+
+      {{ govukButton({
+        text: "Continue"
+      }) }}
+    </form>
+  </div>
+  {{ sidebar("Overview", sidebarItems) }}
+</div>
+{% endblock %}

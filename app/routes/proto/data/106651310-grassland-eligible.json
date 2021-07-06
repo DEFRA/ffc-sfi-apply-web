@@ -1,0 +1,26 @@
+[
+  {
+    "id": "3583",
+    "area": 0.58228168,
+    "coversArea": 0.58228168,
+    "covers": [
+      {
+        "code": "131",
+        "description": "Permanent Grassland",
+        "area": 0.58228168
+      }
+    ]
+  },
+  {
+    "id": "4066",
+    "area": 2.0475779999999997,
+    "coversArea": 2.0475779999999997,
+    "covers": [
+      {
+        "code": "131",
+        "description": "Permanent grassland",
+        "area": 2.0475779999999997
+      }
+    ]
+  }
+]

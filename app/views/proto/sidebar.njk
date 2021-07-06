@@ -1,0 +1,13 @@
+{% macro sidebar(heading, items) %}
+  <div class="govuk-grid-column-one-third  govuk-!-padding-top-4 govuk-body">
+  <hr class="sideBarColor"/>
+    <h2 class="govuk-heading-m" id="subsection-title">
+      {{ heading }}
+    </h2>
+    <ul class="govuk-list govuk-list--bullet">
+      {% for item in items %}
+        <li>{{ item }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+{% endmacro %}

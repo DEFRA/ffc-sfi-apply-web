@@ -1,0 +1,38 @@
+{% extends "_layout.njk" %}
+
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
+{% from "./proto/sidebar.njk" import sidebar %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "/proto/choose-level"
+  }) }}
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <form method="POST" autocomplete="off" novalidate>
+      <input type="hidden" name="crumb" value="{{crumb}}"/>
+
+      {{ govukWarningText({
+        text: "For some actions (the percentage ones) we can let the user assign those actions
+        to individual parcels OR areas within parcels",
+        iconFallbackText: "Warning"
+      }) }}
+
+      <h1 class="govuk-heading-l">Add parcels to actions (if you can)</h1>
+
+      <div class="govuk-body">User can select areas within parcels.</div>
+
+      {{ govukButton({
+        text: "Continue"
+      }) }}
+    </form>
+  </div>
+  {{ sidebar("Overview", sidebarItems) }}
+</div>
+{% endblock %}

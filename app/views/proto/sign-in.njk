@@ -1,0 +1,31 @@
+{% extends "_layout.njk" %}
+
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <form method="POST" autocomplete="off" novalidate>
+      <input type="hidden" name="crumb" value="{{crumb}}"/>
+
+      {{ govukWarningText({
+        text: "Authenticate with Rural Payments. Need to understand how, once authenticated,
+        this impacts the later API calls (Version1 to advise) ",
+        iconFallbackText: "Warning"
+      }) }}
+
+      <h1 class="govuk-heading-l">Sign in</h1>
+
+      {{ govukInput(usernameInput) }}
+      {{ govukInput(passwordInput) }}
+
+      {{ govukButton({
+        text: "Sign In"
+      }) }}
+    </form>
+  </div>
+  <div>
+</div>
+{% endblock %}
