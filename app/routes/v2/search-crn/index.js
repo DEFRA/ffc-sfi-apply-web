@@ -13,7 +13,7 @@ module.exports = [{
     handler: async (request, h) => {
       const crn = request.payload.crn
       console.log(crn)
-      return h.redirect('land-business-details', { crn })
+      return h.redirect('choose-sbi', { crn })
     }
   }
 }]
