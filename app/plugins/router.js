@@ -28,6 +28,7 @@ const routes = [].concat(
   require('../routes/create-agreement/soil-quality'),
   require('../routes/create-agreement/agreement-length'),
   require('../routes/create-agreement/review'),
+  require('../routes/v2/search-crn'),
   require('../routes/submit'),
   require('../routes/confirmation'),
   require('../routes/map'),
