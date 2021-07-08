@@ -1,12 +1,8 @@
 {% extends "_layout.njk" %}
 
 {% from "govuk/components/button/macro.njk" import govukButton %}
-{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
 {% from "govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
 {% from "govuk/components/input/macro.njk" import govukInput %}
-{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
-{% from "govuk/components/details/macro.njk" import govukDetails %}
-{% from "./macros/agreements.njk" import agreements %}
 
 {% block beforeContent %}
   {{ govukBreadcrumbs({
@@ -24,21 +20,12 @@
   <div class="govuk-grid-column-two-thirds">
     <form method="POST" action="/v2/search-crn">
       <input type="hidden" name="crumb" value="{{crumb}}"/>
-      {{ govukInput({
-        label: {
-          text: "What is your Customer Reference Number (CRN)?",
-          classes: "govuk-label--l",
-          isPageHeading: true
-        },
-        id: "crn",
-        name: "crn",
-        inputmode: "numeric",
-        pattern: "[0-9]*",
-        spellcheck: false,
-        autocomplete: 'off'}) 
-      }}
+      {{ govukInput(model) }}
       {{ govukButton({
-        text: "Continue"
+        text: "Continue",
+        attributes: {
+          id: "submit"
+        }
       }) }}
     </form>
   </div>
