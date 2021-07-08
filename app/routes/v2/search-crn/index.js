@@ -1,13 +1,15 @@
 
 const joi = require('joi')
 const ViewModel = require('./models/crn')
+const cache = require('../../../cache')
 
 module.exports = [{
   method: 'GET',
   path: '/v2/search-crn',
   options: {
     handler: async (request, h) => {
-      return h.view('v2/search-crn/search-crn', new ViewModel())
+      const applyJourney = await cache.get('apply-journey', request.yar.id)
+      return h.view('v2/search-crn/search-crn', new ViewModel(applyJourney.crn))
     }
   }
 }, {
@@ -24,7 +26,7 @@ module.exports = [{
     },
     handler: async (request, h) => {
       const crn = request.payload.crn
-      console.log(crn)
+      await cache.update('apply-journey', request.yar.id, { crn })
       return h.redirect('/v2/select-sbi', { crn })
     }
   }

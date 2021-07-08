@@ -3,6 +3,7 @@ const config = require('../config').cacheConfig
 let eligibilityCache
 let agreementCache
 let progressCache
+let applyJourneyCache
 
 const setup = (server) => {
   eligibilityCache = server.cache({
@@ -16,6 +17,10 @@ const setup = (server) => {
   progressCache = server.cache({
     expiresIn: config.progressSegment.expiresIn,
     segment: config.progressSegment.name
+  })
+  applyJourneyCache = server.cache({
+    expiresIn: config.applyJourneySegment.expiresIn,
+    segment: config.applyJourneySegment.name
   })
 }
 
@@ -50,6 +55,8 @@ const getCache = (cacheName) => {
       return agreementCache
     case 'progress':
       return progressCache
+    case 'apply-journey':
+      return applyJourneyCache
     default:
       throw new Error(`Cache ${cacheName} does not exist`)
   }
