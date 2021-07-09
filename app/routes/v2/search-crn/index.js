@@ -2,6 +2,7 @@
 const joi = require('joi')
 const ViewModel = require('./models/crn')
 const cache = require('../../../cache')
+const { sendRequestSBIMessage } = require('../../../messaging')
 
 module.exports = [{
   method: 'GET',
@@ -26,6 +27,7 @@ module.exports = [{
     },
     handler: async (request, h) => {
       const crn = request.payload.crn
+      await sendRequestSBIMessage({ crn }, request.yar.id)
       await cache.update('apply-journey', request.yar.id, { crn })
       return h.redirect('/v2/select-sbi', { crn })
     }

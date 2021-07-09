@@ -10,18 +10,7 @@ function ViewModel (value, error) {
         classes: 'govuk-fieldset__legend--l'
       }
     },
-    items: [
-      {
-        value: '106336339',
-        text: '106336339',
-        checked: value === '106336339'
-      },
-      {
-        value: '106651310',
-        text: '106651310',
-        checked: value === '106651310'
-      }
-    ]
+    items: mapItems(value)
   }
 
   if (error) {
@@ -29,6 +18,15 @@ function ViewModel (value, error) {
       text: 'Please choose a Single Business Identifier (SBI) '
     }
   }
+}
+
+const mapItems = (value) => {
+  const items = []
+
+  for (const sbi of value) {
+    items.push({ value: sbi, text: sbi })
+  }
+  return items
 }
 
 module.exports = ViewModel
