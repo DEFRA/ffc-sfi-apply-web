@@ -11,7 +11,7 @@ module.exports = [{
       const response = await getPollingResponse(request.yar.id, '/request-sbi')
       if (response) {
         console.info('Request SBI result received', response)
-        await cache.update('apply-journey', request.yar.id, { availableSbis: response.sbi })
+        await cache.update('apply-journey', request.yar.id, { availableSbis: response.sbis })
         const applyJourney = await cache.get('apply-journey', request.yar.id)
         return h.view('v2/select-sbi/select-sbi', new ViewModel(applyJourney.availableSbis))
       }
