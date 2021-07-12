@@ -33,7 +33,7 @@ module.exports = [{
     },
     handler: async (request, h) => {
       const sbi = request.payload.sbi
-      await cache.update('apply-journey', request.yar.id, { sbi })
+      await cache.update('apply-journey', request.yar.id, { selectedSbi: sbi })
       return h.redirect('/v2/organisation-details')
     }
   }
