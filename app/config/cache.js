@@ -14,6 +14,10 @@ module.exports = {
     name: 'calculation',
     expiresIn: defaultExpiresIn
   },
+  applyJourneySegment: {
+    name: 'apply-journey',
+    expiresIn: defaultExpiresIn
+  },
   redisCatboxOptions: {
     host: process.env.REDIS_HOSTNAME,
     port: process.env.REDIS_PORT,
