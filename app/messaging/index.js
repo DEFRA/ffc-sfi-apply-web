@@ -31,11 +31,17 @@ async function sendAgreementWithdrawMessage (payload, correlationId) {
   console.info('Agreement withdrawn')
 }
 
+async function sendRequestSBIMessage (payload, correlationId) {
+  await sendMessage(payload, 'uk.gov.sfi.sbi.request', correlationId, config.requestSBITopic)
+  console.info('SBI(s) requested')
+}
+
 module.exports = {
   sendEligibilityCheckMessage,
   sendStandardsRequestMessage,
   sendAgreementValidateMessage,
   sendAgreementCalculateMessage,
   sendAgreementSubmitMessage,
-  sendAgreementWithdrawMessage
+  sendAgreementWithdrawMessage,
+  sendRequestSBIMessage
 }

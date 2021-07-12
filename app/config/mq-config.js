@@ -42,6 +42,12 @@ const mqSchema = joi.object({
     address: joi.string().default('withdraw'),
     username: joi.string(),
     password: joi.string()
+  },
+  requestSBITopic: {
+    name: joi.string().default('ffc-sfi-request-sbi'),
+    address: joi.string().default('request-sbi'),
+    username: joi.string(),
+    password: joi.string()
   }
 })
 const mqConfig = {
@@ -86,6 +92,12 @@ const mqConfig = {
     address: process.env.WITHDRAW_TOPIC_ADDRESS,
     username: process.env.MESSAGE_QUEUE_USER,
     password: process.env.MESSAGE_QUEUE_PASSWORD
+  },
+  requestSBITopic: {
+    name: process.env.REQUEST_SBI_TOPIC_NAME,
+    address: process.env.REQUEST_SBI_TOPIC_ADDRESS,
+    username: process.env.MESSAGE_QUEUE_USER,
+    password: process.env.MESSAGE_QUEUE_PASSWORD
   }
 }
 
@@ -104,6 +116,7 @@ const validateTopic = { ...mqResult.value.messageQueue, ...mqResult.value.valida
 const calculateTopic = { ...mqResult.value.messageQueue, ...mqResult.value.calculateTopic }
 const submitTopic = { ...mqResult.value.messageQueue, ...mqResult.value.submitTopic }
 const withdrawTopic = { ...mqResult.value.messageQueue, ...mqResult.value.withdrawTopic }
+const requestSBITopic = { ...mqResult.value.messageQueue, ...mqResult.value.requestSBITopic }
 
 module.exports = {
   eligibilityTopic,
@@ -111,5 +124,6 @@ module.exports = {
   validateTopic,
   calculateTopic,
   submitTopic,
-  withdrawTopic
+  withdrawTopic,
+  requestSBITopic
 }
