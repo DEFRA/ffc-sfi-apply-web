@@ -18,5 +18,16 @@ module.exports = [
         return h.view('v2/organisation-details/organisation-details', { sbi: applyJourney.selectedSbi, name, address })
       }
     }
+  },
+  {
+    method: 'POST',
+    path: '/v2/organisation-details',
+    options: {
+      handler: async (request, h) => {
+        const sbi = request.payload.sbi
+        await cache.update('apply-journey', request.yar.id, { sbi })
+        return h.redirect('/v2/eligibility-check')
+      }
+    }
   }
 ]
