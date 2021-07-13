@@ -46,6 +46,7 @@ container:
   calculateTopicAddress: ffc-sfi-agreement-calculate
   submitTopicAddress: ffc-sfi-agreement-submit
   withdrawTopicAddress: ffc-sfi-agreement-withdraw
+  requestSbiTopicAddress: ffc-sfi-request-sbi
   agreementCalculatorEndpoint: http://ffc-sfi-agreement-calculator.ffc-sfi
   sitiAgriEndpoint: http://ffc-sfi-apply-api.ffc-sfi
   useAgreementCalculator: false
