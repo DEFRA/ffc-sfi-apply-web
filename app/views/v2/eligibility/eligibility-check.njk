@@ -1,0 +1,37 @@
+{% extends "_layout.njk" %}
+
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+        text: "Back",
+        href: "/v2/organisation-details",
+        attributes: {
+          id: "back"
+        }
+      }) 
+    }}
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-l">
+    SFI Eligibility Check
+    </h1>
+    <p class="govuk-body">We've checked your BPS entitlement and you are good to go</p>
+    <hr class="govuk-section-break govuk-section-break--xl govuk-section-break--visible">
+    <form method="POST">
+      <input type="hidden" name="crumb" value="{{crumb}}"/>
+      {{ govukButton({
+        text: "Continue",
+        attributes: {
+          id: "submit"
+        }
+      }) }}
+    </form>
+  </div>
+  <div>
+</div>
+{% endblock %}
