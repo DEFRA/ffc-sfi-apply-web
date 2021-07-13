@@ -1,4 +1,5 @@
 const cache = require('../../../cache')
+const { getOrganisation } = require('../../../api/crown-hosting')
 
 module.exports = [
   {
@@ -8,7 +9,13 @@ module.exports = [
       handler: async (request, h) => {
         const applyJourney = await cache.get('apply-journey', request.yar.id)
         console.log(applyJourney)
-        return h.view('v2/organisation-details/organisation-details', { sbi: applyJourney.sbi })
+        const organisation = await getOrganisation(applyJourney.selectedSbi)
+        const address = organisation?.address ? [organisation.address.address1,
+          organisation.address.address2,
+          organisation.address.address3,
+          organisation.address.postalCode].join(', ') : ''
+        const name = organisation?.name ? organisation.name : ''
+        return h.view('v2/organisation-details/organisation-details', { sbi: applyJourney.selectedSbi, name, address })
       }
     }
   },
