@@ -31,6 +31,7 @@ const routes = [].concat(
   require('../routes/v2/search-crn'),
   require('../routes/v2/select-sbi'),
   require('../routes/v2/organisation-details'),
+  require('../routes/v2/eligibility'),
   require('../routes/submit'),
   require('../routes/confirmation'),
   require('../routes/map'),
