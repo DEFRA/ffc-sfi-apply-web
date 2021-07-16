@@ -1,7 +1,7 @@
 {% extends '_layout.njk' %}
 {% set mainClasses = "govuk-main-wrapper--auto-spacing" %}
 {% from "govuk/components/back-link/macro.njk" import govukBackLink %}
-{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
 
@@ -22,7 +22,7 @@
     <form method="POST" action="/v2/select-sbi" novalidate>
       <input type="hidden" name="crumb" value="{{crumb}}"/>
       {% if model.items.length > 0 %}
-        {{ govukRadios(model) }}
+        {{ govukCheckboxes(model) }}
         {{ govukButton({
           text: "Continue",
           attributes: {
