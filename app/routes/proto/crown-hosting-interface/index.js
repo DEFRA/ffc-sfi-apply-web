@@ -15,7 +15,7 @@ async function getSBIs (callerId) {
   const endpoint = `organisation/person/${callerId}/summary?search=`
   const response = await callCrownHosting(endpoint, callerId)
 
-  console.log(response.payload)
+  return response?.payload?._data?.map(organisation => organisation.id)
 }
 
 module.exports = {

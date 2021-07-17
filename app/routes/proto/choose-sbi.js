@@ -1,6 +1,6 @@
 const crownHosting = require('./crown-hosting-interface')
 
-function viewModel () {
+function viewModel (sbis) {
   return {
     radios: {
       name: 'sbi',
@@ -11,16 +11,7 @@ function viewModel () {
           classes: 'govuk-fieldset__legend--l'
         }
       },
-      items: [
-        {
-          value: '106336339',
-          text: '106336339'
-        },
-        {
-          value: '106651310',
-          text: '106651310'
-        }
-      ]
+      items: sbis ? sbis.map(sbi => ({ value: sbi, text: sbi })) : []
     }
   }
 }
@@ -30,8 +21,8 @@ module.exports = [
     method: 'GET',
     path: '/proto/choose-sbi',
     handler: async (request, h) => {
-      await crownHosting.getSBIs(request.yar.get('callerId'))
-      return h.view('proto/choose-sbi', viewModel())
+      const sbis = await crownHosting.getSBIs(request.yar.get('callerId'))
+      return h.view('proto/choose-sbi', viewModel(sbis))
     }
   },
   {
