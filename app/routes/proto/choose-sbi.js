@@ -11,7 +11,7 @@ function viewModel (sbis) {
           classes: 'govuk-fieldset__legend--l'
         }
       },
-      items: sbis ? sbis.map(sbi => ({ value: sbi, text: sbi })) : []
+      items: sbis ? sbis.map(sbi => ({ value: sbi.sbi, text: sbi.sbi })) : []
     }
   }
 }
