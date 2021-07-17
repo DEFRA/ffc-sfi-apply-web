@@ -33,8 +33,7 @@ module.exports = [
     handler: async (request, h) => {
       const chosenSBI = request.payload.sbi
       request.yar.set('chosen-sbi', chosenSBI)
-      request.yar.set('chosen-org-id', request.yar.get('sbis').find(s => s.sbi === chosenSBI).organisationId)
-
+      request.yar.set('chosen-org-id', request.yar.get('sbis').find(s => String(s.sbi) === chosenSBI).organisationId)
       console.log(`Chosen SBI = ${request.yar.get('chosen-sbi')}`)
       console.log(`Chosen Org ID = ${request.yar.get('chosen-org-id')}`)
       return h.redirect('/proto/org-details')
