@@ -11,18 +11,16 @@
       <input type="hidden" name="crumb" value="{{crumb}}"/>
 
       {{ govukWarningText({
-        text: "Authenticate with Rural Payments. Need to understand how, once authenticated,
-        this impacts the later API calls (Version1 to advise) ",
+        text: "A convenience to get the Caller ID directly.",
         iconFallbackText: "Warning"
       }) }}
 
-      <h1 class="govuk-heading-l">Sign in</h1>
+      <h1 class="govuk-heading-l">Enter Caller ID</h1>
 
-      {{ govukInput(usernameInput) }}
-      {{ govukInput(passwordInput) }}
+      {{ govukInput(input) }}
 
       {{ govukButton({
-        text: "Sign In"
+        text: "Continue"
       }) }}
     </form>
   </div>

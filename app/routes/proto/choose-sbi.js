@@ -1,3 +1,5 @@
+const crownHosting = require('./crown-hosting-interface')
+
 function viewModel () {
   return {
     radios: {
@@ -28,6 +30,7 @@ module.exports = [
     method: 'GET',
     path: '/proto/choose-sbi',
     handler: async (request, h) => {
+      await crownHosting.getSBIs(request.yar.get('callerId'))
       return h.view('proto/choose-sbi', viewModel())
     }
   },
