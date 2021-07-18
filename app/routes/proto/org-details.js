@@ -9,9 +9,7 @@ module.exports = [
         request.yar.get('callerId'),
         request.yar.get('chosen-org-id')
       )
-      console.log('ORG DETAIS:')
-      console.log(JSON.stringify(orgDetails, null, 2))
-      return h.view('proto/org-details')
+      return h.view('proto/org-details', orgDetails)
     }
   },
   {

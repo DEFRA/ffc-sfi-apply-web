@@ -30,7 +30,7 @@ async function getOrgDetails (callerId, orgId) {
   return response?.payload?._data
     ? {
       name: response.payload._data?.name,
-      address: response.payload._data?.address?.address1,
+      city: response.payload._data?.address?.city,
       postcode: response.payload._data?.address?.postalCode
     }
     : null
