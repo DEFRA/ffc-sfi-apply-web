@@ -13,7 +13,7 @@ module.exports = [
       console.log(`newSitiAPIEligible: ${newSitiAPIEligible}`)
       console.log(`oldSitiAPIEligible: ${oldSitiAPIEligible}`)
 
-      return h.view('proto/sfi-eligibility')
+      return h.view('proto/sfi-eligibility', { newSitiAPIEligible, oldSitiAPIEligible })
     }
   },
   {

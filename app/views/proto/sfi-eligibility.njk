@@ -17,17 +17,18 @@
     <form method="POST" autocomplete="off" novalidate>
       <input type="hidden" name="crumb" value="{{crumb}}"/>
 
-      {{ govukWarningText({
+      {# {{ govukWarningText({
         text: "Perform SFI 2022 scheme eligibility check: at least 5ha BPS entitlements.
         User has permission to act on behalf of organisation SHOULD be covered by previous
         check which returned SBI associated with user",
         iconFallbackText: "Warning"
-      }) }}
+      }) }} #}
 
       <h1 class="govuk-heading-l">SFI Eligibility Check</h1>
 
       <div class="govuk-body">
-        We've checked your BPS entitlements and you are good to go
+        Old Siti Agri API says <strong>{{ newSitiAPIEligible }}</strong><br />
+        New Siti Agri API says <strong>{{ oldSitiAPIEligible }}</strong>
       </div>
 
       {{ govukButton({

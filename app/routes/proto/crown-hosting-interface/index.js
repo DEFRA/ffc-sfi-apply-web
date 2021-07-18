@@ -40,18 +40,12 @@ async function checkEligibilityNewSitiAPI (callerId, sbi) {
   const endpoint = `api/v1/sfi/eligibility/${sbi}`
   const response = await callCrownHosting(endpoint, callerId)
 
-  console.log('checkEligibilityNewSitiAPI:')
-  console.log(JSON.stringify(response.payload, null, 2))
-
-  return response?.payload?.elibigible === 'true'
+  return response?.payload?.eligible === 'true'
 }
 
 async function checkEligibilityOldSitiAPI (callerId, orgId) {
   const endpoint = `SitiAgriApi/authorisation/organisation/${orgId}/byFunction?functions=submitELMApplications&module=CUST_SS_PORTAL`
   const response = await callCrownHosting(endpoint, callerId)
-
-  console.log('checkEligibilityOldSitiAPI:')
-  console.log(JSON.stringify(response.payload, null, 2))
 
   return response?.payload?.data?.submitELMApplications
 }

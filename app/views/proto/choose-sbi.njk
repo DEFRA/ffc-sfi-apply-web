@@ -18,11 +18,11 @@
     <form method="POST" autocomplete="off" novalidate>
       <input type="hidden" name="crumb" value="{{crumb}}"/>
 
-      {{ govukWarningText({
+      {# {{ govukWarningText({
         text: "Pull customer data: Organisation (SBIs) associated with authenticated user.
         User should have permission to act on behalf of organisation",
         iconFallbackText: "Warning"
-      }) }}
+      }) }} #}
 
       {{ govukRadios(radios) }}
       {{ govukButton({
