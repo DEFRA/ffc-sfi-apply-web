@@ -40,7 +40,11 @@ async function checkEligibilityNewSitiAPI (callerId, sbi) {
   const endpoint = `api/v1/sfi/eligibility/${sbi}`
   const response = await callCrownHosting(endpoint, callerId)
 
-  return response?.payload?.eligible === 'true'
+  console.log(response.payload)
+  console.log(response.payload.eligible)
+  console.log(typeof response.payload.eligible)
+
+  return response?.payload?.eligible
 }
 
 async function checkEligibilityOldSitiAPI (callerId, orgId) {
@@ -50,9 +54,18 @@ async function checkEligibilityOldSitiAPI (callerId, orgId) {
   return response?.payload?.data?.submitELMApplications
 }
 
+async function getParcelCovers (callerId, orgId) {
+  const endpoint = `/lms/organisation/${orgId}/land-covers`
+  const response = await callCrownHosting(endpoint, callerId)
+  console.log(JSON.stringify(response.payload, null, 2))
+
+  return response.payload
+}
+
 module.exports = {
   getSBIs,
   getOrgDetails,
   checkEligibilityNewSitiAPI,
-  checkEligibilityOldSitiAPI
+  checkEligibilityOldSitiAPI,
+  getParcelCovers
 }
