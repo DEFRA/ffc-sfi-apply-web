@@ -40,10 +40,6 @@ async function checkEligibilityNewSitiAPI (callerId, sbi) {
   const endpoint = `api/v1/sfi/eligibility/${sbi}`
   const response = await callCrownHosting(endpoint, callerId)
 
-  console.log(response.payload)
-  console.log(response.payload.eligible)
-  console.log(typeof response.payload.eligible)
-
   return response?.payload?.eligible
 }
 
