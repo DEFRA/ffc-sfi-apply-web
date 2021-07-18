@@ -55,9 +55,14 @@ async function checkEligibilityOldSitiAPI (callerId, orgId) {
 }
 
 async function getParcelCovers (callerId, orgId) {
-  const endpoint = `/lms/organisation/${orgId}/land-covers`
+  const endpoint = `lms/organisation/${orgId}/land-covers`
   const response = await callCrownHosting(endpoint, callerId)
-  console.log(JSON.stringify(response.payload, null, 2))
+
+  console.log(response.payload.length)
+
+  response.payload.forEach(parcel => {
+    console.log(JSON.stringify(parcel, null, 2))
+  })
 
   return response.payload
 }
