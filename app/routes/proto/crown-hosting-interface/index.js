@@ -54,12 +54,6 @@ async function getParcelCovers (callerId, orgId) {
   const endpoint = `lms/organisation/${orgId}/land-covers`
   const response = await callCrownHosting(endpoint, callerId)
 
-  console.log(response.payload.length)
-
-  response.payload.forEach(parcel => {
-    console.log(JSON.stringify(parcel, null, 2))
-  })
-
   return response.payload
 }
 

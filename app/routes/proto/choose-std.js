@@ -1,6 +1,6 @@
 const crownHosting = require('./crown-hosting-interface')
 
-function viewModel (sbi) {
+function viewModel (sbi, details) {
   return {
     radios: {
       name: 'std',
@@ -22,7 +22,8 @@ function viewModel (sbi) {
         }
       ]
     },
-    sidebarItems: [`SBI: ${sbi}`]
+    sidebarItems: [`SBI: ${sbi}`],
+    details
   }
 }
 
@@ -31,11 +32,22 @@ module.exports = [
     method: 'GET',
     path: '/proto/choose-std',
     handler: async (request, h) => {
-      await crownHosting.getParcelCovers(
+      const parcelCovers = await crownHosting.getParcelCovers(
         request.yar.get('callerId'),
         request.yar.get('chosen-org-id')
       )
-      return h.view('proto/choose-std', viewModel(request.yar.get('proto-sbi')))
+
+      const getParcelsByCode = (code) => parcelCovers.filter(parcel => parcel.info.find(info => info.code === code && info.area > 0))
+      const grasslandParcels = getParcelsByCode('130')
+      const arableParcels = getParcelsByCode('110')
+
+      const details = `
+        Customer has ${parcelCovers.length} parcels<br/>
+        ${grasslandParcels.length} parcels have grassland<br/>
+        ${arableParcels.length} parcels have arable
+        `
+
+      return h.view('proto/choose-std', viewModel(request.yar.get('chosen-sbi'), details))
     }
   },
   {

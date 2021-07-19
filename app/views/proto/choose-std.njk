@@ -19,12 +19,16 @@
     <form method="POST" autocomplete="off" novalidate>
       <input type="hidden" name="crumb" value="{{crumb}}"/>
 
-      {{ govukWarningText({
+      {# {{ govukWarningText({
         text: "Pull all land cover/use data for the chosen SBI. Check the following: 1. land codes with those
         eligible for each standard, 2. SSSI on parcels, 3. any overlap with ES/CS that could cause an issue.
         If SBI has eligible parcels then display that standard.",
         iconFallbackText: "Warning"
-      }) }}
+      }) }} #}
+
+      <div class="govuk-body">
+        {{ details | safe }}
+      </div>
 
       {{ govukRadios(radios) }}
 
