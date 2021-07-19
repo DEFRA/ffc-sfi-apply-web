@@ -14,6 +14,7 @@ module.exports = [{
       const response = await getPollingResponse(request.yar.id, '/standards')
       if (response) {
         console.info('Standards request received', response)
+        await cache.update('apply-journey', request.yar.id, { standards: response.standards })
         return h.view('funding-options/standards', new ViewModel(response.standards, agreement.standards))
       }
       return h.view('no-response')

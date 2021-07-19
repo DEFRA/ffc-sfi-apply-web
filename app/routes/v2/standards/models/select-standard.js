@@ -1,5 +1,5 @@
 
-function ViewModel (value, error) {
+function ViewModel (values, selected, error) {
   this.model = {
     id: 'standard',
     name: 'standard',
@@ -10,7 +10,10 @@ function ViewModel (value, error) {
         classes: 'govuk-fieldset__legend--l'
       }
     },
-    items: mapItems(value)
+    hint: {
+      text: 'Choose all that apply.'
+    },
+    items: mapStandards(values, selected)
   }
 
   if (error) {
@@ -20,13 +23,14 @@ function ViewModel (value, error) {
   }
 }
 
-const mapItems = (value) => {
-  const items = []
-
-  for (const standard of value) {
-    items.push({ value: standard.value, text: standard.text })
-  }
-  return items
+const mapStandards = (values, selected) => {
+  return values
+    .map(x => {
+      return {
+        ...x,
+        checked: selected?.some(y => selected.includes(x.value)) ?? false
+      }
+    })
 }
 
 module.exports = ViewModel
