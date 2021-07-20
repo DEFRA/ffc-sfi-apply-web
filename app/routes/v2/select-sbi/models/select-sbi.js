@@ -24,7 +24,7 @@ const mapItems = (value) => {
   const items = []
 
   for (const sbi of value) {
-    items.push({ value: sbi, text: sbi })
+    items.push({ value: sbi.sbi, text: sbi.sbi })
   }
   return items
 }
