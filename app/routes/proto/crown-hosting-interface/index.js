@@ -1,5 +1,5 @@
 const wreck = require('@hapi/wreck')
-const apiGatewayUrl = 'http://ffc-sfi-api-gateway.ffc-sfi-api-gateway/'
+const apiGatewayUrl = 'http://ffc-sfi-api-gateway.ffc-sfi/'
 
 function callCrownHosting (endpoint, callerId) {
   return wreck.get(
