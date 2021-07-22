@@ -24,11 +24,12 @@ function ViewModel (values, selected, error) {
 }
 
 const mapStandards = (values, selected) => {
-  return values
+  return values.filter(item => item.parcels.length > 0)
     .map(x => {
       return {
-        ...x,
-        checked: selected?.some(y => selected.includes(x.value)) ?? false
+        text: x.name,
+        value: x.code,
+        checked: selected?.some(y => selected.includes(x.code)) ?? false
       }
     })
 }
