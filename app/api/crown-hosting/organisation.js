@@ -1,10 +1,9 @@
 const { get } = require('./base')
 
-const getOrganisation = async (sbi) => {
-  const url = `organisation/search/sbi?sbi=${sbi}`
-  const data = await get(url)
-  const organisation = JSON.parse(data.payload.toString())
-  return organisation.code ? {} : organisation._data[0]
+const getOrganisation = async (sbi, callerId) => {
+  const url = `organisation/${sbi.organisationId}`
+  const data = await get(url, callerId)
+  return data.payload._data === null ? {} : data.payload._data
 }
 
 module.exports = getOrganisation
