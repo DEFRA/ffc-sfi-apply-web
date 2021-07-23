@@ -19,7 +19,7 @@
 {% block content %}
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
-    <form method="POST" action="/v2/select-sbi" novalidate>
+    <form method="POST" action="/v2/standards" novalidate>
       <input type="hidden" name="crumb" value="{{crumb}}"/>
       {% if model.items.length > 0 %}
         {{ govukRadios(model) }}

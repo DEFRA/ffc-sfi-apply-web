@@ -1,4 +1,5 @@
 const ViewModel = require('./models/select-standard')
+const joi = require('joi')
 const { sendStandardsRequestMessage } = require('../../../messaging')
 const cache = require('../../../cache')
 const getPollingResponse = require('../../../polling')
@@ -17,6 +18,28 @@ module.exports = [{
         return h.view('v2/standards/select-standard', new ViewModel(response.standards, applyJourney.selectedStandards))
       }
       return h.view('no-response')
+    }
+  }
+},
+{
+  method: 'POST',
+  path: '/v2/standards',
+  options: {
+    validate: {
+      payload: joi.object({
+        standard: joi.string().required()
+      }),
+      failAction: async (request, h, error) => {
+        return h.view('v2/standards/select-standard', new ViewModel(request.payload.standards, error)).code(400).takeover()
+      }
+    },
+    handler: async (request, h) => {
+      const standard = request.payload.standard
+      const applyJourney = await cache.get('apply-journey', request.yar.id)
+
+      const selectedStandard = applyJourney.standards.find(x => x.code === standard)
+      await cache.update('apply-journey', request.yar.id, { selectedStandard: selectedStandard })
+      return h.redirect('/v2/add-standard-parcels')
     }
   }
 }]
