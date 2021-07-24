@@ -9,26 +9,23 @@ module.exports = [
       const applyJourney = await cache.get('apply-journey', request.yar.id)
       const parcels = applyJourney.selectedStandard.parcels
 
-      /* const checkboxItems = parcels.reduce((acc, cur) => {
-        cur.forEach((cover, i) => acc.push({
-          value: `${cur.id}_${i}`,
-          text: `Parcel ${cur.id} : ${Number(cover.area).toFixed(2)}ha`
-        }))
-        return acc
-      }, []) */
-
       const checkboxItems = parcels.map(x => {
         return {
-          text: `Parcel ${x.id} : ${Number(x.area).toFixed(2)}ha`,
-          value: `${x.id}`
+          text: `Parcel ${x.id} : ${Number(x.area).toFixed(2)}ha of ${applyJourney.selectedStandard.name}`,
+          value: `${x.id}`,
+          warnings: []
         }
       })
+
+      checkboxItems[0].warnings.push({ SSSI: true }, { HEFER: true }, { SFI: true })
+      checkboxItems[1].warnings.push({ SSSI: true }, { HEFER: true }, { SFI: false })
 
       const totalHa = parcels.reduce((acc, cur) => acc + cur.area, 0)
 
       return h.view(
         'v2/add-standard-parcels/add-standard-parcels',
-        ViewModel(checkboxItems, totalHa, applyJourney.selectedSbi.sbi, applyJourney.selectedStandard.name)
+        { checkboxItems: checkboxItems, totalHa: Number(totalHa).toFixed(2), sidebarItems: [`SBI: ${applyJourney.selectedSbi.sbi}`, `Standard: ${applyJourney.selectedStandard.name}`] }
+        // ViewModel(checkboxItems, totalHa, applyJourney.selectedSbi.sbi, applyJourney.selectedStandard.name)
       )
     }
   },
