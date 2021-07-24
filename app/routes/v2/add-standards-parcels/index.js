@@ -1,5 +1,4 @@
 const cache = require('../../../cache')
-const ViewModel = require('./models/add-standard-parcels')
 
 module.exports = [
   {
@@ -24,8 +23,11 @@ module.exports = [
 
       return h.view(
         'v2/add-standard-parcels/add-standard-parcels',
-        { checkboxItems: checkboxItems, totalHa: Number(totalHa).toFixed(2), sidebarItems: [`SBI: ${applyJourney.selectedSbi.sbi}`, `Standard: ${applyJourney.selectedStandard.name}`] }
-        // ViewModel(checkboxItems, totalHa, applyJourney.selectedSbi.sbi, applyJourney.selectedStandard.name)
+        {
+          checkboxItems: checkboxItems,
+          totalHa: Number(totalHa).toFixed(2),
+          sidebarItems: [`SBI: ${applyJourney.selectedSbi.sbi}`, `Standard: ${applyJourney.selectedStandard.name}`]
+        }
       )
     }
   },
