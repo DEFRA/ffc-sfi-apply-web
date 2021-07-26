@@ -1,4 +1,4 @@
 version: '3.8'
 services:
-  ffc-sfi-map-web:
+  ffc-sfi-apply-web:
     command: npm run start:debug

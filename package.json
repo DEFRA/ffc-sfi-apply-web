@@ -1,6 +1,6 @@
 {
   "name": "ffc-sfi-apply-web",
-  "version": "1.21.0",
+  "version": "1.21.1",
   "description": "FFC apply for SFI web front end",
   "homepage": "https://github.com/DEFRA/ffc-sfi-apply-web",
   "main": "app/index.js",
@@ -65,7 +65,6 @@
     "resolve-url-loader": "^4.0.0",
     "sass": "1.32.13",
     "sass-loader": "^11.1.1",
-    "snyk": "^1.621.0",
     "standard": "^14.3.4",
     "style-loader": "^2.0.0",
     "webpack": "^5.38.1",
