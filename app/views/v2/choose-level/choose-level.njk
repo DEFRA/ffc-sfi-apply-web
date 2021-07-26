@@ -19,12 +19,6 @@
     <form method="POST" autocomplete="off" novalidate>
       <input type="hidden" name="crumb" value="{{crumb}}"/>
 
-      {{ govukWarningText({
-        text: "For each level we can calculate how much land is needed for
-        each action",
-        iconFallbackText: "Warning"
-      }) }}
-
       {{ govukRadios(radios) }}
 
       {{ govukButton({

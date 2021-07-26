@@ -1,4 +1,5 @@
 const cache = require('../../../cache')
+const { sendAgreementCalculateMessage } = require('../../../messaging')
 
 module.exports = [
   {
@@ -6,7 +7,7 @@ module.exports = [
     path: '/v2/add-standard-parcels',
     handler: async (request, h) => {
       const applyJourney = await cache.get('apply-journey', request.yar.id)
-      const parcels = applyJourney.selectedStandard.parcels
+      const parcels = [...new Map(applyJourney.selectedStandard.parcels.map(item => [item.id, item])).values()]
 
       const checkboxItems = parcels.map(x => {
         return {
@@ -35,20 +36,34 @@ module.exports = [
     method: 'POST',
     path: '/v2/add-standard-parcels',
     handler: async (request, h) => {
-      const parcels = require('./data/107023903-arable-eligible.json')
-      const selected = [request.payload.parcels].flat()
-      const parcelArea = selected.reduce((acc, cur) => {
-        const p = parcels.find(p => cur.startsWith(p.id))
-        acc += p.covers[cur.split('_')[1]].area
-        return acc
-      }, 0)
+      const applyJourney = await cache.get('apply-journey', request.yar.id)
+      const parcels = [...new Map(applyJourney.selectedStandard.parcels.map(item => [item.id, item])).values()]
 
+      const selectedParcels = parcels.filter(item => request.payload.parcels.includes(item.id)).map(x => {
+        const object = {}
+
+        object.id = x.id
+        object.area = x.area
+        return object
+      })
+
+      const parcelArea = selectedParcels.reduce((accum, item) => accum + item.area, 0)
       console.log(parcelArea)
 
-      request.yar.set('proto-parcels', selected)
-      request.yar.set('proto-std-area', Number(parcelArea).toFixed(2))
+      await cache.update('apply-journey', request.yar.id,
+        {
+          selectedParcels: selectedParcels,
+          parcelArea: Number(parcelArea).toFixed(2)
+        })
 
-      return h.redirect('/proto/choose-level')
+      await sendAgreementCalculateMessage(
+        {
+          callerId: applyJourney.callerId,
+          code: applyJourney.selectedStandard.code,
+          parcels: selectedParcels
+        }, request.yar.id)
+
+      return h.redirect('/v2/choose-level')
     }
   }
 ]

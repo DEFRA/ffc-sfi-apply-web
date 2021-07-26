@@ -34,6 +34,7 @@ const routes = [].concat(
   require('../routes/v2/eligibility'),
   require('../routes/v2/standards'),
   require('../routes/v2/add-standards-parcels'),
+  require('../routes/v2/choose-level'),
   require('../routes/submit'),
   require('../routes/confirmation'),
   require('../routes/map'),
