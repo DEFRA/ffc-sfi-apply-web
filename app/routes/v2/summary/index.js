@@ -1,6 +1,6 @@
 const cache = require('../../../cache')
 
-module.exports = {
+module.exports = [{
   method: 'GET',
   path: '/v2/summary',
   options: {
@@ -16,4 +16,13 @@ module.exports = {
       )
     }
   }
-}
+},
+{
+  method: 'POST',
+  path: '/v2/summary',
+  options: {
+    handler: async (request, h) => {
+      return h.redirect('/v2/submit')
+    }
+  }
+}]
