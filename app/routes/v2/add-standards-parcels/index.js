@@ -7,7 +7,7 @@ module.exports = [
     path: '/v2/add-standard-parcels',
     handler: async (request, h) => {
       const applyJourney = await cache.get('apply-journey', request.yar.id)
-      const parcels = [...new Map(applyJourney.selectedStandard.parcels.map(item => [item.id, item])).values()]
+      const parcels = applyJourney.selectedStandard.parcels
 
       const checkboxItems = parcels.map(x => {
         return {
@@ -16,9 +16,6 @@ module.exports = [
           warnings: []
         }
       })
-
-      checkboxItems[0].warnings.push({ SSSI: true }, { HEFER: true }, { SFI: true })
-      checkboxItems[1].warnings.push({ SSSI: true }, { HEFER: true }, { SFI: false })
 
       const totalHa = parcels.reduce((acc, cur) => acc + cur.area, 0)
 
