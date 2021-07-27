@@ -35,6 +35,8 @@ const routes = [].concat(
   require('../routes/v2/standards'),
   require('../routes/v2/add-standards-parcels'),
   require('../routes/v2/choose-level'),
+  require('../routes/v2/summary'),
+  require('../routes/v2/submit'),
   require('../routes/submit'),
   require('../routes/confirmation'),
   require('../routes/map'),

@@ -55,6 +55,7 @@ module.exports = [
 
       await sendAgreementCalculateMessage(
         {
+          agreementNumber: applyJourney.agreementNumber,
           callerId: applyJourney.callerId,
           code: applyJourney.selectedStandard.code,
           parcels: selectedParcels

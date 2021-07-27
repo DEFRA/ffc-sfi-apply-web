@@ -22,7 +22,14 @@ module.exports = [{
   method: 'POST',
   path: '/v2/choose-level',
   handler: async (request, h) => {
-    request.yar.set('proto-level', request.payload.level)
-    return h.redirect('/v2/choose-level/choose-level')
+    const applyJourney = await cache.get('apply-journey', request.yar.id)
+
+    const level = request.payload.level
+    let selectedAmbitionLevel = null
+    selectedAmbitionLevel = applyJourney.paymentRates[level]
+
+    await cache.update('apply-journey', request.yar.id, { selectedAmbitionLevel: { name: level, level: selectedAmbitionLevel } })
+
+    return h.redirect('/v2/summary')
   }
 }]
