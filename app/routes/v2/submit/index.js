@@ -8,7 +8,7 @@ const buildSubmitMessage = (applyJourney) => {
 
   standards.push({
     id: applyJourney.selectedStandard.code,
-    ambitionLevel: applyJourney.selectedAmbitionLevel.level.name,
+    ambitionLevel: applyJourney.selectedAmbitionLevel.name,
     parcels: applyJourney.selectedStandard.parcels
   })
 
@@ -18,7 +18,7 @@ const buildSubmitMessage = (applyJourney) => {
     callerId: applyJourney.callerId,
     agreement: {
       agreementNumber: applyJourney.agreementNumber,
-      sbi: applyJourney.sbi,
+      sbi: applyJourney.selectedSbi.sbi,
       paymentAmount: applyJourney.selectedAmbitionLevel.level.paymentAmount,
       standards: standards
     }

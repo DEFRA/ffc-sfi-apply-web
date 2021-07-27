@@ -25,7 +25,7 @@ const createPaymentRateItems = (paymentRates) => {
       value: 'Introductory',
       text: 'Introductory',
       conditional: {
-        html: `<div class="govuk-body">£${introductory.rate} per ha and total payment amount £${introductory.paymentAmount}</div>`
+        html: `<div class="govuk-body">£${introductory.rate} per ha and total payment amount of £${introductory.paymentAmount}</div>`
       }
     })
   }
@@ -37,7 +37,7 @@ const createPaymentRateItems = (paymentRates) => {
       value: 'Intermediate',
       text: 'Intermediate',
       conditional: {
-        html: `<div class="govuk-body">£${intermediate.rate} per ha and total payment amount £${intermediate.paymentAmount}</div>`
+        html: `<div class="govuk-body">£${intermediate.rate} per ha and total payment amount of £${intermediate.paymentAmount}</div>`
       }
     })
   }
@@ -49,7 +49,7 @@ const createPaymentRateItems = (paymentRates) => {
       value: 'Advanced',
       text: 'Advanced',
       conditional: {
-        html: `<div class="govuk-body">£${advanced.rate} per ha and total payment amount £${advanced.paymentAmount}</div>`
+        html: `<div class="govuk-body">£${advanced.rate} per ha and total payment amount of £${advanced.paymentAmount}</div>`
       }
     })
   }
