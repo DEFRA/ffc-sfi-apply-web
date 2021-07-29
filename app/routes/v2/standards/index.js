@@ -14,7 +14,7 @@ module.exports = [{
       const response = await getPollingResponse(request.yar.id, '/standards')
       if (response) {
         console.info('Standards request received', response)
-        await cache.update('apply-journey', request.yar.id, { agreementNumber: response.agreementNumber, standards: response.standards })
+        await cache.update('apply-journey', request.yar.id, { agreementNumber: response.agreementNumber ?? `AG${new Date().getTime()}`, standards: response.standards })
         return h.view('v2/standards/select-standard', new ViewModel(response.standards, applyJourney.selectedStandards))
       }
       return h.view('no-response')
