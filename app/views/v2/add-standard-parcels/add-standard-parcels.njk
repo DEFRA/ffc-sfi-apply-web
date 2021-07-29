@@ -33,8 +33,8 @@
             <div class="govuk-checkboxes">
               {% for item in checkboxItems %}
                 <div class="govuk-checkboxes__item">
-                  <input class="govuk-checkboxes__input" id="parcels" name="parcels" type="checkbox" value="{{ item.value }}">
-                  <label class="govuk-label govuk-checkboxes__label" for="parcels">
+                  <input class="govuk-checkboxes__input" id="{{ item.value }}" name="parcels" type="checkbox" value="{{ item.value }}">
+                  <label class="govuk-label govuk-checkboxes__label" for="{{ item.value }}">
                     {{ item.text}}
                   </label>
                   {% if item.warnings.length > 0 %}

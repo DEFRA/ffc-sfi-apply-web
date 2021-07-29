@@ -34,18 +34,14 @@ module.exports = [
     path: '/v2/add-standard-parcels',
     handler: async (request, h) => {
       const applyJourney = await cache.get('apply-journey', request.yar.id)
-      const parcels = [...new Map(applyJourney.selectedStandard.parcels.map(item => [item.id, item])).values()]
+      const parcels = applyJourney.selectedStandard.parcels
 
-      const selectedParcels = parcels.filter(item => request.payload.parcels.includes(item.id)).map(x => {
-        const object = {}
-
-        object.id = x.id
-        object.area = x.area
-        return object
-      })
+      const selectedParcels = parcels.filter(item => request.payload.parcels.includes(item.id)).map(x => ({
+        id: x.id,
+        area: x.area
+      }))
 
       const parcelArea = selectedParcels.reduce((accum, item) => accum + item.area, 0)
-      console.log(parcelArea)
 
       await cache.update('apply-journey', request.yar.id,
         {
