@@ -1,0 +1,87 @@
+{% extends "_layout.njk" %}
+
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+{% from "./v2/sidebar/sidebar.njk" import sidebar %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "/v2/standards"
+  }) }}
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <form method="POST" autocomplete="off" novalidate>
+      <input type="hidden" name="crumb" value="{{crumb}}"/>
+      <div class="govuk-form-group">
+        <fieldset class="govuk-fieldset" aria-describedby="parcels-hint">
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+            <h1 class="govuk-fieldset__heading">
+              Add parcels to standard
+            </h1>
+          </legend>
+          <div id="parcels-hint" class="govuk-hint">
+            You have {{ totalHa }}ha of eligible land for this standard
+          </div>
+
+          {% if checkboxItems.length > 0 %}
+            <div class="govuk-checkboxes">
+              {% for item in checkboxItems %}
+                <div class="govuk-checkboxes__item">
+                  <input class="govuk-checkboxes__input" id="{{ item.value }}" name="parcels" type="checkbox" value="{{ item.value }}">
+                  <label class="govuk-label govuk-checkboxes__label" for="{{ item.value }}">
+                    {{ item.text}}
+                  </label>
+                  {% if item.warnings.length > 0 %}
+                    <div class="govuk-warning-text">
+                    {% for warning in item.warnings %}
+                      {% if warning.SSSI === true %}
+                        <p>
+                          <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+                          <strong class="govuk-warning-text__text">
+                          <span class="govuk-warning-text__assistive">Warning</span>
+                            Potential SSSI conflict
+                          </strong>
+                        </p>
+                      {% endif %}
+                      {% if warning.HEFER === true %}
+                        <p>
+                          <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+                          <strong class="govuk-warning-text__text">
+                          <span class="govuk-warning-text__assistive">Warning</span>
+                            Potential HEFER conflict
+                          </strong>
+                        </p>
+                      {% endif %}
+                      {% if warning.SFI === true %}
+                        <p>
+                          <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+                          <strong class="govuk-warning-text__text">
+                            <span class="govuk-warning-text__assistive">Warning</span>
+                            Potential SFI conflict
+                          </strong>
+                        </p>
+                      {% endif %}
+                    {% endfor %}
+                    </div>
+                  {% endif %}
+                </div>
+              {% endfor %}
+            </div>
+          {% endif %}
+        </fieldset>
+      </div>
+
+      {{ govukButton({
+        text: "Continue"
+      }) }}
+    </form>
+  </div>
+  {{ sidebar("Overview", sidebarItems) }}
+</div>
+{% endblock %}

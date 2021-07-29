@@ -23,8 +23,10 @@ function ViewModel (value, error) {
 const mapItems = (value) => {
   const items = []
 
-  for (const sbi of value) {
-    items.push({ value: sbi.sbi, text: sbi.sbi })
+  if (value.length > 0) {
+    for (const sbi of value) {
+      items.push({ value: sbi.sbi, text: sbi.sbi })
+    }
   }
   return items
 }

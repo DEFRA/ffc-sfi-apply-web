@@ -3,12 +3,11 @@
 {% from "govuk/components/back-link/macro.njk" import govukBackLink %}
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
-{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
 
 {% block beforeContent %}
   {{ govukBackLink({
         text: "Back",
-        href: "/v2/eligibility-check",
+        href: "/v2/summary",
         attributes: {
           id: "back"
         }
@@ -19,26 +18,15 @@
 {% block content %}
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
-    <form method="POST" action="/v2/standards" novalidate>
+    <form method="POST" action="/v2/submit" novalidate>
       <input type="hidden" name="crumb" value="{{crumb}}"/>
-      {% if model.items.length > 0 %}
-        {{ govukRadios(model) }}
-        {{ govukButton({
-          text: "Continue",
-          attributes: {
-            id: "submit"
-          }
-        }) }}
-      {% else %}
-        {{ govukErrorSummary({
-            titleText: "There is a problem",
-            errorList: [
-              {
-                text: "No Standards(s) found!"
-              }
-            ]
-          }) }}
-      {% endif %}
+      {{ govukRadios(model) }}
+      {{ govukButton({
+        text: "Continue",
+        attributes: {
+          id: "submit"
+        }
+      }) }}
     </form>
     </div>
   </div>
