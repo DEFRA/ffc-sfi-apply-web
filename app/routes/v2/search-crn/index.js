@@ -20,6 +20,8 @@ module.exports = [{
         callerId: joi.string().length(7).pattern(/^[0-9]+$/).required()
       }),
       failAction: async (request, h, error) => {
+        console.log('FAILED')
+        console.log(error)
         return h.view('v2/search-crn/search-crn', { crn: request.payload.crn, callerId: request.payload.callerId, errors: error }).code(400).takeover()
       }
     },
