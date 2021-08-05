@@ -15,6 +15,9 @@ module.exports = [{
   method: 'POST',
   path: '/v2/search-crn',
   options: {
+    plugins: {
+      crumb: false
+    },
     validate: {
       payload: joi.object({
         crn: joi.string().length(10).pattern(/^[0-9]+$/).required(),
