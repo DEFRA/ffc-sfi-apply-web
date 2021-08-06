@@ -1,3 +1,3 @@
-@Library('defra-library@v-9.24.0') _
+@Library('defra-library@psd-1362-env-to-ingress-endpoint') _
 
 buildNodeJs()
