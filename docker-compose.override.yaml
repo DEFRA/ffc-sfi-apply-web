@@ -17,7 +17,7 @@ services:
     environment: 
       REDIS_HOSTNAME: redis
     volumes:
-      - ./app/:/home/node/app/
+      - ./app:/home/node/app
       - ./package.json:/home/node/package.json
   redis:
     image: redis:4.0.14
