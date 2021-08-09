@@ -16,6 +16,7 @@ const buildSubmitMessage = (applyJourney) => {
     agreementNumber: applyJourney.agreementNumber,
     sbi: applyJourney.selectedSbi.sbi,
     callerId: applyJourney.callerId,
+    organisationId: applyJourney.selectedSbi.organisationId,
     agreement: {
       agreementNumber: applyJourney.agreementNumber,
       sbi: applyJourney.selectedSbi.sbi,
