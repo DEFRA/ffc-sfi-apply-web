@@ -33,7 +33,7 @@ module.exports = [{
       const applyJourney = await cache.get('apply-journey', request.yar.id)
 
       const selectedSbi = applyJourney.availableSbis.find(x => x.sbi === parseInt(sbiValue))
-      await cache.update('apply-journey', request.yar.id, { selectedSbi: selectedSbi })
+      await cache.update('apply-journey', request.yar.id, { selectedSbi: selectedSbi, submitted: false })
       return h.redirect('/v2/organisation-details')
     }
   }
