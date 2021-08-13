@@ -1,6 +1,6 @@
-{{- include "ffc-helm-library.horizontal-pod-autoscaler" (list . "ffc-sfi-api-gateway.horizontal-pod-autoscaler") -}}
-{{- define "ffc-sfi-api-gateway.horizontal-pod-autoscaler" -}}
-spec:  
+{{- include "ffc-helm-library.horizontal-pod-autoscaler" (list . "ffc-sfi-apply-web.horizontal-pod-autoscaler") -}}
+{{- define "ffc-sfi-apply-web.horizontal-pod-autoscaler" -}}
+spec:
   metrics:
   - type: Resource
     resource:
