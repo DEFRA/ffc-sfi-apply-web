@@ -27,7 +27,7 @@ service:
 
 deployment:
   restartPolicy: Always
-  priorityClassName: default
+  priorityClassName: high
   replicas: 1
   minReplicas: 2
   maxReplicas: 4
