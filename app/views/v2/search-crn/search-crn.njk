@@ -44,14 +44,14 @@
             What is your Customer Reference Number (CRN)?
           </label>
         </h1>
-        <input class="govuk-input" id="crn" name="crn" type="text">        
+        <input class="govuk-input" id="crn" name="crn" value="{{crn}}"  type="text">        
       </div>
       <div class="govuk-form-group">
         <h1 class="govuk-label-wrapper"><label class="govuk-label govuk-label--m for="event-name">
             What is your Caller ID?
           </label>
         </h1>
-        <input class="govuk-input" id="callerId" name="callerId" type="text">
+        <input class="govuk-input" id="callerId" name="callerId" value="{{callerId}}" type="text">
       </div>
       
       {{ govukButton({

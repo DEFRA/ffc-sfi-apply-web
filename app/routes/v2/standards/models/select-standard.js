@@ -23,13 +23,20 @@ function ViewModel (values, selected, error) {
   }
 }
 
+const isChecked = (selected, value) => {
+  if (selected) {
+    return value === selected.code
+  }
+  return false
+}
+
 const mapStandards = (values, selected) => {
   return values.filter(item => item.parcels.length > 0)
     .map(x => {
       return {
         text: x.name,
         value: x.code,
-        checked: selected?.some(y => selected.includes(x.code)) ?? false
+        checked: isChecked(selected, x.code)
       }
     })
 }

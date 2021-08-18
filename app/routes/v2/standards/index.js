@@ -1,22 +1,16 @@
-const ViewModel = require('./models/select-standard')
 const joi = require('joi')
-const { sendStandardsRequestMessage } = require('../../../messaging')
 const cache = require('../../../cache')
-const getPollingResponse = require('../../../polling')
-const generateAgreementNumber = require('../../../agreement-number')
+const getAllStandards = require('./models/util-select-standard')
+const ViewModel = require('./models/select-standard')
 
 module.exports = [{
   method: 'GET',
   path: '/v2/standards',
   options: {
     handler: async (request, h) => {
-      const applyJourney = await cache.get('apply-journey', request.yar.id)
-      await sendStandardsRequestMessage({ sbi: applyJourney.selectedSbi.sbi, organisationId: applyJourney.selectedSbi.organisationId, callerId: applyJourney.callerId }, request.yar.id)
-      const response = await getPollingResponse(request.yar.id, '/standards')
-      if (response) {
-        console.info('Standards request received', response)
-        await cache.update('apply-journey', request.yar.id, { agreementNumber: response.agreementNumber ?? generateAgreementNumber(), standards: response.standards })
-        return h.view('v2/standards/select-standard', new ViewModel(response.standards, applyJourney.selectedStandards))
+      const { applyJourney, standards } = await getAllStandards(request)
+      if (standards) {
+        return h.view('v2/standards/select-standard', new ViewModel(standards, applyJourney.selectedStandard))
       }
       return h.view('no-response')
     }
@@ -31,7 +25,11 @@ module.exports = [{
         standard: joi.string().required()
       }),
       failAction: async (request, h, error) => {
-        return h.view('v2/standards/select-standard', new ViewModel(request.payload.standards, error)).code(400).takeover()
+        const { applyJourney, standards } = await getAllStandards(request, error)
+        if (standards) {
+          return h.view('v2/standards/select-standard', new ViewModel(standards, applyJourney.selectedStandard, error)).code(400).takeover()
+        }
+        return h.view('no-response')
       }
     },
     handler: async (request, h) => {
