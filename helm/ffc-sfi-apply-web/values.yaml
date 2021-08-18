@@ -30,7 +30,7 @@ deployment:
   priorityClassName: high
   replicas: 1
   minReplicas: 2
-  maxReplicas: 4
+  maxReplicas: 6
   cpuThreshold: 80
   memoryThreshold: 80
   minReadySeconds: 0
@@ -38,9 +38,9 @@ deployment:
 container:
   imagePullPolicy: IfNotPresent
   requestMemory: 100Mi
-  requestCpu: 100m
+  requestCpu: 180m
   limitMemory: 120Mi
-  limitCpu: 120m
+  limitCpu: 180m
   port: 3000
   googleTagManagerKey:
   messageQueueHost: namespace.servicebus.windows.net
@@ -81,15 +81,17 @@ ingress:
 livenessProbe:
   path: /healthz
   port: 3000
-  initialDelaySeconds: 10
-  periodSeconds: 10
-  failureThreshold: 3
+  initialDelaySeconds: 30
+  periodSeconds: 30
+  timeoutSeconds: 5
+  failureThreshold: 5
 
 readinessProbe:
   path: /healthy
   port: 3000
-  initialDelaySeconds: 10
-  periodSeconds: 10
-  failureThreshold: 3
+  initialDelaySeconds: 20
+  periodSeconds: 30
+  timeoutSeconds: 5
+  failureThreshold: 5
 
 aadPodIdentity: true
