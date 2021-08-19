@@ -8,6 +8,12 @@ async function createServer () {
   // Create the hapi server
   const server = hapi.server({
     port: config.port,
+    cache: [{
+      provider: {
+        constructor: catbox,
+        options: catboxOptions
+      }
+    }],
     routes: {
       validate: {
         options: {
@@ -17,14 +23,7 @@ async function createServer () {
     },
     router: {
       stripTrailingSlash: true
-    },
-    cache: [{
-      name: 'session',
-      provider: {
-        constructor: catbox,
-        options: catboxOptions
-      }
-    }]
+    }
   })
 
   // Register the plugins
