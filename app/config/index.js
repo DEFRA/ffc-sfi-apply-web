@@ -97,14 +97,6 @@ if (!value.useRedis) {
   console.info('Redis disabled, using in memory cache')
 }
 
-value.catboxOptions = {
-  host: value.redisHost,
-  port: value.redisPort,
-  password: value.redisPassword,
-  tls: value.isProd ? {} : undefined,
-  partition: value.redisPartition
-}
-
 if (!value.useAgreementCalculator) {
   value.agreementCalculatorEndpoint = value.sitiAgriEndpoint
   console.info('Using Siti Agri')
