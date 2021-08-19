@@ -98,11 +98,11 @@ if (!value.useRedis) {
 }
 
 value.catboxOptions = {
-  host: value.redisHost,
-  port: value.redisPort,
-  password: value.redisPassword,
+  host: value.cacheConfig.redisHost,
+  port: value.cacheConfig.redisPort,
+  password: value.cacheConfig.redisPassword,
   tls: value.isProd ? {} : undefined,
-  partition: value.redisPartition
+  partition: value.cacheConfig.redisPartition
 }
 
 if (!value.useAgreementCalculator) {
