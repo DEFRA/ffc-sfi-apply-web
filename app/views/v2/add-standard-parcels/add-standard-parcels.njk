@@ -29,11 +29,21 @@
             You have {{ totalHa }}ha of eligible land for this standard
           </div>
 
+          {% if error %}
+            <span id="parcels-error" class="govuk-error-message">
+              <span class="govuk-visually-hidden">Error:</span> Please select a parcel
+            </span>
+          {% endif %}
+
           {% if checkboxItems.length > 0 %}
             <div class="govuk-checkboxes">
               {% for item in checkboxItems %}
                 <div class="govuk-checkboxes__item">
+                {% if item.checked %}
+                  <input class="govuk-checkboxes__input" id="{{ item.value }}" name="parcels" type="checkbox" value="{{ item.value }}" checked>
+                {% else %}
                   <input class="govuk-checkboxes__input" id="{{ item.value }}" name="parcels" type="checkbox" value="{{ item.value }}">
+                {% endif %}
                   <label class="govuk-label govuk-checkboxes__label" for="{{ item.value }}">
                     {{ item.text}}
                   </label>

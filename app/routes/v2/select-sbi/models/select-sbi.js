@@ -1,5 +1,4 @@
-
-function ViewModel (value, error) {
+function ViewModel (value, selectedSbi, error) {
   this.model = {
     id: 'sbi',
     name: 'sbi',
@@ -10,9 +9,8 @@ function ViewModel (value, error) {
         classes: 'govuk-fieldset__legend--l'
       }
     },
-    items: mapItems(value)
+    items: mapItems(value, selectedSbi)
   }
-
   if (error) {
     this.model.errorMessage = {
       text: 'Please choose a Single Business Identifier (SBI) '
@@ -20,12 +18,18 @@ function ViewModel (value, error) {
   }
 }
 
-const mapItems = (value) => {
-  const items = []
+const isChecked = (selectedSbi, value) => {
+  if (selectedSbi) {
+    return value === selectedSbi.sbi
+  }
+  return false
+}
 
+const mapItems = (value, selectedSbi) => {
+  const items = []
   if (value.length > 0) {
     for (const sbi of value) {
-      items.push({ value: sbi.sbi, text: sbi.sbi })
+      items.push({ value: sbi.sbi, text: sbi.sbi, checked: isChecked(selectedSbi, sbi.sbi) })
     }
   }
   return items

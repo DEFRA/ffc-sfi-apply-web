@@ -1,18 +1,15 @@
 const joi = require('joi')
 const ViewModel = require('./models/select-sbi')
+const getAllSbis = require('./models/util-select-sbi')
 const cache = require('../../../cache')
-const { getSbis } = require('../../../api/crown-hosting')
 
 module.exports = [{
   method: 'GET',
   path: '/v2/select-sbi',
   options: {
     handler: async (request, h) => {
-      const applyJourney = await cache.get('apply-journey', request.yar.id)
-      const sbis = await getSbis(applyJourney.crn, applyJourney.callerId)
-      await cache.update('apply-journey', request.yar.id, { availableSbis: sbis })
-
-      return h.view('v2/select-sbi/select-sbi', new ViewModel(sbis))
+      const { sbis, applyJourney } = await getAllSbis(request)
+      return h.view('v2/select-sbi/select-sbi', new ViewModel(sbis, applyJourney.selectedSbi))
     }
   }
 },
@@ -25,7 +22,8 @@ module.exports = [{
         sbi: joi.string().required()
       }),
       failAction: async (request, h, error) => {
-        return h.view('v2/select-sbi/select-sbi', new ViewModel(request.payload.sbi, error)).code(400).takeover()
+        const { sbis, applyJourney } = await getAllSbis(request, error)
+        return h.view('v2/select-sbi/select-sbi', new ViewModel(sbis, applyJourney.selectedSbi, error)).code(400).takeover()
       }
     },
     handler: async (request, h) => {
