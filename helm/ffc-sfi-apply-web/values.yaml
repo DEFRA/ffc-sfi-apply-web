@@ -37,10 +37,10 @@ deployment:
 
 container:
   imagePullPolicy: IfNotPresent
-  requestMemory: 100Mi
-  requestCpu: 180m
+  requestMemory: 120Mi
+  requestCpu: 500m
   limitMemory: 120Mi
-  limitCpu: 180m
+  limitCpu: 500m
   port: 3000
   googleTagManagerKey:
   messageQueueHost: namespace.servicebus.windows.net
