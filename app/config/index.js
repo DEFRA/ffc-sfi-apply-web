@@ -26,7 +26,7 @@ const schema = joi.object({
   useAgreementCalculator: joi.bool().default(false),
   polling: joi.object({
     interval: joi.number().default(500),
-    retries: joi.number().default(20)
+    retries: joi.number().default(180)
   }),
   publicApi: joi.string().default('https://environment.data.gov.uk/arcgis/rest/services/RPA/'),
   chApiGateway: joi.string().default('').allow(''),
