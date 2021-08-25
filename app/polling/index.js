@@ -10,7 +10,9 @@ const getPollingResponse = async (correlationId, url) => {
         case 200:
           return payload
         case 202:
-          console.log('202 received, awaiting result, continue polling')
+          if (config.isDev) {
+            console.log('202 received, awaiting result, continue polling')
+          }
           break
         default:
           console.log('Unhandled status code, stop polling')
