@@ -2,6 +2,7 @@
 
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
 
 {% block beforeContent %}
   {{ govukBackLink({
@@ -17,7 +18,7 @@
 {% block content %}
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    <form method="POST" action="/which-business" novalidate>
+    <form method="GET" action="/relationship" novalidate>
       <input type="hidden" name="crumb" value="{{crumb}}"/>
       <h1 class="govuk-heading-l">Check your land details</h1>   
       <p class="govuk-body">Your Rural Payments Agency (RPA) account details.</p>
@@ -45,27 +46,32 @@
 
       <hr class="govuk-section-break govuk-section-break--xl govuk-section-break--visible">
 
-      <div class="govuk-form-group">
-        <fieldset class="govuk-fieldset" aria-describedby="land-control-check-hint">
-          <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
-            <h1 class="govuk-fieldset__heading">Do you have management control of this land?</h1>
-          </legend>
-          <div id="land-control-check-hint" class="govuk-hint">
-            You must have a land management control agreement to apply for the scheme.
-          </div>
-          <div class="govuk-radios">
-            <div class="govuk-radios__item">
-              <input class="govuk-radios__input" id="land-control-check-yes" name="land-control-check" type="radio" value="yes">
-              <label class="govuk-label govuk-radios__label" for="land-control-check-yes">  Yes</label>
-            </div>
-            <div class="govuk-radios__item">
-              <input class="govuk-radios__input" id="land-control-check-no" name="land-control-check" type="radio" value="no">
-              <label class="govuk-label govuk-radios__label" for="land-control-check-no">  No</label>
-            </div>
-        </fieldset>
-      </div>
+      {{ govukRadios({
+          classes: "govuk-radios",
+          idPrefix: "landControlCheck",
+          name: "landControlCheck",
+          fieldset: {
+            legend: {
+              text: "Do you have management control of this land?",
+              isPageHeading: false,
+              classes: "govuk-fieldset__legend--m"
+            }
+          },
+          hint: {
+            text: "You must have a land management control agreement to apply for the scheme."
+          },
+          items: [
+            {
+              value: "yes",
+              text: "Yes"
+            },
+            {
+              value: "no",
+              text: "No"
+            }
+          ]
+        }) }}
 
-      <input type="hidden" name="crumb" value="{{crumb}}"/>
       {{ govukButton({
         text: "Confirm and continue",
         attributes: {

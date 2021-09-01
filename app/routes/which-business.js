@@ -30,6 +30,7 @@ module.exports = [{
       const sbiValue = request.payload.sbi
       const applyJourney = await cache.get('apply-journey', request.yar.id)
       const selectedSbi = applyJourney.availableSbis.find(x => x.sbi === parseInt(sbiValue))
+      console.log(selectedSbi)
       await cache.update('apply-journey', request.yar.id, { selectedSbi: selectedSbi, submitted: false })
       return h.redirect('/application-task-list')
     }

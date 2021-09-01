@@ -28,7 +28,7 @@ module.exports = [{
       const crn = request.payload.crn
       const callerId = request.payload.callerId
       await cache.update('apply-journey', request.yar.id, { crn, callerId })
-      return h.redirect('/which-business', { crn, callerId })
+      return h.redirect('/which-business')
     }
   }
 }]

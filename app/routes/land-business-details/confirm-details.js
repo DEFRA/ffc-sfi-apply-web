@@ -1,5 +1,5 @@
-const cache = require('../cache')
-const { getOrganisation } = require('../api/crown-hosting')
+const cache = require('../../cache')
+const { getOrganisation } = require('../../api/crown-hosting')
 
 module.exports = [
   {
@@ -15,19 +15,7 @@ module.exports = [
           organisation.address.address3,
           organisation.address.postalCode].join(', ') : ''
         const name = organisation?.name ? organisation.name : ''
-        return h.view('confirm-details', { sbi: applyJourney.selectedSbi.sbi, name, address })
+        return h.view('land-business-details/confirm-details', { sbi: applyJourney.selectedSbi.sbi, name, address })
       }
     }
-  },
-  {
-    method: 'POST',
-    path: '/confirm-details',
-    options: {
-      handler: async (request, h) => {
-        const sbi = request.payload.sbi
-        await cache.update('apply-journey', request.yar.id, { sbi })
-        return h.redirect('/v2/eligibility-check')
-      }
-    }
-  }
-]
+  }]

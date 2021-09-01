@@ -1,0 +1,60 @@
+{% extends '_layout.njk' %}
+{% set mainClasses = "govuk-main-wrapper--auto-spacing" %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+        text: "Back",
+        href: "/application-task-list",
+        attributes: {
+          id: "back"
+        }
+      }) 
+    }}
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+    <form method="POST" action="/funding-options/what-funding" novalidate>
+      <input type="hidden" name="crumb" value="{{crumb}}"/>
+      {% if model.items.length > 0 %}
+        {{ govukRadios(model) }}
+        {{ govukButton({
+          text: "Continue",
+          attributes: {
+            id: "submit"
+          }
+        }) }}
+
+        <details class="govuk-details" data-module="govuk-details">
+          <summary class="govuk-details__summary">
+            <span class="govuk-details__summary-text">
+              What is a standard?
+            </span>
+          </summary>
+          <div class="govuk-details__text">
+            <p class="govuk-body">
+              A standard is a set of actions you'll need to carry out on your land.
+            </p>
+          </div>
+        </details>
+
+
+      {% else %}
+        {{ govukErrorSummary({
+            titleText: "There is a problem",
+            errorList: [
+              {
+                text: "No Standards(s) found!"
+              }
+            ]
+          }) }}
+      {% endif %}
+    </form>
+    </div>
+  </div>
+{% endblock %}

@@ -13,28 +13,28 @@ const taskList = [{
   taskGroup: 'Funding options',
   dependsOn: 'businessDetails',
   tasks: [{
-    id: 'standards',
+    id: 'fundingOption',
     dependsOn: 'fundingOptions',
     taskName: 'Choose funding option',
     status: 'CANNOT START YET',
-    url: 'funding-options/standards'
+    url: '/funding-options/what-funding'
   },
   {
-    id: 'actions',
+    id: 'fundingOptionOverview',
     dependsOn: 'fundingOptions',
     taskName: 'Funding option overview',
     status: 'CANNOT START YET',
     url: 'funding-options/actions'
   },
   {
-    id: 'land',
+    id: 'amountOfLand',
     dependsOn: 'fundingOptions',
     taskName: 'Add the amount of land you will use',
     status: 'CANNOT START YET',
     url: 'funding-options/land-primary-actions'
   },
   {
-    id: 'land',
+    id: 'paymentLevel',
     dependsOn: 'fundingOptions',
     taskName: 'Choose a payment level',
     status: 'CANNOT START YET',

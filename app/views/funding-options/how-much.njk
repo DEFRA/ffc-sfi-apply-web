@@ -1,0 +1,127 @@
+{% extends "_layout.njk" %}
+
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+
+{% block beforeContent %}
+  {% if selectedStandardCode === '130' %}
+    <a href="/funding-options/grassland-overview" class="govuk-back-link">Back</a>
+  {% endif %}
+
+  {% if selectedStandardCode === '110' %}
+    <a href="/funding-options/arable-overview" class="govuk-back-link">Back</a>
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <form method="POST" autocomplete="off" novalidate>
+      <input type="hidden" name="crumb" value="{{crumb}}"/>
+
+      {% if selectedStandardCode === '130' %}
+        <span class="govuk-caption-l">
+          Improved grassland soils
+        </span>
+        <h1 class="govuk-heading-l">
+          How much improved grassland do you want to use in the scheme?
+        </h1>
+      {% endif %}
+
+      {% if selectedStandardCode === '110' %}
+        <span class="govuk-caption-l">
+          Arable and horticultural soils
+        </span>
+        <h1 class="govuk-heading-l">
+          How much arable land do you want to use in the scheme?
+        </h1>
+      {% endif %}
+
+      <div class="govuk-hint">
+        Choose the land parcels you want to use and add the number of hectares. You cannot use land designated as SSSI or peat.
+      </div>
+
+      {% if error %}
+        <span id="parcels-error" class="govuk-error-message">
+          <span class="govuk-visually-hidden">Error:</span> Please select a parcel
+        </span>
+      {% endif %}
+
+      {% if checkboxItems.length > 0 %}
+        <div class="govuk-checkboxes">
+          {% for item in checkboxItems %}
+            <div class="govuk-checkboxes__item">
+            {% if item.checked %}
+              <input class="govuk-checkboxes__input" id="{{ item.value }}" name="parcels" type="checkbox" value="{{ item.value }}" checked>
+            {% else %}
+              <input class="govuk-checkboxes__input" id="{{ item.value }}" name="parcels" type="checkbox" value="{{ item.value }}">
+            {% endif %}
+              <label class="govuk-label govuk-checkboxes__label" for="{{ item.value }}">
+                {{ item.text}}
+              </label>
+              {% if item.warnings.length > 0 %}
+                <div class="govuk-warning-text">
+                {% for warning in item.warnings %}
+                  {% if warning.SSSI === true %}
+                    <p>
+                      <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+                      <strong class="govuk-warning-text__text">
+                      <span class="govuk-warning-text__assistive">Warning</span>
+                        Potential SSSI conflict
+                      </strong>
+                    </p>
+                  {% endif %}
+                  {% if warning.HEFER === true %}
+                    <p>
+                      <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+                      <strong class="govuk-warning-text__text">
+                      <span class="govuk-warning-text__assistive">Warning</span>
+                        Potential HEFER conflict
+                      </strong>
+                    </p>
+                  {% endif %}
+                  {% if warning.SFI === true %}
+                    <p>
+                      <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+                      <strong class="govuk-warning-text__text">
+                        <span class="govuk-warning-text__assistive">Warning</span>
+                        Potential SFI conflict
+                      </strong>
+                    </p>
+                  {% endif %}
+                {% endfor %}
+                </div>
+              {% endif %}
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+      <br>
+      {{ govukButton({
+          text: "Continue",
+          attributes: {
+            id: "submit"
+          }
+        }) }}
+
+      {% if selectedStandardCode === '130' %}
+        <details class="govuk-details" data-module="govuk-details">
+            <summary class="govuk-details__summary">
+              <span class="govuk-details__summary-text">
+                What is improved grassland?
+              </span>
+            </summary>
+            <div class="govuk-details__text">
+              <p class="govuk-body">
+                Improved grassland is grassland you’re managing to improve your agricultural production.
+              </p>
+            </div>
+        </details>
+      {% endif %}
+
+    </form>
+  </div>
+</div>
+{% endblock %}
