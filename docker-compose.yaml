@@ -7,8 +7,6 @@ services:
       target: production
     image: ffc-sfi-apply-web
     container_name: ffc-sfi-apply-web
-    depends_on:
-      - ffc-sfi-apply-web-postgres
     environment:
       APPINSIGHTS_CLOUDROLE: ffc-sfi-apply-web-local
       APPINSIGHTS_INSTRUMENTATIONKEY: ${APPINSIGHTS_INSTRUMENTATIONKEY}
@@ -23,21 +21,9 @@ services:
       WITHDRAW_TOPIC_ADDRESS: ${WITHDRAW_TOPIC_ADDRESS:-notset}
       REQUEST_SBI_TOPIC_ADDRESS: ${REQUEST_SBI_TOPIC_ADDRESS:-notset}
       AGREEMENT_CALCULATOR_ENDPOINT: http://ffc-sfi-agreement-calculator:3003
+      AGREEMENT_API_ENDPOINT: http://ffc-sfi-agreement-api:3009
       SITI_AGRI_ENDPOINT: http://ffc-sfi-apply-api:3001
       COOKIE_PASSWORD: cookiecookiecookiecookiecookiecookie
-      POSTGRES_DB: ffc_sfi_apply_web
-      POSTGRES_HOST: ${POSTGRES_HOST:-ffc-sfi-apply-web-postgres}
-      POSTGRES_PASSWORD: ${POSTGRES_SCHEMA_PASSWORD:-ppp}
-      POSTGRES_PORT: 5432
-      POSTGRES_SCHEMA_NAME: ${POSTGRES_SCHEMA_NAME:-public}
-      POSTGRES_USERNAME: ${POSTGRES_SCHEMA_USERNAME:-postgres}
       USE_AGREEMENT_CALCULATOR: ${USE_AGREEMENT_CALCULATOR:-true}
       OS_MAP_API_KEY: ${OS_MAP_API_KEY}
       CH_API_GATEWAY: ${CH_API_GATEWAY}
-  
-  ffc-sfi-apply-web-postgres:
-    image: postgres:11.4-alpine
-    environment:
-      POSTGRES_DB: ffc_sfi_apply_web
-      POSTGRES_PASSWORD: ppp
-      POSTGRES_USERNAME: postgres
