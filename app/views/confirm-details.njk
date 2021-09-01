@@ -1,0 +1,83 @@
+{% extends "_layout.njk" %}
+
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+        text: "Back",
+        href: "/application-task-list",
+        attributes: {
+          id: "back"
+        }
+      }) 
+    }}
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <form method="POST" action="/which-business" novalidate>
+      <input type="hidden" name="crumb" value="{{crumb}}"/>
+      <h1 class="govuk-heading-l">Check your land details</h1>   
+      <p class="govuk-body">Your Rural Payments Agency (RPA) account details.</p>
+      <hr class="govuk-section-break govuk-section-break--xl govuk-section-break--visible">
+
+      <h2 class="govuk-heading-m">Single Business Identifier (SBI)</h2>
+      <p class="govuk-body">{{sbi}}</p>
+
+      <h2 class="govuk-heading-m">Business address</h2>
+      <p class="govuk-body">{{name}}<br>
+          {{address}}
+      </p>
+
+      <h2 class="govuk-heading-m">Land registered in England</h2>
+      <p class="govuk-body">Total land: 270 hectares of land</p>
+      <br>
+      <p class="govuk-body">Arable land: 200 hectares</p>
+      <p class="govuk-body">Permanent grassland: 70 hectares</p>
+
+      <h2 class="govuk-heading-m">Your schemes</h2>
+      <p class="govuk-hint">Includes current and past scheme participation</p>
+      <ul class="govuk-list">
+        <li>Basic Payment Scheme (BPS) last paid: January 2021</li>
+      </ul>
+
+      <hr class="govuk-section-break govuk-section-break--xl govuk-section-break--visible">
+
+      <div class="govuk-form-group">
+        <fieldset class="govuk-fieldset" aria-describedby="land-control-check-hint">
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+            <h1 class="govuk-fieldset__heading">Do you have management control of this land?</h1>
+          </legend>
+          <div id="land-control-check-hint" class="govuk-hint">
+            You must have a land management control agreement to apply for the scheme.
+          </div>
+          <div class="govuk-radios">
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="land-control-check-yes" name="land-control-check" type="radio" value="yes">
+              <label class="govuk-label govuk-radios__label" for="land-control-check-yes">  Yes</label>
+            </div>
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="land-control-check-no" name="land-control-check" type="radio" value="no">
+              <label class="govuk-label govuk-radios__label" for="land-control-check-no">  No</label>
+            </div>
+        </fieldset>
+      </div>
+
+      <input type="hidden" name="crumb" value="{{crumb}}"/>
+      {{ govukButton({
+        text: "Confirm and continue",
+        attributes: {
+          id: "submit"
+        }
+      }) }}
+
+      <p class="govuk-body">
+        <a href="#">My details have changed</a>
+      </p>
+    </form>
+  </div>
+  <div>
+</div>
+{% endblock %}

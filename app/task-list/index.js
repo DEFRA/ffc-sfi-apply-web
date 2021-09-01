@@ -5,7 +5,7 @@ const taskList = [{
   tasks: [{
     taskName: 'Confirm your land and business details',
     status: 'NOT STARTED',
-    url: 'search-land-business-details'
+    url: 'confirm-details'
   }]
 },
 {
@@ -15,58 +15,58 @@ const taskList = [{
   tasks: [{
     id: 'standards',
     dependsOn: 'fundingOptions',
-    taskName: 'Choose funding type',
+    taskName: 'Choose funding option',
     status: 'CANNOT START YET',
     url: 'funding-options/standards'
   },
   {
     id: 'actions',
     dependsOn: 'fundingOptions',
-    taskName: 'Choose actions',
+    taskName: 'Funding option overview',
     status: 'CANNOT START YET',
     url: 'funding-options/actions'
   },
   {
     id: 'land',
     dependsOn: 'fundingOptions',
-    taskName: 'Add the amount of land you\'ll use',
+    taskName: 'Add the amount of land you will use',
+    status: 'CANNOT START YET',
+    url: 'funding-options/land-primary-actions'
+  },
+  {
+    id: 'land',
+    dependsOn: 'fundingOptions',
+    taskName: 'Choose a payment level',
     status: 'CANNOT START YET',
     url: 'funding-options/land-primary-actions'
   }]
 }, {
   id: 'createAgreement',
-  taskGroup: 'Create your agreement',
+  taskGroup: 'Create your land management agreement',
   dependsOn: 'fundingDetails',
   tasks: [{
     id: 'how',
     dependsOn: 'createAgreementOptions',
-    taskName: 'Tell us how you will carry out your chosen actions',
+    taskName: 'Tell us how you will carry out the actions',
     status: 'CANNOT START YET',
     url: 'create-agreement/soil-assessment'
   },
   {
-    taskName: 'Review your agreement',
+    taskName: 'Choose your payment schedule',
+    status: 'CANNOT START YET',
+    url: 'create-agreement/review'
+  },
+  {
+    taskName: 'Check your answers',
+    status: 'CANNOT START YET',
+    url: 'create-agreement/review'
+  },
+  {
+    taskName: 'View your agreement',
     status: 'CANNOT START YET',
     url: 'create-agreement/review'
   }]
 }, {
-  id: 'paymentDetails',
-  taskGroup: 'Payment details',
-  dependsOn: 'createAgreement',
-  tasks: [{
-    id: 'paymentFrequency',
-    dependsOn: 'paymentOptions',
-    taskName: 'Choose your payment options',
-    status: 'CANNOT START YET',
-    url: 'payment-details/payment-frequency'
-  },
-  {
-    taskName: 'Confirm your bank details',
-    status: 'CANNOT START YET',
-    url: 'payment-details/bank-details'
-  }]
-},
-{
   id: 'submitted',
   taskGroup: 'Submit your application',
   dependsOn: 'paymentDetails',
