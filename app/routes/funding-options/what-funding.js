@@ -37,7 +37,7 @@ module.exports = [{
       const applyJourney = await cache.get('apply-journey', request.yar.id)
 
       const selectedStandard = applyJourney.standards.find(x => x.code === standard)
-      await cache.update('apply-journey', request.yar.id, { selectedStandard: selectedStandard })
+      await cache.update('apply-journey', request.yar.id, { selectedStandard })
 
       await cache.update('progress', request.yar.id, {
         progress: { fundingOption: true }

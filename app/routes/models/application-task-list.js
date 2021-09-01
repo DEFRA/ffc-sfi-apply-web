@@ -7,7 +7,7 @@ function ViewModel (progressCache) {
   }
 }
 
-const checkInprogress = (progress, taskGroup) => {
+const checkTasksInProgress = (progress, taskGroup) => {
   taskGroup.tasks.map(task => {
     if (progress[task.id]) {
       task.status = 'IN PROGRESS'
@@ -20,11 +20,9 @@ const validateSchema = (progressCache) => {
 
   if (progressCache?.progress) {
     const progress = progressCache.progress
-    console.log('progress', progress)
     return taskListData.map((taskGroup) => {
-      console.log(progress[taskGroup.id], taskGroup)
       progress[taskGroup.dependsOn] && updateStatus(progress, taskGroup, 'NOT STARTED')
-      checkInprogress(progress, taskGroup)
+      checkTasksInProgress(progress, taskGroup)
       progress[taskGroup.id] && updateStatus(progress, taskGroup, 'COMPLETED')
       return taskGroup
     })

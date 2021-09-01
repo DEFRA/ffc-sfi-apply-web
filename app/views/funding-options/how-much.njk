@@ -6,13 +6,24 @@
 {% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
 
 {% block beforeContent %}
-  {% if selectedStandardCode === '130' %}
-    <a href="/funding-options/grassland-overview" class="govuk-back-link">Back</a>
-  {% endif %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-one-half">
+      {% if selectedStandardCode === '130' %}
+        <a href="/funding-options/grassland-overview" class="govuk-back-link">Back</a>
+      {% endif %}
 
-  {% if selectedStandardCode === '110' %}
-    <a href="/funding-options/arable-overview" class="govuk-back-link">Back</a>
-  {% endif %}
+      {% if selectedStandardCode === '110' %}
+        <a href="/funding-options/arable-overview" class="govuk-back-link">Back</a>
+      {% endif %}
+    </div>
+    <div class="govuk-grid-column-one-half">
+      <div class="save-and-return">
+        <p class="govuk-body">
+          <a href="#">Save and return later</a>
+        </p>
+      </div>
+    </div>
+  </div>
 {% endblock %}
 
 {% block content %}

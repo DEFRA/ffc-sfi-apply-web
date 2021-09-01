@@ -24,7 +24,7 @@ const taskList = [{
     dependsOn: 'fundingOptions',
     taskName: 'Funding option overview',
     status: 'CANNOT START YET',
-    url: 'funding-options/actions'
+    url: 'funding-options/funding-overview'
   },
   {
     id: 'amountOfLand',
