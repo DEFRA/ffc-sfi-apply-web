@@ -31,14 +31,14 @@ const taskList = [{
     dependsOn: 'fundingOptions',
     taskName: 'Add the amount of land you will use',
     status: 'CANNOT START YET',
-    url: 'funding-options/land-primary-actions'
+    url: 'funding-options/how-much'
   },
   {
     id: 'paymentLevel',
     dependsOn: 'fundingOptions',
     taskName: 'Choose a payment level',
     status: 'CANNOT START YET',
-    url: 'funding-options/land-primary-actions'
+    url: 'funding-options/what-payment-level'
   }]
 }, {
   id: 'createAgreement',
@@ -49,22 +49,22 @@ const taskList = [{
     dependsOn: 'createAgreementOptions',
     taskName: 'Tell us how you will carry out the actions',
     status: 'CANNOT START YET',
-    url: 'create-agreement/soil-assessment'
+    url: 'application-task-list'
   },
   {
     taskName: 'Choose your payment schedule',
     status: 'CANNOT START YET',
-    url: 'create-agreement/review'
+    url: 'application-task-list'
   },
   {
     taskName: 'Check your answers',
     status: 'CANNOT START YET',
-    url: 'create-agreement/review'
+    url: 'application-task-list'
   },
   {
     taskName: 'View your agreement',
     status: 'CANNOT START YET',
-    url: 'create-agreement/review'
+    url: 'application-task-listw'
   }]
 }, {
   id: 'submitted',
@@ -73,7 +73,7 @@ const taskList = [{
   tasks: [{
     taskName: 'Submit your application',
     status: 'CANNOT START YET',
-    url: '/submit'
+    url: 'application-task-list'
   }]
 }]
 
