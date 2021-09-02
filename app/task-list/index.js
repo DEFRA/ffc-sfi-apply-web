@@ -49,31 +49,34 @@ const taskList = [{
     dependsOn: 'createAgreementOptions',
     taskName: 'Tell us how you will carry out the actions',
     status: 'CANNOT START YET',
-    url: 'application-task-list'
+    url: 'determine-action'
   },
   {
+    id: 'schedule',
     taskName: 'Choose your payment schedule',
     status: 'CANNOT START YET',
-    url: 'application-task-list'
+    url: '/arable-soils/payment-schedule'
   },
   {
+    id: 'answers',
     taskName: 'Check your answers',
     status: 'CANNOT START YET',
-    url: 'application-task-list'
+    url: '/arable-soils/check-your-answers'
   },
   {
+    id: 'agreement',
     taskName: 'View your agreement',
     status: 'CANNOT START YET',
-    url: 'application-task-listw'
+    url: 'review-your-agreement'
   }]
 }, {
   id: 'submitted',
   taskGroup: 'Submit your application',
-  dependsOn: 'paymentDetails',
+  dependsOn: 'createAgreement',
   tasks: [{
     taskName: 'Submit your application',
     status: 'CANNOT START YET',
-    url: 'application-task-list'
+    url: '/declaration'
   }]
 }]
 

@@ -1,10 +1,10 @@
 const joi = require('joi')
-const ViewModel = require('./models/submit')
-const { sendAgreementSubmitMessage } = require('../messaging')
-const cache = require('../cache')
-const schema = require('./schemas/agreement')
-const { saveAgreement } = require('../agreement')
-const { saveProgress } = require('../progress')
+const ViewModel = require('../../models/submit')
+const { sendAgreementSubmitMessage } = require('../../../messaging')
+const cache = require('../../../cache')
+const schema = require('../../schemas/agreement')
+const { saveAgreement } = require('../../../agreement')
+const { saveProgress } = require('../../../progress')
 
 module.exports = [{
   method: 'GET',

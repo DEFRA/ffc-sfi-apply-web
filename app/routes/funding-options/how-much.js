@@ -27,12 +27,12 @@ module.exports = [
           parcels: joi.any().required()
         }),
         failAction: async (request, h, error) => {
-          const { applyJourney, checkboxItems, totalHa } = await getAllItems(request)
+          const { checkboxItems, totalHa } = await getAllItems(request)
           return h.view('funding-options/how-much',
             {
               error: error,
               checkboxItems: checkboxItems,
-              totalHa: Number(totalHa).toFixed(2),
+              totalHa: Number(totalHa).toFixed(2)
             }).code(400).takeover()
         }
       },

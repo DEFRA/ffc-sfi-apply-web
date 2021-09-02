@@ -2,14 +2,14 @@
 
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/back-link/macro.njk" import govukBackLink %}
-{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/details/macro.njk" import govukDetails %}
 
 {% block beforeContent %}
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-one-half">
       {{ govukBackLink({
         text: "Back",
-        href: "/funding-options/what-funding",
+        href: "/application-task-list",
         attributes: {
           id: "back"
         }
@@ -25,29 +25,34 @@
 {% block content %}
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    <form method="POST" action="funding-overview" novalidate>
+    <form method="POST" action="basic-overview" novalidate>
       <input type="hidden" name="crumb" value="{{crumb}}"/>
       <span class="govuk-caption-l">
-        Improved grassland soils
+        Arable and horticultural soils basic level
       </span>
       <h1 class="govuk-heading-l">
-        Improved grassland soils standard: how it works
+        Basic level payment actions
       </h1>
 
-      <p class="govuk-body">
-        This standard sets out actions you’ll need to take to manage your land in an environmentally sustainable way.
-      </p>
+      <h2 class="govuk-heading-m">
+        Actions
+      </h2>
+
+      <ol class="govuk-list govuk-list--number">
+        <li>Carry out a soil assessment</li>
+        <li>Reduce soil compaction</li>
+        <li>Establish green cover on 5% of your land</li>
+        <li>Add organic matter to 10% of your land</li>
+      </ol>
 
       <p class="govuk-body">
-        By maintaining your improved grassland soils you’ll:
+        You must agree to carry out all the actions to qualify for the scheme.
       </p>
 
-      <ul class="govuk-list govuk-list--bullet">
-        <li>improve conditions for wildlife</li>
-        <li>help the environment</li>
-        <li>reduce the costs of agriculture and horticulture</li>
-        <li>reduce the effects of climate change</li>
-      </ul>
+      {{ govukDetails({
+        summaryText: "What happens if I cannot carry out one of these actions?",
+        text: "If you cannot carry out an action at the basic level, you will not be eligible to apply for the standard. Check if you can apply for another standard."
+      }) }}
 
       {{ govukButton({
         text: "Continue",

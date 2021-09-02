@@ -1,3 +1,4 @@
+const standards = require('../standards')
 
 function ViewModel (values, selected, error) {
   this.model = {
@@ -31,7 +32,7 @@ const mapStandards = (values, selected) => {
   return values.filter(item => item.parcels.length > 0)
     .map(x => {
       return {
-        text: x.name,
+        text: standards.find(s => s.code === x.code).name,
         value: x.code,
         checked: isChecked(selected, x.code)
       }

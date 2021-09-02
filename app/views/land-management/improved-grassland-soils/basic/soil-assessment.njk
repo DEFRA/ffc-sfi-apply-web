@@ -1,0 +1,87 @@
+{% extends "_layout.njk" %}
+
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+
+{% block beforeContent %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-one-half">
+      {{ govukBackLink({
+        text: "Back",
+        href: "/improved-grassland-soils/basic/basic-overview",
+        attributes: {
+          id: "back"
+        }
+        }) 
+      }}
+    </div>
+    <div class="govuk-grid-column-one-half">
+      {% include "save/save.njk" %}
+    </div>
+  </div>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <form method="POST" action="soil-assessment" novalidate>
+      <input type="hidden" name="crumb" value="{{crumb}}"/>
+      <span class="govuk-caption-l">
+        Improved grassland soils basic level
+      </span>
+
+      {{ govukRadios({
+          idPrefix: "soil-assessment",
+          name: "soil-assessment",
+          fieldset: {
+            legend: {
+              text: "Can you assess your soil to identify runoff erosion, compaction and flooding risk?",
+              isPageHeading: true,
+              classes: "govuk-fieldset__legend--l"
+            }
+          },
+          items: [
+            {
+              value: "yes",
+              text: "Yes, I can"
+            },
+            {
+              value: "doing",
+              text: "I'm already doing this and will keep doing it"
+            },
+            {
+              value: "no",
+              text: "No, I cannot do this"
+            }
+          ]
+        }) }}
+
+      {{ govukDetails({
+        summaryText: "What do I need to look for in my soil?",
+        text: ""
+      }) }}
+
+      {{ govukDetails({
+        summaryText: "Why do I need to do this?",
+        text: ""
+      }) }}
+
+      {{ govukDetails({
+        summaryText: "What happens if you cannot achieve a scheme action?",
+        text: ""
+      }) }}
+
+
+      {{ govukButton({
+        text: "Continue",
+        attributes: {
+          id: "submit"
+        }
+      }) }}
+    </form>
+  </div>
+  <div>
+</div>
+{% endblock %}

@@ -1,0 +1,81 @@
+{% extends "_layout.njk" %}
+
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+
+{% block beforeContent %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-one-half">
+      {{ govukBackLink({
+        text: "Back",
+        href: "/improved-grassland-soils/basic/herbs-legumes",
+        attributes: {
+          id: "back"
+        }
+        }) 
+      }}
+    </div>
+    <div class="govuk-grid-column-one-half">
+      {% include "save/save.njk" %}
+    </div>
+  </div>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <form method="POST" action="stocking-density" novalidate>
+      <input type="hidden" name="crumb" value="{{crumb}}"/>
+      <span class="govuk-caption-l">
+        Improved grassland soils basic level
+      </span>
+
+      {{ govukRadios({
+          idPrefix: "stocking-density",
+          name: "stocking-density",
+          fieldset: {
+            legend: {
+              text: "Can you remove livestock from 5% of your land identified at risk of erosion or runoff when soils are wet?",
+              isPageHeading: true,
+              classes: "govuk-fieldset__legend--l"
+            }
+          },
+          items: [
+            {
+              value: "yes",
+              text: "Yes, I can"
+            },
+            {
+              value: "doing",
+              text: "I'm already doing this and will keep doing it"
+            },
+            {
+              value: "no",
+              text: "No, I cannot do this"
+            }
+          ]
+        }) }}
+
+      {{ govukDetails({
+        summaryText: "How much livestock can I reduce?",
+        text: ""
+      }) }}
+
+      {{ govukDetails({
+        summaryText: "What happens if you cannot achieve a scheme action?",
+        text: ""
+      }) }}
+
+      {{ govukButton({
+        text: "Continue",
+        attributes: {
+          id: "submit"
+        }
+      }) }}
+    </form>
+  </div>
+  <div>
+</div>
+{% endblock %}
