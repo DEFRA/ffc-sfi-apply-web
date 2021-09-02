@@ -33,7 +33,6 @@ module.exports = [
               error: error,
               checkboxItems: checkboxItems,
               totalHa: Number(totalHa).toFixed(2),
-              sidebarItems: [`SBI: ${applyJourney.selectedSbi.sbi}`, `Standard: ${applyJourney.selectedStandard.name}`]
             }).code(400).takeover()
         }
       },

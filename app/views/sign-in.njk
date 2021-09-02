@@ -3,6 +3,7 @@
 {% from "govuk/components/back-link/macro.njk" import govukBackLink %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
+{% from "govuk/components/details/macro.njk" import govukDetails %}
 
 {% block beforeContent %}
   {{ govukBackLink({
@@ -65,19 +66,11 @@
           <a href="#">Forgotten your password?</a>
         </p>
 
-        <details class="govuk-details" data-module="govuk-details">
-          <summary class="govuk-details__summary">
-            <span class="govuk-details__summary-text">
-              Other problems signing in?
-            </span>
-          </summary>
-          <div class="govuk-details__text">
-            Started creating a new password and received the security code by email - 
-            <a href="#">enter it here</a>
-            <br>
-            Lost your customer reference number (CRN), call 03000 200 301.
-        </details
-        
+        {{ govukDetails({
+          summaryText: "Other problems signing in?",
+          html: "Started creating a new password and received the security code by email - <a href='#'>enter it here</a><br>Lost your customer reference number (CRN), call 03000 200 301."
+        }) }}
+
       </form>
     </div>
   </div>

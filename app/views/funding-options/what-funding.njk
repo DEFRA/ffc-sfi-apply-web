@@ -4,6 +4,7 @@
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+{% from "govuk/components/details/macro.njk" import govukDetails %}
 
 {% block beforeContent %}
   <div class="govuk-grid-row">
@@ -18,11 +19,7 @@
       }}
     </div>
     <div class="govuk-grid-column-one-half">
-      <div class="save-and-return">
-        <p class="govuk-body">
-          <a href="#">Save and return later</a>
-        </p>
-      </div>
+      {% include "save/save.njk" %}
     </div>
   </div>
 {% endblock %}
@@ -41,19 +38,10 @@
           }
         }) }}
 
-        <details class="govuk-details" data-module="govuk-details">
-          <summary class="govuk-details__summary">
-            <span class="govuk-details__summary-text">
-              What is a standard?
-            </span>
-          </summary>
-          <div class="govuk-details__text">
-            <p class="govuk-body">
-              A standard is a set of actions you'll need to carry out on your land.
-            </p>
-          </div>
-        </details>
-
+        {{ govukDetails({
+          summaryText: "What is a standard?",
+          text: "A standard is a set of actions you'll need to carry out on your land."
+        }) }}
 
       {% else %}
         {{ govukErrorSummary({
