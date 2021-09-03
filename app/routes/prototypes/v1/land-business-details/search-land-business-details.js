@@ -2,7 +2,6 @@ const ViewModel = require('./models/search')
 const schema = require('../../../schemas/sbi')
 const cache = require('../../../../cache')
 const { getAgreements } = require('../../../../agreement')
-const generateAgreementNumber = require('../../../../agreement-number')
 
 module.exports = [{
   method: 'GET',
@@ -27,9 +26,6 @@ module.exports = [{
     },
     handler: async (request, h) => {
       const agreement = await cache.get('agreement', request.yar.id)
-      if (!agreement.agreementNumber) {
-        agreement.agreementNumber = generateAgreementNumber()
-      }
       await cache.update('agreement', request.yar.id,
         {
           sbi: request.payload.sbi,
