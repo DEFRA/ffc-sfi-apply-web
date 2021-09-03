@@ -22,4 +22,17 @@ ignore:
     - '@hapi/catbox-redis > ioredis':
         reason: None given
         expires: '2021-10-18T09:38:28.184Z'
+  SNYK-JS-AXIOS-1579269:
+    - '@azure/identity > axios':
+        reason: No fix at this time
+        expires: '2021-10-03T08:32:27.489Z'
+    - '@azure/identity > @azure/msal-node > axios':
+        reason: No fix at this time
+        expires: '2021-10-03T08:32:27.489Z'
+    - ffc-messaging > @azure/identity > axios:
+        reason: No fix at this time
+        expires: '2021-10-03T08:32:27.489Z'
+    - ffc-messaging > @azure/identity > @azure/msal-node > axios:
+        reason: no fix at this time
+        expires: '2021-10-03T08:32:27.489Z'
 patch: {}
