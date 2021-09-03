@@ -16,6 +16,7 @@ data:
   WITHDRAW_TOPIC_ADDRESS: {{ quote .Values.container.withdrawTopicAddress }}
   REQUEST_SBI_TOPIC_ADDRESS: {{ quote .Values.container.requestSbiTopicAddress }}
   AGREEMENT_CALCULATOR_ENDPOINT: {{ quote .Values.container.agreementCalculatorEndpoint }}
+  AGREEMENT_API_ENDPOINT: {{ quote .Values.container.agreementApiEndpoint }}
   SITI_AGRI_ENDPOINT: {{ quote .Values.container.sitiAgriEndpoint }}
   USE_AGREEMENT_CALCULATOR: {{ quote .Values.container.useAgreementCalculator }}
   {{- if .Values.container.redisHostname }}

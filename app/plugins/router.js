@@ -17,7 +17,6 @@ const routes = [].concat(
   require('../routes/funding-options/funding-overview'),
   require('../routes/funding-options/how-much'),
   require('../routes/funding-options/what-payment-level'),
-  require('../routes/land-management/determine-action'),
   require('../routes/land-management/arable-soils/basic/basic-overview'),
   require('../routes/land-management/arable-soils/basic/soil-assessment'),
   require('../routes/land-management/arable-soils/basic/soil-compaction'),

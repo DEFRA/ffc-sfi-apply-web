@@ -49,19 +49,19 @@ const taskList = [{
     dependsOn: 'createAgreementOptions',
     taskName: 'Tell us how you will carry out the actions',
     status: 'CANNOT START YET',
-    url: 'determine-action'
+    url: '#fundingOption#/#paymentLevel#/#paymentLevel#-overview'
   },
   {
     id: 'schedule',
     taskName: 'Choose your payment schedule',
     status: 'CANNOT START YET',
-    url: '/arable-soils/payment-schedule'
+    url: '/#fundingOption#/payment-schedule'
   },
   {
     id: 'answers',
     taskName: 'Check your answers',
     status: 'CANNOT START YET',
-    url: '/arable-soils/check-your-answers'
+    url: '/#fundingOption#/check-your-answers'
   },
   {
     id: 'agreement',

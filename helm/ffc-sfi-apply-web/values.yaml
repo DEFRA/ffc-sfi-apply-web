@@ -31,7 +31,7 @@ deployment:
   replicas: 1
   minReplicas: 2
   maxReplicas: 6
-  cpuThreshold: 80
+  cpuThreshold: 40
   memoryThreshold: 80
   minReadySeconds: 0
 
@@ -53,6 +53,7 @@ container:
   requestSbiTopicAddress: ffc-sfi-request-sbi
   agreementCalculatorEndpoint: http://ffc-sfi-agreement-calculator.ffc-sfi
   sitiAgriEndpoint: http://ffc-sfi-apply-api.ffc-sfi
+  agreementApiEndpoint: http://ffc-sfi-agreement-api.ffc-sfi
   useAgreementCalculator: false
   redisHostname: redis-redis-ha.default
   redisPassword: redis

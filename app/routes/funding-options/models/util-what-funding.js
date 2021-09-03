@@ -1,7 +1,6 @@
 const cache = require('../../../cache')
 const { sendStandardsRequestMessage } = require('../../../messaging')
 const getPollingResponse = require('../../../polling')
-const generateAgreementNumber = require('../../../agreement-number')
 
 async function getAllStandards (request, error) {
   const applyJourney = await cache.get('apply-journey', request.yar.id)
@@ -13,8 +12,7 @@ async function getAllStandards (request, error) {
     const response = await getPollingResponse(request.yar.id, '/standards')
     if (response) {
       console.info('Standards request received', response)
-      const agreementNumber = response.agreementNumber ?? generateAgreementNumber()
-      await cache.update('apply-journey', request.yar.id, { agreementNumber: agreementNumber, standards: response.standards })
+      await cache.update('apply-journey', request.yar.id, { standards: response.standards })
       standards = response.standards
     } else {
       return null
