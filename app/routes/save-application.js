@@ -11,7 +11,8 @@ module.exports = [{
       console.log(applyJourney)
       console.log(progress)
 
-      const referer = request.headers.referer.replace(/^[a-z]{4,5}:\/{2}[a-z]{1,}:[0-9]{1,4}.(.*)/, '$1')
+      const url = new URL(request.headers.referer)
+      const referer = url.pathname
       return h.view('save-application', { referer })
     }
   }
