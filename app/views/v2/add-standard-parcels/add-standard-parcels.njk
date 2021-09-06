@@ -4,7 +4,10 @@
 {% from "govuk/components/back-link/macro.njk" import govukBackLink %}
 {% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
 {% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
 {% from "./v2/sidebar/sidebar.njk" import sidebar %}
+
 
 {% block beforeContent %}
   {{ govukBackLink({
@@ -29,6 +32,16 @@
             You have {{ totalHa }}ha of eligible land for this standard
           </div>
 
+          {% if invalidValues %}
+            {{ govukErrorSummary({
+              titleText: "There is a problem",
+              errorList: [
+                {
+                  text: "Please enter valid values"
+                }
+              ]
+            }) }}
+          {% endif %}
           {% if error %}
             <span id="parcels-error" class="govuk-error-message">
               <span class="govuk-visually-hidden">Error:</span> Please select a parcel
@@ -36,17 +49,25 @@
           {% endif %}
 
           {% if checkboxItems.length > 0 %}
-            <div class="govuk-checkboxes">
+            <div class="govuk-checkboxes" data-module="govuk-checkboxes">
               {% for item in checkboxItems %}
                 <div class="govuk-checkboxes__item">
                 {% if item.checked %}
-                  <input class="govuk-checkboxes__input" id="{{ item.value }}" name="parcels" type="checkbox" value="{{ item.value }}" checked>
+                  <input class="govuk-checkboxes__input" id="{{ item.value }}" name="parcels" type="checkbox" value="{{ item.value }}" data-aria-controls="conditional_{{ item.value }}" checked>
                 {% else %}
-                  <input class="govuk-checkboxes__input" id="{{ item.value }}" name="parcels" type="checkbox" value="{{ item.value }}">
+                  <input class="govuk-checkboxes__input" id="{{ item.value }}" name="parcels" type="checkbox" value="{{ item.value }}" data-aria-controls="conditional_{{ item.value }}">
                 {% endif %}
                   <label class="govuk-label govuk-checkboxes__label" for="{{ item.value }}">
                     {{ item.text}}
                   </label>
+                  <div class="govuk-checkboxes__conditional govuk-checkboxes__conditional--hidden" id="conditional_{{ item.value }}">
+                    <div class="govuk-form-group">
+                      <label class="govuk-label" for="hectares_{{ item.value }}">
+                        Hectares to use in this land parcel
+                      </label>                     
+                        <input class="govuk-input govuk-!-width-one-third" name="parcelArea_{{ item.value }}" value="{{ item.textBoxValue }}" type="text" spellcheck="false" autocomplete="false">                      
+                    </div>
+                  </div>
                   {% if item.warnings.length > 0 %}
                     <div class="govuk-warning-text">
                     {% for warning in item.warnings %}
