@@ -5,11 +5,11 @@ ignore:
   SNYK-JS-VALIDATOR-1090599:
     - sequelize > validator:
         reason: no fix
-        expires: '2021-09-03T13:05:59.428Z'
+        expires: '2021-010-03T13:05:59.428Z'
   SNYK-JS-VALIDATOR-1090600:
     - sequelize > validator:
         reason: no fix
-        expires: '2021-09-03T13:05:59.428Z'
+        expires: '2021-10-03T13:05:59.428Z'
   SNYK-JS-VALIDATOR-1090601:
     - sequelize > validator:
         reason: no fix
@@ -17,9 +17,9 @@ ignore:
   SNYK-JS-VALIDATOR-1090602:
     - sequelize > validator:
         reason: no fix
-        expires: '2021-09-03T13:09:36.259Z'
+        expires: '2021-10-03T13:09:36.259Z'
   SNYK-JS-IOREDIS-1567196:
     - '@hapi/catbox-redis > ioredis':
         reason: None given
-        expires: '2021-09-18T09:38:28.184Z'
+        expires: '2021-10-18T09:38:28.184Z'
 patch: {}
