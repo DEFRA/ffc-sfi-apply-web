@@ -1,9 +1,8 @@
-const getOrganisation = require('./organisation')
-const getSbis = require('./sbi.js')
+const { getOrganisation, getOrganisations } = require('./organisation')
 const getEligibilityCheck = require('./eligibility.js')
 
 module.exports = {
   getOrganisation,
-  getSbis,
+  getOrganisations,
   getEligibilityCheck
 }

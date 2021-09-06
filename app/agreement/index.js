@@ -2,20 +2,10 @@ const { getProgress } = require('../progress')
 const cache = require('../cache')
 const { getAgreement } = require('../api/agreement')
 
-async function saveAgreement (agreement, progressId) {
-  // await db.sequelize.transaction(async (transaction) => {
-  //   const existingAgreement = await db.agreement.findOne({ where: { sbi: agreement.sbi } }, { transaction })
-  //   if (!existingAgreement) {
-  //     await db.agreement.create({ sbi: agreement.sbi, agreementData: agreement, progressId }, { transaction })
-  //     console.info(`Saved agreement: ${agreement.sbi}`)
-  //   } else {
-  //     await db.agreement.update({ agreementData: agreement, progressId, statusId: agreement.statusId ?? 1 }, { where: { sbi: agreement.sbi }, transaction: transaction })
-  //     console.info(`Updated agreement: ${agreement.sbi}`)
-  //   }
-  // })
+const saveAgreement = async (agreement, progressId) => {
 }
 
-async function loadAgreement (request) {
+const loadAgreement = async (request) => {
   await cache.clear('agreement', request.yar.id)
   await cache.clear('progress', request.yar.id)
 
@@ -30,8 +20,7 @@ async function loadAgreement (request) {
   }
 }
 
-async function deleteAgreement (agreement) {
-  // await db.agreement.update({ statusId: 4 }, { where: { sbi: agreement.sbi } })
+const deleteAgreement = async (agreement) => {
 }
 
 module.exports = {

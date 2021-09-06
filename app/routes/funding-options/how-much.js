@@ -1,21 +1,15 @@
 const joi = require('joi')
 const cache = require('../../cache')
 const { sendAgreementCalculateMessage } = require('../../messaging')
-const getAllItems = require('./models/util-how-much')
+const ViewModel = require('./models/how-much')
 
 module.exports = [
   {
     method: 'GET',
     path: '/funding-options/how-much',
     handler: async (request, h) => {
-      const { applyJourney, checkboxItems, totalHa } = await getAllItems(request)
-      return h.view('funding-options/how-much',
-        {
-          checkboxItems: checkboxItems,
-          totalHa: Number(totalHa).toFixed(2),
-          selectedStandardCode: applyJourney.selectedStandard.code
-        }
-      )
+      const applyJourney = await cache.get('apply-journey', request.yar.id)
+      return h.view('funding-options/how-much', new ViewModel(applyJourney.selectedStandard, applyJourney.selectedParcels))
     }
   },
   {
@@ -27,13 +21,9 @@ module.exports = [
           parcels: joi.any().required()
         }),
         failAction: async (request, h, error) => {
-          const { checkboxItems, totalHa } = await getAllItems(request)
+          const applyJourney = await cache.get('apply-journey', request.yar.id)
           return h.view('funding-options/how-much',
-            {
-              error: error,
-              checkboxItems: checkboxItems,
-              totalHa: Number(totalHa).toFixed(2)
-            }).code(400).takeover()
+            new ViewModel(applyJourney.selectedStandard, applyJourney.selectedParcels)).code(400).takeover()
         }
       },
       handler: async (request, h) => {

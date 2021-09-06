@@ -6,7 +6,6 @@ module.exports = [{
   options: {
     handler: async (request, h) => {
       const applyJourney = await cache.get('apply-journey', request.yar.id)
-      console.log(applyJourney.selectedStandard.code)
       return h.view('land-management/review-your-agreement', { selectedStandardCode: applyJourney.selectedStandard.code })
     }
   }

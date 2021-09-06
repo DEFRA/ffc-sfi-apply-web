@@ -1,6 +1,6 @@
 const joi = require('joi')
-const ViewModel = require('./models/select-sbi')
-const getAllSbis = require('./models/util-select-sbi')
+const ViewModel = require('./models/select-organisation')
+const getAllOrganisations = require('./models/util-select-organisation')
 const cache = require('../../../../cache')
 
 module.exports = [{
@@ -8,7 +8,7 @@ module.exports = [{
   path: '/v2/select-sbi',
   options: {
     handler: async (request, h) => {
-      const { sbis, applyJourney } = await getAllSbis(request)
+      const { sbis, applyJourney } = await getAllOrganisations(request)
       return h.view('v2/select-sbi/select-sbi', new ViewModel(sbis, applyJourney.selectedSbi))
     }
   }
@@ -22,7 +22,7 @@ module.exports = [{
         sbi: joi.string().required()
       }),
       failAction: async (request, h, error) => {
-        const { sbis, applyJourney } = await getAllSbis(request, error)
+        const { sbis, applyJourney } = await getAllOrganisations(request, error)
         return h.view('v2/select-sbi/select-sbi', new ViewModel(sbis, applyJourney.selectedSbi, error)).code(400).takeover()
       }
     },
