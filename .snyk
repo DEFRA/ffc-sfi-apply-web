@@ -1,5 +1,5 @@
 # Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
-version: v1.19.0
+version: v1.22.1
 # ignores vulnerabilities until expiry date; change duration by modifying expiry date
 ignore:
   SNYK-JS-VALIDATOR-1090599:
@@ -21,5 +21,12 @@ ignore:
   SNYK-JS-IOREDIS-1567196:
     - '@hapi/catbox-redis > ioredis':
         reason: None given
-        expires: '2021-09-18T09:38:28.184Z'
+        expires: '2021-10-06T13:13:41.814Z'
+  SNYK-JS-AXIOS-1579269:
+    - '@azure/identity > @azure/msal-node > axios':
+        reason: None given
+        expires: '2021-10-06T13:13:41.814Z'
+    - ffc-messaging > @azure/identity > @azure/msal-node > axios:
+        reason: None given
+        expires: '2021-10-06T13:13:41.814Z'
 patch: {}
