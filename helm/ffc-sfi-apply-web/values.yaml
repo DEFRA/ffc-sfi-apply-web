@@ -52,9 +52,7 @@ container:
   withdrawTopicAddress: ffc-sfi-agreement-withdraw
   requestSbiTopicAddress: ffc-sfi-request-sbi
   agreementCalculatorEndpoint: http://ffc-sfi-agreement-calculator.ffc-sfi
-  sitiAgriEndpoint: http://ffc-sfi-apply-api.ffc-sfi
   agreementApiEndpoint: http://ffc-sfi-agreement-api.ffc-sfi
-  useAgreementCalculator: false
   redisHostname: redis-redis-ha.default
   redisPassword: redis
   redisPort: 6379

@@ -22,7 +22,6 @@ services:
       REQUEST_SBI_TOPIC_ADDRESS: ${REQUEST_SBI_TOPIC_ADDRESS:-notset}
       AGREEMENT_CALCULATOR_ENDPOINT: http://ffc-sfi-agreement-calculator:3003
       AGREEMENT_API_ENDPOINT: http://ffc-sfi-agreement-api:3009
-      SITI_AGRI_ENDPOINT: http://ffc-sfi-apply-api:3001
       COOKIE_PASSWORD: cookiecookiecookiecookiecookiecookie
       USE_AGREEMENT_CALCULATOR: ${USE_AGREEMENT_CALCULATOR:-true}
       OS_MAP_API_KEY: ${OS_MAP_API_KEY}
