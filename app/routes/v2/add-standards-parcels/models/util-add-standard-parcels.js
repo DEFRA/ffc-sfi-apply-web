@@ -1,4 +1,4 @@
-const cache = require('../../../../../cache')
+const cache = require('../../../../cache')
 
 async function getAllItems (request) {
   const applyJourney = await cache.get('apply-journey', request.yar.id)

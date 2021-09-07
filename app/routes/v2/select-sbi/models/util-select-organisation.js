@@ -1,5 +1,5 @@
-const cache = require('../../../../../cache')
-const { getOrganisations } = require('../../../../../api/crown-hosting')
+const cache = require('../../../../cache')
+const { getOrganisations } = require('../../../../api/crown-hosting')
 
 async function getAllOrganisations (request, error) {
   const applyJourney = await cache.get('apply-journey', request.yar.id)

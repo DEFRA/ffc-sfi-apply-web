@@ -1,4 +1,4 @@
-const cache = require('../../../../cache')
+const cache = require('../../../cache')
 const ViewModel = require('./models/confirmation')
 
 module.exports = {

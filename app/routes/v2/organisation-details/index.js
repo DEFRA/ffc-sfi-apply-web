@@ -1,5 +1,5 @@
-const cache = require('../../../../cache')
-const { getOrganisation } = require('../../../../api/crown-hosting')
+const cache = require('../../../cache')
+const { getOrganisation } = require('../../../api/crown-hosting')
 
 module.exports = [
   {

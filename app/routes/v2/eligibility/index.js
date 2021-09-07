@@ -1,5 +1,5 @@
-const cache = require('../../../../cache')
-const { getEligibilityCheck } = require('../../../../api/crown-hosting')
+const cache = require('../../../cache')
+const { getEligibilityCheck } = require('../../../api/crown-hosting')
 
 module.exports = [
   {

@@ -1,5 +1,5 @@
-const getPollingResponse = require('../../../../../polling')
-const cache = require('../../../../../cache')
+const getPollingResponse = require('../../../../polling')
+const cache = require('../../../../cache')
 
 async function getPaymentRates (request, error) {
   const applyJourney = await cache.get('apply-journey', request.yar.id)

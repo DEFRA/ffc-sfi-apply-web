@@ -1,7 +1,7 @@
 const joi = require('joi')
 const ViewModel = require('./models/choose-level')
 const getPaymentRates = require('./models/util-choose-level')
-const cache = require('../../../../cache')
+const cache = require('../../../cache')
 
 module.exports = [{
   method: 'GET',

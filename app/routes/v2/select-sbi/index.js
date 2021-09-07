@@ -1,7 +1,7 @@
 const joi = require('joi')
 const ViewModel = require('./models/select-organisation')
 const getAllOrganisations = require('./models/util-select-organisation')
-const cache = require('../../../../cache')
+const cache = require('../../../cache')
 
 module.exports = [{
   method: 'GET',

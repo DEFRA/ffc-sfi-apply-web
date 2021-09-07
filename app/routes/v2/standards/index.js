@@ -1,5 +1,5 @@
 const joi = require('joi')
-const cache = require('../../../../cache')
+const cache = require('../../../cache')
 const getAllStandards = require('./models/util-select-standard')
 const ViewModel = require('./models/select-standard')
 

@@ -1,7 +1,7 @@
 const joi = require('joi')
 const ViewModel = require('./models/submit')
-const { sendAgreementSubmitMessage } = require('../../../../messaging')
-const cache = require('../../../../cache')
+const { sendAgreementSubmitMessage } = require('../../../messaging')
+const cache = require('../../../cache')
 
 const buildSubmitMessage = (applyJourney) => {
   const standards = []

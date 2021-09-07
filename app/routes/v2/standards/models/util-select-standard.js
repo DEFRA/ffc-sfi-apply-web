@@ -1,7 +1,7 @@
-const cache = require('../../../../../cache')
-const { sendStandardsRequestMessage } = require('../../../../../messaging')
-const getPollingResponse = require('../../../../../polling')
-const generateAgreementNumber = require('../../../../../agreement-number')
+const cache = require('../../../../cache')
+const { sendStandardsRequestMessage } = require('../../../../messaging')
+const getPollingResponse = require('../../../../polling')
+const generateAgreementNumber = require('../../../../agreement-number')
 
 async function getAllStandards (request, error) {
   const applyJourney = await cache.get('apply-journey', request.yar.id)

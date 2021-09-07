@@ -1,6 +1,6 @@
 const joi = require('joi')
-const cache = require('../../../../cache')
-const { sendAgreementCalculateMessage } = require('../../../../messaging')
+const cache = require('../../../cache')
+const { sendAgreementCalculateMessage } = require('../../../messaging')
 const getAllItems = require('./models/util-add-standard-parcels')
 
 module.exports = [
