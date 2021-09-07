@@ -9,6 +9,9 @@ async function getAllItems (request) {
       text: `Parcel ${x.id} : ${Number(x.area).toFixed(2)}ha of ${applyJourney.selectedStandard.name}`,
       value: `${x.id}`,
       checked: isChecked(applyJourney.selectedParcels, x.id),
+      textBoxValue: applyJourney.selectedParcels && applyJourney.selectedParcels.find(item => item.id === x.id)
+        ? applyJourney.selectedParcels.find(item => item.id === x.id).value
+        : undefined,
       warnings: []
     }
   ))
