@@ -1,5 +1,5 @@
-const joi = require('joi')
 const cache = require('../../cache')
+const joi = require('joi')
 const { sendAgreementCalculateMessage } = require('../../messaging')
 const ViewModel = require('./models/how-much')
 
@@ -17,30 +17,29 @@ module.exports = [
     path: '/funding-options/how-much',
     options: {
       validate: {
-        payload: joi.object({
-          parcels: joi.any().required()
-        }),
+        payload: joi.object().keys({
+          parcels: joi.array().items(joi.string()).single()
+        }).unknown(true),
         failAction: async (request, h, error) => {
+          const { payload } = request
           const applyJourney = await cache.get('apply-journey', request.yar.id)
-          return h.view('funding-options/how-much',
-            new ViewModel(applyJourney.selectedStandard, applyJourney.selectedParcels)).code(400).takeover()
+          const viewModel = new ViewModel(payload, applyJourney.selectedStandard, applyJourney.selectedParcels)
+          return h.view('funding-options/how-much', viewModel).code(400).takeover()
         }
       },
       handler: async (request, h) => {
+        const { payload } = request
         const applyJourney = await cache.get('apply-journey', request.yar.id)
-        const parcels = applyJourney.selectedStandard.parcels
+        const viewModel = new ViewModel(applyJourney.selectedStandard, applyJourney.selectedParcels, payload)
 
-        const selectedParcels = parcels.filter(item => request.payload.parcels.includes(item.id)).map(x => ({
-          id: x.id,
-          area: x.area
-        }))
-
-        const parcelArea = selectedParcels.reduce((accum, item) => accum + item.area, 0)
+        if (viewModel.model.error || viewModel.model.invalidValues) {
+          return h.view('funding-options/how-much', viewModel).code(400).takeover()
+        }
 
         await cache.update('apply-journey', request.yar.id,
           {
-            selectedParcels: selectedParcels,
-            parcelArea: Number(parcelArea).toFixed(2)
+            selectedParcels: viewModel.model.landInHectares,
+            parcelArea: Number(viewModel.model.parcelArea).toFixed(2)
           })
 
         await sendAgreementCalculateMessage(
@@ -48,12 +47,8 @@ module.exports = [
             agreementNumber: applyJourney.agreementNumber,
             callerId: applyJourney.callerId,
             code: applyJourney.selectedStandard.code,
-            parcels: selectedParcels
+            parcels: viewModel.model.landInHectares
           }, request.yar.id)
-
-        await cache.update('progress', request.yar.id, {
-          progress: { amountOfLand: true }
-        })
 
         return h.redirect('/funding-options/what-payment-level')
       }

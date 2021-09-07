@@ -8,7 +8,6 @@ module.exports = [
     options: {
       handler: async (request, h) => {
         const applyJourney = await cache.get('apply-journey', request.yar.id)
-        console.log(applyJourney)
         const organisation = await getOrganisation(applyJourney.selectedSbi, applyJourney.callerId)
         const address = organisation?.address ? [organisation.address.address1,
           organisation.address.address2,
