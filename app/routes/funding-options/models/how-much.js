@@ -1,11 +1,14 @@
 function ViewModel (selectedStandard, selectedParcels, payload) {
   const landInHectares = payload ? getLandInHectares(payload, selectedStandard.parcels) : selectedParcels
   const items = getAllItems(selectedStandard, landInHectares)
+  const parcelArea = landInHectares ? landInHectares.reduce((accum, item) => accum + item.value, 0) : 0
+  const error = landInHectares && landInHectares.length === 0
+  const invalidValues = landInHectares && landInHectares.some(element => !element.valid)
   this.model = {
-    landInHectares: landInHectares,
-    parcelArea: landInHectares.reduce((accum, item) => accum + item.value, 0),
-    error: landInHectares.length === 0,
-    invalidValues: landInHectares.some(element => !element.valid),
+    landInHectares,
+    parcelArea,
+    error,
+    invalidValues,
     checkboxItems: items.checkboxItems,
     totalHa: items.totalHa,
     selectedStandardCode: selectedStandard.code

@@ -32,15 +32,15 @@ module.exports = [
         const applyJourney = await cache.get('apply-journey', request.yar.id)
         const viewModel = new ViewModel(applyJourney.selectedStandard, applyJourney.selectedParcels, payload)
 
-        if (viewModel.model.error || viewModel.model.invalidValues) {
-          return h.view('funding-options/how-much', viewModel).code(400).takeover()
-        }
-
         await cache.update('apply-journey', request.yar.id,
           {
             selectedParcels: viewModel.model.landInHectares,
             parcelArea: Number(viewModel.model.parcelArea).toFixed(2)
           })
+
+        if (viewModel.model.error || viewModel.model.invalidValues) {
+          return h.view('funding-options/how-much', viewModel).code(400).takeover()
+        }
 
         await sendAgreementCalculateMessage(
           {
