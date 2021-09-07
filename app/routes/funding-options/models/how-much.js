@@ -8,27 +8,6 @@ function ViewModel (selectedStandard, selectedParcels) {
   }
 }
 
-const getLandInHectares = (payload, parcels) => {
-  const data = Object.entries(payload).map(entry => {
-    const [name, value] = entry
-    const [, parcelId] = name.split('_')
-    if (payload.parcels && payload.parcels.includes(parcelId)) {
-      const parcelArea = parcels.find(parcel => {
-        return parcel.id === parcelId
-      })
-
-      return {
-        id: parcelArea.id,
-        value: Number(value),
-        area: parcelArea.area,
-        valid: value !== '' && value > 0 && value <= parcelArea.area
-      }
-    }
-  })
-
-  return data.filter(x => x !== undefined)
-}
-
 const getAllItems = (selectedStandard, selectedParcels) => {
   const parcels = selectedStandard?.parcels
   const checkboxItems = parcels.map(x => (
