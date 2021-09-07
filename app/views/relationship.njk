@@ -1,0 +1,73 @@
+{% extends '_layout.njk' %}
+{% set mainClasses = "govuk-main-wrapper--auto-spacing" %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+
+{% block beforeContent %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-one-half">
+      {{ govukBackLink({
+        text: "Back",
+        href: "/confirm-details",
+        attributes: {
+          id: "back"
+        }
+        }) 
+      }}
+    </div>
+    <div class="govuk-grid-column-one-half">
+      {% include "save/save.njk" %}
+    </div>
+  </div>
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+    <form method="POST" action="/relationship" novalidate>
+      <input type="hidden" name="crumb" value="{{crumb}}"/>
+      <div class="govuk-form-group">
+        <fieldset class="govuk-fieldset">
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+            <h1 class="govuk-fieldset__heading">What is your relationship to {{name}}?</h1>
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="relationship" name="relationship" type="radio" value="Business owner">
+              <label class="govuk-label govuk-radios__label" for="relationship">
+                It's my business
+              </label>
+            </div>
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="relationship-2" name="relationship-2" type="radio" value="Business owner">
+              <label class="govuk-label govuk-radios__label" for="relationship-2">
+                I'm an employee of the business
+              </label>
+            </div>
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="relationship-3" name="relationship-3" type="radio" value="Business owner">
+              <label class="govuk-label govuk-radios__label" for="relationship-3">
+                I'm the appointed agent for the business
+              </label>
+            </div>
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="relationship-4" name="relationship-4" type="radio" value="Business owner">
+              <label class="govuk-label govuk-radios__label" for="relationship-4">
+                I'm not an agent, I'm applying on behalf of the business owner
+              </label>
+            </div>
+          </legend>
+        </fieldset>
+      </div>
+
+      {{ govukButton({
+        text: "Continue",
+        attributes: {
+          id: "submit"
+        }
+      }) }}
+
+    </form>
+    </div>
+  </div>
+{% endblock %}

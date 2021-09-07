@@ -31,7 +31,7 @@ deployment:
   replicas: 1
   minReplicas: 2
   maxReplicas: 6
-  cpuThreshold: 80
+  cpuThreshold: 40
   memoryThreshold: 80
   minReadySeconds: 0
 
@@ -52,8 +52,7 @@ container:
   withdrawTopicAddress: ffc-sfi-agreement-withdraw
   requestSbiTopicAddress: ffc-sfi-request-sbi
   agreementCalculatorEndpoint: http://ffc-sfi-agreement-calculator.ffc-sfi
-  sitiAgriEndpoint: http://ffc-sfi-apply-api.ffc-sfi
-  useAgreementCalculator: false
+  agreementApiEndpoint: http://ffc-sfi-agreement-api.ffc-sfi
   redisHostname: redis-redis-ha.default
   redisPassword: redis
   redisPort: 6379
@@ -61,17 +60,6 @@ container:
   cookiePassword: passwordpasswordpasswordpasswordpassword
   osMapApiKey:
   chApiGateway:
-
-postgresService:
-  postgresDb: ffc_sfi_apply_web
-  # postgresExternalName is the external host name to which PostgreSQL
-  # requests should be forwarded. If empty, PostgreSQL is assumed to be
-  # within the cluster and accessible via postgresHost
-  postgresExternalName:
-  postgresHost: ffc-sfi-apply-web-postgres
-  postgresPort: 5432
-  postgresSchema: public
-  postgresUser: postgres
 
 ingress:
   class: nginx

@@ -1,7 +1,6 @@
 const joi = require('joi')
 const cacheConfig = require('./cache')
 const mqConfig = require('./mq-config')
-const dbConfig = require('./db-config')
 
 // Define config schema
 const schema = joi.object({
@@ -20,10 +19,9 @@ const schema = joi.object({
     clearInvalid: joi.bool().default(false),
     strictHeader: joi.bool().default(true)
   }),
+  agreementApiEndpoint: joi.string().uri().required(),
   agreementCalculatorEndpoint: joi.string().uri().required(),
-  sitiAgriEndpoint: joi.string().uri().required(),
   restClientTimeoutMillis: joi.number().default(60000),
-  useAgreementCalculator: joi.bool().default(false),
   polling: joi.object({
     interval: joi.number().default(500),
     retries: joi.number().default(180)
@@ -53,10 +51,9 @@ const config = {
   publicApi: process.env.PUBLIC_API,
   chApiGateway: process.env.CH_API_GATEWAY,
   osMapApiKey: process.env.OS_MAP_API_KEY,
+  agreementApiEndpoint: process.env.AGREEMENT_API_ENDPOINT,
   agreementCalculatorEndpoint: process.env.AGREEMENT_CALCULATOR_ENDPOINT,
-  sitiAgriEndpoint: process.env.SITI_AGRI_ENDPOINT,
   restClientTimeoutMillis: process.env.REST_CLIENT_TIMEOUT_IN_MILLIS,
-  useAgreementCalculator: process.env.USE_AGREEMENT_CALCULATOR,
   polling: {
     interval: process.env.POLLING_INTERVAL,
     retries: process.env.POLLING_RETRIES
@@ -96,12 +93,5 @@ value.useRedis = !value.isTest && value.cacheConfig.redisCatboxOptions.host !== 
 if (!value.useRedis) {
   console.info('Redis disabled, using in memory cache')
 }
-
-if (!value.useAgreementCalculator) {
-  value.agreementCalculatorEndpoint = value.sitiAgriEndpoint
-  console.info('Using Siti Agri')
-}
-
-value.dbConfig = dbConfig
 
 module.exports = value

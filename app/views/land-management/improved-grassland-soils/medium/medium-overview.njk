@@ -1,0 +1,64 @@
+{% extends "_layout.njk" %}
+
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+
+{% block beforeContent %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-one-half">
+      {{ govukBackLink({
+        text: "Back",
+        href: "/application-task-list",
+        attributes: {
+          id: "back"
+        }
+        }) 
+      }}
+    </div>
+    <div class="govuk-grid-column-one-half">
+      {% include "save/save.njk" %}
+    </div>
+  </div>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <form method="POST" action="medium-overview" novalidate>
+      <input type="hidden" name="crumb" value="{{crumb}}"/>
+      <span class="govuk-caption-l">
+        Improved grassland soils medium level
+      </span>
+      <h1 class="govuk-heading-l">
+        Medium level payment actions
+      </h1>
+
+      <h2 class="govuk-heading-m">
+        Actions
+      </h2>
+
+      <ol class="govuk-list govuk-list--number">
+        <li>Carry out a soil assessment</li>
+        <li>Reduce soil compaction</li>
+        <li>Add a mix of legumes, herbs and grasses to 10% of your land</li>
+        <li>Maintain 10% or your improved grassland as permanent grassland</li>
+        <li>Remove livestock on at least 10% of your improved grassland when soils are wet</li>
+      </ol>
+
+      {{ govukDetails({
+        summaryText: "What happens if I cannot carry out one of these actions?",
+        text: "If you cannot carry out an action at the basic level, you will not be eligible to apply for the standard. Check if you can apply for another standard."
+      }) }}
+
+      {{ govukButton({
+        text: "Continue",
+        attributes: {
+          id: "submit"
+        }
+      }) }}
+    </form>
+  </div>
+  <div>
+</div>
+{% endblock %}
