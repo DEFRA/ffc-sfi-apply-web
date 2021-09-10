@@ -5,6 +5,35 @@ const get = async (url, callerId) => {
   return wreck.get(`${config.agreementApiEndpoint}${url}`, { json: true })
 }
 
+const post = async (url, data, token) => {
+  const { payload } = await wreck.post(`${config.agreementApiEndpoint}${url}`, {
+    payload: data,
+    ...getConfiguration(token)
+  })
+
+  console.log(payload.header)
+  return payload
+}
+
+const put = async (url, data, token) => {
+  const { payload } = await wreck.put(`${config.agreementApiEndpoint}${url}`, {
+    payload: data,
+    ...getConfiguration(token)
+  })
+  return payload
+}
+
+const getConfiguration = (token) => {
+  return {
+    headers: {
+      Authorization: token ?? ''
+    },
+    json: true
+  }
+}
+
 module.exports = {
-  get
+  get,
+  post,
+  put
 }
