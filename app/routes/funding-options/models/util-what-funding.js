@@ -1,6 +1,5 @@
 const cache = require('../../../cache')
 const { sendStandardsRequestMessage, receiveStandardsResponseMessage } = require('../../../messaging')
-// const getPollingResponse = require('../../../polling')
 const { v4: uuidv4 } = require('uuid')
 
 const getAllStandards = async (request, error) => {
@@ -21,11 +20,10 @@ const sendStandardsRequest = async (applyJourney, request, standards) => {
 
   const response = await receiveStandardsResponseMessage(messageId)
 
-  // const response = await getPollingResponse(request.yar.id, '/standards')
   if (response) {
     console.info('Standards request received', response)
-    await cache.update('apply-journey', request.yar.id, { standards: response })
-    standards = response
+    await cache.update('apply-journey', request.yar.id, { standards: response.standards })
+    standards = response.standards
   }
 
   return standards

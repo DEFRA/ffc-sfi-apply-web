@@ -17,8 +17,8 @@ async function sendAgreementValidateMessage (payload, correlationId) {
   console.info('Agreement validation requested')
 }
 
-async function sendAgreementCalculateMessage (payload, correlationId) {
-  await sendMessage(payload, 'uk.gov.sfi.agreement.calculate', correlationId, config.calculateTopic)
+async function sendAgreementCalculateMessage (payload, correlationId, messageId) {
+  await sendMessage(payload, 'uk.gov.sfi.agreement.calculate', correlationId, config.calculateTopic, messageId)
   console.info('Agreement calculation requested')
 }
 
@@ -42,6 +42,11 @@ async function receiveStandardsResponseMessage (messageId) {
   return receiveMessage(messageId, config.responseStandardsQueue)
 }
 
+async function receiveCalculateResponseMessage (messageId) {
+  console.info('Response Calculate requested')
+  return receiveMessage(messageId, config.responseCalculateQueue)
+}
+
 module.exports = {
   sendEligibilityCheckMessage,
   sendStandardsRequestMessage,
@@ -50,5 +55,6 @@ module.exports = {
   sendAgreementSubmitMessage,
   sendAgreementWithdrawMessage,
   sendRequestSBIMessage,
-  receiveStandardsResponseMessage
+  receiveStandardsResponseMessage,
+  receiveCalculateResponseMessage
 }

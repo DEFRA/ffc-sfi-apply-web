@@ -1,5 +1,6 @@
-const getPollingResponse = require('../../../polling')
+const { sendAgreementCalculateMessage, receiveCalculateResponseMessage } = require('../../../messaging')
 const cache = require('../../../cache')
+const { v4: uuidv4 } = require('uuid')
 
 async function getPaymentRates (request, error) {
   const applyJourney = await cache.get('apply-journey', request.yar.id)
@@ -7,11 +8,23 @@ async function getPaymentRates (request, error) {
   if (error && applyJourney.paymentRates) {
     paymentRates = applyJourney.paymentRates
   } else {
-    const response = await getPollingResponse(request.yar.id, '/calculate')
+    const messageId = uuidv4()
+
+    await sendAgreementCalculateMessage(
+      {
+        agreementNumber: applyJourney.agreementNumber,
+        callerId: applyJourney.callerId,
+        code: applyJourney.selectedStandard.code,
+        parcels: applyJourney.selectedParcels
+      }, request.yar.id,
+      messageId)
+
+    const response = await receiveCalculateResponseMessage(messageId)
+
     if (response) {
       console.info('Calculate request received', response)
-      await cache.update('apply-journey', request.yar.id, { paymentRates: response.paymentRates })
-      paymentRates = response.paymentRates
+      await cache.update('apply-journey', request.yar.id, { paymentRates: response })
+      paymentRates = response
     }
   }
   return { applyJourney, paymentRates }

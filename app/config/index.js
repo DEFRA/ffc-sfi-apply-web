@@ -81,6 +81,7 @@ value.submitTopic = mqConfig.submitTopic
 value.withdrawTopic = mqConfig.withdrawTopic
 value.requestSBITopic = mqConfig.requestSBITopic
 value.responseStandardsQueue = mqConfig.responseStandardsQueue
+value.responseCalculateQueue = mqConfig.responseCalculateQueue
 
 value.cacheConfig = cacheConfig
 

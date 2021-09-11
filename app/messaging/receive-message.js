@@ -6,7 +6,7 @@ async function receiveMessage (messageId, config) {
   await receiver.acceptSession(messageId)
   const messages = await receiver.receiveMessages(1, { maxWaitTimeInMs: 5000 })
   if (messages.length) {
-    result = messages[0].body.standards
+    result = messages[0].body
     await receiver.completeMessage(messages[0])
   }
   await receiver.closeConnection()
