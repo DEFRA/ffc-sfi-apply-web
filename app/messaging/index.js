@@ -1,4 +1,5 @@
 const sendMessage = require('./send-message')
+const receiveMessage = require('./receive-message')
 const config = require('../config')
 
 async function sendEligibilityCheckMessage (payload, correlationId) {
@@ -6,8 +7,8 @@ async function sendEligibilityCheckMessage (payload, correlationId) {
   console.info('Eligibility check requested')
 }
 
-async function sendStandardsRequestMessage (payload, correlationId) {
-  await sendMessage(payload, 'uk.gov.sfi.standards.request', correlationId, config.standardsTopic)
+async function sendStandardsRequestMessage (payload, correlationId, messageId) {
+  await sendMessage(payload, 'uk.gov.sfi.standards.request', correlationId, config.standardsTopic, messageId)
   console.info('Available standards requested')
 }
 
@@ -36,6 +37,11 @@ async function sendRequestSBIMessage (payload, correlationId) {
   console.info('SBI(s) requested')
 }
 
+async function receiveStandardsResponseMessage (messageId) {
+  console.info('Response Standards requested')
+  return receiveMessage(messageId, config.responseStandardsQueue)
+}
+
 module.exports = {
   sendEligibilityCheckMessage,
   sendStandardsRequestMessage,
@@ -43,5 +49,6 @@ module.exports = {
   sendAgreementCalculateMessage,
   sendAgreementSubmitMessage,
   sendAgreementWithdrawMessage,
-  sendRequestSBIMessage
+  sendRequestSBIMessage,
+  receiveStandardsResponseMessage
 }

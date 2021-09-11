@@ -51,6 +51,7 @@ container:
   submitTopicAddress: ffc-sfi-agreement-submit
   withdrawTopicAddress: ffc-sfi-agreement-withdraw
   requestSbiTopicAddress: ffc-sfi-request-sbi
+  responseStandardsQueue: ffc-sfi-response-standards
   agreementCalculatorEndpoint: http://ffc-sfi-agreement-calculator.ffc-sfi
   agreementApiEndpoint: http://ffc-sfi-agreement-api.ffc-sfi
   redisHostname: redis-redis-ha.default
