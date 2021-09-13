@@ -22,10 +22,6 @@ const schema = joi.object({
   agreementApiEndpoint: joi.string().uri().required(),
   agreementCalculatorEndpoint: joi.string().uri().required(),
   restClientTimeoutMillis: joi.number().default(60000),
-  polling: joi.object({
-    interval: joi.number().default(500),
-    retries: joi.number().default(180)
-  }),
   publicApi: joi.string().default('https://environment.data.gov.uk/arcgis/rest/services/RPA/'),
   chApiGateway: joi.string().default('').allow(''),
   osMapApiKey: joi.string().default('').allow('')
@@ -53,11 +49,7 @@ const config = {
   osMapApiKey: process.env.OS_MAP_API_KEY,
   agreementApiEndpoint: process.env.AGREEMENT_API_ENDPOINT,
   agreementCalculatorEndpoint: process.env.AGREEMENT_CALCULATOR_ENDPOINT,
-  restClientTimeoutMillis: process.env.REST_CLIENT_TIMEOUT_IN_MILLIS,
-  polling: {
-    interval: process.env.POLLING_INTERVAL,
-    retries: process.env.POLLING_RETRIES
-  }
+  restClientTimeoutMillis: process.env.REST_CLIENT_TIMEOUT_IN_MILLIS
 }
 
 // Validate config
@@ -80,6 +72,8 @@ value.calculateTopic = mqConfig.calculateTopic
 value.submitTopic = mqConfig.submitTopic
 value.withdrawTopic = mqConfig.withdrawTopic
 value.requestSBITopic = mqConfig.requestSBITopic
+value.responseStandardsQueue = mqConfig.responseStandardsQueue
+value.responseCalculateQueue = mqConfig.responseCalculateQueue
 
 value.cacheConfig = cacheConfig
 
