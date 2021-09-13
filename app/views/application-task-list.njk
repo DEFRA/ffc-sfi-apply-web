@@ -4,6 +4,7 @@
 {% from "govuk/components/tag/macro.njk" import govukTag %}
 {% from "govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
 {% from "macros/task-link.njk" import taskLink %}
+{% from "./sidebar.njk" import sidebar %}
 
 {% block beforeContent %}
   <div class="govuk-grid-row">
@@ -28,7 +29,6 @@
 
       <h2 class="govuk-heading-s govuk-!-margin-bottom-2">Application incomplete</h2>
       <p class="govuk-body govuk-!-margin-bottom-7">You have completed {{ model.completedSections }} of 4 sections.</p>
- 
       <ol class="app-task-list">
         {% for taskGroup in model.taskList %}
           <li>
@@ -46,5 +46,6 @@
         {% endfor %}
       </ol>
     </div>
+     {{ sidebar("Saved Applications", model.savedAgreements, model.selectedSbi) }}
   </div>
 {% endblock %}

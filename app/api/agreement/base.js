@@ -10,8 +10,6 @@ const post = async (url, data, token) => {
     payload: data,
     ...getConfiguration(token)
   })
-
-  console.log(payload.header)
   return payload
 }
 

@@ -16,10 +16,7 @@ const getAgreement = async (agreementNumber, sbi) => {
 
 const saveAgreement = async (agreement, progress) => {
   let url
-  let data
-
   const agreementNumber = agreement.agreementNumber ?? ''
-
   const sbi = agreement.selectedSbi.sbi
 
   const enrichAgreement = {
@@ -31,21 +28,28 @@ const saveAgreement = async (agreement, progress) => {
     progress
   }
 
-  console.log(enrichAgreement)
-
   if (agreementNumber) {
     url = `/agreement/${agreementNumber}/${sbi}`
-    data = await put(url, enrichAgreement)
-  } else {
-    url = '/agreement'
-    data = await post(url, enrichAgreement)
+    await put(url, enrichAgreement)
+    return { progressId: progress.progressId, agreementNumber }
   }
-  console.log('DATA!!!', JSON.stringify(data.toString()))
+
+  url = '/agreement'
+  const data = await post(url, enrichAgreement)
+
   return JSON.parse(data.toString())
+}
+
+const getProgress = async (progressId) => {
+  const url = `/agreement/progress/${progressId}`
+  const data = await get(url)
+
+  return data?.payload
 }
 
 module.exports = {
   getAgreements,
   getAgreement,
-  saveAgreement
+  saveAgreement,
+  getProgress
 }

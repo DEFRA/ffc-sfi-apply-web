@@ -1,8 +1,6 @@
 const joi = require('joi')
 const ViewModel = require('./models/withdraw')
 const { sendAgreementWithdrawMessage } = require('../messaging')
-const { saveAgreement, loadAgreement } = require('../agreement')
-const { saveProgress } = require('../progress')
 const cache = require('../cache')
 
 module.exports = [{
@@ -10,7 +8,6 @@ module.exports = [{
   path: '/withdraw',
   options: {
     handler: async (request, h) => {
-      await loadAgreement(request)
       return h.view('withdraw', new ViewModel())
     }
   }
@@ -32,10 +29,6 @@ module.exports = [{
         const agreement = await cache.get('agreement', request.yar.id)
         if (agreement.submitted) {
           await sendAgreementWithdrawMessage({ sbi: agreement.sbi, agreementNumber: agreement.agreementNumber }, request.yar.id)
-          const updatedAgreement = await cache.update('agreement', request.yar.id, { withdrawn: true, statusId: 3 })
-          const progress = await cache.update('progress', request.yar.id, { progress: { submitted: true } })
-          const progressId = await saveProgress(progress)
-          await saveAgreement(updatedAgreement, progressId)
           await cache.clear('eligibility', request.yar.id)
           await cache.clear('agreement', request.yar.id)
           await cache.clear('progress', request.yar.id)
