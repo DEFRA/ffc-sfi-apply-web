@@ -51,14 +51,14 @@ const mqSchema = joi.object({
   },
   responseStandardsQueue: {
     name: joi.string().default('ffc-sfi-response-standards'),
-    address: joi.string().default('response-standards'),
+    address: joi.string(),
     username: joi.string(),
     password: joi.string(),
     type: joi.string()
   },
   responseCalculateQueue: {
     name: joi.string().default('ffc-sfi-response-calculate'),
-    address: joi.string().default('response-calculate'),
+    address: joi.string(),
     username: joi.string(),
     password: joi.string(),
     type: joi.string()

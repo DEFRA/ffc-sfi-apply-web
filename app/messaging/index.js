@@ -38,12 +38,10 @@ async function sendRequestSBIMessage (payload, correlationId) {
 }
 
 async function receiveStandardsResponseMessage (messageId) {
-  console.info('Response Standards requested')
   return receiveMessage(messageId, config.responseStandardsQueue)
 }
 
 async function receiveCalculateResponseMessage (messageId) {
-  console.info('Response Calculate requested')
   return receiveMessage(messageId, config.responseCalculateQueue)
 }
 
