@@ -36,25 +36,16 @@ ignore:
         reason: no fix at this time
         expires: '2021-10-06T08:32:27.489Z'
   SNYK-JS-ANSIREGEX-1583908:
-    - '@azure/identity > keytar > prebuild-install > npmlog > gauge > strip-ansi > ansi-regex':
-        reason: no fix
-        expires: '2021-10-13T08:42:23.842Z'
-    - '@azure/identity > keytar > prebuild-install > npmlog > gauge > string-width > strip-ansi > ansi-regex':
-        reason: no fix
-        expires: '2021-10-13T08:42:23.842Z'
-    - ffc-messaging > @azure/identity > keytar > prebuild-install > npmlog > gauge > strip-ansi > ansi-regex:
-        reason: no fix
-        expires: '2021-10-13T08:42:23.842Z'
-    - ffc-messaging > @azure/identity > keytar > prebuild-install > npmlog > gauge > string-width > strip-ansi > ansi-regex:
-        reason: no fix
-        expires: '2021-10-13T08:42:23.842Z'
     - blipp > easy-table > ansi-regex:
         reason: no fix
-        expires: '2021-10-13T08:42:23.842Z'
-    - '@azure/identity > keytar > prebuild-install > npmlog > gauge > wide-align > string-width > strip-ansi > ansi-regex':
-        reason: no fix
-        expires: '2021-10-13T08:42:23.842Z'
+        expires: '2021-10-13T09:41:01.848Z'
     - ffc-messaging > @azure/identity > keytar > prebuild-install > npmlog > gauge > wide-align > string-width > strip-ansi > ansi-regex:
         reason: no fix
-        expires: '2021-10-13T08:42:23.842Z'
+        expires: '2021-10-13T09:41:01.848Z'
+    - ffc-messaging > @azure/identity > keytar > prebuild-install > npmlog > gauge > strip-ansi > ansi-regex:
+        reason: no fix
+        expires: '2021-10-13T09:41:01.848Z'
+    - ffc-messaging > @azure/identity > keytar > prebuild-install > npmlog > gauge > string-width > strip-ansi > ansi-regex:
+        reason: no fix
+        expires: '2021-10-13T09:41:01.848Z'
 patch: {}
