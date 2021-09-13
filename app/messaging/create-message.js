@@ -1,4 +1,4 @@
-function createMessage (body, type, correlationId, messageId = null) {
+function createMessage (body, type, correlationId, messageId) {
   return {
     body,
     type,
