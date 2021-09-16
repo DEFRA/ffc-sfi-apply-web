@@ -41,11 +41,15 @@
 
       <h2 class="govuk-heading-m">Land registered in England</h2>
       <p class="govuk-body">Total land: {{ totalHa }} hectares of land</p>
-      <br>
 
-      {% for standard in standards %}
-        <p class="govuk-body">{{ standard.name }}: {{ standard.totalHa | round(2) }} hectares</p>      
-      {% endfor %}
+       <ul class="govuk-list">
+        {% for landCover in landCovers %}
+          {% if landCover.area > 0 %}
+            <li>{{ landCover.name }}: {{ landCover.area | round(2) }} hectares </li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+      
       <h2 class="govuk-heading-m">Your schemes</h2>
       <p class="govuk-hint">Includes current and past scheme participation</p>
       <ul class="govuk-list">
