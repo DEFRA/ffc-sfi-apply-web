@@ -6,3 +6,8 @@ resources:
     - name: calculate
     - name: submit
     - name: withdraw
+  queues:
+    - name: calculateresponse
+      enableSessions: true
+    - name: standardsresponse
+      enableSessions: true
