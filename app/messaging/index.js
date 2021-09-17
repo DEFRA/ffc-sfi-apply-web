@@ -7,6 +7,7 @@ async function sendEligibilityCheckMessage (payload, correlationId) {
 }
 
 async function sendStandardsRequestMessage (payload, correlationId) {
+  console.log('XXXXXXX Standards request')
   await sendMessage(payload, 'uk.gov.sfi.standards.request', correlationId, config.standardsTopic)
   console.info('Available standards requested')
 }

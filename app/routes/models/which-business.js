@@ -1,7 +1,10 @@
-function ViewModel (value, selectedSbi, error) {
+function ViewModel (value, selectedSbi, journeyItem, error) {
   this.model = {
     id: 'sbi',
     name: 'sbi',
+    back: journeyItem.back,
+    next: journeyItem.next,
+    route: journeyItem.route,
     fieldset: {
       legend: {
         text: 'Which business do you want to apply for?',

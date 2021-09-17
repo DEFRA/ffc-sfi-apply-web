@@ -1,25 +1,17 @@
 {% extends '_layout.njk' %}
 
-{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
 {% from "govuk/components/details/macro.njk" import govukDetails %}
 
 {% block beforeContent %}
-  {{ govukBackLink({
-        text: "Back",
-        href: "/",
-        attributes: {
-          id: "back"
-        }
-      }) 
-    }}
+  <a href="{{back}}" class="govuk-back-link">Back</a>
 {% endblock %}
 
 {% block content %}
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
-      <form method="POST" action="/sign-in">
+      <form method="POST" action="{{route}}">
         <input type="hidden" name="crumb" value="{{crumb}}"/>
         <h1 class="govuk-heading-l">Sign in</h1>
         {% if errors %}        

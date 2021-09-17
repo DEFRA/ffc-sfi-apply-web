@@ -1,9 +1,10 @@
 const taskList = require('../../task-list')
 
-function ViewModel (progressCache, fundingOption, paymentLevel) {
+function ViewModel (progressCache, fundingOption, paymentLevel, journeyItem) {
   this.model = {
     taskList: validateSchema(progressCache, fundingOption, paymentLevel),
-    completedSections: completedSections(progressCache)
+    completedSections: completedSections(progressCache),
+    back: journeyItem.back
   }
 }
 

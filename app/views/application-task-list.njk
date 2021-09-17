@@ -1,6 +1,5 @@
 {% extends '_layout.njk' %}
 {% set mainClasses = "govuk-main-wrapper--auto-spacing" %}
-{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
 {% from "govuk/components/tag/macro.njk" import govukTag %}
 {% from "govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
 {% from "macros/task-link.njk" import taskLink %}
@@ -8,10 +7,7 @@
 {% block beforeContent %}
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-one-half">
-      {{ govukBackLink({
-            text: "Back",
-            href: "/which-business"
-          }) }}
+      <a href="{{model.back}}" class="govuk-back-link">Back</a>
     </div>
     <div class="govuk-grid-column-one-half">
       {% include "save/save.njk" %}
