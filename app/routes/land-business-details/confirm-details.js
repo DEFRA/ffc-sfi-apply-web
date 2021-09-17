@@ -1,6 +1,6 @@
 const cache = require('../../cache')
 const getOrganisationAddress = require('../../organisation-address')
-const { getLandCover } = require('../../api/crown-hosting/land-cover')
+const { getLandCovers } = require('../../api/crown-hosting/land-cover')
 
 module.exports = [
   {
@@ -9,7 +9,7 @@ module.exports = [
     options: {
       handler: async (request, h) => {
         const applyJourney = await cache.get('apply-journey', request.yar.id)
-        const landCoverDetails = await getLandCover(applyJourney.selectedSbi.organisationId, applyJourney.callerId)
+        const landCoverDetails = await getLandCovers(applyJourney.selectedSbi.organisationId, applyJourney.callerId)
         const organisationAddress = await getOrganisationAddress(applyJourney.selectedSbi, applyJourney.callerId)
 
         const totalHa = landCoverDetails?.reduce((acc, cur) => acc + cur.area, 0)

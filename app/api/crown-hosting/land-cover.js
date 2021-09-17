@@ -1,6 +1,6 @@
 const { get } = require('./base')
 
-const getLandCover = async (organisationId, callerId) => {
+const getLandCovers = async (organisationId, callerId) => {
   const parcels = await get(`/lms/organisation/${organisationId}/land-covers`, callerId)
   const landCovers = []
 
@@ -26,5 +26,5 @@ const getLandCover = async (organisationId, callerId) => {
 }
 
 module.exports = {
-  getLandCover
+  getLandCovers
 }
