@@ -17,12 +17,12 @@ module.exports = [{
   path: '/declaration',
   options: {
     handler: async (request, h) => {
+      await saveAgreement(request)
       const applyJourney = await cache.get('apply-journey', request.yar.id)
       await submitAgreement(applyJourney.agreementNumber, applyJourney.selectedSbi.sbi)
       await cache.update('progress', request.yar.id, {
         progress: { submitted: true }
       })
-      await saveAgreement(request)
       return h.redirect('/confirmation')
     }
   }
