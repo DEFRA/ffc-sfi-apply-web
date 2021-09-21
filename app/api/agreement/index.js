@@ -15,7 +15,7 @@ const getAgreement = async (agreementNumber, sbi) => {
 }
 
 const submitAgreement = async (agreementNumber, sbi) => {
-  const url = '/agreement/submission'
+  const url = '/agreement/submit'
   const data = await post(url, { agreementNumber, sbi })
 
   return data?.payload
