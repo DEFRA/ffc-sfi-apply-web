@@ -4,7 +4,14 @@ const paymentLevels = require('./payment-levels')
 const handler = require('./handler')
 const applyJourneyConfig = require('../config/apply-journey')
 
+const groupBy = () => {
+  const taskList = applyJourneyConfig.filter(a => Boolean(a.taskList.group))
 
+  return taskList.reduce((r, a) => {
+    r[a.taskList.group] = [...r[a.taskList.group] || [], a]
+    return r
+  }, {})
+}
 
 module.exports = {
   method: 'GET',
@@ -14,6 +21,7 @@ module.exports = {
       handler.preHandler('/application-task-list')
     ],
     handler: async (request, h) => {
+      console.log(groupBy())
       const progress = await cache.get('progress', request.yar.id)
       const journeyItem = request.pre.journeyItem
       const applyJourney = await cache.get('apply-journey', request.yar.id)
