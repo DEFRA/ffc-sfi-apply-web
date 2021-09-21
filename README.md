@@ -49,6 +49,7 @@ overridden by build and release pipelines.
 | Name | Description |
 | --- | --- |
 | OS_MAP_API_KEY | Ordnance Survey API key |
+| CH_API_GATEWAY | API Gatway URL for Crown Hosting |
 
 ## Running the application
 

@@ -1,5 +1,5 @@
 # Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
-version: v1.19.0
+version: v1.22.1
 # ignores vulnerabilities until expiry date; change duration by modifying expiry date
 ignore:
   SNYK-JS-VALIDATOR-1090599:
@@ -39,22 +39,22 @@ ignore:
     - blipp > easy-table > ansi-regex:
         reason: no fix
         expires: '2021-10-13T09:41:01.848Z'
-      '@azure/identity > keytar > prebuild-install > npmlog > gauge > strip-ansi > ansi-regex':
-        reason: no fix
-        expires: '2021-10-13T09:49:32.062Z'
     - ffc-messaging > @azure/identity > keytar > prebuild-install > npmlog > gauge > wide-align > string-width > strip-ansi > ansi-regex:
         reason: no fix
         expires: '2021-10-13T09:41:01.848Z'
-      '@azure/identity > keytar > prebuild-install > npmlog > gauge > string-width > strip-ansi > ansi-regex':
-        reason: no fix
-        expires: '2021-10-13T09:49:32.062Z'
     - ffc-messaging > @azure/identity > keytar > prebuild-install > npmlog > gauge > strip-ansi > ansi-regex:
         reason: no fix
         expires: '2021-10-13T09:41:01.848Z'
-      '@azure/identity > keytar > prebuild-install > npmlog > gauge > wide-align > string-width > strip-ansi > ansi-regex':
-        reason: no fix
-        expires: '2021-10-13T09:49:32.062Z'
     - ffc-messaging > @azure/identity > keytar > prebuild-install > npmlog > gauge > string-width > strip-ansi > ansi-regex:
         reason: no fix
         expires: '2021-10-13T09:41:01.848Z'
+    - '@azure/identity > keytar > prebuild-install > npmlog > gauge > strip-ansi > ansi-regex':
+        reason: no fix
+        expires: '2021-10-13T09:49:32.062Z'
+    - '@azure/identity > keytar > prebuild-install > npmlog > gauge > string-width > strip-ansi > ansi-regex':
+        reason: no fix
+        expires: '2021-10-13T09:49:32.062Z'
+    - '@azure/identity > keytar > prebuild-install > npmlog > gauge > wide-align > string-width > strip-ansi > ansi-regex':
+        reason: no fix
+        expires: '2021-10-13T09:49:32.062Z'
 patch: {}
