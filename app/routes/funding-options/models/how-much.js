@@ -28,7 +28,7 @@ const getLandInHectares = (payload, parcels) => {
         id: parcelArea.id,
         value: Number(value),
         area: parcelArea.area,
-        valid: value !== '' && value > 0 && value <= parcelArea.area.toFixed(2)
+        valid: value !== '' && value > 0 && value <= parcelArea.area
       }
     }
   })
@@ -40,7 +40,7 @@ const getAllItems = (selectedStandard, selectedParcels) => {
   const parcels = selectedStandard?.parcels
   const checkboxItems = parcels.map(x => (
     {
-      text: `${x.id}, ${Number(x.area).toFixed(2)}ha`,
+      text: `${x.id}, ${Number(x.area)}ha`,
       value: `${x.id}`,
       checked: isChecked(selectedParcels, x.id),
       textBoxValue: selectedParcels && selectedParcels.find(item => item.id === x.id)

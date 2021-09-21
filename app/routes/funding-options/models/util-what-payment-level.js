@@ -15,7 +15,7 @@ async function getPaymentRates (request, error) {
         agreementNumber: applyJourney.agreementNumber,
         callerId: applyJourney.callerId,
         code: applyJourney.selectedStandard.code,
-        parcels: applyJourney.selectedParcels
+        parcels: applyJourney.selectedParcels.map(x => ({ area: x.value }))
       }, request.yar.id,
       messageId)
 
