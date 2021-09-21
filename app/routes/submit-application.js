@@ -1,11 +1,13 @@
 const cache = require('../cache')
-const { saveAgreement, submitAgreement } = require('../api/agreement')
+const { submitAgreement } = require('../api/agreement')
+const saveAgreement = require('./models/save-application')
 
 module.exports = [{
   method: 'GET',
   path: '/declaration',
   options: {
     handler: async (request, h) => {
+      await saveAgreement(request)
       return h.view('submit-application')
     }
   }
@@ -17,10 +19,10 @@ module.exports = [{
     handler: async (request, h) => {
       const applyJourney = await cache.get('apply-journey', request.yar.id)
       await submitAgreement(applyJourney.agreementNumber, applyJourney.selectedSbi.sbi)
-      const progress = await cache.update('progress', request.yar.id, {
+      await cache.update('progress', request.yar.id, {
         progress: { submitted: true }
       })
-      await saveAgreement(applyJourney, progress)
+      await saveAgreement(request)
       return h.redirect('/confirmation')
     }
   }
