@@ -27,14 +27,14 @@ const isChecked = (selectedSbi, value) => {
 
 const mapItems = (businessDetails, selectedSbi) => {
   const items = []
-  if (businessDetails.length > 0) {
+  if (businessDetails) {
     for (const businessDetail of businessDetails) {
       items.push(
         {
           value: businessDetail.sbi,
           text: businessDetail.name,
           hint: {
-            text: `SBI number: ${businessDetail.sbi}`
+            text: `SBI: ${businessDetail.sbi}`
           },
           checked: isChecked(selectedSbi, businessDetail.sbi)
         })
