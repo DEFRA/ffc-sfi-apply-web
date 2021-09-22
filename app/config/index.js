@@ -23,7 +23,7 @@ const schema = joi.object({
   agreementCalculatorEndpoint: joi.string().uri().required(),
   restClientTimeoutMillis: joi.number().default(60000),
   publicApi: joi.string().default('https://environment.data.gov.uk/arcgis/rest/services/RPA/'),
-  chApiGateway: joi.string().default('').regex(/[a-zA-Z]$/).allow(''),
+  chApiGateway: joi.string().default('').regex(/[a-zA-Z:0-9]$/).allow(''),
   osMapApiKey: joi.string().default('').allow('')
 })
 

@@ -1,3 +1,4 @@
+const { convertToInteger, convertToDecimal } = require('../../conversion')
 const { get } = require('./base')
 
 const getLandCovers = async (organisationId, callerId) => {
@@ -11,9 +12,9 @@ const getLandCovers = async (organisationId, callerId) => {
       let area = 0
       if (landCovers.find(x => x.name === info.name) !== undefined) {
         const landCover = landCovers.find(x => x.name === info.name)
-        landCover.area += info.area /= 10000.0
+        landCover.area += convertMetresToHectares(info.area)
       } else {
-        area += info.area /= 10000.0
+        area += convertMetresToHectares(info.area)
         landCovers.push({
           name: info.name,
           area
@@ -22,7 +23,17 @@ const getLandCovers = async (organisationId, callerId) => {
     }
   }
 
-  return landCovers
+  const totalHectares = convertToDecimal(landCovers?.reduce((x, y) => Math.ceil(x + y.area), 0))
+
+  return {
+    totalHectares,
+    landCovers: landCovers.map(x => ({ ...x, area: convertToDecimal(x.area) }))
+  }
+}
+
+const convertMetresToHectares = (area) => {
+  const metres = convertToInteger(area)
+  return Math.ceil(metres / 10000)
 }
 
 module.exports = {
