@@ -50,7 +50,8 @@ module.exports = [
     taskList: {
       group: 'Land and business details',
       dependsOn: '',
-      title: 'Confirm your land and business detailsCOMPLETED'
+      title: 'Confirm your land and business details',
+      status: 'CANNOT START YET'
     }
   },
   {
@@ -64,7 +65,7 @@ module.exports = [
     taskList: {}
   },
   {
-    key: 'Choose funding option',
+    key: 'what-funding',
     sequence: 7,
     route: '/funding-options/what-funding',
     back: '/application-task-list',
@@ -74,6 +75,22 @@ module.exports = [
     taskList: {
       group: 'Funding options',
       dependsOn: 'relationship',
-      title: 'Choose funding option'
+      title: 'Choose funding option',
+      status: 'CANNOT START YET'
+    }
+  },
+  {
+    key: 'what-funding',
+    sequence: 7,
+    route: '/funding-options/what-funding',
+    back: '/application-task-list',
+    next: '/application-task-list',
+    decision: [],
+    redirect: '',
+    taskList: {
+      group: 'Funding options',
+      dependsOn: 'relationship',
+      title: 'Choose funding option',
+      status: 'CANNOT START YET'
     }
   }]
