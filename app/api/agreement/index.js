@@ -14,6 +14,13 @@ const getAgreement = async (agreementNumber, sbi) => {
   return data?.payload
 }
 
+const submitAgreement = async (agreementNumber, sbi) => {
+  const url = '/agreement/submit'
+  const data = await post(url, { agreementNumber, sbi })
+
+  return data?.payload
+}
+
 const saveAgreement = async (agreement, progress) => {
   let url
   const agreementNumber = agreement.agreementNumber ?? ''
@@ -51,5 +58,6 @@ module.exports = {
   getAgreements,
   getAgreement,
   saveAgreement,
+  submitAgreement,
   getProgress
 }
