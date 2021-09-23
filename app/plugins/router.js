@@ -9,7 +9,7 @@ const routes = [].concat(
   require('../routes/which-business'),
   require('../routes/application-task-list'),
   require('../routes/land-business-details/confirm-details'),
-  require('../routes/relationship'),
+  require('../routes/land-business-details/relationship'),
   require('../routes/save-application'),
   require('../routes/submit-application'),
   require('../routes/confirmation'),

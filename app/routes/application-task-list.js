@@ -3,17 +3,8 @@ const ViewModel = require('./models/application-task-list')
 const cache = require('../cache')
 const paymentLevels = require('./payment-levels')
 const handler = require('./handler')
-const applyJourneyConfig = require('../config/apply-journey')
-
-const groupBy = () => {
-  const taskList = applyJourneyConfig.filter(a => Boolean(a.taskList.group))
-
-  return taskList.reduce((r, a) => {
-    r[a.taskList.group] = [...r[a.taskList.group] || [], a]
-    return r
-  }, {})
-}
 const { getAgreements, getAgreement, getProgress } = require('../api/agreement')
+const applyJourneyTaskList = require('./models/apply-journey-task-list')
 
 module.exports = [{
   method: 'GET',
@@ -23,14 +14,15 @@ module.exports = [{
       handler.preHandler('/application-task-list')
     ],
     handler: async (request, h) => {
-      console.log(groupBy())
+      const journeyItem = request.pre.journeyItem
       const progress = await cache.get('progress', request.yar.id)
       const applyJourney = await cache.get('apply-journey', request.yar.id)
       const fundingOption = applyJourney?.selectedStandard?.code === '130' ? 'improved-grassland-soils' : 'arable-soils'
       const paymentLevel = paymentLevels.find(x => x.name === applyJourney?.selectedAmbitionLevel?.name)
       const savedAgreements = await getAgreements()
-
-      return h.view('application-task-list', new ViewModel(progress, fundingOption, paymentLevel?.paymentLevel, savedAgreements, applyJourney.selectedSbi))
+      const viewModel = new ViewModel(progress, fundingOption, paymentLevel?.paymentLevel, savedAgreements, applyJourney.selectedSbi, journeyItem)
+      viewModel.taskList = applyJourneyTaskList(progress)
+      return h.view(journeyItem.key, viewModel)
     }
   }
 },

@@ -1,6 +1,6 @@
 const standards = require('../standards')
 
-function ViewModel (values, selected, error) {
+function ViewModel (values, selected, journeyItem, error) {
   this.model = {
     id: 'standard',
     name: 'standard',
@@ -11,7 +11,8 @@ function ViewModel (values, selected, error) {
         classes: 'govuk-fieldset__legend--l'
       }
     },
-    items: mapStandards(values, selected)
+    items: mapStandards(values, selected),
+    back: journeyItem.back
   }
 
   if (error) {

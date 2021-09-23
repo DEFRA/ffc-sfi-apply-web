@@ -1,4 +1,4 @@
-function ViewModel (sbi, std, stdArea, paymentRates, selectedAmbitionLevel, selectedStandardCode, error) {
+function ViewModel (sbi, std, stdArea, paymentRates, selectedAmbitionLevel, selectedStandardCode, journeyItem, error) {
   let model = {
     radios: {
       name: 'level',
@@ -11,7 +11,8 @@ function ViewModel (sbi, std, stdArea, paymentRates, selectedAmbitionLevel, sele
       },
       items: createPaymentRateItems(paymentRates, selectedAmbitionLevel, stdArea)
     },
-    selectedStandardCode
+    selectedStandardCode,
+    back: journeyItem.back
   }
 
   // If error is passed to model then this error property is added to the model

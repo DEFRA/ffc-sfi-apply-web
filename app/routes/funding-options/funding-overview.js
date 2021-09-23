@@ -1,35 +1,19 @@
 const cache = require('../../cache')
+const handler = require('../handler')
 
 module.exports = [{
   method: 'GET',
-  path: '/funding-options/arable-overview',
-  options: {
-    handler: async (request, h) => {
-      return h.view('funding-options/arable-overview')
-    }
-  }
-},
-{
-  method: 'GET',
-  path: '/funding-options/grassland-overview',
-  options: {
-    handler: async (request, h) => {
-      return h.view('funding-options/grassland-overview')
-    }
-  }
-},
-{
-  method: 'GET',
   path: '/funding-options/funding-overview',
   options: {
+    pre: [
+      handler.preHandler('/funding-options/funding-overview')
+    ],
     handler: async (request, h) => {
       const applyJourney = await cache.get('apply-journey', request.yar.id)
       const standard = applyJourney.selectedStandard.code
-      if (standard === '130') {
-        return h.redirect('/funding-options/grassland-overview')
-      }
-
-      return h.redirect('/funding-options/arable-overview')
+      const journeyItem = request.pre.journeyItem
+      const view = journeyItem.decision.find(x => x.key === standard).value
+      return h.view(view, { next: journeyItem.next, back: journeyItem.back })
     }
   }
 },
@@ -37,11 +21,15 @@ module.exports = [{
   method: 'POST',
   path: '/funding-options/funding-overview',
   options: {
+    pre: [
+      handler.preHandler('/funding-options/funding-overview')
+    ],
     handler: async (request, h) => {
       await cache.update('progress', request.yar.id, {
         progress: { fundingOptionOverview: true }
       })
-      return h.redirect('/funding-options/how-much')
+      const journeyItem = request.pre.journeyItem
+      return h.redirect(journeyItem.next)
     }
   }
 }]
