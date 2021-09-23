@@ -1,4 +1,5 @@
 const sendMessage = require('./send-message')
+const receiveMessage = require('./receive-message')
 const config = require('../config')
 
 async function sendEligibilityCheckMessage (payload, correlationId) {
@@ -6,9 +7,8 @@ async function sendEligibilityCheckMessage (payload, correlationId) {
   console.info('Eligibility check requested')
 }
 
-async function sendStandardsRequestMessage (payload, correlationId) {
-  console.log('XXXXXXX Standards request')
-  await sendMessage(payload, 'uk.gov.sfi.standards.request', correlationId, config.standardsTopic)
+async function sendStandardsRequestMessage (payload, correlationId, messageId) {
+  await sendMessage(payload, 'uk.gov.sfi.standards.request', correlationId, config.standardsTopic, messageId)
   console.info('Available standards requested')
 }
 
@@ -17,8 +17,8 @@ async function sendAgreementValidateMessage (payload, correlationId) {
   console.info('Agreement validation requested')
 }
 
-async function sendAgreementCalculateMessage (payload, correlationId) {
-  await sendMessage(payload, 'uk.gov.sfi.agreement.calculate', correlationId, config.calculateTopic)
+async function sendAgreementCalculateMessage (payload, correlationId, messageId) {
+  await sendMessage(payload, 'uk.gov.sfi.agreement.calculate', correlationId, config.calculateTopic, messageId)
   console.info('Agreement calculation requested')
 }
 
@@ -37,6 +37,14 @@ async function sendRequestSBIMessage (payload, correlationId) {
   console.info('SBI(s) requested')
 }
 
+async function receiveStandardsResponseMessage (messageId) {
+  return receiveMessage(messageId, config.responseStandardsQueue)
+}
+
+async function receiveCalculateResponseMessage (messageId) {
+  return receiveMessage(messageId, config.responseCalculateQueue)
+}
+
 module.exports = {
   sendEligibilityCheckMessage,
   sendStandardsRequestMessage,
@@ -44,5 +52,7 @@ module.exports = {
   sendAgreementCalculateMessage,
   sendAgreementSubmitMessage,
   sendAgreementWithdrawMessage,
-  sendRequestSBIMessage
+  sendRequestSBIMessage,
+  receiveStandardsResponseMessage,
+  receiveCalculateResponseMessage
 }

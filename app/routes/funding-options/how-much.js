@@ -1,6 +1,5 @@
 const cache = require('../../cache')
 const joi = require('joi')
-const { sendAgreementCalculateMessage } = require('../../messaging')
 const ViewModel = require('./models/how-much')
 
 module.exports = [
@@ -41,14 +40,6 @@ module.exports = [
         if (viewModel.model.error || viewModel.model.invalidValues) {
           return h.view('funding-options/how-much', viewModel).code(400).takeover()
         }
-
-        await sendAgreementCalculateMessage(
-          {
-            agreementNumber: applyJourney.agreementNumber,
-            callerId: applyJourney.callerId,
-            code: applyJourney.selectedStandard.code,
-            parcels: viewModel.model.landInHectares
-          }, request.yar.id)
 
         return h.redirect('/funding-options/what-payment-level')
       }

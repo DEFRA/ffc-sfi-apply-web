@@ -43,9 +43,9 @@ const createPaymentRateItems = (paymentRates, selectedAmbitionLevel, stdArea) =>
 
     items.push({
       value: 'Introductory',
-      text: `Basic - ${introductory.rate} per hectare`,
+      text: `Basic - £${introductory.rate} per hectare`,
       hint: {
-        text: `${stdArea} hectares would pay you ${introductory.paymentAmount}`
+        text: `${stdArea} hectares would pay you £${introductory.paymentAmount}`
       },
       checked: isChecked(selectedAmbitionLevel, 'Introductory')
     })
@@ -56,9 +56,9 @@ const createPaymentRateItems = (paymentRates, selectedAmbitionLevel, stdArea) =>
 
     items.push({
       value: 'Intermediate',
-      text: `Medium - ${intermediate.rate} per hectare`,
+      text: `Medium - £${intermediate.rate} per hectare`,
       hint: {
-        text: `${stdArea} hectares would pay you ${intermediate.paymentAmount}`
+        text: `${stdArea} hectares would pay you £${intermediate.paymentAmount}`
       },
       checked: isChecked(selectedAmbitionLevel, 'Intermediate')
     })
@@ -69,9 +69,9 @@ const createPaymentRateItems = (paymentRates, selectedAmbitionLevel, stdArea) =>
 
     items.push({
       value: 'Advanced',
-      text: `High - ${advanced.rate} per hectare`,
+      text: `High - £${advanced.rate} per hectare`,
       hint: {
-        text: `${stdArea} hectares would pay you ${advanced.paymentAmount}`
+        text: `${stdArea} hectares would pay you £${advanced.paymentAmount}`
       },
       checked: isChecked(selectedAmbitionLevel, 'Advanced')
     })

@@ -13,7 +13,7 @@ ignore:
   SNYK-JS-VALIDATOR-1090601:
     - sequelize > validator:
         reason: no fix
-        expires: '2021-09-06T13:05:59.428Z'
+        expires: '2021-10-06T13:05:59.428Z'
   SNYK-JS-VALIDATOR-1090602:
     - sequelize > validator:
         reason: no fix
@@ -35,4 +35,26 @@ ignore:
     - ffc-messaging > @azure/identity > @azure/msal-node > axios:
         reason: no fix at this time
         expires: '2021-10-06T08:32:27.489Z'
+  SNYK-JS-ANSIREGEX-1583908:
+    - blipp > easy-table > ansi-regex:
+        reason: no fix
+        expires: '2021-10-13T09:41:01.848Z'
+    - ffc-messaging > @azure/identity > keytar > prebuild-install > npmlog > gauge > wide-align > string-width > strip-ansi > ansi-regex:
+        reason: no fix
+        expires: '2021-10-13T09:41:01.848Z'
+    - ffc-messaging > @azure/identity > keytar > prebuild-install > npmlog > gauge > strip-ansi > ansi-regex:
+        reason: no fix
+        expires: '2021-10-13T09:41:01.848Z'
+    - ffc-messaging > @azure/identity > keytar > prebuild-install > npmlog > gauge > string-width > strip-ansi > ansi-regex:
+        reason: no fix
+        expires: '2021-10-13T09:41:01.848Z'
+    - '@azure/identity > keytar > prebuild-install > npmlog > gauge > strip-ansi > ansi-regex':
+        reason: no fix
+        expires: '2021-10-13T09:49:32.062Z'
+    - '@azure/identity > keytar > prebuild-install > npmlog > gauge > string-width > strip-ansi > ansi-regex':
+        reason: no fix
+        expires: '2021-10-13T09:49:32.062Z'
+    - '@azure/identity > keytar > prebuild-install > npmlog > gauge > wide-align > string-width > strip-ansi > ansi-regex':
+        reason: no fix
+        expires: '2021-10-13T09:49:32.062Z'
 patch: {}

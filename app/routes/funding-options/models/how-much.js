@@ -1,12 +1,14 @@
+const { convertToInteger, convertToDecimal } = require('../../../conversion')
+
 function ViewModel (selectedStandard, selectedParcels, payload) {
   const landInHectares = payload ? getLandInHectares(payload, selectedStandard.parcels) : selectedParcels
   const items = getAllItems(selectedStandard, landInHectares)
-  const parcelArea = landInHectares ? landInHectares.reduce((accum, item) => accum + item.value, 0) : 0
+  const parcelArea = landInHectares ? landInHectares.reduce((x, y) => x + convertToInteger(y.value), 0) : 0
   const error = landInHectares && landInHectares.length === 0
   const invalidValues = landInHectares && landInHectares.some(element => !element.valid)
   this.model = {
     landInHectares,
-    parcelArea,
+    parcelArea: convertToDecimal(parcelArea),
     error,
     invalidValues,
     checkboxItems: items.checkboxItems,
@@ -26,9 +28,9 @@ const getLandInHectares = (payload, parcels) => {
 
       return {
         id: parcelArea.id,
-        value: Number(value),
+        value: value,
         area: parcelArea.area,
-        valid: value !== '' && value > 0 && value <= parcelArea.area.toFixed(2)
+        valid: value !== '' && Number(value) > 0 && Number(value) <= Number(parcelArea.area)
       }
     }
   })
@@ -40,7 +42,7 @@ const getAllItems = (selectedStandard, selectedParcels) => {
   const parcels = selectedStandard?.parcels
   const checkboxItems = parcels.map(x => (
     {
-      text: `${x.id}, ${Number(x.area).toFixed(2)}ha`,
+      text: `${x.id}, ${x.area}ha`,
       value: `${x.id}`,
       checked: isChecked(selectedParcels, x.id),
       textBoxValue: selectedParcels && selectedParcels.find(item => item.id === x.id)
@@ -50,7 +52,7 @@ const getAllItems = (selectedStandard, selectedParcels) => {
     }
   ))
 
-  const totalHa = parcels?.reduce((acc, cur) => acc + cur.area, 0)
+  const totalHa = convertToDecimal(parcels?.reduce((acc, cur) => acc + convertToInteger(cur.area), 0))
 
   return { checkboxItems, totalHa }
 }

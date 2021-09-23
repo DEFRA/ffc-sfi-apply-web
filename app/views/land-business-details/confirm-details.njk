@@ -40,11 +40,16 @@
       </p>
 
       <h2 class="govuk-heading-m">Land registered in England</h2>
-      <p class="govuk-body">Total land: 270 hectares of land</p>
-      <br>
-      <p class="govuk-body">Arable land: 200 hectares</p>
-      <p class="govuk-body">Permanent grassland: 70 hectares</p>
+      <p class="govuk-body">Total land: {{ totalHa }} hectares of land</p>
 
+       <ul class="govuk-list">
+        {% for landCover in landCovers %}
+          {% if landCover.area > 0 %}
+            <li>{{ landCover.name }}: {{ landCover.area | round(2) }} hectares </li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+      
       <h2 class="govuk-heading-m">Your schemes</h2>
       <p class="govuk-hint">Includes current and past scheme participation</p>
       <ul class="govuk-list">
