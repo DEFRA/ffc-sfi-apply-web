@@ -5,7 +5,7 @@ module.exports = [{
   path: '/improved-grassland-soils/basic/basic-overview',
   options: {
     pre: [
-      handler.preHandler('basic-overview')
+      handler.preHandler('#paymentLevel#-overview')
     ],
     handler: async (request, h) => {
       return h.view('land-management/improved-grassland-soils/basic/basic-overview')
@@ -17,10 +17,11 @@ module.exports = [{
   path: '/improved-grassland-soils/basic/basic-overview',
   options: {
     pre: [
-      handler.preHandler('basic-overview')
+      handler.preHandler('#paymentLevel#-overview')
     ],
     handler: async (request, h) => {
-      return h.redirect('/improved-grassland-soils/basic/soil-assessment')
+      const journeyItem = request.pre.journeyItem
+      return h.redirect(journeyItem.next)
     }
   }
 }]

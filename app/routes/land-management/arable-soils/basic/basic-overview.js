@@ -5,7 +5,7 @@ module.exports = [{
   path: '/arable-soils/basic/basic-overview',
   options: {
     pre: [
-      handler.preHandler('/arable-soils/basic/basic-overview')
+      handler.preHandler('#paymentLevel#-overview')
     ],
     handler: async (request, h) => {
       return h.view('land-management/arable-soils/basic/basic-overview')
@@ -17,7 +17,7 @@ module.exports = [{
   path: '/arable-soils/basic/basic-overview',
   options: {
     pre: [
-      handler.preHandler('/arable-soils/basic/basic-overview')
+      handler.preHandler('#paymentLevel#-overview')
     ],
     handler: async (request, h) => {
       const journeyItem = request.pre.journeyItem

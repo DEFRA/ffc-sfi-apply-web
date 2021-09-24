@@ -1,5 +1,7 @@
 const cache = require('../cache')
 const applyJourney = require('../config/apply-journey')
+const paymentLevels = require('./payment-levels')
+const enrichTask = require('./models/enrich-apply-journey-task')
 
 const getReferer = (referer) => {
   if (referer) {
@@ -31,12 +33,21 @@ const getProgress = async (request) => {
   return progress
 }
 
+const checkTokenizedTask = async (request, journeyItem) => {
+  const applyJourneyCache = await cache.get('apply-journey', request.yar.id)
+  const fundingOption = applyJourneyCache?.selectedStandard?.code === '130' ? 'improved-grassland-soils' : 'arable-soils'
+  const paymentLevel = paymentLevels.find(x => x.name === applyJourneyCache?.selectedAmbitionLevel?.name)
+  if (fundingOption && paymentLevel) {
+    enrichTask(journeyItem, fundingOption, paymentLevel)
+  }
+}
+
 const preHandler = (key) => {
   const journeyItem = applyJourney.find(x => x.key === key)
   return {
     method: async (request, reply) => {
       const progress = await getProgress(request)
-
+      checkTokenizedTask(request, journeyItem)
       if (journeyItem.back !== '' && !progress.redirect && request.method.toLowerCase() === 'get') {
         if (!checkIfComplete(progress.applyProgress, journeyItem.key)) {
           const referer = getReferer(request.headers.referer)

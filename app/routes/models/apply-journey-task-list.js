@@ -1,18 +1,11 @@
 const applyJourneyConfig = require('../../config/apply-journey')
 const paymentLevels = require('../payment-levels')
+const enrichTask = require('../models/enrich-apply-journey-task')
 
 const applyJourneyTaskList = (applyJourney, progress) => {
   const fundingOption = applyJourney?.selectedStandard?.code === '130' ? 'improved-grassland-soils' : 'arable-soils'
   const paymentLevel = paymentLevels.find(x => x.name === applyJourney?.selectedAmbitionLevel?.name)
   return validateSchema(progress, fundingOption, paymentLevel?.paymentLevel)
-}
-const enrichKey = (taskItem, fundingOption, paymentLevel) => {
-  const taskKeys = ['key', 'route', 'next', 'back']
-  for (const key of taskKeys) {
-    taskItem[key] = taskItem[key]
-      .replace(/#paymentLevel#/g, paymentLevel ?? '')
-      .replace(/#fundingOption#/g, fundingOption ?? '')
-  }
 }
 
 const validateSchema = (progress, fundingOption, paymentLevel) => {
@@ -21,7 +14,7 @@ const validateSchema = (progress, fundingOption, paymentLevel) => {
   if (applyProgress) {
     for (const taskItem of Object.values(taskListData).flat()) {
       setStatus(taskItem, applyProgress)
-      enrichKey(taskItem, fundingOption, paymentLevel)
+      enrichTask(taskItem, fundingOption, paymentLevel)
     }
   }
   return taskListData

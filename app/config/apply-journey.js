@@ -128,11 +128,11 @@ module.exports = [
     }
   },
   {
-    key: 'basic-overview',
+    key: '{{paymentLevel}}-overview',
     sequence: 11,
-    route: '/improved-grassland-soils/basic/basic-overview',
+    route: '/{{fundingOption}}/{{paymentLevel}}/{{paymentLevel}}-overview',
     back: '/application-task-list',
-    next: '/improved-grassland-soils/payment-schedule',
+    next: '/{{fundingOption}}/{{paymentLevel}}/soil-assessment',
     decision: [],
     redirect: '',
     taskList: {
