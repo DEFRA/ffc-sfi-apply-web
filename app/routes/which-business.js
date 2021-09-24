@@ -9,7 +9,7 @@ module.exports = [{
   path: '/which-business',
   options: {
     pre: [
-      handler.preHandler('/which-business')
+      handler.preHandler('which-business')
     ],
     handler: async (request, h) => {
       const journeyItem = request.pre.journeyItem
@@ -23,7 +23,7 @@ module.exports = [{
   path: '/which-business',
   options: {
     pre: [
-      handler.preHandler('/which-business')
+      handler.preHandler('which-business')
     ],
     validate: {
       payload: joi.object({

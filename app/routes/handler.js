@@ -31,8 +31,8 @@ const getProgress = async (request) => {
   return progress
 }
 
-const preHandler = (route) => {
-  const journeyItem = applyJourney.find(x => x.route === route)
+const preHandler = (key) => {
+  const journeyItem = applyJourney.find(x => x.key === key)
   return {
     method: async (request, reply) => {
       const progress = await getProgress(request)

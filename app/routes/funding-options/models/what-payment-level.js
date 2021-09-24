@@ -15,6 +15,8 @@ function ViewModel (sbi, std, stdArea, paymentRates, selectedAmbitionLevel, sele
     back: journeyItem.back
   }
 
+  console.log(model)
+
   // If error is passed to model then this error property is added to the model
   if (error) {
     model = updateModelIfError(model)

@@ -9,7 +9,7 @@ module.exports = [
     path: '/funding-options/how-much',
     options: {
       pre: [
-        handler.preHandler('/funding-options/how-much')
+        handler.preHandler('how-much')
       ],
       handler: async (request, h) => {
         const applyJourney = await cache.get('apply-journey', request.yar.id)
@@ -23,7 +23,7 @@ module.exports = [
     path: '/funding-options/how-much',
     options: {
       pre: [
-        handler.preHandler('/funding-options/how-much')
+        handler.preHandler('how-much')
       ],
       validate: {
         payload: joi.object().keys({

@@ -9,7 +9,7 @@ module.exports = [{
   path: '/funding-options/what-funding',
   options: {
     pre: [
-      handler.preHandler('/funding-options/what-funding')
+      handler.preHandler('what-funding')
     ],
     handler: async (request, h) => {
       const { applyJourney, standards } = await getAllStandards(request)
@@ -26,7 +26,7 @@ module.exports = [{
   path: '/funding-options/what-funding',
   options: {
     pre: [
-      handler.preHandler('/funding-options/what-funding')
+      handler.preHandler('what-funding')
     ],
     validate: {
       payload: joi.object({

@@ -7,7 +7,7 @@ module.exports = [{
   path: '/sign-in',
   options: {
     pre: [
-      handler.preHandler('/sign-in')
+      handler.preHandler('sign-in')
     ],
     handler: async (request, h) => {
       const journeyItem = request.pre.journeyItem
@@ -25,7 +25,7 @@ module.exports = [{
   path: '/sign-in',
   options: {
     pre: [
-      handler.preHandler('/sign-in')
+      handler.preHandler('sign-in')
     ],
     validate: {
       payload: joi.object({

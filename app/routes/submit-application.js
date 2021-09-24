@@ -1,9 +1,13 @@
 const cache = require('../cache')
+const handler = require('./handler')
 
 module.exports = [{
   method: 'GET',
   path: '/declaration',
   options: {
+    pre: [
+      handler.preHandler('declaration')
+    ],
     handler: async (request, h) => {
       return h.view('submit-application')
     }
@@ -13,11 +17,15 @@ module.exports = [{
   method: 'POST',
   path: '/declaration',
   options: {
+    pre: [
+      handler.preHandler('declaration')
+    ],
     handler: async (request, h) => {
       await cache.update('progress', request.yar.id, {
         progress: { submitted: true }
       })
-      return h.redirect('/confirmation')
+      const journeyItem = request.pre.journeyItem
+      return h.redirect(journeyItem.next)
     }
   }
 }]

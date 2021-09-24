@@ -3,7 +3,6 @@ function ViewModel (value, selectedSbi, journeyItem, error) {
     id: 'sbi',
     name: 'sbi',
     back: journeyItem.back,
-    next: journeyItem.next,
     route: journeyItem.route,
     fieldset: {
       legend: {

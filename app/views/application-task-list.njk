@@ -8,7 +8,7 @@
 {% block beforeContent %}
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-one-half">
-      <a href="{{model.back}}" class="govuk-back-link">Back</a>
+      <a href="{{back}}" class="govuk-back-link">Back</a>
     </div>
     <div class="govuk-grid-column-one-half">
       {% include "save/save.njk" %}
@@ -58,6 +58,6 @@
         {% endfor %}
       </ol>
     </div>
-     {{ sidebar("Saved Applications", model.savedAgreements, model.selectedSbi) }}
+     {{ sidebar("Saved Applications", savedAgreements, selectedSbi) }}
   </div>
 {% endblock %}

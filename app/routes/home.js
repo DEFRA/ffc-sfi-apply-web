@@ -6,7 +6,7 @@ module.exports = {
   path: '/',
   options: {
     pre: [
-      handler.preHandler('/')
+      handler.preHandler('home')
     ],
     handler: async (request, h) => {
       await cache.clear('progress', request.yar.id)

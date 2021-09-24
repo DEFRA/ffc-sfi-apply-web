@@ -9,12 +9,13 @@ module.exports = [{
   path: '/funding-options/what-payment-level',
   options: {
     pre: [
-      handler.preHandler('/funding-options/what-payment-level')
+      handler.preHandler('what-payment-level')
     ],
     handler: async (request, h) => {
       const { applyJourney, paymentRates } = await getPaymentRates(request)
       if (paymentRates) {
         const journeyItem = request.pre.journeyItem
+        console.log('journeyItem', journeyItem)
         return h.view('funding-options/what-payment-level', ViewModel(
           applyJourney.selectedSbi.sbi, applyJourney.selectedStandard.name, applyJourney.parcelArea, paymentRates, applyJourney.selectedAmbitionLevel, applyJourney.selectedStandard.code, journeyItem
         ))
@@ -28,7 +29,7 @@ module.exports = [{
   path: '/funding-options/what-payment-level',
   options: {
     pre: [
-      handler.preHandler('/funding-options/what-payment-level')
+      handler.preHandler('what-payment-level')
     ],
     validate: {
       payload: joi.object({

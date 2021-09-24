@@ -14,8 +14,7 @@ function ViewModel (selectedStandard, selectedParcels, payload, journeyItem) {
     checkboxItems: items.checkboxItems,
     totalHa: items.totalHa,
     selectedStandardCode: selectedStandard.code,
-    back: journeyItem.back,
-    next: journeyItem.next
+    back: journeyItem.back
   }
 }
 

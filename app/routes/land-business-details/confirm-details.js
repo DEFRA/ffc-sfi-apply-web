@@ -9,7 +9,7 @@ module.exports = [
     path: '/confirm-details',
     options: {
       pre: [
-        handler.preHandler('/confirm-details')
+        handler.preHandler('confirm-details')
       ],
       handler: async (request, h) => {
         const applyJourney = await cache.get('apply-journey', request.yar.id)

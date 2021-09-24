@@ -146,7 +146,7 @@ module.exports = [
     key: 'payment-schedule',
     sequence: 12,
     route: '/payment-schedule',
-    back: '/improved-grassland-soils/basic/basic-overview',
+    back: '/improved-grassland-soils/basic/basic-end',
     next: '/check-your-answers',
     decision: [],
     redirect: '',
