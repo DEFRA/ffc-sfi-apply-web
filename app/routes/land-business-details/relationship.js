@@ -11,7 +11,7 @@ module.exports = [{
     handler: async (request, h) => {
       const journeyItem = request.pre.journeyItem
       const applyJourney = await cache.get('apply-journey', request.yar.id)
-      return h.view('land-business-details/relationship', {
+      return h.view(journeyItem.view, {
         name: applyJourney.selectedSbi.name,
         back: journeyItem.back
       })

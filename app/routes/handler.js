@@ -38,29 +38,38 @@ const checkTokenizedTask = async (request, journeyItem) => {
   const fundingOption = applyJourneyCache?.selectedStandard?.code === '130' ? 'improved-grassland-soils' : 'arable-soils'
   const paymentLevel = paymentLevels.find(x => x.name === applyJourneyCache?.selectedAmbitionLevel?.name)
   if (fundingOption && paymentLevel) {
-    enrichTask(journeyItem, fundingOption, paymentLevel)
+    return await enrichTask(journeyItem, fundingOption, paymentLevel.paymentLevel)
   }
+
+  return journeyItem
 }
 
 const preHandler = (key) => {
-  const journeyItem = applyJourney.find(x => x.key === key)
+  let journeyItem = applyJourney.find(x => x.key === key)
   return {
     method: async (request, reply) => {
-      const progress = await getProgress(request)
-      checkTokenizedTask(request, journeyItem)
-      if (journeyItem.back !== '' && !progress.redirect && request.method.toLowerCase() === 'get') {
-        if (!checkIfComplete(progress.applyProgress, journeyItem.key)) {
-          const referer = getReferer(request.headers.referer)
-          if (referer !== journeyItem.back) {
-            throw new Error('Invalid referer')
+      if (journeyItem) {
+        const progress = await getProgress(request)
+        journeyItem = await checkTokenizedTask(request, journeyItem)
+        if (journeyItem.back !== '' && !progress.redirect && request.method.toLowerCase() === 'get') {
+          if (!checkIfComplete(progress.applyProgress, journeyItem.key)) {
+            const referer = getReferer(request.headers.referer)
+            if (referer !== journeyItem.back) {
+              throw new Error('Invalid referer')
+            }
+
+            progress.applyProgress.push({ key: journeyItem.key, sequence: journeyItem.sequence })
+            await cache.update('progress', request.yar.id, { applyProgress: progress.applyProgress })
           }
 
-          progress.applyProgress.push({ key: journeyItem.key, sequence: journeyItem.sequence })
-          await cache.update('progress', request.yar.id, { applyProgress: progress.applyProgress })
+          if (journeyItem.refreshProgress) {
+            const refreshProgress = progress.applyProgress.filter(x => x.sequence <= journeyItem.sequence)
+            await cache.update('progress', request.yar.id, { applyProgress: refreshProgress })
+          }
         }
-      }
 
-      await cache.update('progress', request.yar.id, { redirect: false })
+        await cache.update('progress', request.yar.id, { redirect: false })
+      }
       return journeyItem
     },
     failAction: async (request, h, error) => {

@@ -12,7 +12,7 @@ module.exports = {
       await cache.clear('progress', request.yar.id)
       await cache.clear('apply-journey', request.yar.id)
       const journeyItem = request.pre.journeyItem
-      return h.view('home', { next: journeyItem.next })
+      return h.view(journeyItem.view, { next: journeyItem.next })
     }
   }
 }

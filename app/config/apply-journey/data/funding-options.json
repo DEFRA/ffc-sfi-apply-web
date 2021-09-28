@@ -1,0 +1,71 @@
+[
+  {
+    "key": "what-funding",
+    "sequence": 7,
+    "route": "/funding-options/what-funding",
+    "view": "funding-options/what-funding",
+    "back": "/application-task-list",
+    "next": "/funding-options/funding-overview",
+    "decision": [],
+    "redirect": "",
+    "refreshProgress": true,
+    "taskList": {
+      "group": "Funding options",
+      "dependsOn": "relationship",
+      "title": "Choose funding option",
+      "status": "CANNOT START YET"
+    }
+  },
+  {
+    "key": "funding-overview",
+    "sequence": 8,
+    "route": "/funding-options/funding-overview",
+    "view": "",
+    "back": "/funding-options/what-funding",
+    "next": "/funding-options/how-much",
+    "decision": [
+      { "key": "130", "value": "funding-options/grassland-overview" },
+      { "key": "110", "value": "funding-options/arable-overview" }
+    ],
+    "redirect": "",
+    "taskList": {
+      "group": "Funding options",
+      "dependsOn": "what-funding",
+      "title": "Funding option overview",
+      "status": "CANNOT START YET"
+    }
+  },
+  {
+    "key": "how-much",
+    "sequence": 9,
+    "route": "/funding-options/how-much",
+    "view": "funding-options/how-much",
+    "back": "/funding-options/funding-overview",
+    "next": "/funding-options/what-payment-level",
+    "decision": [],
+    "redirect": "",
+    "taskList": {
+      "group": "Funding options",
+      "dependsOn": "funding-overview",
+      "title": "Add the amount of land you will use",
+      "status": "CANNOT START YET"
+    }
+  },
+  {
+    "key": "what-payment-level",
+    "sequence": 10,
+    "route": "/funding-options/what-payment-level",
+    "view": "funding-options/what-payment-level",
+    "back": "/funding-options/how-much",
+    "next": "/application-task-list",
+    "decision": [],
+    "redirect": "",
+    "refreshProgress": true,
+    "taskList": {
+      "group": "Funding options",
+      "dependsOn": "how-much",
+      "title": "Choose a payment level",
+      "status": "CANNOT START YET"
+    }
+  }
+]

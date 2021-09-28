@@ -14,7 +14,7 @@ module.exports = [
       handler: async (request, h) => {
         const applyJourney = await cache.get('apply-journey', request.yar.id)
         const journeyItem = request.pre.journeyItem
-        return h.view('funding-options/how-much', new ViewModel(applyJourney.selectedStandard, applyJourney.selectedParcels, null, journeyItem))
+        return h.view(journeyItem.view, new ViewModel(applyJourney.selectedStandard, applyJourney.selectedParcels, null, journeyItem))
       }
     }
   },
@@ -34,7 +34,7 @@ module.exports = [
           const journeyItem = request.pre.journeyItem
           const applyJourney = await cache.get('apply-journey', request.yar.id)
           const viewModel = new ViewModel(payload, applyJourney.selectedStandard, applyJourney.selectedParcels, journeyItem)
-          return h.view('funding-options/how-much', viewModel).code(400).takeover()
+          return h.view(journeyItem.view, viewModel).code(400).takeover()
         }
       },
       handler: async (request, h) => {

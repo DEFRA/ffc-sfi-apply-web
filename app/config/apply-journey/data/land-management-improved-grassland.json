@@ -1,0 +1,78 @@
+ [ 
+  {
+    "key": "improved-grassland-soils-soil-assessment",
+    "sequence": 11.1,
+    "route": "/{{fundingOption}}/soil-assessment",
+    "view": "land-management/improved-grassland-soils/{{paymentLevel}}/soil-assessment",
+    "back": "/{{fundingOption}}/overview",
+    "next": "/{{fundingOption}}/soil-structure",
+    "decision": [],
+    "redirect": "",
+    "taskList": {}
+  },
+  {
+    "key": "improved-grassland-soils-soil-structure",
+    "sequence": 11.2,
+    "route": "/{{fundingOption}}/soil-structure",
+    "view": "land-management/improved-grassland-soils/{{paymentLevel}}/soil-structure",
+    "back": "/{{fundingOption}}/soil-assessment",
+    "next": "/{{fundingOption}}/permanent-grassland",
+    "decision": [],
+    "redirect": "",
+    "taskList": {}
+  },
+  {
+    "key": "improved-grassland-soils-permanent-grassland",
+    "sequence": 11.3,
+    "route": "/{{fundingOption}}/permanent-grassland",
+    "view": "land-management/improved-grassland-soils/{{paymentLevel}}/permanent-grassland",
+    "back": "/{{fundingOption}}/soil-structure",
+    "next": "/{{fundingOption}}/herbs-legumes",
+    "decision": [],
+    "redirect": "",
+    "taskList": {}
+  },
+  {
+    "key": "improved-grassland-soils-herbs-legumes",
+    "sequence": 11.4,
+    "route": "/{{fundingOption}}/herbs-legumes",
+    "view" : "land-management/improved-grassland-soils/{{paymentLevel}}/herbs-legumes",
+    "back": "/{{fundingOption}}/permanent-grassland",
+    "next": "/{{fundingOption}}/stocking-density",
+    "decision": [],
+    "redirect": "",
+    "taskList": {}
+  },
+  {
+    "key": "improved-grassland-soils-stocking-density",
+    "sequence": 11.5,
+    "route": "/{{fundingOption}}/stocking-density",
+    "view": "land-management/improved-grassland-soils/{{paymentLevel}}/stocking-density",
+    "back": "/{{fundingOption}}/herbs-legumes",
+    "next": "/{{fundingOption}}/end",
+    "decision": [{ "key": "Advanced", "value": "/improved-grassland-soils/soil-management"}],
+    "redirect": "",
+    "taskList": {}
+  },
+  {
+    "key": "improved-grassland-soils-soil-management",
+    "sequence": 11.6,
+    "route": "/{{fundingOption}}/soil-management",
+    "view": "land-management/improved-grassland-soils/high/soil-management",
+    "back": "/{{fundingOption}}/stocking-density",
+    "next": "/{{fundingOption}}/end",
+    "redirect": "",
+    "taskList": {}
+  },
+  {
+    "key": "improved-grassland-soils-end",
+    "sequence": 11.7,
+    "route": "/{{fundingOption}}/end",
+    "view": "land-management/improved-grassland-soils/{{paymentLevel}}/{{paymentLevel}}-end",
+    "back": "",
+    "next": "/payment-schedule",
+    "decision": [],
+    "redirect": "",
+    "taskList": {}
+  }
+]

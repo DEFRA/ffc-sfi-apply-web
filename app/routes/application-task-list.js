@@ -17,7 +17,7 @@ module.exports = [{
       const applyJourney = await cache.get('apply-journey', request.yar.id)
       const savedAgreements = await getAgreements()
       const taskList = applyJourneyTaskList(applyJourney, progress)
-      return h.view(journeyItem.key, { taskList, savedAgreements, selectedSbi: applyJourney.selectedSbi, back: journeyItem.back })
+      return h.view(journeyItem.view, { taskList, savedAgreements, selectedSbi: applyJourney.selectedSbi, back: journeyItem.back })
     }
   }
 },

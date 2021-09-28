@@ -1,0 +1,46 @@
+[
+  {
+    "key": "home",
+    "sequence": 1,
+    "route": "/",
+    "view": "home",
+    "back": "",
+    "next": "/sign-in",
+    "decision": [],
+    "redirect": "",
+    "taskList": {}
+  },
+  {
+    "key": "sign-in",
+    "sequence": 2,
+    "route": "/sign-in",
+    "view": "sign-in",
+    "back": "/",
+    "next": "/which-business",
+    "decision": [],
+    "redirect": "",
+    "taskList": {}
+  },
+  {
+    "key": "which-business",
+    "sequence": 3,
+    "route": "/which-business",
+    "view": "which-business",
+    "back": "/sign-in",
+    "next": "/application-task-list",
+    "decision": [],
+    "redirect": "",
+    "taskList": {}
+  },
+  {
+    "key": "application-task-list",
+    "sequence": 4,
+    "route": "/application-task-list",
+    "view": "application-task-list",
+    "back": "/which-business",
+    "next": "/application-task-list",
+    "decision": [],
+    "redirect": "",
+    "taskList": {}
+  }
+]

@@ -15,8 +15,7 @@ module.exports = [{
       const { applyJourney, paymentRates } = await getPaymentRates(request)
       if (paymentRates) {
         const journeyItem = request.pre.journeyItem
-        console.log('journeyItem', journeyItem)
-        return h.view('funding-options/what-payment-level', ViewModel(
+        return h.view(journeyItem.view, ViewModel(
           applyJourney.selectedSbi.sbi, applyJourney.selectedStandard.name, applyJourney.parcelArea, paymentRates, applyJourney.selectedAmbitionLevel, applyJourney.selectedStandard.code, journeyItem
         ))
       }
@@ -39,7 +38,7 @@ module.exports = [{
         const { applyJourney, paymentRates } = await getPaymentRates(request, error)
         if (paymentRates) {
           const journeyItem = request.pre.journeyItem
-          return h.view('funding-options/what-payment-levell', ViewModel(
+          return h.view(journeyItem.view, ViewModel(
             applyJourney.selectedSbi.sbi, applyJourney.selectedStandard.name, applyJourney.parcelArea, paymentRates, applyJourney.selectedAmbitionLevel, journeyItem, error
           )).code(400).takeover()
         }

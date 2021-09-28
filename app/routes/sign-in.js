@@ -12,7 +12,7 @@ module.exports = [{
     handler: async (request, h) => {
       const journeyItem = request.pre.journeyItem
       const applyJourney = await cache.get('apply-journey', request.yar.id)
-      return h.view(journeyItem.key, {
+      return h.view(journeyItem.view, {
         route: journeyItem.route,
         back: journeyItem.back,
         crn: applyJourney.crn,
@@ -35,7 +35,7 @@ module.exports = [{
       }),
       failAction: async (request, h, error) => {
         const journeyItem = request.pre.journeyItem
-        return h.view('sign-in', {
+        return h.view(journeyItem.view, {
           route: journeyItem.route,
           back: journeyItem.back,
           crn: request.payload.crn,

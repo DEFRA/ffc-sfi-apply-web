@@ -1,0 +1,18 @@
+[
+  {
+    "key": "declaration",
+    "sequence": 15,
+    "route": "/declaration",
+    "view": "submit-application",
+    "back": "/application-task-list",
+    "next": "",
+    "decision": [],
+    "redirect": "",
+    "taskList": {
+      "group": "Submit your application",
+      "dependsOn": "review-your-agreement",
+      "title": "Submit your application",
+      "status": "CANNOT START YET"
+    }
+  }
+]

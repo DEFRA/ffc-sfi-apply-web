@@ -14,7 +14,7 @@ module.exports = [{
     handler: async (request, h) => {
       const journeyItem = request.pre.journeyItem
       const { sbis, applyJourney } = await getAllOrganisations(request)
-      return h.view(journeyItem.key, new ViewModel(sbis, applyJourney.selectedSbi, journeyItem))
+      return h.view(journeyItem.view, new ViewModel(sbis, applyJourney.selectedSbi, journeyItem))
     }
   }
 },
@@ -32,7 +32,7 @@ module.exports = [{
       failAction: async (request, h, error) => {
         const journeyItem = request.pre.journeyItem
         const { sbis, applyJourney } = await getAllOrganisations(request, error)
-        return h.view(journeyItem.key, new ViewModel(sbis, applyJourney.selectedSbi, journeyItem, error)).code(400).takeover()
+        return h.view(journeyItem.view, new ViewModel(sbis, applyJourney.selectedSbi, journeyItem, error)).code(400).takeover()
       }
     },
     handler: async (request, h) => {

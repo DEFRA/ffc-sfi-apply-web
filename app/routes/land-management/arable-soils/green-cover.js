@@ -1,12 +1,11 @@
-const cache = require('../cache')
-const handler = require('./handler')
+const handler = require('../../handler')
 
 module.exports = [{
   method: 'GET',
-  path: '/declaration',
+  path: '/arable-soils/green-cover',
   options: {
     pre: [
-      handler.preHandler('declaration')
+      handler.preHandler('arable-soils-green-cover')
     ],
     handler: async (request, h) => {
       const journeyItem = request.pre.journeyItem
@@ -16,15 +15,12 @@ module.exports = [{
 },
 {
   method: 'POST',
-  path: '/declaration',
+  path: '/arable-soils/green-cover',
   options: {
     pre: [
-      handler.preHandler('declaration')
+      handler.preHandler('arable-soils-green-cover')
     ],
     handler: async (request, h) => {
-      await cache.update('progress', request.yar.id, {
-        progress: { submitted: true }
-      })
       const journeyItem = request.pre.journeyItem
       return h.redirect(journeyItem.next)
     }

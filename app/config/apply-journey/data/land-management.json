@@ -1,0 +1,66 @@
+[
+  {
+    "key": "{{paymentLevel}}-overview",
+    "sequence": 11,
+    "route": "/{{fundingOption}}/overview",
+    "view": "land-management/{{fundingOption}}/{{paymentLevel}}/{{paymentLevel}}-overview",
+    "back": "/application-task-list",
+    "next": "/{{fundingOption}}/soil-assessment",
+    "decision": [],
+    "redirect": "",
+    "taskList": {
+      "group": "Create your land management agreement",
+      "dependsOn": "what-payment-level",
+      "title": "Tell us how you will carry out the actions",
+      "status": "CANNOT START YET"
+    }
+  },
+  {
+    "key": "payment-schedule",
+    "sequence": 12,
+    "route": "/payment-schedule",
+    "view": "land-management/payment-schedule",
+    "back": "/{{fundingOption}}/end",
+    "next": "/check-your-answers",
+    "decision": [],
+    "redirect": "",
+    "taskList": {
+      "group": "Create your land management agreement",
+      "dependsOn": "basic-overview",
+      "title": "Choose your payment schedule",
+      "status": "CANNOT START YET"
+    }
+  },
+  {
+    "key": "check-your-answers",
+    "sequence": 13,
+    "route": "/check-your-answers",
+    "view": "land-management/check-your-answers",
+    "back": "/payment-schedule",
+    "next": "/review-your-agreement",
+    "decision": [],
+    "redirect": "",
+    "taskList": {
+      "group": "Create your land management agreement",
+      "dependsOn": "payment-schedule",
+      "title": "Check your answers",
+      "status": "CANNOT START YET"
+    }
+  },
+  {
+    "key": "review-your-agreement",
+    "sequence": 14,
+    "route": "/review-your-agreement",
+    "view": "land-management/review-your-agreement",
+    "back": "/check-your-answers",
+    "next": "/application-task-list",
+    "decision": [],
+    "redirect": "",
+    "taskList": {
+      "group": "Create your land management agreement",
+      "dependsOn": "check-your-answers",
+      "title": "View your agreement",
+      "status": "CANNOT START YET"
+    }
+  }
+]

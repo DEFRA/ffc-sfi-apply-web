@@ -10,7 +10,8 @@ module.exports = [{
     ],
     handler: async (request, h) => {
       const applyJourney = await cache.get('apply-journey', request.yar.id)
-      return h.view('land-management/check-your-answers', { selectedStandardCode: applyJourney.selectedStandard.code })
+      const journeyItem = request.pre.journeyItem
+      return h.view(journeyItem.view, { selectedStandardCode: applyJourney.selectedStandard.code })
     }
   }
 },

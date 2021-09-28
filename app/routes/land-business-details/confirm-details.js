@@ -16,7 +16,7 @@ module.exports = [
         const { totalHectares, landCovers } = await getLandCovers(applyJourney.selectedSbi.organisationId, applyJourney.callerId)
         const organisationAddress = await getOrganisationAddress(applyJourney.selectedSbi, applyJourney.callerId)
         const journeyItem = request.pre.journeyItem
-        return h.view('land-business-details/confirm-details',
+        return h.view(journeyItem.view,
           {
             sbi: applyJourney.selectedSbi.sbi,
             name: organisationAddress.name,

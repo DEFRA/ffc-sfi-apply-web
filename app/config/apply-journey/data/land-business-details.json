@@ -1,0 +1,29 @@
+[
+  {
+    "key": "confirm-details",
+    "sequence": 5,
+    "route": "/confirm-details",
+    "view": "land-business-details/confirm-details",
+    "back": "/application-task-list",
+    "next": "/relationship",
+    "decision": [],
+    "redirect": "",
+    "taskList": {
+      "group": "Land and business details",
+      "dependsOn": "",
+      "title": "Confirm your land and business details",
+      "status": "NOT STARTED"
+    }
+  },  
+  {
+    "key": "relationship",
+    "sequence": 6,
+    "route": "/relationship",
+    "view": "land-business-details/relationship",
+    "back": "/confirm-details",
+    "next": "/application-task-list",
+    "decision": [],
+    "redirect": "",
+    "taskList": {}
+  }
+]

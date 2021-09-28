@@ -15,7 +15,7 @@ module.exports = [{
       const { applyJourney, standards } = await getAllStandards(request)
       if (standards) {
         const journeyItem = request.pre.journeyItem
-        return h.view('funding-options/what-funding', new ViewModel(standards, applyJourney.selectedStandard, journeyItem))
+        return h.view(journeyItem.view, new ViewModel(standards, applyJourney.selectedStandard, journeyItem))
       }
       return h.view('no-response')
     }
@@ -36,7 +36,7 @@ module.exports = [{
         const { applyJourney, standards } = await getAllStandards(request, error)
         if (standards) {
           const journeyItem = request.pre.journeyItem
-          return h.view('funding-options/what-funding', new ViewModel(standards, applyJourney.selectedStandard, journeyItem, error)).code(400).takeover()
+          return h.view(journeyItem.view, new ViewModel(standards, applyJourney.selectedStandard, journeyItem, error)).code(400).takeover()
         }
         return h.view('no-response')
       }

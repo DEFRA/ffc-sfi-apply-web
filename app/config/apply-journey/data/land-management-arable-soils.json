@@ -1,0 +1,87 @@
+ [ 
+  {
+    "key": "arable-soils-soil-assessment",
+    "sequence": 11.1,
+    "route": "/{{fundingOption}}/soil-assessment",
+    "view": "land-management/arable-soils/{{paymentLevel}}/soil-assessment",
+    "back": "/{{fundingOption}}/overview",
+    "next": "/{{fundingOption}}/soil-compaction",
+    "decision": [],
+    "redirect": "",
+    "taskList": {}
+  },
+  {
+    "key": "arable-soils-soil-compaction",
+    "sequence": 11.2,
+    "route": "/{{fundingOption}}/soil-compaction",
+    "view": "land-management/arable-soils/{{paymentLevel}}/soil-compaction",
+    "back": "/{{fundingOption}}/soil-assessment",
+    "next": "/{{fundingOption}}/green-cover",
+    "decision": [],
+    "redirect": "",
+    "taskList": {}
+  },
+  {
+    "key": "arable-soils-green-cover",
+    "sequence": 11.3,
+    "route": "/{{fundingOption}}/green-cover",
+    "view": "land-management/arable-soils/{{paymentLevel}}/green-cover",
+    "back": "/{{fundingOption}}/soil-compaction",
+    "next": "/{{fundingOption}}/organic-matter",
+    "decision": [],
+    "redirect": "",
+    "taskList": {}
+  },
+  {
+    "key": "arable-soils-organic-matter",
+    "sequence": 11.4,
+    "route": "/{{fundingOption}}/organic-matter",
+    "view" : "land-management/arable-soils/{{paymentLevel}}/organic-matter",
+    "back": "/{{fundingOption}}/green-cover",
+    "next": "/{{fundingOption}}/end",
+    "decision": [
+      { "key": "Introductory", "value": "/{{fundingOption}}/end" },
+      { "key": "Intermediate", "value": "/{{fundingOption}}/tillage" },
+      { "key": "Advanced", "value": "/{{fundingOption}}/tillage" }
+    ],
+    "redirect": "",
+    "taskList": {}
+  },
+  {
+    "key": "arable-soils-tillage",
+    "sequence": 11.5,
+    "route": "/{{fundingOption}}/tillage",
+    "view" : "land-management/arable-soils/{{paymentLevel}}/tillage",
+    "back": "/{{fundingOption}}/organic-matter",
+    "next": "/{{fundingOption}}/end",
+    "decision": [
+      { "key": "Introductory", "value": "/{{fundingOption}}/end" },
+      { "key": "Intermediate", "value": "/{{fundingOption}}/end" },
+      { "key": "Advanced", "value": "/{{fundingOption}}/soil-management" }
+    ],
+    "redirect": "",
+    "taskList": {}
+  },
+  {
+    "key": "arable-soils-soil-management",
+    "sequence": 11.6,
+    "route": "/{{fundingOption}}/soil-management",
+    "view" : "land-management/arable-soils/{{paymentLevel}}/soil-management",
+    "back": "/{{fundingOption}}/tillage",
+    "next": "/{{fundingOption}}/end",
+    "decision": [],
+    "redirect": "",
+    "taskList": {}
+  },
+  {
+    "key": "arable-soils-end",
+    "sequence": 11.7,
+    "route": "/{{fundingOption}}/end",
+    "view": "land-management/improved-grassland-soils/{{paymentLevel}}/{{paymentLevel}}-end",
+    "back": "",
+    "next": "/payment-schedule",
+    "decision": [],
+    "redirect": "",
+    "taskList": {}
+  }
+]
