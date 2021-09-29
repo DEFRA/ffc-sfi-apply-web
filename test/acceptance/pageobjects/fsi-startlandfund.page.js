@@ -1,0 +1,25 @@
+import Page from './page'
+
+class StartPage extends Page {
+  
+  get startNewClaim () { return $('.govuk-button--start') }
+
+  // define or overwrite page methods
+     
+  open () {
+    super.open('')
+    browser.pause(3000)
+  }
+  
+    // your page specific methods
+  waitForloginPageToLoad () {
+    if (!this.headerImage.isDisplayed()) {
+      this.headerImage.waitForDisplayed(10000)
+    }
+  }
+ 
+  startClaim () {
+    this.startClaim.click()
+  }
+}
+export default new StartPage()
