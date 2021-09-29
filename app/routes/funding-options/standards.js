@@ -1,4 +1,5 @@
 module.exports = [
-  { code: '130', name: 'Improved grassland soils standard' },
-  { code: '110', name: 'Arable and horticultural soils standard' }
+  { code: 'sfi-improved-grassland', name: 'Improved grassland soils standard' },
+  { code: 'sfi-arable-soil', name: 'Arable and horticultural soils standard' },
+  { code: 'sfi-moorland', name: 'Moorland and rough grazing' }
 ]

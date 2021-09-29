@@ -43,7 +43,7 @@ module.exports = [{
         progress: { fundingOption: true }
       })
 
-      if (standard === '130') {
+      if (standard === 'sfi-improved-grassland') {
         return h.redirect('/funding-options/grassland-overview')
       }
 
