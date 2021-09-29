@@ -70,6 +70,7 @@ const preHandler = (key) => {
 
         await cache.update('progress', request.yar.id, { redirect: false })
       }
+
       return journeyItem
     },
     failAction: async (request, h, error) => {
