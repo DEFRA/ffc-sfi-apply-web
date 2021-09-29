@@ -25,7 +25,7 @@ module.exports = [{
     handler: async (request, h) => {
       const applyJourney = await cache.get('apply-journey', request.yar.id)
       const standard = applyJourney.selectedStandard.code
-      if (standard === '130') {
+      if (standard === 'sfi-improved-grassland') {
         return h.redirect('/funding-options/grassland-overview')
       }
 

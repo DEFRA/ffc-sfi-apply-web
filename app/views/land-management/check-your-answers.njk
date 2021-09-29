@@ -27,12 +27,12 @@
   <div class="govuk-grid-column-two-thirds">
     <form method="POST" action="check-your-answers" novalidate>
       <input type="hidden" name="crumb" value="{{crumb}}"/>
-      {% if selectedStandardCode === '110' %}
+      {% if selectedStandardCode === 'sfi-arable-soil' %}
         <span class="govuk-caption-l">
           Arable and horticultural soils
         </span>
       {% endif %}
-      {% if selectedStandardCode === '130' %}
+      {% if selectedStandardCode === 'sfi-improved-grassland' %}
         <span class="govuk-caption-l">
           Improved grassland soils
         </span>
