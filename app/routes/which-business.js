@@ -28,9 +28,9 @@ module.exports = [{
     },
     handler: async (request, h) => {
       const sbiValue = request.payload.sbi
-      const applyJourney = await cache.get('apply-journey', request.yar.id)
+      const applyJourney = await cache.get('agreement', request.yar.id)
       const selectedSbi = applyJourney.availableSbis.find(x => x.sbi === parseInt(sbiValue))
-      await cache.update('apply-journey', request.yar.id, { selectedSbi: selectedSbi, submitted: false })
+      await cache.update('agreement', request.yar.id, { selectedSbi: selectedSbi, submitted: false })
       return h.redirect('/application-task-list')
     }
   }

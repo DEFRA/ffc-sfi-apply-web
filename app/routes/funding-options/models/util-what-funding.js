@@ -3,7 +3,7 @@ const { sendStandardsRequestMessage, receiveStandardsResponseMessage } = require
 const { v4: uuidv4 } = require('uuid')
 
 const getAllStandards = async (request, error) => {
-  const applyJourney = await cache.get('apply-journey', request.yar.id)
+  const applyJourney = await cache.get('agreement', request.yar.id)
   let standards = applyJourney.standards
   if (error && standards) {
     return { applyJourney, standards }
@@ -22,7 +22,7 @@ const sendStandardsRequest = async (applyJourney, request, standards) => {
 
   if (response) {
     console.info('Standards request received', response)
-    await cache.update('apply-journey', request.yar.id, { standards: response.standards })
+    await cache.update('agreement', request.yar.id, { standards: response.standards })
     standards = response.standards
   }
 

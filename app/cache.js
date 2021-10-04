@@ -1,15 +1,9 @@
 const hoek = require('@hapi/hoek')
 const config = require('./config').cacheConfig
-let eligibilityCache
 let agreementCache
 let progressCache
-let applyJourneyCache
 
 const setup = (server) => {
-  eligibilityCache = server.cache({
-    expiresIn: config.eligibilitySegment.expiresIn,
-    segment: config.eligibilitySegment.name
-  })
   agreementCache = server.cache({
     expiresIn: config.agreementSegment.expiresIn,
     segment: config.agreementSegment.name
@@ -17,10 +11,6 @@ const setup = (server) => {
   progressCache = server.cache({
     expiresIn: config.progressSegment.expiresIn,
     segment: config.progressSegment.name
-  })
-  applyJourneyCache = server.cache({
-    expiresIn: config.applyJourneySegment.expiresIn,
-    segment: config.applyJourneySegment.name
   })
 }
 
@@ -49,14 +39,10 @@ const clear = async (cacheName, key) => {
 
 const getCache = (cacheName) => {
   switch (cacheName) {
-    case 'eligibility':
-      return eligibilityCache
     case 'agreement':
       return agreementCache
     case 'progress':
       return progressCache
-    case 'apply-journey':
-      return applyJourneyCache
     default:
       throw new Error(`Cache ${cacheName} does not exist`)
   }

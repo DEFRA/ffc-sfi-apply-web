@@ -2,20 +2,12 @@ const defaultExpiresIn = 3600 * 1000 // 1 hour
 
 module.exports = {
   defaultExpiresIn,
-  eligibilitySegment: {
-    name: 'eligibility',
+  progressSegment: {
+    name: 'progress',
     expiresIn: defaultExpiresIn
   },
   agreementSegment: {
     name: 'agreement',
-    expiresIn: defaultExpiresIn
-  },
-  progressSegment: {
-    name: 'calculation',
-    expiresIn: defaultExpiresIn
-  },
-  applyJourneySegment: {
-    name: 'apply-journey',
     expiresIn: defaultExpiresIn
   },
   redisCatboxOptions: {

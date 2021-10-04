@@ -35,12 +35,12 @@ module.exports = [{
       }
     },
     handler: async (request, h) => {
-      const applyJourney = await cache.get('apply-journey', request.yar.id)
+      const applyJourney = await cache.get('agreement', request.yar.id)
 
       const level = request.payload.level
       const selectedAmbitionLevel = applyJourney.paymentRates[level]
 
-      await cache.update('apply-journey', request.yar.id, {
+      await cache.update('agreement', request.yar.id, {
         selectedAmbitionLevel: { name: level, level: selectedAmbitionLevel },
         paymentAmount: selectedAmbitionLevel.paymentAmount
       })

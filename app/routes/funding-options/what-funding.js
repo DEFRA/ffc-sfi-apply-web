@@ -34,10 +34,10 @@ module.exports = [{
     },
     handler: async (request, h) => {
       const standard = request.payload.standard
-      const applyJourney = await cache.get('apply-journey', request.yar.id)
+      const applyJourney = await cache.get('agreement', request.yar.id)
 
       const selectedStandard = applyJourney.standards.find(x => x.code === standard)
-      await cache.update('apply-journey', request.yar.id, { selectedStandard })
+      await cache.update('agreement', request.yar.id, { selectedStandard })
 
       await cache.update('progress', request.yar.id, {
         progress: { fundingOption: true }

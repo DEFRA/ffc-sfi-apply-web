@@ -6,7 +6,7 @@ module.exports = [{
   path: '/sign-in',
   options: {
     handler: async (request, h) => {
-      const applyJourney = await cache.get('apply-journey', request.yar.id)
+      const applyJourney = await cache.get('agreement', request.yar.id)
       return h.view('sign-in', { crn: applyJourney.crn, callerId: applyJourney.callerId })
     }
   }
@@ -27,7 +27,7 @@ module.exports = [{
     handler: async (request, h) => {
       const crn = request.payload.crn
       const callerId = request.payload.callerId
-      await cache.update('apply-journey', request.yar.id, { crn, callerId })
+      await cache.update('agreement', request.yar.id, { crn, callerId })
       return h.redirect('/which-business')
     }
   }
