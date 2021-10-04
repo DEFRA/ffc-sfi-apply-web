@@ -17,6 +17,8 @@ const checkTasksInProgressAndRoute = (progress, taskGroup, fundingOption, paymen
     if (progress[task.id]) {
       task.status = 'IN PROGRESS'
     }
+
+    return task
   })
 }
 
@@ -43,15 +45,21 @@ const updateStatus = (progressCache, taskGroup, status) => {
     } else {
       task.status = status
     }
+
+    return task
   })
 }
 
 const completedSections = (progressCache) => {
-  return progressCache ? Object.values(progressCache).filter((complete) => {
-    if (complete === true) {
-      return complete
-    }
-  }).length : 0
+  return progressCache
+    ? Object.values(progressCache).filter((complete) => {
+        if (complete === true) {
+          return complete
+        }
+
+        return false
+      }).length
+    : 0
 }
 
 module.exports = ViewModel
