@@ -7,8 +7,8 @@ module.exports = [
     method: 'GET',
     path: '/funding-options/how-much',
     handler: async (request, h) => {
-      const applyJourney = await cache.get('agreement', request.yar.id)
-      return h.view('funding-options/how-much', new ViewModel(applyJourney.selectedStandard, applyJourney.selectedParcels))
+      const agreement = await cache.get('agreement', request.yar.id)
+      return h.view('funding-options/how-much', new ViewModel(agreement.selectedStandard, agreement.selectedParcels))
     }
   },
   {
@@ -21,15 +21,15 @@ module.exports = [
         }).unknown(true),
         failAction: async (request, h, error) => {
           const { payload } = request
-          const applyJourney = await cache.get('agreement', request.yar.id)
-          const viewModel = new ViewModel(payload, applyJourney.selectedStandard, applyJourney.selectedParcels)
+          const agreement = await cache.get('agreement', request.yar.id)
+          const viewModel = new ViewModel(payload, agreement.selectedStandard, agreement.selectedParcels)
           return h.view('funding-options/how-much', viewModel).code(400).takeover()
         }
       },
       handler: async (request, h) => {
         const { payload } = request
-        const applyJourney = await cache.get('agreement', request.yar.id)
-        const viewModel = new ViewModel(applyJourney.selectedStandard, applyJourney.selectedParcels, payload)
+        const agreement = await cache.get('agreement', request.yar.id)
+        const viewModel = new ViewModel(agreement.selectedStandard, agreement.selectedParcels, payload)
 
         await cache.update('agreement', request.yar.id,
           {

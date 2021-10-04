@@ -10,12 +10,12 @@ module.exports = [{
   options: {
     handler: async (request, h) => {
       const progress = await cache.get('progress', request.yar.id)
-      const applyJourney = await cache.get('agreement', request.yar.id)
-      const fundingOption = applyJourney?.selectedStandard?.code === 'sfi-improved-grassland' ? 'improved-grassland-soils' : 'arable-soils'
-      const paymentLevel = paymentLevels.find(x => x.name === applyJourney?.selectedAmbitionLevel?.name)
+      const agreement = await cache.get('agreement', request.yar.id)
+      const fundingOption = agreement?.selectedStandard?.code === 'sfi-improved-grassland' ? 'improved-grassland-soils' : 'arable-soils'
+      const paymentLevel = paymentLevels.find(x => x.name === agreement?.selectedAmbitionLevel?.name)
       const savedAgreements = await getAgreements()
 
-      return h.view('application-task-list', new ViewModel(progress, fundingOption, paymentLevel?.paymentLevel, savedAgreements, applyJourney.selectedSbi))
+      return h.view('application-task-list', new ViewModel(progress, fundingOption, paymentLevel?.paymentLevel, savedAgreements, agreement.selectedSbi))
     }
   }
 },

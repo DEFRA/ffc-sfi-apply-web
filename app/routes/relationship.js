@@ -5,8 +5,8 @@ module.exports = [{
   path: '/relationship',
   options: {
     handler: async (request, h) => {
-      const applyJourney = await cache.get('agreement', request.yar.id)
-      return h.view('relationship', { name: applyJourney.selectedSbi.name })
+      const agreement = await cache.get('agreement', request.yar.id)
+      return h.view('relationship', { name: agreement.selectedSbi.name })
     }
   }
 },

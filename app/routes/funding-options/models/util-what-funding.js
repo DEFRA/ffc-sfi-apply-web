@@ -3,20 +3,20 @@ const { sendStandardsRequestMessage, receiveStandardsResponseMessage } = require
 const { v4: uuidv4 } = require('uuid')
 
 const getAllStandards = async (request, error) => {
-  const applyJourney = await cache.get('agreement', request.yar.id)
-  let standards = applyJourney.standards
+  const agreement = await cache.get('agreement', request.yar.id)
+  let standards = agreement.standards
   if (error && standards) {
-    return { applyJourney, standards }
+    return { agreement, standards }
   } else {
-    standards = await sendStandardsRequest(applyJourney, request, standards)
+    standards = await sendStandardsRequest(agreement, request, standards)
   }
 
-  return { applyJourney, standards }
+  return { agreement, standards }
 }
 
-const sendStandardsRequest = async (applyJourney, request, standards) => {
+const sendStandardsRequest = async (agreement, request, standards) => {
   const messageId = uuidv4()
-  await sendStandardsRequestMessage({ sbi: applyJourney.selectedSbi.sbi, organisationId: applyJourney.selectedSbi.organisationId, callerId: applyJourney.callerId }, request.yar.id, messageId)
+  await sendStandardsRequestMessage({ sbi: agreement.selectedSbi.sbi, organisationId: agreement.selectedSbi.organisationId, callerId: agreement.callerId }, request.yar.id, messageId)
 
   const response = await receiveStandardsResponseMessage(messageId)
 

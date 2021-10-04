@@ -7,10 +7,10 @@ module.exports = [{
   method: 'GET',
   path: '/funding-options/what-payment-level',
   handler: async (request, h) => {
-    const { applyJourney, paymentRates } = await getPaymentRates(request)
+    const { agreement, paymentRates } = await getPaymentRates(request)
     if (paymentRates) {
       return h.view('funding-options/what-payment-level', ViewModel(
-        applyJourney.selectedSbi.sbi, applyJourney.selectedStandard.name, applyJourney.parcelArea, paymentRates, applyJourney.selectedAmbitionLevel, applyJourney.selectedStandard.code
+        agreement.selectedSbi.sbi, agreement.selectedStandard.name, agreement.parcelArea, paymentRates, agreement.selectedAmbitionLevel, agreement.selectedStandard.code
       ))
     }
     return h.view('no-response')
@@ -25,20 +25,20 @@ module.exports = [{
         level: joi.any().required()
       }),
       failAction: async (request, h, error) => {
-        const { applyJourney, paymentRates } = await getPaymentRates(request, error)
+        const { agreement, paymentRates } = await getPaymentRates(request, error)
         if (paymentRates) {
           return h.view('funding-options/what-payment-levell', ViewModel(
-            applyJourney.selectedSbi.sbi, applyJourney.selectedStandard.name, applyJourney.parcelArea, paymentRates, applyJourney.selectedAmbitionLevel, error
+            agreement.selectedSbi.sbi, agreement.selectedStandard.name, agreement.parcelArea, paymentRates, agreement.selectedAmbitionLevel, error
           )).code(400).takeover()
         }
         return h.view('no-response')
       }
     },
     handler: async (request, h) => {
-      const applyJourney = await cache.get('agreement', request.yar.id)
+      const agreement = await cache.get('agreement', request.yar.id)
 
       const level = request.payload.level
-      const selectedAmbitionLevel = applyJourney.paymentRates[level]
+      const selectedAmbitionLevel = agreement.paymentRates[level]
 
       await cache.update('agreement', request.yar.id, {
         selectedAmbitionLevel: { name: level, level: selectedAmbitionLevel },

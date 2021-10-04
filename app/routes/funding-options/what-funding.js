@@ -8,9 +8,9 @@ module.exports = [{
   path: '/funding-options/what-funding',
   options: {
     handler: async (request, h) => {
-      const { applyJourney, standards } = await getAllStandards(request)
+      const { agreement, standards } = await getAllStandards(request)
       if (standards) {
-        return h.view('funding-options/what-funding', new ViewModel(standards, applyJourney.selectedStandard))
+        return h.view('funding-options/what-funding', new ViewModel(standards, agreement.selectedStandard))
       }
       return h.view('no-response')
     }
@@ -25,18 +25,18 @@ module.exports = [{
         standard: joi.string().required()
       }),
       failAction: async (request, h, error) => {
-        const { applyJourney, standards } = await getAllStandards(request, error)
+        const { agreement, standards } = await getAllStandards(request, error)
         if (standards) {
-          return h.view('funding-options/what-funding', new ViewModel(standards, applyJourney.selectedStandard, error)).code(400).takeover()
+          return h.view('funding-options/what-funding', new ViewModel(standards, agreement.selectedStandard, error)).code(400).takeover()
         }
         return h.view('no-response')
       }
     },
     handler: async (request, h) => {
       const standard = request.payload.standard
-      const applyJourney = await cache.get('agreement', request.yar.id)
+      const agreement = await cache.get('agreement', request.yar.id)
 
-      const selectedStandard = applyJourney.standards.find(x => x.code === standard)
+      const selectedStandard = agreement.standards.find(x => x.code === standard)
       await cache.update('agreement', request.yar.id, { selectedStandard })
 
       await cache.update('progress', request.yar.id, {
