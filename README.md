@@ -37,7 +37,6 @@ and
 | VALIDATE_TOPIC_ADDRESS |  |
 | CALCULATE_TOPIC_ADDRESS |  |
 | SUBMIT_TOPIC_ADDRESS |  |
-| WITHDRAW_TOPIC_ADDRESS |  |
 
 ### Environment variables
 

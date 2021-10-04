@@ -5,7 +5,6 @@ resources:
     - name: validate
     - name: calculate
     - name: submit
-    - name: withdraw
   queues:
     - name: calculateresponse
       enableSessions: true

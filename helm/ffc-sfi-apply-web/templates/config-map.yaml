@@ -13,7 +13,6 @@ data:
   VALIDATE_TOPIC_ADDRESS: {{ quote .Values.container.validateTopicAddress }}
   CALCULATE_TOPIC_ADDRESS: {{ quote .Values.container.calculateTopicAddress }}
   SUBMIT_TOPIC_ADDRESS: {{ quote .Values.container.submitTopicAddress }}
-  WITHDRAW_TOPIC_ADDRESS: {{ quote .Values.container.withdrawTopicAddress }}
   REQUEST_SBI_TOPIC_ADDRESS: {{ quote .Values.container.requestSbiTopicAddress }}
   STANDARDSRESPONSE_QUEUE_ADDRESS: {{ quote .Values.container.responseStandardsQueue }}
   CALCULATERESPONSE_QUEUE_ADDRESS: {{ quote .Values.container.responseCalculateQueue }}

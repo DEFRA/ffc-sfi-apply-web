@@ -49,7 +49,6 @@ container:
   validateTopicAddress: ffc-sfi-agreement-validate
   calculateTopicAddress: ffc-sfi-agreement-calculate
   submitTopicAddress: ffc-sfi-agreement-submit
-  withdrawTopicAddress: ffc-sfi-agreement-withdraw
   requestSbiTopicAddress: ffc-sfi-request-sbi
   responseStandardsQueue: ffc-sfi-standards-request-response
   responseCalculateQueue: ffc-sfi-agreement-calculate-response
