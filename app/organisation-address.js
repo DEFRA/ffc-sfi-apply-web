@@ -1,4 +1,4 @@
-const { getOrganisation } = require('../api/crown-hosting')
+const { getOrganisation } = require('./api/crown-hosting')
 
 const getOrganisationAddress = async (selectedSbi, callerId) => {
   const organisation = await getOrganisation(selectedSbi, callerId)
