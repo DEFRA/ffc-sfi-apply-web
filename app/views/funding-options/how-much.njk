@@ -25,7 +25,7 @@
     <form method="POST" autocomplete="off" novalidate>
       <input type="hidden" name="crumb" value="{{crumb}}"/>
 
-      {% if model.selectedStandardCode === '130' %}
+      {% if model.selectedStandardCode === 'sfi-improved-grassland' %}
         <span class="govuk-caption-l">
           Improved grassland soils
         </span>
@@ -34,7 +34,7 @@
         </h1>
       {% endif %}
 
-      {% if model.selectedStandardCode === '110' %}
+      {% if model.selectedStandardCode === 'sfi-arable-soil' %}
         <span class="govuk-caption-l">
           Arable and horticultural soils
         </span>
@@ -128,7 +128,7 @@
           }
         }) }}
 
-      {% if selectedStandardCode === '130' %}
+      {% if selectedStandardCode === 'sfi-improved-grassland' %}
         {{ govukDetails({
           summaryText: "What is improved grassland?",
           text: "Improved grassland is grassland you’re managing to improve your agricultural production."

@@ -50,7 +50,11 @@ module.exports = [{
       const journeyItem = request.pre.journeyItem
       const level = request.payload.level
       const selectedAmbitionLevel = applyJourney.paymentRates[level]
-      await cache.update('apply-journey', request.yar.id, { selectedAmbitionLevel: { name: level, level: selectedAmbitionLevel } })
+
+      await cache.update('apply-journey', request.yar.id, {
+        selectedAmbitionLevel: { name: level, level: selectedAmbitionLevel },
+        paymentAmount: selectedAmbitionLevel.paymentAmount
+      })
 
       await cache.update('progress', request.yar.id, {
         progress: { fundingDetails: true, paymentLevel: true }
