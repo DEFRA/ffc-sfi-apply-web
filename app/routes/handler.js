@@ -35,7 +35,7 @@ const getProgress = async (request) => {
 
 const checkTokenizedTask = async (request, journeyItem) => {
   const applyJourneyCache = await cache.get('apply-journey', request.yar.id)
-  const fundingOption = applyJourneyCache?.selectedStandard?.code === '130' ? 'improved-grassland-soils' : 'arable-soils'
+  const fundingOption = applyJourneyCache?.selectedStandard?.code === 'sfi-improved-grassland' ? 'improved-grassland-soils' : 'arable-soils'
   const paymentLevel = paymentLevels.find(x => x.name === applyJourneyCache?.selectedAmbitionLevel?.name)
   if (fundingOption && paymentLevel) {
     return await enrichTask(journeyItem, fundingOption, paymentLevel.paymentLevel)

@@ -24,8 +24,8 @@
     "back": "/funding-options/what-funding",
     "next": "/funding-options/how-much",
     "decision": [
-      { "key": "130", "value": "funding-options/grassland-overview" },
-      { "key": "110", "value": "funding-options/arable-overview" }
+      { "key": "sfi-improved-grassland", "value": "funding-options/grassland-overview" },
+      { "key": "sfi-arable-soil", "value": "funding-options/arable-overview" }
     ],
     "redirect": "",
     "taskList": {
