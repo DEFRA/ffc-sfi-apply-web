@@ -6,4 +6,3 @@ Feature: Apply for land funding
         When I click on the button ".govuk-button--start"  
         And I pause for 500ms
         Then I expect that the url contains "/sign-in"
-        
