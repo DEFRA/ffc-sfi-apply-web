@@ -42,6 +42,56 @@ Feature: Apply for land funding
         When I click on the element "#level"
         And I click on the element "#submit"
         Then I expect that the url contains "/application-task-list"
+        When I click on the link "Tell us how you will carry out the actions"
+        And I pause for 500ms
+        Then I expect that the url contains "/arable-soils"
+        And I click on the element "#submit"
+        Then I expect that the url contains "/soil-assessment"
+        When I click on the element "#soil-assessment"
+        And I click on the element "#submit"
+        Then I expect that the url contains "/soil-compaction"
+        When I click on the element "#soil-compaction"
+        And I click on the element "#submit"
+        Then I expect that the url contains "/green-cover"
+        When I click on the element "#green-cover"
+        And I click on the element "#submit"
+        Then I expect that the url contains "/organic-matter"
+        When I click on the element "#organic-matter"
+        And I click on the element "#submit"
+        Then I expect that the url contains "/basic/basic-end"
+        When I click on the element "#basic-end"
+        And I click on the element "#submit"
+        Then I expect that the url contains "/payment-schedule"
+        When I click on the element "#payment-schedule"
+        And I click on the element "#submit"
+        Then I expect that the url contains "/check-your-answers"
+        When I click on the element "#submit"
+        Then I expect that the url contains "/review-your-agreement"
+        When I click on the element "#submit"
+        Then I expect that the url contains "/application-task-list"
+        When I click on the link "Submit your application"
+        Then I expect that the url contains "/declaration"
+        When I click on the element "#submit"
+        Then I expect that the url contains "/confirmation"
+        
+
+       
+        
+        
+
+
+        # Then I expect that the url contains "/tillage"
+        # When I click on the element "#tillage"
+        # And I click on the element "#submit"
+        # Then I expect that the url contains "/medium-end"
+        # When I click on the element "#medium-end"
+        # And I click on the element "#submit"
+
+        # check-your-answers
+
+       
+        
+        
 
         
         
