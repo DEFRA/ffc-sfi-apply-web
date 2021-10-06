@@ -9,7 +9,7 @@ const getEligibility = async (request, error) => {
     return { applyJourney, eligibility }
   } else {
     eligibility = await sendEligibilityRequest(applyJourney, request, eligibility)
-    await cache.update('apply-journey', request.yar.id, { availableSbis: eligibility })
+    await cache.update('apply-journey', request.yar.id, { eligibleSbis: eligibility })
   }
 
   return { applyJourney, eligibility }
@@ -23,7 +23,6 @@ const sendEligibilityRequest = async (applyJourney, request, eligibility) => {
 
   if (response) {
     console.info('Eligibility request received', response)
-    await cache.update('apply-journey', request.yar.id, { eligibility: response.eligibility })
     eligibility = response.eligibility
   }
 
