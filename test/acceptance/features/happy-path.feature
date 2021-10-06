@@ -81,15 +81,7 @@ Feature: Apply for land funding
         
 
 
-        # Then I expect that the url contains "/tillage"
-        # When I click on the element "#tillage"
-        # And I click on the element "#submit"
-        # Then I expect that the url contains "/medium-end"
-        # When I click on the element "#medium-end"
-        # And I click on the element "#submit"
-
-        # check-your-answers
-
+       
        
         
         
