@@ -32,7 +32,7 @@ Feature: Apply for land funding
         When I click on the link "Choose funding option"
         Then I expect that the url contains "/what-funding"
         And I pause for 500ms
-        When I click on the element "#standard"
+        When I click on the soil type 
         And I click on the element "#submit"
         Then I expect that the url contains "/arable-overview"
         And I click on the element "#submit"

@@ -14,8 +14,9 @@ import selectOptionByIndex from '../support/action/selectOptionByIndex'
 import setCookie from '../support/action/setCookie'
 import setInputField from '../support/action/setInputField'
 import setPromptText from '../support/action/setPromptText'
-
-
+import whatFund from '../page-objects/what-fund'
+//import whatFunding from '../../../app/routes/funding-options/what-funding'
+//import WaterSource from '../pageobjects/ffc-grant-irrigation-water-source'
 
 const { When } = require('cucumber')
 
@@ -96,5 +97,10 @@ When(
 
 When(
   /^I move to element "([^"]*)?"(?: with an offset of (\d+),(\d+))*$/,
-  moveTo
+  moveTo 
 )
+   
+When(/^I click on the soil type$/, function () {
+  whatFund.clickOnArableSoil()
+});
+
