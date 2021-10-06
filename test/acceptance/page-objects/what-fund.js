@@ -24,7 +24,7 @@ class whatFund extends Page {
        */
 
   clickOnArableSoil () {
-    const arableSoil = $('#standard')
+    const arableSoil = $("//input[@id='standard']")
     browser.execute('arguments[0].click();', arableSoil)
   }
 
