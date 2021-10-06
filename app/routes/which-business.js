@@ -1,15 +1,15 @@
 const joi = require('joi')
 const ViewModel = require('./models/which-business')
-const getAllOrganisations = require('./models/util-which-business')
 const cache = require('../cache')
+const getEligibility = require('../eligibility')
 
 module.exports = [{
   method: 'GET',
   path: '/which-business',
   options: {
     handler: async (request, h) => {
-      const { sbis, applyJourney } = await getAllOrganisations(request)
-      return h.view('which-business', new ViewModel(sbis, applyJourney.selectedSbi))
+      const { eligibility, applyJourney } = await getEligibility(request)
+      return h.view('which-business', new ViewModel(eligibility, applyJourney.selectedSbi))
     }
   }
 },
@@ -22,8 +22,8 @@ module.exports = [{
         sbi: joi.string().required()
       }),
       failAction: async (request, h, error) => {
-        const { sbis, applyJourney } = await getAllOrganisations(request, error)
-        return h.view('which-business', new ViewModel(sbis, applyJourney.selectedSbi, error)).code(400).takeover()
+        const { eligibility, applyJourney } = await getEligibility(request, error)
+        return h.view('which-business', new ViewModel(eligibility, applyJourney.selectedSbi, error)).code(400).takeover()
       }
     },
     handler: async (request, h) => {

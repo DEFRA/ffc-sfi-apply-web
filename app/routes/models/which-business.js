@@ -34,7 +34,7 @@ const mapItems = (businessDetails, selectedSbi) => {
           value: businessDetail.sbi,
           text: businessDetail.name,
           hint: {
-            text: `SBI: ${businessDetail.sbi}`
+            html: `${businessDetail.address}<br>SBI number: ${businessDetail.sbi}`
           },
           checked: isChecked(selectedSbi, businessDetail.sbi)
         })

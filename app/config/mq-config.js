@@ -62,6 +62,13 @@ const mqSchema = joi.object({
     username: joi.string(),
     password: joi.string(),
     type: joi.string()
+  },
+  responseEligibilityQueue: {
+    name: joi.string().default('ffc-sfi-eligibility-check-response'),
+    address: joi.string(),
+    username: joi.string(),
+    password: joi.string(),
+    type: joi.string()
   }
 })
 const mqConfig = {
@@ -126,6 +133,13 @@ const mqConfig = {
     username: process.env.MESSAGE_QUEUE_USER,
     password: process.env.MESSAGE_QUEUE_PASSWORD,
     type: 'sessionQueue'
+  },
+  responseEligibilityQueue: {
+    name: process.env.ELIGIBILITY_CHECK_RESPONSE_QUEUE_NAME,
+    address: process.env.ELIGIBILITY_CHECK_RESPONSE_QUEUE_ADDRESS,
+    username: process.env.MESSAGE_QUEUE_USER,
+    password: process.env.MESSAGE_QUEUE_PASSWORD,
+    type: 'sessionQueue'
   }
 }
 
@@ -147,6 +161,7 @@ const withdrawTopic = { ...mqResult.value.messageQueue, ...mqResult.value.withdr
 const requestSBITopic = { ...mqResult.value.messageQueue, ...mqResult.value.requestSBITopic }
 const responseStandardsQueue = { ...mqResult.value.messageQueue, ...mqResult.value.responseStandardsQueue }
 const responseCalculateQueue = { ...mqResult.value.messageQueue, ...mqResult.value.responseCalculateQueue }
+const responseEligibilityQueue = { ...mqResult.value.messageQueue, ...mqResult.value.responseEligibilityQueue }
 
 module.exports = {
   eligibilityTopic,
@@ -157,5 +172,6 @@ module.exports = {
   withdrawTopic,
   requestSBITopic,
   responseStandardsQueue,
-  responseCalculateQueue
+  responseCalculateQueue,
+  responseEligibilityQueue
 }
