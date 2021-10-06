@@ -29,7 +29,8 @@ Feature: Apply for land funding
         And I click on the element "#submit"
         Then I expect that the url contains "/application-task-list"
         And I pause for 500ms
-        When I click on the link "Choose funding option"
+        #When I click on the link "Choose funding option"
+        When I click on the element "//a[contains(@href,'/funding-options/what-funding')]"
         And I pause for 500ms
         Then I expect that the url contains "/what-funding"       
         When I click on the soil type 
