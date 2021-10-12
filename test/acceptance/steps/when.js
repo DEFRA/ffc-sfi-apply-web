@@ -15,8 +15,8 @@ import setCookie from '../support/action/setCookie'
 import setInputField from '../support/action/setInputField'
 import setPromptText from '../support/action/setPromptText'
 import whatFund from '../page-objects/what-fund'
-//import whatFunding from '../../../app/routes/funding-options/what-funding'
-//import WaterSource from '../pageobjects/ffc-grant-irrigation-water-source'
+import signIn from '../page-objects/sign-in'
+
 
 const { When } = require('cucumber')
 
@@ -103,4 +103,28 @@ When(
 When(/^I click on the soil type$/, function () {
   whatFund.clickOnArableSoil()
 });
+
+When(/^I click on the continue button$/, async () => {
+   signIn.clickOnContinueButton()
+})
+
+When(/^I enter crn number (.*)$/, async (crnNumber) => {
+   //signIn.clearCrnNumber()
+   signIn.enterCrnNumber(crnNumber)
+});
+       
+When(/^I clear crn number $/, async () => {
+  signIn.clearCrnNumber()
+});
+
+When(/^I enter callerId number (.*)$/, async (callerId) => {
+  signIn.enterCallerIDNumber(callerId)
+});
+
+When(/^I enter password (.*)$/, async (passwordNumber) => {
+  signIn.enterPassword(passwordNumber)
+});
+
+
+       
 

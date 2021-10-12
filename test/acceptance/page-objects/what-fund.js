@@ -29,8 +29,8 @@ class whatFund extends Page {
   }
 
   clickOnGrasslandSoil () {
-    const element = $('#standard-2')
-    browser.execute('arguments[0].click();', element)
+    const grasslandSoil = $('#standard-2')
+    browser.execute('arguments[0].click();', grasslandSoil)
   }
 }
 
