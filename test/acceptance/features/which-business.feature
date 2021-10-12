@@ -1,4 +1,4 @@
-Feature: Which Business
+ Feature: Which Business
         Scenario: Validate the 
         Given I open the url "/sign-in" 
         Then I expect that element "h1" contains the text "Sign in"
