@@ -8,25 +8,31 @@ describe('which-business route', () => {
 
   let createServer
   let server
-  const organisation = {
-    sbi: '123456789',
-    name: 'Title Forename Lastname',
+  const organisations = [{
+    sbi: 123456789,
+    name: 'Title Forename Lastname1',
     organisationId: 1234567,
     address: 'address1, address2, address3, postalCode'
-  }
+  },
+  {
+    sbi: 987654321,
+    name: 'Title Forename Lastname2',
+    organisationId: 7654321,
+    address: 'address1, address2, address3, postalCode'
+  }]
 
   beforeEach(async () => {
     getEligibility.mockResolvedValue(
       {
-        eligibility: [organisation],
+        eligibility: organisations,
         applyJourney: {
-          selectedOrganisation: organisation
+          selectedOrganisation: organisations[0]
         }
       }
     )
 
     mockCache.get.mockResolvedValue({
-      eligibleOrganisations: [organisation]
+      eligibleOrganisations: organisations
     })
 
     createServer = require('../../../../app/server')
@@ -64,11 +70,23 @@ describe('which-business route', () => {
     const options = {
       method: 'POST',
       url: '/which-business',
-      payload: { sbi: organisation.sbi }
+      payload: { sbi: '123456789' }
     }
 
     const result = await server.inject(options)
     expect(result.statusCode).toBe(302)
+  })
+
+  test('POST /which-business sbi not found in cach', async () => {
+    const options = {
+      method: 'POST',
+      url: '/which-business',
+      payload: { sbi: '213456789' }
+    }
+
+    const result = await server.inject(options)
+    expect(result.request.response.variety).toBe('view')
+    expect(result.request.response.source.template).toBe('which-business')
   })
 
   test('POST /which-business sbi is not string returns view', async () => {
