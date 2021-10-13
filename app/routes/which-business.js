@@ -9,7 +9,7 @@ module.exports = [{
   options: {
     handler: async (request, h) => {
       const { eligibility, applyJourney } = await getEligibility(request)
-      return h.view('which-business', new ViewModel(eligibility, applyJourney.selectedSbi))
+      return h.view('which-business', new ViewModel(eligibility, applyJourney.selectedOrganisation))
     }
   }
 },
@@ -23,14 +23,14 @@ module.exports = [{
       }),
       failAction: async (request, h, error) => {
         const { eligibility, applyJourney } = await getEligibility(request, error)
-        return h.view('which-business', new ViewModel(eligibility, applyJourney.selectedSbi, error)).code(400).takeover()
+        return h.view('which-business', new ViewModel(eligibility, applyJourney.selectedOrganisation, error)).code(400).takeover()
       }
     },
     handler: async (request, h) => {
       const sbiValue = request.payload.sbi
       const applyJourney = await cache.get('apply-journey', request.yar.id)
-      const selectedSbi = applyJourney.eligibleSbis.find(x => x.sbi === parseInt(sbiValue))
-      await cache.update('apply-journey', request.yar.id, { selectedSbi: selectedSbi, submitted: false })
+      const selectedOrganisation = applyJourney.eligibleOrganisations.find(x => x.sbi === parseInt(sbiValue))
+      await cache.update('apply-journey', request.yar.id, { selectedOrganisation, submitted: false })
       return h.redirect('/application-task-list')
     }
   }

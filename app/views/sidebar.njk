@@ -1,9 +1,9 @@
-{% macro sidebar(heading, items, selectedSbi) %}
+{% macro sidebar(heading, items, selectedOrganisation) %}
   <div class="govuk-grid-column-one-third  govuk-!-padding-top-4 govuk-body">
   <div class="govuk-heading-m">
-    {{ selectedSbi.name }}
+    {{ selectedOrganisation.name }}
   </div>
-  <div class='govuk-hint'>SBI number: {{ selectedSbi.sbi }}<div>
+  <div class='govuk-hint'>SBI number: {{ selectedOrganisation.sbi }}<div>
   <hr class="sideBarColor"/>
     <h2 class="govuk-heading-m" id="subsection-title">
       {{ heading }} ({{items.length}})

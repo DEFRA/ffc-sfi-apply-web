@@ -8,13 +8,13 @@ module.exports = [
     options: {
       handler: async (request, h) => {
         const applyJourney = await cache.get('apply-journey', request.yar.id)
-        const { totalHectares, landCovers } = await getLandCovers(applyJourney.selectedSbi.organisationId, applyJourney.callerId)
+        const { totalHectares, landCovers } = await getLandCovers(applyJourney.selectedOrganisation.organisationId, applyJourney.callerId)
 
         return h.view('land-business-details/confirm-details',
           {
-            sbi: applyJourney.selectedSbi.sbi,
-            name: applyJourney.selectedSbi.name,
-            address: applyJourney.selectedSbi.address,
+            sbi: applyJourney.selectedOrganisation.sbi,
+            name: applyJourney.selectedOrganisation.name,
+            address: applyJourney.selectedOrganisation.address,
             totalHa: totalHectares,
             landCovers
           })

@@ -10,7 +10,7 @@ module.exports = [{
     const { applyJourney, paymentRates } = await getPaymentRates(request)
     if (paymentRates) {
       return h.view('funding-options/what-payment-level', ViewModel(
-        applyJourney.selectedSbi.sbi, applyJourney.selectedStandard.name, applyJourney.parcelArea, paymentRates, applyJourney.selectedAmbitionLevel, applyJourney.selectedStandard.code
+        applyJourney.selectedOrganisation.sbi, applyJourney.selectedStandard.name, applyJourney.parcelArea, paymentRates, applyJourney.selectedAmbitionLevel, applyJourney.selectedStandard.code
       ))
     }
     return h.view('no-response')
@@ -28,7 +28,7 @@ module.exports = [{
         const { applyJourney, paymentRates } = await getPaymentRates(request, error)
         if (paymentRates) {
           return h.view('funding-options/what-payment-levell', ViewModel(
-            applyJourney.selectedSbi.sbi, applyJourney.selectedStandard.name, applyJourney.parcelArea, paymentRates, applyJourney.selectedAmbitionLevel, error
+            applyJourney.selectedOrganisation.sbi, applyJourney.selectedStandard.name, applyJourney.parcelArea, paymentRates, applyJourney.selectedAmbitionLevel, error
           )).code(400).takeover()
         }
         return h.view('no-response')

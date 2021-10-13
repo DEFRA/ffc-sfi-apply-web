@@ -1,4 +1,4 @@
-function ViewModel (value, selectedSbi, error) {
+function ViewModel (value, selectedOrganisation, error) {
   this.model = {
     id: 'sbi',
     name: 'sbi',
@@ -9,7 +9,7 @@ function ViewModel (value, selectedSbi, error) {
         classes: 'govuk-fieldset__legend--l'
       }
     },
-    items: mapItems(value, selectedSbi)
+    items: mapItems(value, selectedOrganisation)
   }
   if (error) {
     this.model.errorMessage = {
@@ -18,14 +18,14 @@ function ViewModel (value, selectedSbi, error) {
   }
 }
 
-const isChecked = (selectedSbi, value) => {
-  if (selectedSbi) {
-    return value === selectedSbi.sbi
+const isChecked = (selectedOrganisation, value) => {
+  if (selectedOrganisation) {
+    return value === selectedOrganisation.sbi
   }
   return false
 }
 
-const mapItems = (businessDetails, selectedSbi) => {
+const mapItems = (businessDetails, selectedOrganisation) => {
   const items = []
   if (businessDetails) {
     for (const businessDetail of businessDetails) {
@@ -36,7 +36,7 @@ const mapItems = (businessDetails, selectedSbi) => {
           hint: {
             html: `${businessDetail.address}<br>SBI number: ${businessDetail.sbi}`
           },
-          checked: isChecked(selectedSbi, businessDetail.sbi)
+          checked: isChecked(selectedOrganisation, businessDetail.sbi)
         })
     }
   }

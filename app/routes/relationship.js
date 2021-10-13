@@ -6,7 +6,7 @@ module.exports = [{
   options: {
     handler: async (request, h) => {
       const applyJourney = await cache.get('apply-journey', request.yar.id)
-      return h.view('relationship', { name: applyJourney.selectedSbi.name })
+      return h.view('relationship', { name: applyJourney.selectedOrganisation.name })
     }
   }
 },

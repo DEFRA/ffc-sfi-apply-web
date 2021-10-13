@@ -50,21 +50,21 @@ const mqSchema = joi.object({
     password: joi.string()
   },
   responseStandardsQueue: {
-    name: joi.string().default('ffc-sfi-response-standards'),
+    name: joi.string(),
     address: joi.string(),
     username: joi.string(),
     password: joi.string(),
     type: joi.string()
   },
   responseCalculateQueue: {
-    name: joi.string().default('ffc-sfi-response-calculate'),
+    name: joi.string(),
     address: joi.string(),
     username: joi.string(),
     password: joi.string(),
     type: joi.string()
   },
   responseEligibilityQueue: {
-    name: joi.string().default('ffc-sfi-eligibility-check-response'),
+    name: joi.string(),
     address: joi.string(),
     username: joi.string(),
     password: joi.string(),
@@ -135,11 +135,10 @@ const mqConfig = {
     type: 'sessionQueue'
   },
   responseEligibilityQueue: {
-    name: process.env.ELIGIBILITY_CHECK_RESPONSE_QUEUE_NAME,
-    address: process.env.ELIGIBILITY_CHECK_RESPONSE_QUEUE_ADDRESS,
+    name: process.env.ELIGIBILITYRESPONSE_QUEUE_NAME,
+    address: process.env.ELIGIBILITYRESPONSE_QUEUE_ADDRESS,
     username: process.env.MESSAGE_QUEUE_USER,
-    password: process.env.MESSAGE_QUEUE_PASSWORD,
-    type: 'sessionQueue'
+    password: process.env.MESSAGE_QUEUE_PASSWORD
   }
 }
 
