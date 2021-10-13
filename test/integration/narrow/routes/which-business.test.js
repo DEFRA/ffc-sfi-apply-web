@@ -77,7 +77,7 @@ describe('which-business route', () => {
     expect(result.statusCode).toBe(302)
   })
 
-  test('POST /which-business sbi not found in cach', async () => {
+  test('POST /which-business sbi not found in cache', async () => {
     const options = {
       method: 'POST',
       url: '/which-business',
