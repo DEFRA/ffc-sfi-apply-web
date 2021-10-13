@@ -1,11 +1,11 @@
 const taskList = require('../../task-list')
 
-function ViewModel (progressCache, fundingOption, paymentLevel, savedAgreements, selectedSbi) {
+function ViewModel (progressCache, fundingOption, paymentLevel, savedAgreements, selectedOrganisation) {
   this.model = {
     taskList: validateSchema(progressCache, fundingOption, paymentLevel),
     completedSections: completedSections(progressCache),
     savedAgreements,
-    selectedSbi
+    selectedOrganisation
   }
 }
 
@@ -17,6 +17,8 @@ const checkTasksInProgressAndRoute = (progress, taskGroup, fundingOption, paymen
     if (progress[task.id]) {
       task.status = 'IN PROGRESS'
     }
+
+    return task
   })
 }
 
@@ -43,15 +45,15 @@ const updateStatus = (progressCache, taskGroup, status) => {
     } else {
       task.status = status
     }
+
+    return task
   })
 }
 
 const completedSections = (progressCache) => {
-  return progressCache ? Object.values(progressCache).filter((complete) => {
-    if (complete === true) {
-      return complete
-    }
-  }).length : 0
+  return progressCache
+    ? Object.values(progressCache).filter(complete => complete === true).length
+    : 0
 }
 
 module.exports = ViewModel

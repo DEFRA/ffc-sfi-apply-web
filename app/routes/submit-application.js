@@ -19,7 +19,7 @@ module.exports = [{
     handler: async (request, h) => {
       await saveAgreement(request)
       const applyJourney = await cache.get('apply-journey', request.yar.id)
-      await submitAgreement(applyJourney.agreementNumber, applyJourney.selectedSbi.sbi)
+      await submitAgreement(applyJourney.agreementNumber, applyJourney.selectedOrganisation.sbi)
       await cache.update('progress', request.yar.id, {
         progress: { submitted: true }
       })

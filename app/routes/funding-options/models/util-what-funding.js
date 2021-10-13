@@ -16,7 +16,7 @@ const getAllStandards = async (request, error) => {
 
 const sendStandardsRequest = async (applyJourney, request, standards) => {
   const messageId = uuidv4()
-  await sendStandardsRequestMessage({ sbi: applyJourney.selectedSbi.sbi, organisationId: applyJourney.selectedSbi.organisationId, callerId: applyJourney.callerId }, request.yar.id, messageId)
+  await sendStandardsRequestMessage({ sbi: applyJourney.selectedOrganisation.sbi, organisationId: applyJourney.selectedOrganisation.organisationId, callerId: applyJourney.callerId }, request.yar.id, messageId)
 
   const response = await receiveStandardsResponseMessage(messageId)
 

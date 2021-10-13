@@ -26,21 +26,25 @@ const buildMessage = (agreement) => {
 }
 
 const buildActions = (action, agreement) => {
-  return agreement.primaryActions.includes(action) ? agreement.landInHectares
-    .filter(parcel => parcel.value > 0)
-    .map(parcel => {
-      return {
-        parcelId: parcel.name,
-        area: parcel.value
-      }
-    }) : []
+  return agreement.primaryActions.includes(action)
+    ? agreement.landInHectares
+        .filter(parcel => parcel.value > 0)
+        .map(parcel => {
+          return {
+            parcelId: parcel.name,
+            area: parcel.value
+          }
+        })
+    : []
 }
 
 const buildPropertyAction = (action, agreement) => {
-  return action in agreement ? [{
-    parcelId: '',
-    area: agreement[action]
-  }] : []
+  return action in agreement
+    ? [{
+        parcelId: '',
+        area: agreement[action]
+      }]
+    : []
 }
 
 module.exports = buildMessage

@@ -15,7 +15,7 @@ module.exports = [{
       const paymentLevel = paymentLevels.find(x => x.name === applyJourney?.selectedAmbitionLevel?.name)
       const savedAgreements = await getAgreements()
 
-      return h.view('application-task-list', new ViewModel(progress, fundingOption, paymentLevel?.paymentLevel, savedAgreements, applyJourney.selectedSbi))
+      return h.view('application-task-list', new ViewModel(progress, fundingOption, paymentLevel?.paymentLevel, savedAgreements, applyJourney.selectedOrganisation))
     }
   }
 },

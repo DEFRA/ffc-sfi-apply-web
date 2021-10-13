@@ -24,7 +24,7 @@ const submitAgreement = async (agreementNumber, sbi) => {
 const saveAgreement = async (agreement, progress) => {
   let url
   const agreementNumber = agreement.agreementNumber ?? ''
-  const sbi = agreement.selectedSbi.sbi
+  const sbi = agreement.selectedOrganisation.sbi
 
   const enrichAgreement = {
     saveAgreement: {

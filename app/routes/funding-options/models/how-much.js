@@ -33,9 +33,11 @@ const getLandInHectares = (payload, parcels) => {
         valid: value !== '' && Number(value) > 0 && Number(value) <= Number(parcelArea.area)
       }
     }
+
+    return null
   })
 
-  return data.filter(x => x !== undefined)
+  return data.filter(x => x !== null)
 }
 
 const getAllItems = (selectedStandard, selectedParcels) => {

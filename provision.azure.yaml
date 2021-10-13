@@ -11,3 +11,5 @@ resources:
       enableSessions: true
     - name: standardsresponse
       enableSessions: true
+    - name: eligibilityresponse
+      enableSessions: true
