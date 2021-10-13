@@ -1,11 +1,9 @@
-const cache = require('../../../../app/cache')
-
 describe('which-business route', () => {
   jest.mock('ffc-messaging')
   jest.mock('../../../../app/plugins/crumb')
   jest.mock('../../../../app/eligibility')
   const getEligibility = require('../../../../app/eligibility')
-  
+
   let createServer
   let server
   const organisationId = 1234567
@@ -13,13 +11,13 @@ describe('which-business route', () => {
   const sbi = '123456789'
 
   getEligibility.mockResolvedValue(
-    { 
+    {
       eligibility: [{
         sbi,
         name,
         organisationId,
         address: 'address1, address2, address3, postalCode'
-      }], 
+      }],
       applyJourney: {
         selectedOrganisation: {
           sbi,
@@ -27,7 +25,7 @@ describe('which-business route', () => {
           organisationId,
           address: 'address1, address2, address, postalCode'
         }
-      } 
+      }
     }
   )
 
@@ -73,5 +71,4 @@ describe('which-business route', () => {
     expect(result.request.response.variety).toBe('view')
     expect(result.request.response.source.template).toBe('which-business')
   })
-
 })
