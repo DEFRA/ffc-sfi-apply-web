@@ -30,8 +30,15 @@ module.exports = [{
       const sbiValue = request.payload.sbi
       const applyJourney = await cache.get('apply-journey', request.yar.id)
       const selectedOrganisation = applyJourney.eligibleOrganisations.find(x => x.sbi === parseInt(sbiValue))
-      await cache.update('apply-journey', request.yar.id, { selectedOrganisation, submitted: false })
-      return h.redirect('/application-task-list')
+
+      if (selectedOrganisation) {
+        await cache.update('apply-journey', request.yar.id, { selectedOrganisation, submitted: false })
+        return h.redirect('/application-task-list')
+      }
+
+      const { eligibility } = await getEligibility(request)
+      const error = { message: 'SBI number not found' }
+      return h.view('which-business', new ViewModel(eligibility, selectedOrganisation, error)).code(400).takeover()
     }
   }
 }]
