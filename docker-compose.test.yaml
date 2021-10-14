@@ -12,6 +12,9 @@ services:
     command: npm run test
     environment: 
       NODE_ENV: test
+      PACT_BROKER_URL: ${PACT_BROKER_URL:-notset}
+      PACT_BROKER_USERNAME: ${PACT_BROKER_USERNAME:-notset}
+      PACT_BROKER_PASSWORD: ${PACT_BROKER_PASSWORD:-notset}
     volumes:
       - ./test:/home/node/test
       - ./test-output:/home/node/test-output
