@@ -69,7 +69,7 @@ describe('process eligibility message', () => {
     await server.stop()
   })
 
-  test('completes valid message for both send and receiv', async () => {
+  test('completes valid message for both send and receive', async () => {
     await getEligibility(request)
     expect(mockSendMessage).toHaveBeenCalled()
     expect(mockReceiveMessage).toHaveBeenCalled()
