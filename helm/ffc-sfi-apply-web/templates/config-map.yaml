@@ -24,7 +24,11 @@ data:
   REDIS_HOSTNAME: {{ quote .Values.container.redisHostname }}
   {{- end }}
   REDIS_PORT: {{ quote .Values.container.redisPort }}
+  {{- if .Values.pr }}
+  REDIS_PARTITION: {{ .Values.container.redisPartition }}-{{ .Values.pr }}
+  {{ else }}
   REDIS_PARTITION: {{ quote .Values.container.redisPartition }}
+  {{- end }}
   CH_API_GATEWAY: {{ quote .Values.container.chApiGateway }}
   {{- if .Values.container.osMapApiKey }}
   OS_MAP_API_KEY: {{ quote .Values.container.osMapApiKey }}
