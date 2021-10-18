@@ -1,0 +1,36 @@
+{% extends '_layout.njk' %}
+{% set mainClasses = "govuk-main-wrapper--auto-spacing" %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+        text: "Back",
+        href: "/sign-in",
+        attributes: {
+          id: "back"
+        }
+      }) 
+    }}
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <h1 class="govuk-heading-l">
+        You are not eligible to apply
+      </h1>
+      <p class="govuk-body">You need to have at least one business that:</p>
+        <ul class="govuk-list govuk-list--bullet">
+          <li>you have management control of</li>
+          <li>is eligible for Basic Payment Scheme (BPS) funding</li>
+          <li>at least 5 hectares of land registered in England</li>
+        </ul>
+        
+        <h2 class="govuk-body">Find out if you can apply for <a href="https://sfi-prototype.herokuapp.com/guidance/v8/sfi-guidance-page">other agricultural funding schemes</a>.</h2>
+      </p>
+    </div>
+  </div>
+{% endblock %}
