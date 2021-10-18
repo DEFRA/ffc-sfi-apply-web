@@ -6,14 +6,6 @@
 {% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
 
 {% block beforeContent %}
-  {{ govukBackLink({
-        text: "Back",
-        href: "/sign-in",
-        attributes: {
-          id: "back"
-        }
-      }) 
-    }}
 {% endblock %}
 
 {% block content %}
@@ -30,6 +22,8 @@
         </ul>
         
         <h2 class="govuk-body">Find out if you can apply for <a href="https://sfi-prototype.herokuapp.com/guidance/v8/sfi-guidance-page">other agricultural funding schemes</a>.</h2>
+      
+        <h2 class="govuk-body">Return to the <a href="https://www.gov.uk/">GOV.UK homepage</a>.</h2>
       </p>
     </div>
   </div>
