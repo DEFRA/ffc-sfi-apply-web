@@ -9,6 +9,11 @@ module.exports = [{
   options: {
     handler: async (request, h) => {
       const { eligibility, applyJourney } = await getEligibility(request)
+
+      if (!eligibility.length) {
+        return h.view('no-businesses')
+      }
+
       return h.view('which-business', new ViewModel(eligibility, applyJourney.selectedOrganisation))
     }
   }
