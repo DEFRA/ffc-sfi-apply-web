@@ -10,6 +10,10 @@ module.exports = [{
     handler: async (request, h) => {
       const { eligibility, applyJourney } = await getEligibility(request)
 
+      if (!eligibility) {
+        return h.view('no-response')
+      }
+
       if (!eligibility.length) {
         return h.view('no-businesses')
       }
