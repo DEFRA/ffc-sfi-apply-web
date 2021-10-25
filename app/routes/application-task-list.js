@@ -2,7 +2,7 @@ const joi = require('joi')
 const ViewModel = require('./models/application-task-list')
 const cache = require('../cache')
 const paymentLevels = require('./payment-levels')
-const { getAgreements, getAgreement, getProgress } = require('../api/agreement')
+const { getAgreementsBySbi, getAgreement, getProgress } = require('../api/agreement')
 
 module.exports = [{
   method: 'GET',
@@ -13,8 +13,8 @@ module.exports = [{
       const applyJourney = await cache.get('apply-journey', request.yar.id)
       const fundingOption = applyJourney?.selectedStandard?.code === 'sfi-improved-grassland' ? 'improved-grassland-soils' : 'arable-soils'
       const paymentLevel = paymentLevels.find(x => x.name === applyJourney?.selectedAmbitionLevel?.name)
-      const savedAgreements = await getAgreements()
-
+      const selectedOrganisation = applyJourney?.selectedOrganisation
+      const savedAgreements = await getAgreementsBySbi(selectedOrganisation.sbi)
       return h.view('application-task-list', new ViewModel(progress, fundingOption, paymentLevel?.paymentLevel, savedAgreements, applyJourney.selectedOrganisation))
     }
   }

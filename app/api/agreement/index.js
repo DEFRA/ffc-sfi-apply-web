@@ -7,6 +7,13 @@ const getAgreements = async () => {
   return data?.payload
 }
 
+const getAgreementsBySbi = async (sbi) => {
+  const url = `/agreements/${sbi}`
+  const data = await get(url)
+
+  return data?.payload
+}
+
 const getAgreement = async (agreementNumber, sbi) => {
   const url = `/agreement/${agreementNumber}/${sbi}`
   const data = await get(url)
@@ -56,6 +63,7 @@ const getProgress = async (progressId) => {
 
 module.exports = {
   getAgreements,
+  getAgreementsBySbi,
   getAgreement,
   saveAgreement,
   submitAgreement,
