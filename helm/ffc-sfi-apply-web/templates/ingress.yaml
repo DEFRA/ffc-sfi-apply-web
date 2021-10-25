@@ -1,3 +1,8 @@
 {{- include "ffc-helm-library.azure-ingress" (list . "ffc-sfi-apply-web.ingress") -}}
 {{- define "ffc-sfi-apply-web.ingress" -}}
+metadata:
+  annotations:
+  {{- if .Values.ingress.host }}
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "3600"
+  {{- end }}
 {{- end -}}
