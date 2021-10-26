@@ -22,30 +22,25 @@
     <div class="govuk-grid-column-two-thirds">
       <form method="POST" action="/which-business" novalidate>
         <input type="hidden" name="crumb" value="{{crumb}}"/>
-        {% if model.items.length > 0 %}
-          {{ govukRadios(model) }}
+        <div class="govuk-form-group">
+          <fieldset class="govuk-fieldset" aria-describedby="contact-hint">
+            <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+              <h1 class="govuk-fieldset__heading">Which business do you want to apply for?</h1>
+            </legend>
+            <div id="contact-hint" class="govuk-hint">Choose from the eligible businesses.</div>
+            {{ govukDetails({
+              summaryText: "What are the eligibility rules",
+              html: '<p class="govuk-body">Your business is eligible if;</p><ul class="govuk-list govuk-list--bullet"><li>you are eligible to apply for BPS funding on behalf of the business</li><li>you have at least 5Ha of land in England</li></ul>'
+            }) }}
+            {{ govukRadios(model) }}
+          </div>
           {{ govukButton({
-          text: "Continue",
-          attributes: {
-            id: "submit"
-          }
-        }) }}
-        {% else %}
-          {{ govukErrorSummary({
-            titleText: "There is a problem",
-            errorList: [
-              {
-                text: "No eligible organisations"
-              }
-            ]
+            text: "Continue",
+            attributes: {
+              id: "submit"
+            }
           }) }}
-        {% endif %}
-      </form>
-      {{ govukDetails({
-        summaryText: "What are the eligibility rules",
-        html: '<p class="govuk-body">Your business is eligible if;</p><ul class="govuk-list govuk-list--bullet"><li>you are eligible to apply for BPS funding on behalf of the business</li><li>you have at least 5Ha of land in England</li></ul>'
-      }) }}
-
+        </form>
+      </div>
     </div>
-  </div>
-{% endblock %}
+  {% endblock %}

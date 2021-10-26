@@ -2,16 +2,6 @@ function ViewModel (value, selectedOrganisation, error) {
   this.model = {
     id: 'sbi',
     name: 'sbi',
-    fieldset: {
-      legend: {
-        text: 'Which business do you want to apply for?',
-        isPageHeading: true,
-        classes: 'govuk-fieldset__legend--l'
-      }
-    },
-    hint: {
-      text: 'Choose from the eligible businesses.'
-    },
     items: mapItems(value, selectedOrganisation)
   }
   if (error) {
