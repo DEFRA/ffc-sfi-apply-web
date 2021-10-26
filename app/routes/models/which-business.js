@@ -9,6 +9,9 @@ function ViewModel (value, selectedOrganisation, error) {
         classes: 'govuk-fieldset__legend--l'
       }
     },
+    hint: {
+      text: 'Choose from the eligible businesses.'
+    },
     items: mapItems(value, selectedOrganisation)
   }
   if (error) {

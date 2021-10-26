@@ -66,7 +66,7 @@ describe('which-business route', () => {
     expect(result.request.response.source.template).toBe('which-business')
   })
 
-  test('GET /which-business returns no-businesses view when no organisatins returned', async () => {
+  test('GET /which-business returns no-businesses view when no organisations returned', async () => {
     const options = {
       method: 'GET',
       url: '/which-business'
@@ -84,6 +84,26 @@ describe('which-business route', () => {
     const result = await server.inject(options)
     expect(result.request.response.variety).toBe('view')
     expect(result.request.response.source.template).toBe('no-businesses')
+  })
+
+  test('GET /which-business returns no-response view when no response received', async () => {
+    const options = {
+      method: 'GET',
+      url: '/which-business'
+    }
+
+    getEligibility.mockResolvedValue(
+      {
+        eligibility: undefined,
+        applyJourney: {
+          selectedOrganisation: []
+        }
+      }
+    )
+
+    const result = await server.inject(options)
+    expect(result.request.response.variety).toBe('view')
+    expect(result.request.response.source.template).toBe('no-response')
   })
 
   test('POST /which-business returns 300', async () => {
