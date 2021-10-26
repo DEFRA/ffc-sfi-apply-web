@@ -6,10 +6,13 @@ resources:
     - name: calculate
     - name: submit
     - name: withdraw
+    - name: parcelspatial
   queues:
     - name: calculateresponse
       enableSessions: true
     - name: standardsresponse
       enableSessions: true
     - name: eligibilityresponse
+      enableSessions: true
+    - name: parcelspatialresponse
       enableSessions: true
