@@ -15,7 +15,7 @@ module.exports = [{
       const paymentLevel = paymentLevels.find(x => x.name === applyJourney?.selectedAmbitionLevel?.name)
       const selectedOrganisation = applyJourney?.selectedOrganisation
       const savedAgreements = await getAgreementsBySbi(selectedOrganisation.sbi)
-      return h.view('application-task-list', new ViewModel(progress, fundingOption, paymentLevel?.paymentLevel, savedAgreements, applyJourney.selectedOrganisation))
+      return h.view('application-task-list', new ViewModel(progress, fundingOption, paymentLevel?.paymentLevel, savedAgreements.agreements, applyJourney.selectedOrganisation))
     }
   }
 },

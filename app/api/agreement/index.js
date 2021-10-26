@@ -19,7 +19,7 @@ const getAgreementsBySbi = async (sbi) => {
 }
 
 const getAgreement = async (agreementNumber, sbi) => {
-  const url = `/agreement/${agreementNumber}/${sbi}`
+  const url = `/agreement/${sbi}/${agreementNumber}`
   const data = await get(url)
 
   return data?.payload
