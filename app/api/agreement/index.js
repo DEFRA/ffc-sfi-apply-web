@@ -9,9 +9,13 @@ const getAgreements = async () => {
 
 const getAgreementsBySbi = async (sbi) => {
   const url = `/agreements/${sbi}`
-  const data = await get(url)
 
-  return data?.payload
+  try {
+    const data = await get(url)
+    return data?.payload
+  } catch (error) {
+    return []
+  }
 }
 
 const getAgreement = async (agreementNumber, sbi) => {
