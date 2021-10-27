@@ -7,9 +7,9 @@ resources:
     - name: submit
     - name: withdraw
   queues:
-    - name: calculateresponse
+    - name: responseCalculate
       enableSessions: true
-    - name: standardsresponse
+    - name: responseStandards
       enableSessions: true
-    - name: eligibilityresponse
+    - name: responseEligibilityCheck
       enableSessions: true
