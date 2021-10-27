@@ -1,5 +1,7 @@
 const joi = require('joi')
 const cache = require('../cache')
+const JWT = require('jsonwebtoken')
+const config = require('../config')
 
 module.exports = [{
   method: 'GET',
@@ -14,6 +16,7 @@ module.exports = [{
   method: 'POST',
   path: '/sign-in',
   options: {
+    auth: false,
     validate: {
       payload: joi.object({
         crn: joi.string().length(10).pattern(/^[0-9]+$/).required(),
@@ -28,7 +31,10 @@ module.exports = [{
       const crn = request.payload.crn
       const callerId = request.payload.callerId
       await cache.update('agreement', request.yar.id, { crn, callerId })
+      const token = JWT.sign({ callerId }, config.jwtConfig.secret, { expiresIn: 3600 * 1000 })
       return h.redirect('/which-business')
+        .header('Authorization', token)
+        .state('dl_token', token, config.cookieOptionsIdentity)
     }
   }
 }]

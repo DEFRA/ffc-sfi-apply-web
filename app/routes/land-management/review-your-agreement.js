@@ -4,6 +4,7 @@ module.exports = [{
   method: 'GET',
   path: '/review-your-agreement',
   options: {
+    auth: { strategy: 'jwt' },
     handler: async (request, h) => {
       const agreement = await cache.get('agreement', request.yar.id)
       return h.view('land-management/review-your-agreement', { selectedStandardCode: agreement.selectedStandard.code })
@@ -14,6 +15,7 @@ module.exports = [{
   method: 'POST',
   path: '/review-your-agreement',
   options: {
+    auth: { strategy: 'jwt' },
     handler: async (request, h) => {
       await cache.update('progress', request.yar.id, {
         progress: { agreement: true, createAgreement: true }

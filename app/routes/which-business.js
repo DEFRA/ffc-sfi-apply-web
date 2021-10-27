@@ -7,6 +7,7 @@ module.exports = [{
   method: 'GET',
   path: '/which-business',
   options: {
+    auth: { strategy: 'jwt' },
     handler: async (request, h) => {
       const { eligibility, agreement } = await getEligibility(request)
 
@@ -26,6 +27,7 @@ module.exports = [{
   method: 'POST',
   path: '/which-business',
   options: {
+    auth: { strategy: 'jwt' },
     validate: {
       payload: joi.object({
         sbi: joi.string().required()

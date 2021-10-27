@@ -7,6 +7,7 @@ module.exports = [{
   method: 'GET',
   path: '/funding-options/what-funding',
   options: {
+    auth: { strategy: 'jwt' },
     handler: async (request, h) => {
       const { agreement, standards } = await getAllStandards(request)
       if (standards) {
@@ -20,6 +21,7 @@ module.exports = [{
   method: 'POST',
   path: '/funding-options/what-funding',
   options: {
+    auth: { strategy: 'jwt' },
     validate: {
       payload: joi.object({
         standard: joi.string().required()

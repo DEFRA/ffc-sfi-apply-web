@@ -6,6 +6,7 @@ module.exports = [{
   method: 'GET',
   path: '/declaration',
   options: {
+    auth: { strategy: 'jwt' },
     handler: async (request, h) => {
       await saveAgreement(request)
       return h.view('submit-application')
@@ -16,6 +17,7 @@ module.exports = [{
   method: 'POST',
   path: '/declaration',
   options: {
+    auth: { strategy: 'jwt' },
     handler: async (request, h) => {
       await saveAgreement(request)
       const agreement = await cache.get('agreement', request.yar.id)

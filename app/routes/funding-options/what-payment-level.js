@@ -6,20 +6,24 @@ const cache = require('../../cache')
 module.exports = [{
   method: 'GET',
   path: '/funding-options/what-payment-level',
-  handler: async (request, h) => {
-    const { agreement, paymentRates } = await getPaymentRates(request)
-    if (paymentRates) {
-      return h.view('funding-options/what-payment-level', ViewModel(
-        agreement.selectedOrganisation.sbi, agreement.selectedStandard.name, agreement.parcelArea, paymentRates, agreement.selectedAmbitionLevel, agreement.selectedStandard.code
-      ))
+  options: {
+    auth: { strategy: 'jwt' },
+    handler: async (request, h) => {
+      const { agreement, paymentRates } = await getPaymentRates(request)
+      if (paymentRates) {
+        return h.view('funding-options/what-payment-level', ViewModel(
+          agreement.selectedOrganisation.sbi, agreement.selectedStandard.name, agreement.parcelArea, paymentRates, agreement.selectedAmbitionLevel, agreement.selectedStandard.code
+        ))
+      }
+      return h.view('no-response')
     }
-    return h.view('no-response')
   }
 },
 {
   method: 'POST',
   path: '/funding-options/what-payment-level',
   options: {
+    auth: { strategy: 'jwt' },
     validate: {
       payload: joi.object({
         level: joi.any().required()

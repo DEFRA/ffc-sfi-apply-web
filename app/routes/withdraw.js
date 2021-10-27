@@ -7,6 +7,7 @@ module.exports = [{
   method: 'GET',
   path: '/withdraw',
   options: {
+    auth: { strategy: 'jwt' },
     handler: async (request, h) => {
       return h.view('withdraw', new ViewModel())
     }
@@ -16,6 +17,7 @@ module.exports = [{
   method: 'POST',
   path: '/withdraw',
   options: {
+    auth: { strategy: 'jwt' },
     validate: {
       payload: joi.object({
         withdraw: joi.boolean().required()

@@ -4,6 +4,7 @@ module.exports = [{
   method: 'GET',
   path: '/funding-options/arable-overview',
   options: {
+    auth: { strategy: 'jwt' },
     handler: async (request, h) => {
       return h.view('funding-options/arable-overview')
     }
@@ -13,6 +14,7 @@ module.exports = [{
   method: 'GET',
   path: '/funding-options/grassland-overview',
   options: {
+    auth: { strategy: 'jwt' },
     handler: async (request, h) => {
       return h.view('funding-options/grassland-overview')
     }
@@ -22,6 +24,7 @@ module.exports = [{
   method: 'GET',
   path: '/funding-options/funding-overview',
   options: {
+    auth: { strategy: 'jwt' },
     handler: async (request, h) => {
       const agreement = await cache.get('agreement', request.yar.id)
       const standard = agreement.selectedStandard.code
@@ -37,6 +40,7 @@ module.exports = [{
   method: 'POST',
   path: '/funding-options/funding-overview',
   options: {
+    auth: { strategy: 'jwt' },
     handler: async (request, h) => {
       await cache.update('progress', request.yar.id, {
         progress: { fundingOptionOverview: true }

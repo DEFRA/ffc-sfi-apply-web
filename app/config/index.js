@@ -24,7 +24,10 @@ const schema = joi.object({
   restClientTimeoutMillis: joi.number().default(60000),
   publicApi: joi.string().default('https://environment.data.gov.uk/arcgis/rest/services/RPA/'),
   chApiGateway: joi.string().default('').regex(/[a-zA-Z:0-9]$/).allow(''),
-  osMapApiKey: joi.string().default('').allow('')
+  osMapApiKey: joi.string().default('').allow(''),
+  jwtConfig: joi.object({
+    secret: joi.string()
+  })
 })
 
 // Build config
@@ -49,7 +52,10 @@ const config = {
   osMapApiKey: process.env.OS_MAP_API_KEY,
   agreementApiEndpoint: process.env.AGREEMENT_API_ENDPOINT,
   agreementCalculatorEndpoint: process.env.AGREEMENT_CALCULATOR_ENDPOINT,
-  restClientTimeoutMillis: process.env.REST_CLIENT_TIMEOUT_IN_MILLIS
+  restClientTimeoutMillis: process.env.REST_CLIENT_TIMEOUT_IN_MILLIS,
+  jwtConfig: {
+    secret: 'SUPERSECRET'
+  }
 }
 
 // Validate config
@@ -87,6 +93,12 @@ value.useRedis = !value.isTest && value.cacheConfig.redisCatboxOptions.host !== 
 
 if (!value.useRedis) {
   console.info('Redis disabled, using in memory cache')
+}
+
+value.cookieOptionsIdentity = {
+  ...value.cookieOptions,
+  ttl: 1000 * 60 * 60 * 24 * 30,
+  encoding: 'none'
 }
 
 module.exports = value
