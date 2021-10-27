@@ -15,11 +15,11 @@ data:
   SUBMIT_TOPIC_ADDRESS: {{ quote .Values.container.submitTopicAddress }}
   WITHDRAW_TOPIC_ADDRESS: {{ quote .Values.container.withdrawTopicAddress }}
   REQUEST_SBI_TOPIC_ADDRESS: {{ quote .Values.container.requestSbiTopicAddress }}
-  STANDARDSRESPONSE_QUEUE_ADDRESS: {{ quote .Values.container.responseStandardsQueue }}
-  CALCULATERESPONSE_QUEUE_ADDRESS: {{ quote .Values.container.responseCalculateQueue }}
-  PARCELSPATIAL_TOPIC_ADDRESS: ffc-sfi-parcel-spatial-request
-  PARCELSPATIALRESPONSE_QUEUE_ADDRESS: ffc-sfi-parcel-spatial-response
-  ELIGIBILITYRESPONSE_QUEUE_ADDRESS: {{ quote .Values.container.responseEligibilityCheckQueue }}
+  STANDARDSRESPONSE_QUEUE_ADDRESS: {{ quote .Values.container.responseStandardsQueueAddress }}
+  CALCULATERESPONSE_QUEUE_ADDRESS: {{ quote .Values.container.responseCalculateQueueAddress }}
+  PARCELSPATIAL_TOPIC_ADDRESS: {{ quote .Values.container.ffc-sfi-parcel-spatial-request }}
+  PARCELSPATIALRESPONSE_QUEUE_ADDRESS: {{ quote .Values.container.ffc-sfi-parcel-spatial-response }}
+  ELIGIBILITYRESPONSE_QUEUE_ADDRESS: {{ quote .Values.container.responseEligibilityCheckQueueAddress }}
   AGREEMENT_CALCULATOR_ENDPOINT: {{ quote .Values.container.agreementCalculatorEndpoint }}
   AGREEMENT_API_ENDPOINT: {{ quote .Values.container.agreementApiEndpoint }}
   {{- if .Values.container.redisHostname }}

@@ -8,9 +8,11 @@ resources:
     - name: withdraw
     - name: parcelspatial
   queues:
-    - name: calculateresponse
+    - name: responseCalculate
       enableSessions: true
-    - name: standardsresponse
+    - name: responseStandards
+      enableSessions: true
+    - name: responseEligibilityCheck
       enableSessions: true
     - name: eligibilityresponse
       enableSessions: true
