@@ -8,7 +8,7 @@ module.exports = [{
   path: '/which-business',
   options: {
     handler: async (request, h) => {
-      const { eligibility, applyJourney } = await getEligibility(request)
+      const { eligibility, agreement } = await getEligibility(request)
 
       if (!eligibility) {
         return h.view('no-response')
@@ -18,7 +18,7 @@ module.exports = [{
         return h.view('no-businesses')
       }
 
-      return h.view('which-business', new ViewModel(eligibility, applyJourney.selectedOrganisation))
+      return h.view('which-business', new ViewModel(eligibility, agreement.selectedOrganisation))
     }
   }
 },
@@ -31,17 +31,17 @@ module.exports = [{
         sbi: joi.string().required()
       }),
       failAction: async (request, h, error) => {
-        const { eligibility, applyJourney } = await getEligibility(request, error)
-        return h.view('which-business', new ViewModel(eligibility, applyJourney.selectedOrganisation, error)).code(400).takeover()
+        const { eligibility, agreement } = await getEligibility(request, error)
+        return h.view('which-business', new ViewModel(eligibility, agreement.selectedOrganisation, error)).code(400).takeover()
       }
     },
     handler: async (request, h) => {
       const sbiValue = request.payload.sbi
-      const applyJourney = await cache.get('apply-journey', request.yar.id)
-      const selectedOrganisation = applyJourney.eligibleOrganisations.find(x => x.sbi === parseInt(sbiValue))
+      const agreement = await cache.get('agreement', request.yar.id)
+      const selectedOrganisation = agreement.eligibleOrganisations.find(x => x.sbi === parseInt(sbiValue))
 
       if (selectedOrganisation) {
-        await cache.update('apply-journey', request.yar.id, { selectedOrganisation, submitted: false })
+        await cache.update('agreement', request.yar.id, { selectedOrganisation, submitted: false })
         return h.redirect('/application-task-list')
       }
 

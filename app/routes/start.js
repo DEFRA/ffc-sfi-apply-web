@@ -5,7 +5,7 @@ module.exports = [{
   path: '/start',
   handler: async (request, h) => {
     await cache.clear('progress', request.yar.id)
-    await cache.clear('apply-journey', request.yar.id)
+    await cache.clear('agreement', request.yar.id)
 
     return h.redirect('/application-task-list')
   }

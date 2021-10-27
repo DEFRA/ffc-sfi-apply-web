@@ -5,8 +5,8 @@ module.exports = [{
   path: '/check-your-answers',
   options: {
     handler: async (request, h) => {
-      const applyJourney = await cache.get('apply-journey', request.yar.id)
-      return h.view('land-management/check-your-answers', { selectedStandardCode: applyJourney.selectedStandard.code })
+      const agreement = await cache.get('agreement', request.yar.id)
+      return h.view('land-management/check-your-answers', { selectedStandardCode: agreement.selectedStandard.code })
     }
   }
 },

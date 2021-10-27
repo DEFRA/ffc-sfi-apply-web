@@ -3,21 +3,21 @@ const { sendEligibilityCheckMessage, receiveEligibilityResponseMessage } = requi
 const { v4: uuidv4 } = require('uuid')
 
 const getEligibility = async (request, error) => {
-  const applyJourney = await cache.get('apply-journey', request.yar.id)
-  let eligibility = applyJourney.eligibility
+  const agreement = await cache.get('agreement', request.yar.id)
+  let eligibility = agreement.eligibility
   if (error && eligibility) {
-    return { applyJourney, eligibility }
+    return { agreement, eligibility }
   } else {
-    eligibility = await sendEligibilityRequest(applyJourney, request, eligibility)
-    await cache.update('apply-journey', request.yar.id, { eligibleOrganisations: eligibility })
+    eligibility = await sendEligibilityRequest(agreement, request, eligibility)
+    await cache.update('agreement', request.yar.id, { eligibleOrganisations: eligibility })
   }
 
-  return { applyJourney, eligibility }
+  return { agreement, eligibility }
 }
 
-const sendEligibilityRequest = async (applyJourney, request, eligibility) => {
+const sendEligibilityRequest = async (agreement, request, eligibility) => {
   const messageId = uuidv4()
-  await sendEligibilityCheckMessage({ crn: applyJourney.crn, callerId: applyJourney.callerId }, request.yar.id, messageId)
+  await sendEligibilityCheckMessage({ crn: agreement.crn, callerId: agreement.callerId }, request.yar.id, messageId)
 
   const response = await receiveEligibilityResponseMessage(messageId)
 

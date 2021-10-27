@@ -25,13 +25,14 @@ describe('which-business route', () => {
     getEligibility.mockResolvedValue(
       {
         eligibility: organisations,
-        applyJourney: {
+        agreement: {
           selectedOrganisation: organisations[0]
         }
       }
     )
 
     mockCache.get.mockResolvedValue({
+      callerId: 123456789,
       eligibleOrganisations: organisations
     })
 
@@ -75,7 +76,7 @@ describe('which-business route', () => {
     getEligibility.mockResolvedValue(
       {
         eligibility: [],
-        applyJourney: {
+        agreement: {
           selectedOrganisation: []
         }
       }
@@ -95,7 +96,7 @@ describe('which-business route', () => {
     getEligibility.mockResolvedValue(
       {
         eligibility: undefined,
-        applyJourney: {
+        agreement: {
           selectedOrganisation: []
         }
       }
