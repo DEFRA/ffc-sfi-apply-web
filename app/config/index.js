@@ -54,7 +54,7 @@ const config = {
   agreementCalculatorEndpoint: process.env.AGREEMENT_CALCULATOR_ENDPOINT,
   restClientTimeoutMillis: process.env.REST_CLIENT_TIMEOUT_IN_MILLIS,
   jwtConfig: {
-    secret: 'SUPERSECRET'
+    secret: process.env.JWT_SECRET
   }
 }
 
