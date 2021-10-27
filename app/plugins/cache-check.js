@@ -9,7 +9,6 @@ module.exports = {
         const agreement = await cache.get('agreement', request.yar.id)
         if (!ignoreRoutes.includes(request.path)) {
           if (!agreement?.callerId) {
-            console.log('redirecting to sign-in')
             return h.redirect('/sign-in')
           }
         }
