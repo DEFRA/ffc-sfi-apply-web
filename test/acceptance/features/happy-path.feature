@@ -1,9 +1,9 @@
 Feature: Apply for land funding
-    Scenario: User can successfully opes signing page
+    Scenario: User can successfully open sign in page
         Given I open the url "/"
         Then I expect that the title contains "Apply for land funding - GOV.UK"
-        Then I expect that element "h1" contains the text "Apply for land funding"       
-        When I click on the button ".govuk-button--start"  
+        Then I expect that element "h1" contains the text "Apply for land funding"
+        When I click on the button ".govuk-button--start"
         And I pause for 500ms
         Then I expect that the url contains "/sign-in"
         Then I expect that element "h1" contains the text "Sign in"
@@ -32,15 +32,15 @@ Feature: Apply for land funding
         When I click on the link "Choose funding option"
         #When I click on the element "//a[contains(@href,'/funding-options/what-funding')]"
         And I pause for 500ms
-        Then I expect that the url contains "/what-funding"       
-        When I click on the soil type 
+        Then I expect that the url contains "/what-funding"
+        When I click on the soil type
         And I click on the element "#submit"
         Then I expect that the url contains "/arable-overview"
         And I click on the element "#submit"
-        Then I expect that the url contains "/how-much"  
+        Then I expect that the url contains "/how-much"
         When I click on the element "#SJ64706324"
         And I click on the element "#submit"
-        Then I expect that the url contains "/what-payment-level" 
+        Then I expect that the url contains "/what-payment-level"
         When I click on the element "#level"
         And I click on the element "#submit"
         Then I expect that the url contains "/application-task-list"
@@ -75,23 +75,3 @@ Feature: Apply for land funding
         Then I expect that the url contains "/declaration"
         When I click on the element "#submit"
         Then I expect that the url contains "/confirmation"
-        
-
-       
-        
-        
-
-
-       
-       
-        
-        
-
-        
-        
-        
-        
-        
-
-       
-        

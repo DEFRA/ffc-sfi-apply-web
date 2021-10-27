@@ -17,7 +17,6 @@ import setPromptText from '../support/action/setPromptText'
 import whatFund from '../page-objects/what-fund'
 import signIn from '../page-objects/sign-in'
 
-
 const { When } = require('cucumber')
 
 When(
@@ -97,34 +96,30 @@ When(
 
 When(
   /^I move to element "([^"]*)?"(?: with an offset of (\d+),(\d+))*$/,
-  moveTo 
+  moveTo
 )
-   
+
 When(/^I click on the soil type$/, function () {
   whatFund.clickOnArableSoil()
-});
+})
 
 When(/^I click on the continue button$/, async () => {
-   signIn.clickOnContinueButton()
+  signIn.clickOnContinueButton()
 })
 
 When(/^I enter crn number (.*)$/, async (crnNumber) => {
-   //signIn.clearCrnNumber()
-   signIn.enterCrnNumber(crnNumber)
-});
-       
+  // signIn.clearCrnNumber()
+  signIn.enterCrnNumber(crnNumber)
+})
+
 When(/^I clear crn number $/, async () => {
   signIn.clearCrnNumber()
-});
+})
 
 When(/^I enter callerId number (.*)$/, async (callerId) => {
   signIn.enterCallerIDNumber(callerId)
-});
+})
 
 When(/^I enter password (.*)$/, async (passwordNumber) => {
   signIn.enterPassword(passwordNumber)
-});
-
-
-       
-
+})
