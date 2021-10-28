@@ -18,7 +18,7 @@ data:
   STANDARDSRESPONSE_QUEUE_ADDRESS: {{ quote .Values.container.responseStandardsQueueAddress }}
   CALCULATERESPONSE_QUEUE_ADDRESS: {{ quote .Values.container.responseCalculateQueueAddress }}
   PARCELSPATIAL_TOPIC_ADDRESS: {{ quote .Values.container.parcelSpatialTopicAddress }}
-  PARCELSPATIAL_QUEUE_ADDRESS: {{ quote .Values.container.parcelSpatialQueueAddress }}
+  PARCELSPATIALRESPONSE_QUEUE_ADDRESS: {{ quote .Values.container.parcelSpatialQueueAddress }}
   ELIGIBILITYRESPONSE_QUEUE_ADDRESS: {{ quote .Values.container.responseEligibilityCheckQueueAddress }}
   AGREEMENT_CALCULATOR_ENDPOINT: {{ quote .Values.container.agreementCalculatorEndpoint }}
   AGREEMENT_API_ENDPOINT: {{ quote .Values.container.agreementApiEndpoint }}
