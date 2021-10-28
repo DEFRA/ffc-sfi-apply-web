@@ -37,17 +37,17 @@ async function sendRequestSBIMessage (payload, correlationId) {
   console.info('SBI(s) requested')
 }
 
-async function sendParcelSpatialMessage (payload, correlationId) {
-  await sendMessage(payload, 'uk.gov.sfi.sbi.parcelspatial', correlationId, config.parcelSpatialTopic)
+async function sendParcelSpatialMessage (payload, correlationId, messageId) {
+  await sendMessage(payload, 'uk.gov.sfi.parcel.request', correlationId, config.parcelSpatialTopic, messageId)
   console.info('parcel spatial data requested')
 }
 
 async function recieveParcelSpatialMessage (messageId) {
-  return receiveMessage(messageId, config.responseStandardsQueue)
+  return receiveMessage(messageId, config.responseParcelSpatialQueue)
 }
 
 async function receiveStandardsResponseMessage (messageId) {
-  return receiveMessage(messageId, config.responseParcelSpatialQueue)
+  return receiveMessage(messageId, config.responseStandardsQueue)
 }
 
 async function receiveEligibilityResponseMessage (messageId) {

@@ -14,5 +14,5 @@ resources:
       enableSessions: true
     - name: responseEligibilityCheck
       enableSessions: true
-    - name: parcelSpatialresponse
+    - name: parcelSpatialResponse
       enableSessions: true
