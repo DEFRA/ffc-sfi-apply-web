@@ -17,8 +17,8 @@ data:
   REQUEST_SBI_TOPIC_ADDRESS: {{ quote .Values.container.requestSbiTopicAddress }}
   STANDARDSRESPONSE_QUEUE_ADDRESS: {{ quote .Values.container.responseStandardsQueueAddress }}
   CALCULATERESPONSE_QUEUE_ADDRESS: {{ quote .Values.container.responseCalculateQueueAddress }}
-  PARCELSPATIAL_TOPIC_ADDRESS: {{ quote .Values.container.ffc-sfi-parcel-spatial-request }}
-  PARCELSPATIALRESPONSE_QUEUE_ADDRESS: {{ quote .Values.container.ffc-sfi-parcel-spatial-response }}
+  PARCELSPATIAL_TOPIC_ADDRESS: {{ quote .Values.container.parcelSpatialTopicAddress }}
+  PARCELSPATIALRESPONSE_QUEUE_ADDRESS: {{ quote .Values.container.parcelSpatialResponseQueueAddress }}
   ELIGIBILITYRESPONSE_QUEUE_ADDRESS: {{ quote .Values.container.responseEligibilityCheckQueueAddress }}
   AGREEMENT_CALCULATOR_ENDPOINT: {{ quote .Values.container.agreementCalculatorEndpoint }}
   AGREEMENT_API_ENDPOINT: {{ quote .Values.container.agreementApiEndpoint }}
