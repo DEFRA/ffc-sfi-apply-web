@@ -7,6 +7,8 @@ resources:
     - name: submit
     - name: withdraw
     - name: parcelSpatial
+    - name: parcel
+    - name: parcelStandard
   queues:
     - name: responseCalculate
       enableSessions: true
@@ -15,4 +17,8 @@ resources:
     - name: responseEligibilityCheck
       enableSessions: true
     - name: parcelSpatialResponse
+      enableSessions: true
+    - name: parcelResponse
+      enableSessions: true
+    - name: parcelStandardResponse
       enableSessions: true

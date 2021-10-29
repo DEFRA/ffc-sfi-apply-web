@@ -52,7 +52,11 @@ container:
   withdrawTopicAddress: ffc-sfi-agreement-withdraw
   requestSbiTopicAddress: ffc-sfi-request-sbi
   parcelSpatialTopicAddress: ffc-sfi-parcel-spatial-request
+  parcelTopicAddress: ffc-sfi-parcel-request
+  parcelStandardTopicAddress: ffc-sfi-parcel-standard-request
   parcelSpatialResponseQueueAddress: ffc-sfi-parcel-spatial-response
+  parcelResponseQueueAddress: ffc-sfi-parcel-response
+  parcelStandardResponseQueueAddress: ffc-sfi-parcel-standard-response
   responseStandardsQueueAddress: ffc-sfi-standards-request-response
   responseCalculateQueueAddress: ffc-sfi-agreement-calculate-response
   responseEligibilityCheckQueueAddress: ffc-sfi-eligibility-check-response
