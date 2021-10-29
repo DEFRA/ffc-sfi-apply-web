@@ -55,6 +55,18 @@ const mqSchema = joi.object({
     username: joi.string(),
     password: joi.string()
   },
+  parcelTopic: {
+    name: joi.string().default('ffc-sfi- ffc-sfi-parcel-request'),
+    address: joi.string(),
+    username: joi.string(),
+    password: joi.string()
+  },
+  parcelStandardTopic: {
+    name: joi.string().default('ffc-sfi- ffc-sfi-parcel-standard-request'),
+    address: joi.string(),
+    username: joi.string(),
+    password: joi.string()
+  },
   responseStandardsQueue: {
     name: joi.string(),
     address: joi.string(),
@@ -77,6 +89,20 @@ const mqSchema = joi.object({
     type: joi.string()
   },
   responseParcelSpatialQueue: {
+    name: joi.string(),
+    address: joi.string(),
+    username: joi.string(),
+    password: joi.string(),
+    type: joi.string()
+  },
+  responseParcelQueue: {
+    name: joi.string(),
+    address: joi.string(),
+    username: joi.string(),
+    password: joi.string(),
+    type: joi.string()
+  },
+  responseParcelStandardQueue: {
     name: joi.string(),
     address: joi.string(),
     username: joi.string(),
@@ -139,6 +165,18 @@ const mqConfig = {
     username: process.env.MESSAGE_QUEUE_USER,
     password: process.env.MESSAGE_QUEUE_PASSWORD
   },
+  parcelTopic: {
+    name: process.env.PARCEL_TOPIC_NAME,
+    address: process.env.PARCEL_TOPIC_ADDRESS,
+    username: process.env.MESSAGE_QUEUE_USER,
+    password: process.env.MESSAGE_QUEUE_PASSWORD
+  },
+  parcelStandardTopic: {
+    name: process.env.PARCELSTANDARD_TOPIC_NAME,
+    address: process.env.PARCELSTANDARD_TOPIC_ADDRESS,
+    username: process.env.MESSAGE_QUEUE_USER,
+    password: process.env.MESSAGE_QUEUE_PASSWORD
+  },
   responseStandardsQueue: {
     name: process.env.STANDARDSRESPONSE_QUEUE_NAME,
     address: process.env.STANDARDSRESPONSE_QUEUE_ADDRESS,
@@ -164,6 +202,18 @@ const mqConfig = {
     address: process.env.PARCELSPATIALRESPONSE_QUEUE_ADDRESS,
     username: process.env.MESSAGE_QUEUE_USER,
     password: process.env.MESSAGE_QUEUE_PASSWORD
+  },
+  responseParcelQueue: {
+    name: process.env.PARCELRESPONSE_QUEUE_NAME,
+    address: process.env.PARCELRESPONSE_QUEUE_ADDRESS,
+    username: process.env.MESSAGE_QUEUE_USER,
+    password: process.env.MESSAGE_QUEUE_PASSWORD
+  },
+  responseParcelStandardQueue: {
+    name: process.env.PARCELSTANDARDRESPONSE_QUEUE_NAME,
+    address: process.env.PARCELSTANDARDRESPONSE_QUEUE_ADDRESS,
+    username: process.env.MESSAGE_QUEUE_USER,
+    password: process.env.MESSAGE_QUEUE_PASSWORD
   }
 }
 
@@ -184,10 +234,14 @@ const submitTopic = { ...mqResult.value.messageQueue, ...mqResult.value.submitTo
 const withdrawTopic = { ...mqResult.value.messageQueue, ...mqResult.value.withdrawTopic }
 const requestSBITopic = { ...mqResult.value.messageQueue, ...mqResult.value.requestSBITopic }
 const parcelSpatialTopic = { ...mqResult.value.messageQueue, ...mqResult.value.parcelSpatialTopic }
+const parcelTopic = { ...mqResult.value.messageQueue, ...mqResult.value.parcelTopic }
+const parcelStandardTopic = { ...mqResult.value.messageQueue, ...mqResult.value.parcelStandardTopic }
 const responseStandardsQueue = { ...mqResult.value.messageQueue, ...mqResult.value.responseStandardsQueue }
 const responseCalculateQueue = { ...mqResult.value.messageQueue, ...mqResult.value.responseCalculateQueue }
 const responseEligibilityQueue = { ...mqResult.value.messageQueue, ...mqResult.value.responseEligibilityQueue }
 const responseParcelSpatialQueue = { ...mqResult.value.messageQueue, ...mqResult.value.responseParcelSpatialQueue }
+const responseParcelQueue = { ...mqResult.value.messageQueue, ...mqResult.value.responseParcelQueue }
+const responseParcelStandardQueue = { ...mqResult.value.messageQueue, ...mqResult.value.responseParcelStandardQueue }
 
 module.exports = {
   eligibilityTopic,
@@ -198,8 +252,12 @@ module.exports = {
   withdrawTopic,
   requestSBITopic,
   parcelSpatialTopic,
+  parcelTopic,
+  parcelStandardTopic,
   responseStandardsQueue,
   responseCalculateQueue,
   responseEligibilityQueue,
-  responseParcelSpatialQueue
+  responseParcelSpatialQueue,
+  responseParcelQueue,
+  responseParcelStandardQueue
 }
