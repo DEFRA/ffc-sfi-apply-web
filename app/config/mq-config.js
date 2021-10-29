@@ -51,7 +51,7 @@ const mqSchema = joi.object({
   },
   parcelSpatialTopic: {
     name: joi.string().default('ffc-sfi- ffc-sfi-parcel-spatial-request'),
-    address: joi.string().default('parcel-spatial-request'),
+    address: joi.string(),
     username: joi.string(),
     password: joi.string()
   },

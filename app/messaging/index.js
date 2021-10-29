@@ -38,7 +38,7 @@ async function sendRequestSBIMessage (payload, correlationId) {
 }
 
 async function sendParcelSpatialMessage (payload, correlationId, messageId) {
-  await sendMessage(payload, 'uk.gov.sfi.parcel.request', correlationId, config.parcelSpatialTopic, messageId)
+  await sendMessage(payload, 'uk.gov.sfi.parcel.spatial.request', correlationId, config.parcelSpatialTopic, messageId)
   console.info('parcel spatial data requested')
 }
 
