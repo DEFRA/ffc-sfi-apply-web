@@ -72,9 +72,11 @@ value.calculateTopic = mqConfig.calculateTopic
 value.submitTopic = mqConfig.submitTopic
 value.withdrawTopic = mqConfig.withdrawTopic
 value.requestSBITopic = mqConfig.requestSBITopic
+value.parcelSpatialTopic = mqConfig.parcelSpatialTopic
 value.responseStandardsQueue = mqConfig.responseStandardsQueue
 value.responseCalculateQueue = mqConfig.responseCalculateQueue
 value.responseEligibilityQueue = mqConfig.responseEligibilityQueue
+value.responseParcelSpatialQueue = mqConfig.responseParcelSpatialQueue
 
 value.cacheConfig = cacheConfig
 

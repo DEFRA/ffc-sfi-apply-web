@@ -49,6 +49,12 @@ const mqSchema = joi.object({
     username: joi.string(),
     password: joi.string()
   },
+  parcelSpatialTopic: {
+    name: joi.string().default('ffc-sfi- ffc-sfi-parcel-spatial-request'),
+    address: joi.string(),
+    username: joi.string(),
+    password: joi.string()
+  },
   responseStandardsQueue: {
     name: joi.string(),
     address: joi.string(),
@@ -64,6 +70,13 @@ const mqSchema = joi.object({
     type: joi.string()
   },
   responseEligibilityQueue: {
+    name: joi.string(),
+    address: joi.string(),
+    username: joi.string(),
+    password: joi.string(),
+    type: joi.string()
+  },
+  responseParcelSpatialQueue: {
     name: joi.string(),
     address: joi.string(),
     username: joi.string(),
@@ -120,6 +133,12 @@ const mqConfig = {
     username: process.env.MESSAGE_QUEUE_USER,
     password: process.env.MESSAGE_QUEUE_PASSWORD
   },
+  parcelSpatialTopic: {
+    name: process.env.PARCELSPATIAL_TOPIC_NAME,
+    address: process.env.PARCELSPATIAL_TOPIC_ADDRESS,
+    username: process.env.MESSAGE_QUEUE_USER,
+    password: process.env.MESSAGE_QUEUE_PASSWORD
+  },
   responseStandardsQueue: {
     name: process.env.STANDARDSRESPONSE_QUEUE_NAME,
     address: process.env.STANDARDSRESPONSE_QUEUE_ADDRESS,
@@ -137,6 +156,12 @@ const mqConfig = {
   responseEligibilityQueue: {
     name: process.env.ELIGIBILITYRESPONSE_QUEUE_NAME,
     address: process.env.ELIGIBILITYRESPONSE_QUEUE_ADDRESS,
+    username: process.env.MESSAGE_QUEUE_USER,
+    password: process.env.MESSAGE_QUEUE_PASSWORD
+  },
+  responseParcelSpatialQueue: {
+    name: process.env.PARCELSPATIALRESPONSE_QUEUE_NAME,
+    address: process.env.PARCELSPATIALRESPONSE_QUEUE_ADDRESS,
     username: process.env.MESSAGE_QUEUE_USER,
     password: process.env.MESSAGE_QUEUE_PASSWORD
   }
@@ -158,9 +183,11 @@ const calculateTopic = { ...mqResult.value.messageQueue, ...mqResult.value.calcu
 const submitTopic = { ...mqResult.value.messageQueue, ...mqResult.value.submitTopic }
 const withdrawTopic = { ...mqResult.value.messageQueue, ...mqResult.value.withdrawTopic }
 const requestSBITopic = { ...mqResult.value.messageQueue, ...mqResult.value.requestSBITopic }
+const parcelSpatialTopic = { ...mqResult.value.messageQueue, ...mqResult.value.parcelSpatialTopic }
 const responseStandardsQueue = { ...mqResult.value.messageQueue, ...mqResult.value.responseStandardsQueue }
 const responseCalculateQueue = { ...mqResult.value.messageQueue, ...mqResult.value.responseCalculateQueue }
 const responseEligibilityQueue = { ...mqResult.value.messageQueue, ...mqResult.value.responseEligibilityQueue }
+const responseParcelSpatialQueue = { ...mqResult.value.messageQueue, ...mqResult.value.responseParcelSpatialQueue }
 
 module.exports = {
   eligibilityTopic,
@@ -170,7 +197,9 @@ module.exports = {
   submitTopic,
   withdrawTopic,
   requestSBITopic,
+  parcelSpatialTopic,
   responseStandardsQueue,
   responseCalculateQueue,
-  responseEligibilityQueue
+  responseEligibilityQueue,
+  responseParcelSpatialQueue
 }

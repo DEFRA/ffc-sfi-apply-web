@@ -37,6 +37,15 @@ async function sendRequestSBIMessage (payload, correlationId) {
   console.info('SBI(s) requested')
 }
 
+async function sendParcelSpatialMessage (payload, correlationId, messageId) {
+  await sendMessage(payload, 'uk.gov.sfi.parcel.spatial.request', correlationId, config.parcelSpatialTopic, messageId)
+  console.info('parcel spatial data requested')
+}
+
+async function recieveParcelSpatialMessage (messageId) {
+  return receiveMessage(messageId, config.responseParcelSpatialQueue)
+}
+
 async function receiveStandardsResponseMessage (messageId) {
   return receiveMessage(messageId, config.responseStandardsQueue)
 }
@@ -57,6 +66,8 @@ module.exports = {
   sendAgreementSubmitMessage,
   sendAgreementWithdrawMessage,
   sendRequestSBIMessage,
+  sendParcelSpatialMessage,
+  recieveParcelSpatialMessage,
   receiveStandardsResponseMessage,
   receiveCalculateResponseMessage,
   receiveEligibilityResponseMessage

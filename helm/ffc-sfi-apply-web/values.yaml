@@ -51,6 +51,8 @@ container:
   submitTopicAddress: ffc-sfi-agreement-submit
   withdrawTopicAddress: ffc-sfi-agreement-withdraw
   requestSbiTopicAddress: ffc-sfi-request-sbi
+  parcelSpatialTopicAddress: ffc-sfi-parcel-spatial-request
+  parcelSpatialResponseQueueAddress: ffc-sfi-parcel-spatial-response
   responseStandardsQueueAddress: ffc-sfi-standards-request-response
   responseCalculateQueueAddress: ffc-sfi-agreement-calculate-response
   responseEligibilityCheckQueueAddress: ffc-sfi-eligibility-check-response
