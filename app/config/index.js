@@ -1,6 +1,7 @@
 const joi = require('joi')
 const cacheConfig = require('./cache')
 const mqConfig = require('./mq-config')
+const storageConfig = require('./storage-config')
 
 // Define config schema
 const schema = joi.object({
@@ -79,8 +80,10 @@ value.responseStandardsQueue = mqConfig.responseStandardsQueue
 value.responseCalculateQueue = mqConfig.responseCalculateQueue
 value.responseEligibilityQueue = mqConfig.responseEligibilityQueue
 value.responseParcelSpatialQueue = mqConfig.responseParcelSpatialQueue
+value.responseParcelStandardQueue = mqConfig.responseParcelStandardQueue
 
 value.cacheConfig = cacheConfig
+value.storageConfig = storageConfig
 
 value.isDev = value.env === 'development'
 value.isTest = value.env === 'test'

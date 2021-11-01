@@ -5,9 +5,9 @@
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
 
 {% block beforeContent %} 
-  
-    <link href="../static/css/map.27fe0fce39a00d917d64.css" rel="stylesheet">
-  
+  <% htmlWebpackPlugin.files.css.forEach(file => { %>
+    <link href="<%= file.replace('../dist/', 'static/') %>" rel="stylesheet">
+  <% }) %>
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-one-half">
       {{ govukBackLink({
@@ -83,9 +83,9 @@
   </div>
   <div>
 </div>
-
-  <script src="../static/js/map.27fe0fce39a00d917d64.js"></script>
-
+<% htmlWebpackPlugin.files.js.forEach(file => { %>
+  <script src="<%= file.replace('../dist/', 'static/') %>"></script>
+<% }) %>
 <script>
   const parcels = {{ parcels | dump | safe }}
   const center = {{ center | dump | safe }}
