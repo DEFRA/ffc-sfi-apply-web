@@ -1,6 +1,9 @@
 const cache = require('../../cache')
+const { getParcels } = require('../../api/map')
 const joi = require('joi')
 const ViewModel = require('./models/how-much')
+const sbi = require('../schemas/sbi')
+const config = require('../../config')
 
 module.exports = [
   {
@@ -8,7 +11,12 @@ module.exports = [
     path: '/funding-options/how-much',
     handler: async (request, h) => {
       const applyJourney = await cache.get('apply-journey', request.yar.id)
-      return h.view('funding-options/how-much', new ViewModel(applyJourney.selectedStandard, applyJourney.selectedParcels))
+      const sbi = request.query.sbi
+      const mapStyle = request.query.mapStyle || ''
+      const apiKey = config.osMapApiKey || ''
+      const { parcels, center } = await getParcels(sbi)
+      console.log(applyJourney.selectedStandard, applyJourney.selectedParcels, sbi, mapStyle, apiKey, parcels, center)
+      return h.view('funding-options/how-much', new ViewModel(applyJourney.selectedStandard, applyJourney.selectedParcels, sbi, mapStyle, apiKey, parcels, center))
     }
   },
   {
@@ -20,9 +28,13 @@ module.exports = [
           parcels: joi.array().items(joi.string()).single()
         }).unknown(true),
         failAction: async (request, h, error) => {
+          const sbi = request.query.sbi
+          const mapStyle = request.query.mapStyle || ''
+          const apiKey = config.osMapApiKey || ''
+          const { parcels, center } = await getParcels(sbi)
           const { payload } = request
           const applyJourney = await cache.get('apply-journey', request.yar.id)
-          const viewModel = new ViewModel(payload, applyJourney.selectedStandard, applyJourney.selectedParcels)
+          const viewModel = new ViewModel(applyJourney.selectedStandard, applyJourney.selectedParcels, sbi, mapStyle, apiKey, parcels, center,payload)
           return h.view('funding-options/how-much', viewModel).code(400).takeover()
         }
       },
