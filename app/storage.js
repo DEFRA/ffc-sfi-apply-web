@@ -12,6 +12,7 @@ if (config.useConnectionStr) {
 }
 
 const parcelStandardContainer = blobServiceClient.getContainerClient(config.parcelStandardContainer)
+const parcelSpatialContainer = blobServiceClient.getContainerClient(config.parcelSpatialContainer)
 
 const initialiseContainers = async () => {
   await parcelStandardContainer.createIfNotExists()
@@ -26,10 +27,17 @@ const getBlob = async (container, filename) => {
 const downloadParcelStandardFile = async (filename) => {
   const blob = await getBlob(parcelStandardContainer, filename)
   const downloaded = await blob.downloadToBuffer()
-  return downloaded.toString()
+  return JSON.parse(downloaded.toString())
+}
+
+const downloadParcelSpatialFile = async (filename) => {
+  const blob = await getBlob(parcelSpatialContainer, filename)
+  const downloaded = await blob.downloadToBuffer()
+  return JSON.parse(downloaded.toString())
 }
 
 module.exports = {
   downloadParcelStandardFile,
+  downloadParcelSpatialFile,
   blobServiceClient
 }

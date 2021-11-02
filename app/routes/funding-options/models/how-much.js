@@ -1,7 +1,7 @@
 const { convertToInteger, convertToDecimal } = require('../../../conversion')
 
 function ViewModel (applyJourney, parcelStandards, payload) {
-  const selectedStandard = applyJourney.selectedStandard
+  const selectedStandard = parcelStandards
   const selectedParcels = applyJourney.selectedParcels
   const landInHectares = payload ? getLandInHectares(payload, selectedStandard.parcels) : selectedParcels
   const items = getAllItems(selectedStandard, landInHectares)
@@ -47,8 +47,11 @@ const getAllItems = (selectedStandard, selectedParcels) => {
   const parcels = selectedStandard?.parcels
   const checkboxItems = parcels.map(x => (
     {
-      text: `${x.id}, ${x.area}ha`,
+      text: `${x.id}`,
       value: `${x.id}`,
+      hint: {
+        text: `${x.area}ha`
+      },
       checked: isChecked(selectedParcels, x.id),
       textBoxValue: selectedParcels && selectedParcels.find(item => item.id === x.id)
         ? selectedParcels.find(item => item.id === x.id).value

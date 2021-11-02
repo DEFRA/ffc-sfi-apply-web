@@ -54,7 +54,8 @@ const hightlightOnMouseOver = (parcelSource) => {
 const mapStyles = [
   'Road_27700',
   'Outdoor_27700',
-  'Light_27700']
+  'Light_27700',
+  'Leisure_27700']
 
 const buildMapLayers = (parcelSource, apiKey) => {
   const parcelLayer = new VectorLayer({ source: parcelSource, style: styleFunction })
@@ -72,7 +73,8 @@ const buildMapLayers = (parcelSource, apiKey) => {
         source: new XYZ({
           url: `https://api.os.uk/maps/raster/v1/zxy/${mapStyles[i]}/{z}/{x}/{y}.png?key=${apiKey}`,
           tileGrid: tilegrid
-        })
+        }),
+        className: 'grayscale-invert'
       })
     )
   }
@@ -82,7 +84,7 @@ const buildMapLayers = (parcelSource, apiKey) => {
   return layers
 }
 
-export function displayMap (apiKey, sbi, parcels, coordinates) {
+export function displayMap (apiKey, sbi, parcels, coordinates, allowSelect = false) {
   const features = new GeoJSON().readFeatures(parcels)
   const parcelSource = new VectorSource({ features })
   const layers = buildMapLayers(parcelSource, apiKey)
@@ -108,7 +110,8 @@ export function displayMap (apiKey, sbi, parcels, coordinates) {
   })
 
   const selectClick = new Select({
-    condition: click
+    condition: click,
+    toggleCondition: click
   })
 
   const selectPointerMove = new Select({
@@ -116,11 +119,18 @@ export function displayMap (apiKey, sbi, parcels, coordinates) {
     style: pointerMoveStyle
   })
 
-  map.addInteraction(selectClick)
-  map.addInteraction(selectPointerMove)
+  if (allowSelect) {
+    map.addInteraction(selectClick)
+    map.addInteraction(selectPointerMove)
+  }
+  map.getView().fit(parcelSource.getExtent(), { size: map.getSize(), maxZoom: 16 })
 
   selectClick.on('select', function (e) {
-    window.location.href = `/parcel?sbi=${sbi}&sheetId=${e.selected[0].values_.sheet_id}&parcelId=${e.selected[0].values_.parcel_id}&mapStyle=${select.value}`
+    const parcelId = e.selected.length
+      ? `${e.selected[0].values_.sheet_id}${e.selected[0].values_.parcel_id}`
+      : `${e.deselected[0].values_.sheet_id}${e.deselected[0].values_.parcel_id}`
+    const parcelCheckBox = document.getElementById(parcelId)
+    parcelCheckBox.checked = !parcelCheckBox.checked
   })
 
   const select = document.getElementById('layer-select')

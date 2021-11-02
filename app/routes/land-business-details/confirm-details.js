@@ -1,7 +1,6 @@
 const cache = require('../../cache')
-const config = require('../../config')
 const { getLandCovers } = require('../../api/crown-hosting/land-cover')
-const { getParcels } = require('../../api/map')
+const getMapParcels = require('../../map')
 
 module.exports = [
   {
@@ -11,18 +10,15 @@ module.exports = [
       handler: async (request, h) => {
         const applyJourney = await cache.get('apply-journey', request.yar.id)
         const { totalHectares, landCovers } = await getLandCovers(applyJourney.selectedOrganisation.organisationId, applyJourney.callerId)
-        const sbi = applyJourney.selectedOrganisation.sbi
-        const mapStyle = request.query.mapStyle || ''
-        const apiKey = config.osMapApiKey || ''
-        const { parcels, center } = await getParcels(sbi)
+        const mapParcels = await getMapParcels(request)
 
         return h.view('land-business-details/confirm-details',
           {
-            apiKey,
-            parcels,
-            center,
-            mapStyle,
-            sbi,
+            apiKey: mapParcels.apiKey,
+            parcels: mapParcels.parcels,
+            center: mapParcels.center,
+            mapStyle: mapParcels.mapStyle,
+            sbi: mapParcels.sbi,
             name: applyJourney.selectedOrganisation.name,
             address: applyJourney.selectedOrganisation.address,
             totalHa: totalHectares,

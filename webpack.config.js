@@ -93,6 +93,12 @@ module.exports = {
     }),
     new HtmlWebpackPlugin({
       inject: false,
+      filename: '../views/funding-options/how-much.njk',
+      template: 'app/views/funding-options/how-much.template.njk',
+      chunks: ['map']
+    }),
+    new HtmlWebpackPlugin({
+      inject: false,
       filename: '../views/map/parcel.njk',
       template: 'app/views/map/parcel.template.njk',
       chunks: ['map']

@@ -1,7 +1,8 @@
 const cache = require('../../cache')
 const joi = require('joi')
 const ViewModel = require('./models/how-much')
-const getParcelStandards = require('../../parcel-standards')
+const getMapParcels = require('../../map')
+const { getParcelStandards } = require('../../parcels')
 const { downloadParcelStandardFile } = require('../../storage')
 
 module.exports = [
@@ -10,8 +11,14 @@ module.exports = [
     path: '/funding-options/how-much',
     handler: async (request, h) => {
       const { parcelStandards, applyJourney } = await getParcelStandards(request)
-      await downloadParcelStandardFile(parcelStandards.filename)
-      return h.view('funding-options/how-much', new ViewModel(applyJourney, parcelStandards))
+      const selectedParcelStandard = await downloadParcelStandardFile(parcelStandards.filename)
+
+      const viewModel = new ViewModel(applyJourney, selectedParcelStandard)
+      const mapParcels = await getMapParcels(request)
+
+      viewModel.map = mapParcels
+
+      return h.view('funding-options/how-much', viewModel)
     }
   },
   {
@@ -25,14 +32,16 @@ module.exports = [
         failAction: async (request, h, error) => {
           const { payload } = request
           const { parcelStandards, applyJourney } = await getParcelStandards(request)
-          const viewModel = new ViewModel(applyJourney, parcelStandards, payload)
+          const selectedParcelStandard = await downloadParcelStandardFile(parcelStandards.filename)
+          const viewModel = new ViewModel(applyJourney, selectedParcelStandard, payload)
           return h.view('funding-options/how-much', viewModel).code(400).takeover()
         }
       },
       handler: async (request, h) => {
         const { payload } = request
         const { parcelStandards, applyJourney } = await getParcelStandards(request)
-        const viewModel = new ViewModel(applyJourney, parcelStandards, payload)
+        const selectedParcelStandard = await downloadParcelStandardFile(parcelStandards.filename)
+        const viewModel = new ViewModel(applyJourney, selectedParcelStandard, payload)
 
         await cache.update('apply-journey', request.yar.id,
           {
