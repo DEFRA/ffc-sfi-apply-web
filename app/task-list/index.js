@@ -3,7 +3,7 @@ const taskList = [{
   taskGroup: 'Land and business details',
   dependsOn: '',
   tasks: [{
-    taskName: 'Confirm your land and business details',
+    taskName: 'Confirm your land details',
     status: 'NOT STARTED',
     url: 'confirm-details'
   }]
@@ -20,56 +20,31 @@ const taskList = [{
     url: '/funding-options/what-funding'
   },
   {
-    id: 'fundingOptionOverview',
+    id: 'fundingOptionLandParcels',
     dependsOn: 'fundingOptions',
-    taskName: 'Funding option overview',
-    status: 'CANNOT START YET',
-    url: 'funding-options/funding-overview'
-  },
-  {
-    id: 'amountOfLand',
-    dependsOn: 'fundingOptions',
-    taskName: 'Add the amount of land you will use',
+    taskName: 'Choose land parcels',
     status: 'CANNOT START YET',
     url: 'funding-options/how-much'
-  },
-  {
-    id: 'paymentLevel',
-    dependsOn: 'fundingOptions',
-    taskName: 'Choose a payment level',
-    status: 'CANNOT START YET',
-    url: 'funding-options/what-payment-level'
   }]
-}, {
-  id: 'createAgreement',
+},
+{
+  id: 'actions',
   taskGroup: 'Create your land management agreement',
   dependsOn: 'fundingDetails',
   tasks: [{
-    id: 'how',
-    dependsOn: 'createAgreementOptions',
-    taskName: 'Tell us how you will carry out the actions',
+    id: 'chooseActions',
+    taskName: 'Choose your actions',
     status: 'CANNOT START YET',
     url: '#fundingOption#/#paymentLevel#/#paymentLevel#-overview'
-  },
-  {
-    id: 'schedule',
-    taskName: 'Choose your payment schedule',
-    status: 'CANNOT START YET',
-    url: '/#fundingOption#/payment-schedule'
   },
   {
     id: 'answers',
     taskName: 'Check your answers',
     status: 'CANNOT START YET',
     url: '/#fundingOption#/check-your-answers'
-  },
-  {
-    id: 'agreement',
-    taskName: 'View your agreement',
-    status: 'CANNOT START YET',
-    url: 'review-your-agreement'
   }]
-}, {
+},
+{
   id: 'submitted',
   taskGroup: 'Submit your application',
   dependsOn: 'createAgreement',

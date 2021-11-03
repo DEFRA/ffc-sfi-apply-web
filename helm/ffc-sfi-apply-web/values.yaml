@@ -69,6 +69,10 @@ container:
   cookiePassword: passwordpasswordpasswordpasswordpassword
   osMapApiKey:
   chApiGateway:
+  azureStorageAccountName: sfiland
+  azureStorageConnectionString: dummy
+  azureStorageUseConnectionString: false
+  parcelStandardContainer: parcels-standard
 
 ingress:
   class: nginx

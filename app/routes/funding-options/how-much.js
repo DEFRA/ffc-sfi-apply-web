@@ -1,14 +1,21 @@
 const cache = require('../../cache')
 const joi = require('joi')
 const ViewModel = require('./models/how-much')
+const getMapParcels = require('../../map')
+const { getParcelStandards } = require('../../parcels')
+const { downloadParcelStandardFile } = require('../../storage')
 
 module.exports = [
   {
     method: 'GET',
     path: '/funding-options/how-much',
     handler: async (request, h) => {
-      const applyJourney = await cache.get('apply-journey', request.yar.id)
-      return h.view('funding-options/how-much', new ViewModel(applyJourney.selectedStandard, applyJourney.selectedParcels))
+      const { parcelStandards, applyJourney } = await getParcelStandards(request)
+      const selectedParcelStandard = await downloadParcelStandardFile(parcelStandards.filename)
+      const viewModel = new ViewModel(applyJourney, selectedParcelStandard)
+      const mapParcels = await getMapParcels(request)
+      viewModel.map = mapParcels
+      return h.view('funding-options/how-much', viewModel)
     }
   },
   {
@@ -21,15 +28,19 @@ module.exports = [
         }).unknown(true),
         failAction: async (request, h, error) => {
           const { payload } = request
-          const applyJourney = await cache.get('apply-journey', request.yar.id)
-          const viewModel = new ViewModel(payload, applyJourney.selectedStandard, applyJourney.selectedParcels)
+          const { parcelStandards, applyJourney } = await getParcelStandards(request)
+          const selectedParcelStandard = await downloadParcelStandardFile(parcelStandards.filename)
+          const viewModel = new ViewModel(applyJourney, selectedParcelStandard, payload)
+          const mapParcels = await getMapParcels(request)
+          viewModel.map = mapParcels
           return h.view('funding-options/how-much', viewModel).code(400).takeover()
         }
       },
       handler: async (request, h) => {
         const { payload } = request
-        const applyJourney = await cache.get('apply-journey', request.yar.id)
-        const viewModel = new ViewModel(applyJourney.selectedStandard, applyJourney.selectedParcels, payload)
+        const { parcelStandards, applyJourney } = await getParcelStandards(request)
+        const selectedParcelStandard = await downloadParcelStandardFile(parcelStandards.filename)
+        const viewModel = new ViewModel(applyJourney, selectedParcelStandard, payload)
 
         await cache.update('apply-journey', request.yar.id,
           {

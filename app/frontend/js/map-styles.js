@@ -94,27 +94,42 @@ const landCoverStyles = [{
 const landParcelStyles = {
   Polygon: new Style({
     stroke: new Stroke({
-      color: 'red',
+      color: 'black',
       width: 1
     }),
     fill: new Fill({
-      color: 'rgba(249, 6, 44, 0.1)'
+      color: 'rgba(252,141,98, 0.9)'
     }),
     text: new Text({
-      font: '6px Verdana',
+      font: '8px Verdana',
       fill: new Fill({ color: 'black' }),
-      stroke: new Stroke({ color: 'black', width: 0.1 })
+      stroke: new Stroke({ color: 'black', width: 0.3 })
     })
   })
 }
+
+const selectedStyle = new Style({
+  fill: new Fill({
+    color: 'rgba(141,160,203, 0.5)'
+  }),
+  stroke: new Stroke({
+    color: 'black',
+    width: 1
+  }),
+  text: new Text({
+    font: '8px Verdana',
+    fill: new Fill({ color: 'black' }),
+    stroke: new Stroke({ color: 'black', width: 0.3 })
+  })
+})
 
 const highlightStyle = new Style({
   fill: new Fill({
     color: 'rgba(0, 0, 255, 0.1)'
   }),
   stroke: new Stroke({
-    color: 'blue',
-    width: 3
+    color: 'black',
+    width: 1
   })
 })
 
@@ -132,5 +147,6 @@ export {
   landParcelStyles,
   landCoverStyles,
   highlightStyle,
-  pointerMoveStyle
+  pointerMoveStyle,
+  selectedStyle
 }
