@@ -34,6 +34,7 @@
     "chai": "^4.1.2",
     "cross-env": "^5.2.0",
     "ecstatic": "^4.1.4",
+    "ffc-messaging": "^2.3.2",
     "hosted-git-info": "^4.0.2",
     "selenium-server": "^3.141.59",
     "selenium-standalone": "^6.17.0",
