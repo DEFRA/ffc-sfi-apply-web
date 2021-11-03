@@ -1,7 +1,7 @@
 const { convertToInteger, convertToDecimal } = require('../../../conversion')
 
 function ViewModel (applyJourney, parcelStandards, payload) {
-  const selectedStandard = parcelStandards
+  const selectedStandard = groupParcels(parcelStandards)
   const selectedParcels = applyJourney.selectedParcels
   const landInHectares = payload ? getLandInHectares(payload, selectedStandard.parcels) : selectedParcels
   const items = getAllItems(selectedStandard, landInHectares)
@@ -16,8 +16,24 @@ function ViewModel (applyJourney, parcelStandards, payload) {
     checkboxItems: items.checkboxItems,
     totalHa: items.totalHa,
     selectedStandardCode: selectedStandard.code,
+    selectedParcels: selectedParcels ?? [],
     parcelStandards
   }
+}
+
+const groupParcels = (parcelStandards) => {
+  const result = []
+  parcelStandards.parcels.reduce((acc, cur) => {
+    if (!acc[cur.id]) {
+      acc[cur.id] = { id: cur.id, area: 0, warnings: [] }
+      result.push(acc[cur.id])
+    }
+    acc[cur.id].area += parseFloat(cur.area)
+    acc[cur.id].warnings = [...acc[cur.id].warnings, ...cur.warnings]
+    return acc
+  }, {})
+  parcelStandards.parcels = result
+  return parcelStandards
 }
 
 const getLandInHectares = (payload, parcels) => {

@@ -12,12 +12,9 @@ module.exports = [
     handler: async (request, h) => {
       const { parcelStandards, applyJourney } = await getParcelStandards(request)
       const selectedParcelStandard = await downloadParcelStandardFile(parcelStandards.filename)
-
       const viewModel = new ViewModel(applyJourney, selectedParcelStandard)
       const mapParcels = await getMapParcels(request)
-
       viewModel.map = mapParcels
-
       return h.view('funding-options/how-much', viewModel)
     }
   },
@@ -34,6 +31,8 @@ module.exports = [
           const { parcelStandards, applyJourney } = await getParcelStandards(request)
           const selectedParcelStandard = await downloadParcelStandardFile(parcelStandards.filename)
           const viewModel = new ViewModel(applyJourney, selectedParcelStandard, payload)
+          const mapParcels = await getMapParcels(request)
+          viewModel.map = mapParcels
           return h.view('funding-options/how-much', viewModel).code(400).takeover()
         }
       },

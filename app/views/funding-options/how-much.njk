@@ -10,7 +10,7 @@
 
 {% block beforeContent %}
   
-    <link href="../static/css/map.7e01b7a546a7604ea19a.css" rel="stylesheet">
+    <link href="../static/css/map.198922b401938170856a.css" rel="stylesheet">
   
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-one-half">
@@ -30,7 +30,7 @@
 
 {% block content %}
 <div class="govuk-grid-row">
-  <div class="govuk-grid-column-two-thirds">
+  <div class="govuk-grid-column-full">
     <form method="POST" autocomplete="off" novalidate>
       <input type="hidden" name="crumb" value="{{crumb}}"/>
 
@@ -62,7 +62,7 @@
         </select>
       </div>  
       <p class="govuk-body"><div id="map" class="map"></div></p>
-
+      <p id="parcelInfo" class="govuk-body"></p>
       <div class="govuk-hint">
         Choose the land parcels you want to use and add the number of hectares. You cannot use land designated as SSSI or peat.
       </div>
@@ -98,7 +98,7 @@
               <div id="parcel-item-hint" class="govuk-hint govuk-checkboxes__hint">
                 {{ item.hint.text }}
               </div>
-              <div class="govuk-checkboxes__conditional govuk-checkboxes__conditional--hidden" id="conditional_{{ item.value }}">
+              <div class="govuk-checkboxes__conditional govuk-checkboxes__conditional--hidden">
                 <div class="govuk-form-group">
                   <label class="govuk-label" for="hectares_{{ item.value }}">
                     Hectares to use in this land parcel
@@ -162,7 +162,7 @@
   </div>
 </div>
 
-  <script src="../static/js/map.7e01b7a546a7604ea19a.js"></script>
+  <script src="../static/js/map.198922b401938170856a.js"></script>
 
 <script>
   const parcels = {{ map.parcels | dump | safe }}
@@ -170,11 +170,12 @@
   const sbi = {{ map.sbi }}
   const apiKey = {{ map.apiKey | dump | safe }}
   const mapStyle = {{ map.mapStyle | dump | safe }}
+  const selectedParcels = {{ model.selectedParcels | dump | safe }}
   if (mapStyle !== '') { 
     document.getElementById("layer-select").value = mapStyle
   }
   if(apiKey !== '') {
-    map.displayMap(apiKey, sbi, parcels, center, true)
+    map.displayMap(apiKey, sbi, parcels, center, selectedParcels, true)
   }
 </script>
 {% endblock %}

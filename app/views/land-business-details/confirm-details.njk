@@ -6,7 +6,7 @@
 
 {% block beforeContent %} 
   
-    <link href="../static/css/map.7e01b7a546a7604ea19a.css" rel="stylesheet">
+    <link href="../static/css/map.198922b401938170856a.css" rel="stylesheet">
   
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-one-half">
@@ -27,7 +27,7 @@
 
 {% block content %}
 <div class="govuk-grid-row">
-  <div class="govuk-grid-column-two-thirds">
+  <div class="govuk-grid-column-full">
     <form method="GET" action="/management-control" novalidate>
       <input type="hidden" name="crumb" value="{{crumb}}"/>
       <h1 class="govuk-heading-l">Your land details</h1>   
@@ -85,7 +85,7 @@
   <div>
 </div>
 
-  <script src="../static/js/map.7e01b7a546a7604ea19a.js"></script>
+  <script src="../static/js/map.198922b401938170856a.js"></script>
 
 <script>
   const parcels = {{ parcels | dump | safe }}
