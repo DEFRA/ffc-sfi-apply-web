@@ -89,39 +89,41 @@ const selectLayer = (map) => {
 }
 
 const selectPointerMove = (map) => {
-  const selectPointerMove = new Select({
+  const selectMove = new Select({
     condition: pointerMove,
     style: highlightStyle
   })
 
-  selectPointerMove.on('select', function (e) {
+  selectMove.on('select', function (e) {
     if (e.selected.length) {
       const parcelId = `${e.selected[0].values_.sheet_id}${e.selected[0].values_.parcel_id}`
       document.getElementById('parcelInfo').innerHTML = parcelId
     }
   })
 
-  map.addInteraction(selectPointerMove)
+  map.addInteraction(selectMove)
 }
 
 const convertToParcelSheetId = (parcelId) => {
   return parcelId.match(/(.{1,6})/g)
 }
 
+const addCheckboxEventListener = (checkbox, selectfeatures, parcelSource) => {
+  checkbox.addEventListener('change', (e) => {
+    const parcelId = convertToParcelSheetId(checkbox.id)
+    const parcelFeatures = parcelSource.getFeatures()
+    for (const feature of parcelFeatures) {
+      if (feature.get('parcel_id') === parcelId[1] && feature.get('sheet_id') === parcelId[0]) {
+        e.target.checked ? selectfeatures.push(feature) : selectfeatures.remove(feature)
+      }
+    }
+  })
+}
+
 const checkBoxSelection = (parcelSource, selectfeatures) => {
   const checkBoxes = document.getElementsByClassName('govuk-checkboxes__input')
-  if (checkBoxes.length > 0) {
-    for (const checkbox of checkBoxes) {
-      checkbox.addEventListener('change', (e) => {
-        const parcelId = convertToParcelSheetId(checkbox.id)
-        const parcelFeatures = parcelSource.getFeatures()
-        for (const feature of parcelFeatures) {
-          if (feature.get('parcel_id') === parcelId[1] && feature.get('sheet_id') === parcelId[0]) {
-            e.target.checked ? selectfeatures.push(feature) : selectfeatures.remove(feature)
-          }
-        }
-      })
-    }
+  for (const checkbox of checkBoxes) {
+    addCheckboxEventListener(checkbox, selectfeatures, parcelSource)
   }
 }
 
