@@ -97,7 +97,6 @@ const selectPointerMove = (map) => {
   selectPointerMove.on('select', function (e) {
     if (e.selected.length) {
       const parcelId = `${e.selected[0].values_.sheet_id}${e.selected[0].values_.parcel_id}`
-      console.log(e.selected[0].values_, parcelId)
       document.getElementById('parcelInfo').innerHTML = parcelId
     }
   })
