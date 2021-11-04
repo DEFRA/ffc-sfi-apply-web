@@ -9,6 +9,8 @@ import { click, pointerMove } from 'ol/events/condition'
 import TileGrid from 'ol/tilegrid/TileGrid'
 import { landParcelStyles, landCoverStyles, highlightStyle, selectedStyle } from './map-styles'
 
+let totalHa = 0
+
 const styleFunction = (feature) => {
   const label = `${feature.get('sheet_id')} ${feature.get('parcel_id')}`
 
@@ -79,6 +81,11 @@ const selectLayer = (map) => {
     const parcelId = e.selected.length
       ? `${e.selected[0].values_.sheet_id}${e.selected[0].values_.parcel_id}`
       : `${e.deselected[0].values_.sheet_id}${e.deselected[0].values_.parcel_id}`
+    e.selected.length
+      ? totalHa += parseFloat(e.selected[0].values_.area_ha.toFixed(2))
+      : totalHa -= parseFloat(e.deselected[0].values_.area_ha.toFixed(2))
+    document.getElementById('totalHa').innerHTML = `Total Area Selected: ${totalHa.toFixed(2)}ha`
+
     const parcelCheckBox = document.getElementById(parcelId)
     parcelCheckBox.checked = !parcelCheckBox.checked
   })
@@ -97,7 +104,8 @@ const selectPointerMove = (map) => {
   selectMove.on('select', function (e) {
     if (e.selected.length) {
       const parcelId = `${e.selected[0].values_.sheet_id}${e.selected[0].values_.parcel_id}`
-      document.getElementById('parcelInfo').innerHTML = parcelId
+      const areaHa = e.selected[0].values_.area_ha.toFixed(2)
+      document.getElementById('parcelInfo').innerHTML = `Parcel Id: ${parcelId}<br>Area: ${areaHa}ha`
     }
   })
 
