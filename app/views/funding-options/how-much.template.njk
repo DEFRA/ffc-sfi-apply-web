@@ -61,9 +61,11 @@
           <option value="Leisure_27700">Leisure</option>
         </select>
       </div>  
-      <p class="govuk-body"><div id="map" class="map"></div></p>
-      <p id="parcelInfo" class="govuk-body"></p>
-      <p id="totalHa" class="govuk-body"></p>
+      <div class="mapContainer">
+        <p class="govuk-body"><div id="map" class="map"></div></p>
+        <p id="parcelInfo" class="govuk-body parcelnfo"></p>
+        <p id="totalHa" class="govuk-body totalHa"></p>
+      </div>
       <div class="govuk-hint">
         Choose the land parcels you want to use and add the number of hectares. You cannot use land designated as SSSI or peat.
       </div>
@@ -104,7 +106,7 @@
                   <label class="govuk-label" for="hectares_{{ item.value }}">
                     Hectares to use in this land parcel
                   </label>                     
-                    <input class="govuk-input govuk-!-width-one-third" name="parcelArea_{{ item.value }}" value="{{ item.textBoxValue }}" type="text" spellcheck="false" autocomplete="false">                      
+                    <input class="govuk-input govuk-!-width-one-third" id="parcelArea_{{ item.value }}" name="parcelArea_{{ item.value }}" value="{{ item.textBoxValue }}" type="text" spellcheck="false" autocomplete="false">                      
                 </div>
               </div>
               {% if item.warnings.length > 0 %}

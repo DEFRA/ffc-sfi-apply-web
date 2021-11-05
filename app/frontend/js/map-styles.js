@@ -125,7 +125,7 @@ const selectedStyle = new Style({
 
 const highlightStyle = new Style({
   fill: new Fill({
-    color: 'rgba(0, 0, 255, 0.1)'
+    color: 'rgba(0, 0, 255, 0.5)'
   }),
   stroke: new Stroke({
     color: 'black',

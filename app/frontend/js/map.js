@@ -81,9 +81,12 @@ const selectLayer = (map) => {
     const parcelId = e.selected.length
       ? `${e.selected[0].values_.sheet_id}${e.selected[0].values_.parcel_id}`
       : `${e.deselected[0].values_.sheet_id}${e.deselected[0].values_.parcel_id}`
+
+    const areaHa = document.getElementById(`parcelArea_${parcelId}`).value
+
     e.selected.length
-      ? totalHa += parseFloat(e.selected[0].values_.area_ha.toFixed(2))
-      : totalHa -= parseFloat(e.deselected[0].values_.area_ha.toFixed(2))
+      ? totalHa += parseFloat(areaHa)
+      : totalHa -= parseFloat(areaHa)
     document.getElementById('totalHa').innerHTML = `Total Area Selected: ${totalHa.toFixed(2)}ha`
 
     const parcelCheckBox = document.getElementById(parcelId)
@@ -104,7 +107,7 @@ const selectPointerMove = (map) => {
   selectMove.on('select', function (e) {
     if (e.selected.length) {
       const parcelId = `${e.selected[0].values_.sheet_id}${e.selected[0].values_.parcel_id}`
-      const areaHa = e.selected[0].values_.area_ha.toFixed(2)
+      const areaHa = document.getElementById(`parcelArea_${parcelId}`).value
       document.getElementById('parcelInfo').innerHTML = `Parcel Id: ${parcelId}<br>Area: ${areaHa}ha`
     }
   })
