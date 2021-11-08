@@ -83,6 +83,16 @@
         </span>
       {% endif %}
 
+      <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+        <div class="govuk-checkboxes__item">
+          <input class="govuk-checkboxes__input" id="selectAllParcels" name="selectAllParcels" type="checkbox" value="all">
+          <label class="govuk-label govuk-checkboxes__label" for="selectAllParcels">
+            Select all
+          </label>
+        </div>
+      </div>
+      <br />
+
       {% if model.checkboxItems.length > 0 %}
         <div class="govuk-checkboxes" data-module="govuk-checkboxes">
           {% for item in model.checkboxItems %}
