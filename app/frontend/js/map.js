@@ -78,6 +78,8 @@ const selectLayer = (map) => {
   })
 
   selectClick.on('select', function (e) {
+    document.getElementById('landDetails').style.display = 'block'
+
     const parcelId = e.selected.length
       ? `${e.selected[0].values_.sheet_id}${e.selected[0].values_.parcel_id}`
       : `${e.deselected[0].values_.sheet_id}${e.deselected[0].values_.parcel_id}`
@@ -87,15 +89,29 @@ const selectLayer = (map) => {
     e.selected.length
       ? totalHa += parseFloat(areaHa)
       : totalHa -= parseFloat(areaHa)
-    document.getElementById('totalHa').innerHTML = `Total Area Selected: ${totalHa.toFixed(2)}ha`
+
+    document.getElementById('totalPermanentGrasslandHa').innerHTML = `${totalHa.toFixed(2)} ha`
+    document.getElementById('totalArableLandHa').innerHTML = `${totalHa.toFixed(2)} ha`
+    document.getElementById('totalHa').innerHTML = `${totalHa.toFixed(2)} ha`
 
     const parcelCheckBox = document.getElementById(parcelId)
     parcelCheckBox.checked = !parcelCheckBox.checked
+
+    document.getElementById('numberOfSelectedParcels').innerHTML = document.querySelectorAll('input[type="checkbox"]:checked').length
   })
 
   map.addInteraction(selectClick)
 
   return selectClick
+}
+
+const addSelectButtonEventListener = () => {
+  const selectButton = document.getElementById('selectParcelLink')
+  if (selectButton) {
+    selectButton.addEventListener('click', () => {
+      console.log('select parcel link clicked')
+    })
+  }
 }
 
 const selectPointerMove = (map) => {
@@ -106,9 +122,19 @@ const selectPointerMove = (map) => {
 
   selectMove.on('select', function (e) {
     if (e.selected.length) {
+      document.getElementById('parcelInfo').style.display = 'block'
       const parcelId = `${e.selected[0].values_.sheet_id}${e.selected[0].values_.parcel_id}`
-      const areaHa = document.getElementById(`parcelArea_${parcelId}`).value
-      document.getElementById('parcelInfo').innerHTML = `Parcel Id: ${parcelId}<br>Area: ${areaHa}ha`
+      const parcelArea = document.getElementById(`parcelArea_${parcelId}`)
+      if (parcelArea) {
+        const areaHa = parcelArea.value
+        document.getElementById('parcelInfo').innerHTML =
+          `<strong>${parcelId}</strong>
+          <br />
+          Area: ${areaHa}ha
+          <br />
+          <a id="selectParcelLink" class="govuk-link" href="#" style="margin-top:10px;">Add this parcel</a>`
+        addSelectButtonEventListener()
+      }
     }
   })
 
@@ -178,6 +204,9 @@ const selectMapStyle = (layers) => {
 }
 
 export function displayMap (apiKey, sbi, parcels, coordinates, selectedParcels = [], allowSelect = false) {
+  document.getElementById('parcelInfo').style.display = 'none'
+  document.getElementById('landDetails').style.display = 'none'
+
   const features = new GeoJSON().readFeatures(parcels)
   const parcelSource = new VectorSource({ features })
   const layers = buildMapLayers(parcelSource, apiKey)

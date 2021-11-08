@@ -53,100 +53,152 @@
       {% endif %}
 
       <div class="govuk-form-group">
-        <label class="govuk-label" for="sort">Change view</label>
-        <select class="govuk-select" id="layer-select" name="layer-select">
-          <option value="Road_27700" selected>Road</option>
-          <option value="Outdoor_27700">Outdoor</option>
-          <option value="Light_27700">Light</option>
-          <option value="Leisure_27700">Leisure</option>
-        </select>
-      </div>  
-      <div class="mapContainer">
-        <p class="govuk-body"><div id="map" class="map"></div></p>
-        <p id="parcelInfo" class="govuk-body parcelnfo"></p>
-        <p id="totalHa" class="govuk-body totalHa"></p>
-      </div>
-      <div class="govuk-hint">
-        Choose the land parcels you want to use and add the number of hectares. You cannot use land designated as SSSI or peat.
-      </div>
-      {% if model.invalidValues %}
-        {{ govukErrorSummary({
-          titleText: "There is a problem",
-          errorList: [
-            {
-              text: "Please enter valid values"
-            }
-          ]
-        }) }}
-      {% endif %}
-
-      {% if model.error %}
-        <span id="parcels-error" class="govuk-error-message">
-          <span class="govuk-visually-hidden">Error:</span> Please select a parcel
-        </span>
-      {% endif %}
-
-      {% if model.checkboxItems.length > 0 %}
-        <div class="govuk-checkboxes" data-module="govuk-checkboxes">
-          {% for item in model.checkboxItems %}
-            <div class="govuk-checkboxes__item">
-            {% if item.checked %}
-              <input class="govuk-checkboxes__input" id="{{ item.value }}" name="parcels" type="checkbox" value="{{ item.value }}" data-aria-controls="conditional_{{ item.value }}" checked>
-            {% else %}
-              <input class="govuk-checkboxes__input" id="{{ item.value }}" name="parcels" type="checkbox" value="{{ item.value }}" data-aria-controls="conditional_{{ item.value }}">
-            {% endif %}
-              <label class="govuk-label govuk-checkboxes__label" for="{{ item.value }}">
-                {{ item.text}}
-              </label>
-              <div id="parcel-item-hint" class="govuk-hint govuk-checkboxes__hint">
-                {{ item.hint.text }}
+      <div class="govuk-tabs" data-module="govuk-tabs">
+        <h2 class="govuk-tabs__title">
+          Contents
+        </h2>
+        <ul class="govuk-tabs__list">
+          <li class="govuk-tabs__list-item govuk-tabs__list-item--selected">
+            <a class="govuk-tabs__tab" href="#map-view">
+              Map view
+            </a>
+          </li>
+          <li class="govuk-tabs__list-item">
+            <a class="govuk-tabs__tab" href="#list-view">
+              List view
+            </a>
+          </li>
+        </ul>
+        <div class="govuk-tabs__panel" id="map-view">
+          <label class="govuk-label" for="sort">Change view</label>
+          <select class="govuk-select" id="layer-select" name="layer-select">
+            <option value="Road_27700" selected>Road</option>
+            <option value="Outdoor_27700">Outdoor</option>
+            <option value="Light_27700">Light</option>
+            <option value="Leisure_27700">Leisure</option>
+          </select>
+          <div class="mapContainer">
+            <p class="govuk-body"><div id="map" class="map"></div></p>
+            <p id="parcelInfo" class="govuk-body parcelnfo"></p>
+          </div>
+          <div id="key">
+            <p>
+              <h3 class="govuk-heading-s">Key</h3>
+              <div class="mapKey">
+                <ul>
+                    <li><span class="aribleLand"></span> Arable Land</li>
+                    <li><span class="permanentGrassland"></span> Permanent grassland</li>
+                    <li><span class="selectedParcel"></span> Selected parcel</li>
+                </ul>
               </div>
-              <div class="govuk-checkboxes__conditional govuk-checkboxes__conditional--hidden">
-                <div class="govuk-form-group">
-                  <label class="govuk-label" for="hectares_{{ item.value }}">
-                    Hectares to use in this land parcel
-                  </label>                     
-                    <input class="govuk-input govuk-!-width-one-third" id="parcelArea_{{ item.value }}" name="parcelArea_{{ item.value }}" value="{{ item.textBoxValue }}" type="text" spellcheck="false" autocomplete="false">                      
-                </div>
-              </div>
-              {% if item.warnings.length > 0 %}
-                <div class="govuk-warning-text">
-                {% for warning in item.warnings %}
-                  {% if warning.SSSI === true %}
-                    <p>
-                      <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
-                      <strong class="govuk-warning-text__text">
-                      <span class="govuk-warning-text__assistive">Warning</span>
-                        Potential SSSI conflict
-                      </strong>
-                    </p>
-                  {% endif %}
-                  {% if warning.HEFER === true %}
-                    <p>
-                      <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
-                      <strong class="govuk-warning-text__text">
-                      <span class="govuk-warning-text__assistive">Warning</span>
-                        Potential HEFER conflict
-                      </strong>
-                    </p>
-                  {% endif %}
-                  {% if warning.SFI === true %}
-                    <p>
-                      <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
-                      <strong class="govuk-warning-text__text">
-                        <span class="govuk-warning-text__assistive">Warning</span>
-                        Potential SFI conflict
-                      </strong>
-                    </p>
-                  {% endif %}
-                {% endfor %}
-                </div>
-              {% endif %}
-            </div>
-          {% endfor %}
+            </p>
+          </div>
+          <hr />
+          <div id="landDetails">
+            <h3 class="govuk-heading-s">Land selected</h3>
+            <table class="govuk-table">
+              <thead class="govuk-table__head">
+                <tr class="govuk-table__row">
+                  <th scope="col" class="govuk-table__header">Parcels</th>
+                  <th scope="col" class="govuk-table__header">Permanent grassland</th>
+                  <th scope="col" class="govuk-table__header">Arable land</th>
+                  <th scope="col" class="govuk-table__header">Total land</th>
+                </tr>
+              </thead>
+              <tbody class="govuk-table__body">
+                <tr class="govuk-table__row">
+                  <th id="numberOfSelectedParcels" scope="row" class="govuk-table__header">2</th>
+                  <th id="totalPermanentGrasslandHa" scope="row" class="govuk-table__header">3.5 ha</th>
+                  <th id="totalArableLandHa" scope="row" class="govuk-table__header">3 ha</th>
+                  <th id="totalHa" scope="row" class="govuk-table__header">6.5 ha</th>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
-      {% endif %}
-      <br>
+        <div class="govuk-tabs__panel govuk-tabs__panel--hidden" id="list-view">
+          <div class="govuk-hint">
+            Choose the land parcels you want to use and add the number of hectares. You cannot use land designated as SSSI or peat.
+          </div>
+          {% if model.invalidValues %}
+            {{ govukErrorSummary({
+              titleText: "There is a problem",
+              errorList: [
+                {
+                  text: "Please enter valid values"
+                }
+              ]
+            }) }}
+          {% endif %}
+
+          {% if model.error %}
+            <span id="parcels-error" class="govuk-error-message">
+              <span class="govuk-visually-hidden">Error:</span> Please select a parcel
+            </span>
+          {% endif %}
+
+          {% if model.checkboxItems.length > 0 %}
+            <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+              {% for item in model.checkboxItems %}
+                <div class="govuk-checkboxes__item">
+                {% if item.checked %}
+                  <input class="govuk-checkboxes__input" id="{{ item.value }}" name="parcels" type="checkbox" value="{{ item.value }}" data-aria-controls="conditional_{{ item.value }}" checked>
+                {% else %}
+                  <input class="govuk-checkboxes__input" id="{{ item.value }}" name="parcels" type="checkbox" value="{{ item.value }}" data-aria-controls="conditional_{{ item.value }}">
+                {% endif %}
+                  <label class="govuk-label govuk-checkboxes__label" for="{{ item.value }}">
+                    {{ item.text}}
+                  </label>
+                  <div id="parcel-item-hint" class="govuk-hint govuk-checkboxes__hint">
+                    {{ item.hint.text }}
+                  </div>
+                  <div class="govuk-checkboxes__conditional govuk-checkboxes__conditional--hidden">
+                    <div class="govuk-form-group">
+                      <label class="govuk-label" for="hectares_{{ item.value }}">
+                        Hectares to use in this land parcel
+                      </label>                     
+                        <input class="govuk-input govuk-!-width-one-third" id="parcelArea_{{ item.value }}" name="parcelArea_{{ item.value }}" value="{{ item.textBoxValue }}" type="text" spellcheck="false" autocomplete="false">                      
+                    </div>
+                  </div>
+                  {% if item.warnings.length > 0 %}
+                    <div class="govuk-warning-text">
+                    {% for warning in item.warnings %}
+                      {% if warning.SSSI === true %}
+                        <p>
+                          <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+                          <strong class="govuk-warning-text__text">
+                          <span class="govuk-warning-text__assistive">Warning</span>
+                            Potential SSSI conflict
+                          </strong>
+                        </p>
+                      {% endif %}
+                      {% if warning.HEFER === true %}
+                        <p>
+                          <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+                          <strong class="govuk-warning-text__text">
+                          <span class="govuk-warning-text__assistive">Warning</span>
+                            Potential HEFER conflict
+                          </strong>
+                        </p>
+                      {% endif %}
+                      {% if warning.SFI === true %}
+                        <p>
+                          <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+                          <strong class="govuk-warning-text__text">
+                            <span class="govuk-warning-text__assistive">Warning</span>
+                            Potential SFI conflict
+                          </strong>
+                        </p>
+                      {% endif %}
+                    {% endfor %}
+                    </div>
+                  {% endif %}
+                </div>
+              {% endfor %}
+            </div>
+          {% endif %}
+        </div>
+      </div>
       {{ govukButton({
           text: "Continue",
           attributes: {

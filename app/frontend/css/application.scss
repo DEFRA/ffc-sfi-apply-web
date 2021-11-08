@@ -100,7 +100,7 @@ $govuk-assets-path: "~govuk-frontend/govuk/assets/";
   padding: 5px; 
   margin: 5px; 
   width: 250px; 
-  height: 50px;
+  height: 80px;
 }
 
 .totalHa {
@@ -120,6 +120,31 @@ $govuk-assets-path: "~govuk-frontend/govuk/assets/";
   width: 100%;
   margin-bottom: 10px;
 }
+
+.mapKey {
+  @extend %govuk-body-m;
+  height: 50px;
+}
+
+.mapKey ul { 
+  list-style: none;
+}
+.mapKey li { 
+  float: left; 
+  margin-right: 10px; 
+}
+
+.mapKey span { 
+  border: 2px solid #ccc; 
+  float: left; 
+  width: 15px; 
+  height: 15px; 
+  margin: 2px; 
+}
+
+.mapKey .aribleLand { background-color: rgb(255, 236, 176) }
+.mapKey .permanentGrassland { background-color: rgba(136, 206, 102) }
+.mapKey .selectedParcel { background-color: rgba(141,160,203, 0.5) }
 
 .grayscale-invert {
   filter: grayscale(80%) invert(0);
