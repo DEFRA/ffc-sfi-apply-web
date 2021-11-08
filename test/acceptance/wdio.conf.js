@@ -19,6 +19,7 @@ exports.config = {
   capabilities: [
     {
       maxInstances,
+      pageLoadStrategy: 'none',
       acceptInsecureCerts: true,
       browserName: 'chrome',
       'browserstack.local': true,
