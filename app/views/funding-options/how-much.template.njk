@@ -83,6 +83,32 @@
         </span>
       {% endif %}
 
+      {% if model.selectAllCheckBoxItem.length > 0 %}
+        <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+          {% for item in model.selectAllCheckBoxItem %}
+            <div class="govuk-checkboxes__item">
+            {% if item.checked %}
+              <input class="govuk-checkboxes__input" id="{{ item.value }}" name="parcels" type="checkbox" value="{{ item.value }}" data-aria-controls="conditional_{{ item.value }}" checked>
+            {% else %}
+              <input class="govuk-checkboxes__input" id="{{ item.value }}" name="parcels" type="checkbox" value="{{ item.value }}" data-aria-controls="conditional_{{ item.value }}">
+            {% endif %}
+              <label class="govuk-label govuk-checkboxes__label" for="{{ item.value }}">
+                {{ item.text}}
+              </label>
+              <div id="parcel-item-hint" class="govuk-hint govuk-checkboxes__hint">
+                {{ item.hint.text }}
+              </div>
+              <div class="govuk-checkboxes__conditional govuk-checkboxes__conditional--hidden">
+                <div class="govuk-form-group">
+                  <label class="govuk-label" for="hectares_{{ item.value }}">
+                    Hectares to use in this land parcel
+                  </label>                     
+                    <input class="govuk-input govuk-!-width-one-third" name="parcelArea_{{ item.value }}" value="{{ item.textBoxValue }}" type="text" spellcheck="false" autocomplete="false">                      
+                </div>
+              </div>
+          {% endfor %}
+        </div>
+      {% endif %}
       {% if model.checkboxItems.length > 0 %}
         <div class="govuk-checkboxes" data-module="govuk-checkboxes">
           {% for item in model.checkboxItems %}
