@@ -12,7 +12,7 @@ exports.config = {
   hostname: 'hub-cloud.browserstack.com',
   user,
   key,
-  specs: ['./features/**/*.feature'],
+  specs: ['./features/**/happy-path.feature'],
   exclude: ['./scratch/**'],
 
   maxInstances,
@@ -28,16 +28,16 @@ exports.config = {
       'goog:chromeOptions': {
         args: chromeArgs
       }
-    },
-    {
-      os: 'Windows',
-      osVersion: '10',
-      browserName: 'Firefox',
-      browserVersion: 'latest',
-      'browserstack.local': true,
-      acceptInsecureCerts: true,
-      acceptSslCerts: true
-    },
+      // },
+      // {
+      //   os: 'Windows',
+      //   osVersion: '10',
+      //   browserName: 'Firefox',
+      //   browserVersion: 'latest',
+      //   'browserstack.local': true,
+      //   acceptInsecureCerts: true,
+      //   acceptSslCerts: true
+    }
 
     // {
     //   os: 'OS X',
@@ -85,7 +85,7 @@ exports.config = {
   connectionRetryCount: 1,
   services: ['browserstack'],
   framework: 'cucumber',
-  specFileRetries: 2,
+  specFileRetries: 0,
   specFileRetriesDelay: 30,
   reporters: ['spec',
     [HtmlReporter, {
