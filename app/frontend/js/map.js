@@ -97,7 +97,7 @@ const selectLayer = (map) => {
     const parcelCheckBox = document.getElementById(parcelId)
     parcelCheckBox.checked = !parcelCheckBox.checked
 
-    document.getElementById('numberOfSelectedParcels').innerHTML = document.querySelectorAll('input[type="checkbox"]:checked').length
+    document.getElementById('numberOfSelectedParcels').innerHTML = document.querySelectorAll('input[name="parcels"]:checked').length
   })
 
   map.addInteraction(selectClick)
@@ -145,15 +145,38 @@ const convertToParcelSheetId = (parcelId) => {
   return parcelId.match(/(.{1,6})/g)
 }
 
+const selectAllChecked = (selectAll) => {
+  const parcels = document.querySelectorAll('input[name="parcels"]').length
+  const selectedParcels = document.querySelectorAll('input[name="parcels"]:checked').length
+  selectAll.checked = parcels === selectedParcels
+}
+
+const selectAllParcels = (selectfeatures, parcelSource) => {
+  const selectAll = document.getElementById('selectAllParcels')
+  selectAllChecked(selectAll)
+
+  selectAll.addEventListener('change', () => {
+    const checkBoxes = document.getElementsByClassName('govuk-checkboxes__input')
+    for (const checkbox of checkBoxes) {
+      checkbox.checked = selectAll.checked
+      addToSelectFeatures(selectfeatures, parcelSource, checkbox, checkbox.id)
+    }
+  })
+}
+
+const addToSelectFeatures = (selectfeatures, parcelSource, target, id) => {
+  const parcelId = convertToParcelSheetId(target.id)
+  const parcelFeatures = parcelSource.getFeatures()
+  for (const feature of parcelFeatures) {
+    if (feature.get('parcel_id') === parcelId[1] && feature.get('sheet_id') === parcelId[0]) {
+      target.checked ? selectfeatures.push(feature) : selectfeatures.remove(feature)
+    }
+  }
+}
+
 const addCheckboxEventListener = (checkbox, selectfeatures, parcelSource) => {
   checkbox.addEventListener('change', (e) => {
-    const parcelId = convertToParcelSheetId(checkbox.id)
-    const parcelFeatures = parcelSource.getFeatures()
-    for (const feature of parcelFeatures) {
-      if (feature.get('parcel_id') === parcelId[1] && feature.get('sheet_id') === parcelId[0]) {
-        e.target.checked ? selectfeatures.push(feature) : selectfeatures.remove(feature)
-      }
-    }
+    addToSelectFeatures(selectfeatures, parcelSource, e.target, e.target.id)
   })
 }
 
@@ -171,6 +194,7 @@ const parcelSelection = (map, allowSelect, selectedParcels, parcelSource) => {
     checkBoxSelection(parcelSource, selectfeatures)
     selectPointerMove(map)
     preParcelSelection(selectedParcels, parcelSource, selectfeatures)
+    selectAllParcels(selectfeatures, parcelSource)
   }
 }
 
