@@ -107,39 +107,37 @@ const convertToParcelSheetId = (parcelId) => {
   return parcelId.match(/(.{1,6})/g)
 }
 
-
 const addCheckboxEventListener = (checkbox, selectfeatures, parcelSource) => {
   checkbox.addEventListener('change', (e) => {
     const parcelFeatures = parcelSource.getFeatures()
-    if (checkbox.id === `SelectAll`) {
-      checkall(e,selectfeatures, parcelFeatures)
-    } else  {
+    if (checkbox.id === 'SelectAll') {
+      checkall(e, selectfeatures, parcelFeatures)
+    } else {
       checkSingleParcel(e, checkbox.id, parcelFeatures, selectfeatures)
     }
   })
 }
 
-const checkall = (e,selectfeatures, parcelFeatures) => {
+const checkall = (e, selectfeatures, parcelFeatures) => {
   for (const feature of parcelFeatures) {
     e.target.checked ? selectfeatures.push(feature) : selectfeatures.remove(feature)
   }
   const checkBoxes = document.getElementsByClassName('govuk-checkboxes__input')
-  const selectAllParcelCheckBox = document.getElementById(`SelectAll`)
+  const selectAllParcelCheckBox = document.getElementById('SelectAll')
   for (const checkbox of checkBoxes) {
     const parcelCheckBox = document.getElementById(checkbox.id)
     parcelCheckBox.checked = selectAllParcelCheckBox.checked
-  }  
+  }
 }
 
-const checkSingleParcel = (e, checkbox_id, parcelFeatures, selectfeatures) => {
-  const parcelId = convertToParcelSheetId(checkbox_id)
+const checkSingleParcel = (e, checkboxId, parcelFeatures, selectfeatures) => {
+  const parcelId = convertToParcelSheetId(checkboxId)
   for (const feature of parcelFeatures) {
     if (feature.get('parcel_id') === parcelId[1] && feature.get('sheet_id') === parcelId[0]) {
       e.target.checked ? selectfeatures.push(feature) : selectfeatures.remove(feature)
     }
   }
 }
-
 
 const checkBoxSelection = (parcelSource, selectfeatures) => {
   const checkBoxes = document.getElementsByClassName('govuk-checkboxes__input')

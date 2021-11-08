@@ -14,7 +14,7 @@ function ViewModel (applyJourney, parcelStandards, payload) {
     error,
     invalidValues,
     checkboxItems: items.checkboxItems,
-    selectAllCheckBoxItem:items.selectAllCheckBoxItem,
+    selectAllCheckBoxItem: items.selectAllCheckBoxItem,
     totalHa: items.totalHa,
     selectedStandardCode: selectedStandard.code,
     selectedParcels: selectedParcels ?? [],
@@ -39,8 +39,8 @@ const groupParcels = (parcelStandards) => {
 
 const getLandInHectares = (payload, parcels) => {
   if (payload.parcels) {
-    let removeSlectall = `SelectAll`
-    payload.parcels  = payload.parcels.filter(item => item !== removeSlectall)
+    const removeSlectall = 'SelectAll'
+    payload.parcels = payload.parcels.filter(item => item !== removeSlectall)
   }
   const data = Object.entries(payload).map(entry => {
     const [name, value] = entry
@@ -78,19 +78,19 @@ const getAllItems = (selectedStandard, selectedParcels) => {
         ? selectedParcels.find(item => item.id === x.id).value
         : Number(x.area).toFixed(2),
       warnings: []
-    } 
+    }
   ))
 
-  const selectAllCheckBoxItem  =  [{
-    "text": "Select All",
-    "value": "SelectAll",
-    "hint": {
-      "text": "",
+  const selectAllCheckBoxItem = [{
+    text: 'Select All',
+    value: 'SelectAll',
+    hint: {
+      text: ''
     },
-    "checked": isSelectAllCheckBoxChecked(checkboxItems),
-    "textBoxValue": "Select All",
-    "warnings": [
-    ],
+    checked: isSelectAllCheckBoxChecked(checkboxItems),
+    textBoxValue: 'Select All',
+    warnings: [
+    ]
   }]
 
   const totalHa = convertToDecimal(parcels?.reduce((acc, cur) => acc + convertToInteger(cur.area), 0))
@@ -107,10 +107,9 @@ const isChecked = (selectedParcels, value) => {
   return false
 }
 
-const  isSelectAllCheckBoxChecked = (checkboxItems) => {
-  for(const checkbox of checkboxItems) {
-    if(!checkbox.checked)
-      return false
+const isSelectAllCheckBoxChecked = (checkboxItems) => {
+  for (const checkbox of checkboxItems) {
+    if (!checkbox.checked) { return false }
   }
   return true
 }
