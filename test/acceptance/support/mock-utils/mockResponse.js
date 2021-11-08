@@ -55,23 +55,24 @@ async function mockWhichBusiness () {
  * @param  {string}  responseType  The type of response to mock
  */
 export default async responseType => {
-  // TODO: Check this is running in the PR environment. If not, no need to run
-  // it. Potentially the check could be done within one of the hooks, setting a
-  // flag to be referenced in steps.
-  console.log('mocking responseType', responseType)
-
-  switch (responseType) {
-    case 'what-funding':
-      await mockWhatFunding()
-      break
-    case 'what-payment-level':
-      await mockWhatPaymentLevel()
-      break
-    case 'which-business':
-      await mockWhichBusiness()
-      break
-    default:
-      console.error('Trying to mock an unmocked action', responseType)
-      break
+  // NOTE: IS_PR is set within the hooks based on any PRs being open for the branch
+  if (process.env.IS_PR) {
+    console.log(`PR environment found. Mocking is active. Mocking responseType:`, responseType)
+    switch (responseType) {
+      case 'what-funding':
+        await mockWhatFunding()
+        break
+      case 'what-payment-level':
+        await mockWhatPaymentLevel()
+        break
+      case 'which-business':
+        await mockWhichBusiness()
+        break
+      default:
+        console.error('Trying to mock an unmocked action', responseType)
+        break
+    }
+  } else {
+    console.log('PR environment not found. Mocking is not active.')
   }
 }
