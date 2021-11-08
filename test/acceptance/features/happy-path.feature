@@ -14,7 +14,8 @@ Feature: Apply for land funding
         And I clear the inputfield "#password"
         And I add "kdaihsra" to the inputfield "#password"
         And I click on the element "#submit"
-        And I pause for 500ms
+        Then I mock the response for "which-business"
+        When I pause for 500ms
         Then I expect that the url contains "/which-business"
         When I click on the element "#sbi"
         And I click on the element "#submit"
@@ -30,8 +31,9 @@ Feature: Apply for land funding
         Then I expect that the url contains "/application-task-list"
         And I pause for 500ms
         When I click on the link "Choose funding option"
+        Then I mock the response for "what-funding"
         #When I click on the element "//a[contains(@href,'/funding-options/what-funding')]"
-        And I pause for 500ms
+        When I pause for 500ms
         Then I expect that the url contains "/what-funding"
         When I click on the soil type
         And I click on the element "#submit"
@@ -40,7 +42,8 @@ Feature: Apply for land funding
         Then I expect that the url contains "/how-much"
         When I click on the element "#SJ64706324"
         And I click on the element "#submit"
-        Then I expect that the url contains "/what-payment-level"
+        Then I mock the response for "what-payment-level"
+        And I expect that the url contains "/what-payment-level"
         When I click on the element "#level"
         And I click on the element "#submit"
         Then I expect that the url contains "/application-task-list"

@@ -30,6 +30,7 @@ import waitFor from '../support/action/waitFor'
 import waitForVisible from '../support/action/waitForDisplayed'
 import checkIfElementExists from '../support/lib/checkIfElementExists'
 import checkURLContains from '../support/check/checkURLContains'
+import mockResponse from '../support/mock-utils/mockResponse'
 
 const { Then } = require('cucumber')
 
@@ -196,4 +197,9 @@ Then(
 Then(
   /^I expect that a (alertbox|confirmbox|prompt)( not)* contains the text "([^"]*)?"$/,
   checkModalText
+)
+
+Then(
+  /^I mock the response for "([^"]*)?"$/,
+  mockResponse
 )
