@@ -37,6 +37,8 @@ const groupParcels = (parcelStandards) => {
 }
 
 const getLandInHectares = (payload, parcels) => {
+  let removeSlectall = "SelectAll"
+  payload.parcels  = payload.parcels.filter(item => item !== removeSlectall)
   const data = Object.entries(payload).map(entry => {
     const [name, value] = entry
     const [, parcelId] = name.split('_')
@@ -73,8 +75,20 @@ const getAllItems = (selectedStandard, selectedParcels) => {
         ? selectedParcels.find(item => item.id === x.id).value
         : Number(x.area).toFixed(2),
       warnings: []
-    }
+    } 
   ))
+  const NewCheckBoxItem  =  {
+    "text": "Select All",
+    "value": "SelectAll",
+    "hint": {
+      "text": "Select All Parcles",
+    },
+    "checked": isSelectAllCheckBoxChecked(checkboxItems),
+    "textBoxValue": "Select All",
+    "warnings": [
+    ],
+  }
+  checkboxItems.unshift(NewCheckBoxItem);
 
   const totalHa = convertToDecimal(parcels?.reduce((acc, cur) => acc + convertToInteger(cur.area), 0))
 
@@ -88,6 +102,14 @@ const isChecked = (selectedParcels, value) => {
     })
   }
   return false
+}
+
+const  isSelectAllCheckBoxChecked = (checkboxItems) => {
+  for(const checkbox of checkboxItems) {
+    if(!checkbox.checked)
+      return false
+  }
+  return true
 }
 
 module.exports = ViewModel

@@ -84,7 +84,6 @@ const selectLayer = (map) => {
   })
 
   map.addInteraction(selectClick)
-
   return selectClick
 }
 
@@ -110,11 +109,24 @@ const convertToParcelSheetId = (parcelId) => {
 
 const addCheckboxEventListener = (checkbox, selectfeatures, parcelSource) => {
   checkbox.addEventListener('change', (e) => {
-    const parcelId = convertToParcelSheetId(checkbox.id)
+    //console.info('Parcel parcelSource', checkbox.id)
     const parcelFeatures = parcelSource.getFeatures()
-    for (const feature of parcelFeatures) {
-      if (feature.get('parcel_id') === parcelId[1] && feature.get('sheet_id') === parcelId[0]) {
+    if(checkbox.id === "SelectAll") {
+      for (const feature of parcelFeatures) {
         e.target.checked ? selectfeatures.push(feature) : selectfeatures.remove(feature)
+      }
+      const checkBoxes = document.getElementsByClassName('govuk-checkboxes__input')
+      const selectAllParcelCheckBox = document.getElementById("SelectAll")
+      for (const checkbox of checkBoxes) {
+        const parcelCheckBox = document.getElementById(checkbox.id)
+        parcelCheckBox.checked = selectAllParcelCheckBox.checked
+      }
+    } else  {
+      const parcelId = convertToParcelSheetId(checkbox.id)
+      for (const feature of parcelFeatures) {
+        if (feature.get('parcel_id') === parcelId[1] && feature.get('sheet_id') === parcelId[0]) {
+          e.target.checked ? selectfeatures.push(feature) : selectfeatures.remove(feature)
+        }
       }
     }
   })
