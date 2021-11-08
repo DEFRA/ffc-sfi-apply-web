@@ -1,5 +1,5 @@
 import mockResponseMessage from './mockResponseMessage'
-import subscriptionConfig from './mqConfig'
+import { subscriptionConfig } from './mqConfig'
 
 const standardsBody = require('../data/standards.json')
 

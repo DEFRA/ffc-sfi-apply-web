@@ -1,4 +1,4 @@
-import mqConfig from './mqConfig'
+import { mqConfig } from './mqConfig'
 import sendMessage from './sendMessage'
 
 const { MessageReceiver } = require('ffc-messaging')
