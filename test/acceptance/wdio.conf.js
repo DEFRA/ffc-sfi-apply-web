@@ -119,24 +119,6 @@ exports.config = {
   // Hooks
   // =====
   onPrepare: async function (config, capabilities) {
-    // get branch name
-    const ghOrg = 'DEFRA'
-    // const branch = await exec('git rev-parse --abbrev-ref HEAD')
-    const branch = process.env.BRANCH
-    console.log('***********BRANCH', branch)
-    const prBuild = process.env.PR_BUILD
-    console.log('PR_BUILD', prBuild)
-    if (prBuild) {
-      console.log('PR BUILD found')
-    }
-    console.log('REQUESTING', `https://api.github.com/repos/${ghOrg}/${repo}/pulls?head=${ghOrg}:${branch}`)
-    const response = await fetch(`https://api.github.com/repos/${ghOrg}/${repo}/pulls?head=${ghOrg}:${branch}`)
-    const data = await response.json()
-    console.log(data)
-    if (data.length) {
-      process.env.IS_PR = true
-    }
-
     const reportAggregator = new ReportAggregator({
       outputDir: './html-reports/',
       filename: 'acceptance-test-suite-report.html',

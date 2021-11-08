@@ -55,8 +55,8 @@ async function mockWhichBusiness () {
  * @param  {string}  responseType  The type of response to mock
  */
 export default async responseType => {
-  // NOTE: IS_PR is set within the hooks based on any PRs being open for the branch
-  if (process.env.IS_PR) {
+  // NOTE: PR_BUILD is set within the build pipeline for PR builds
+  if (process.env.PR_BUILD) {
     console.log(`PR environment found. Mocking is active. Mocking responseType:`, responseType)
     switch (responseType) {
       case 'what-funding':
