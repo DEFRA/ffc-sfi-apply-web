@@ -80,15 +80,17 @@
           <div class="mapContainer">
             <p class="govuk-body"><div id="map" class="map"></div></p>
             <p id="parcelInfo" class="govuk-body parcelnfo"></p>
+            <div id="map2" class="map2"></div>
           </div>
           <div id="key">
             <p>
               <h3 class="govuk-heading-s">Key</h3>
               <div class="mapKey">
                 <ul>
-                    <li><span class="aribleLand"></span> Arable Land</li>
-                    <li><span class="permanentGrassland"></span> Permanent grassland</li>
-                    <li><span class="selectedParcel"></span> Selected parcel</li>
+                    <li><span class="bpsIneligibleFeature"></span> BPS ineligible feature</li>
+                    <li><span class="arableLand"></span> Arable land</li>
+                    <li><span class="permanentGrassLand"></span> Permanent grassLand</li>
+                    <li><span class="permanentCrops"></span> Permanent crops</li>
                 </ul>
               </div>
             </p>
@@ -146,6 +148,7 @@
                 </label>
               </div>
             </div>
+            <br />
             <div class="govuk-checkboxes" data-module="govuk-checkboxes">
               {% for item in model.checkboxItems %}
                 <div class="govuk-checkboxes__item">

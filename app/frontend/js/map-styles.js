@@ -5,14 +5,14 @@ const landCoverStyles = [{
   Code: '000',
   Polygon: new Style({
     stroke: new Stroke({
-      color: 'green',
+      color: 'black',
       width: 1
     }),
     fill: new Fill({
       color: 'rgba(168, 111, 0)'
     }),
     text: new Text({
-      font: '6px Verdana',
+      font: '10px Verdana',
       fill: new Fill({ color: 'black' }),
       stroke: new Stroke({ color: 'black', width: 0.1 })
     })
@@ -23,14 +23,14 @@ const landCoverStyles = [{
   Code: '110',
   Polygon: new Style({
     stroke: new Stroke({
-      color: 'red',
+      color: 'black',
       width: 1
     }),
     fill: new Fill({
       color: 'rgb(255, 236, 176)'
     }),
     text: new Text({
-      font: '6px Verdana',
+      font: '10px Verdana',
       fill: new Fill({ color: 'black' }),
       stroke: new Stroke({ color: 'black', width: 0.1 })
     })
@@ -41,14 +41,14 @@ const landCoverStyles = [{
   Code: '130',
   Polygon: new Style({
     stroke: new Stroke({
-      color: 'green',
+      color: 'black',
       width: 1
     }),
     fill: new Fill({
       color: 'rgba(136, 206, 102)'
     }),
     text: new Text({
-      font: '6px Verdana',
+      font: '10px Verdana',
       fill: new Fill({ color: 'black' }),
       stroke: new Stroke({ color: 'black', width: 0.1 })
     })
@@ -59,14 +59,14 @@ const landCoverStyles = [{
   Code: '131',
   Polygon: new Style({
     stroke: new Stroke({
-      color: 'green',
+      color: 'black',
       width: 1
     }),
     fill: new Fill({
       color: 'rgba(136, 206, 102)'
     }),
     text: new Text({
-      font: '6px Verdana',
+      font: '10px Verdana',
       fill: new Fill({ color: 'black' }),
       stroke: new Stroke({ color: 'black', width: 0.1 })
     })
@@ -77,14 +77,14 @@ const landCoverStyles = [{
   Code: '140',
   Polygon: new Style({
     stroke: new Stroke({
-      color: 'green',
+      color: 'black',
       width: 1
     }),
     fill: new Fill({
       color: 'rgba(30, 130, 76, 1)'
     }),
     text: new Text({
-      font: '6px Verdana',
+      font: '10px Verdana',
       fill: new Fill({ color: 'black' }),
       stroke: new Stroke({ color: 'black', width: 0.1 })
     })

@@ -1,6 +1,6 @@
 const cache = require('../../cache')
 const { getLandCovers } = require('../../api/crown-hosting/land-cover')
-const getMapParcels = require('../../map')
+const { getMapParcels } = require('../../parcels')
 
 module.exports = [
   {

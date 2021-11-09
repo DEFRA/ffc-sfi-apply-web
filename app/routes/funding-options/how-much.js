@@ -1,8 +1,7 @@
 const cache = require('../../cache')
 const joi = require('joi')
 const ViewModel = require('./models/how-much')
-const getMapParcels = require('../../map')
-const { getParcelStandards } = require('../../parcels')
+const { getParcelStandards, getMapParcels, getParcelCovers } = require('../../parcels')
 const { downloadParcelStandardFile } = require('../../storage')
 
 module.exports = [
@@ -10,11 +9,24 @@ module.exports = [
     method: 'GET',
     path: '/funding-options/how-much',
     handler: async (request, h) => {
-      const { parcelStandards, applyJourney } = await getParcelStandards(request)
-      const selectedParcelStandard = await downloadParcelStandardFile(parcelStandards.filename)
+      let applyJourney = await cache.get('apply-journey', request.yar.id)
+      let selectedParcelStandard = applyJourney?.selectedParcelStandard
+      let mapParcels = applyJourney?.mapParcels
+
+      if (!selectedParcelStandard) {
+        const { parcelStandards } = await getParcelStandards(request)
+        selectedParcelStandard = await downloadParcelStandardFile(parcelStandards.filename)
+        applyJourney = await cache.update('apply-journey', request.yar.id, { selectedParcelStandard })
+      }
+
       const viewModel = new ViewModel(applyJourney, selectedParcelStandard)
-      const mapParcels = await getMapParcels(request)
+
+      if (!mapParcels) {
+        mapParcels = await getMapParcels(request)
+        await cache.update('apply-journey', request.yar.id, { mapParcels })
+      }
       viewModel.map = mapParcels
+
       return h.view('funding-options/how-much', viewModel)
     }
   },

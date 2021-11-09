@@ -8,8 +8,7 @@ import Select from 'ol/interaction/Select'
 import { click, pointerMove } from 'ol/events/condition'
 import TileGrid from 'ol/tilegrid/TileGrid'
 import { landParcelStyles, landCoverStyles, highlightStyle, selectedStyle } from './map-styles'
-
-let totalHa = 0
+import { initiateMap, addParcel } from './map-static'
 
 const styleFunction = (feature) => {
   const label = `${feature.get('sheet_id')} ${feature.get('parcel_id')}`
@@ -70,34 +69,55 @@ const buildMapLayers = (parcelSource, apiKey) => {
   return layers
 }
 
-const selectLayer = (map) => {
+const getParcelCovers = (sbi, sheetId, parcelId) => {
+  const request = new XMLHttpRequest()
+  request.open('GET', `/parcel?sbi=${sbi}&sheetId=${sheetId}&parcelId=${parcelId}`, true)
+  request.send()
+  request.onload = () => {
+    const response = JSON.parse(request.response)
+
+    let landCover = ''
+
+    for (const cover of response.covers) {
+      landCover += `${cover.description}<br />${cover.area_ha.toFixed(4)}ha<br />`
+    }
+
+    document.getElementById('map2').style.display = 'block'
+    document.getElementById('parcelInfo').style.display = 'block'
+
+    addParcel(response.parcels)
+
+    document.getElementById('parcelInfo').innerHTML =
+          `<strong>${response.sheetId}${response.parcelId}</strong>
+          <br />
+          Total Area: ${response.totalArea.toFixed(4)}ha
+          <br />
+          <br />
+          ${landCover}
+          <a id="selectParcelLink" class="govuk-link" href="#" style="margin-top:10px;">Add this parcel</a>`
+  }
+}
+
+const resetSelectAll = () => {
+  const selectAll = document.getElementById('selectAllParcels')
+  selectAll.checked = false
+}
+
+const selectLayer = (map, sbi) => {
   const selectClick = new Select({
-    condition: click,
     toggleCondition: click,
     style: selectedStyle
   })
 
   selectClick.on('select', function (e) {
-    document.getElementById('landDetails').style.display = 'block'
-
-    const parcelId = e.selected.length
-      ? `${e.selected[0].values_.sheet_id}${e.selected[0].values_.parcel_id}`
-      : `${e.deselected[0].values_.sheet_id}${e.deselected[0].values_.parcel_id}`
-
-    const areaHa = document.getElementById(`parcelArea_${parcelId}`).value
-
-    e.selected.length
-      ? totalHa += parseFloat(areaHa)
-      : totalHa -= parseFloat(areaHa)
-
-    document.getElementById('totalPermanentGrasslandHa').innerHTML = `${totalHa.toFixed(2)} ha`
-    document.getElementById('totalArableLandHa').innerHTML = `${totalHa.toFixed(2)} ha`
-    document.getElementById('totalHa').innerHTML = `${totalHa.toFixed(2)} ha`
-
-    const parcelCheckBox = document.getElementById(parcelId)
-    parcelCheckBox.checked = !parcelCheckBox.checked
-
-    document.getElementById('numberOfSelectedParcels').innerHTML = document.querySelectorAll('input[name="parcels"]:checked').length
+    if (e.selected.length) {
+      const parcelId = `${e.selected[0].values_.sheet_id}${e.selected[0].values_.parcel_id}`
+      const parcelArea = document.getElementById(`parcelArea_${parcelId}`)
+      if (parcelArea) {
+        addSelectButtonEventListener()
+        getParcelCovers(sbi, e.selected[0].values_.sheet_id, e.selected[0].values_.parcel_id)
+      }
+    }
   })
 
   map.addInteraction(selectClick)
@@ -121,21 +141,6 @@ const selectPointerMove = (map) => {
   })
 
   selectMove.on('select', function (e) {
-    if (e.selected.length) {
-      document.getElementById('parcelInfo').style.display = 'block'
-      const parcelId = `${e.selected[0].values_.sheet_id}${e.selected[0].values_.parcel_id}`
-      const parcelArea = document.getElementById(`parcelArea_${parcelId}`)
-      if (parcelArea) {
-        const areaHa = parcelArea.value
-        document.getElementById('parcelInfo').innerHTML =
-          `<strong>${parcelId}</strong>
-          <br />
-          Area: ${areaHa}ha
-          <br />
-          <a id="selectParcelLink" class="govuk-link" href="#" style="margin-top:10px;">Add this parcel</a>`
-        addSelectButtonEventListener()
-      }
-    }
   })
 
   map.addInteraction(selectMove)
@@ -177,6 +182,7 @@ const addToSelectFeatures = (selectfeatures, parcelSource, target, id) => {
 const addCheckboxEventListener = (checkbox, selectfeatures, parcelSource) => {
   checkbox.addEventListener('change', (e) => {
     addToSelectFeatures(selectfeatures, parcelSource, e.target, e.target.id)
+    e.target.id !== 'selectAllParcels' && resetSelectAll()
   })
 }
 
@@ -187,9 +193,13 @@ const checkBoxSelection = (parcelSource, selectfeatures) => {
   }
 }
 
-const parcelSelection = (map, allowSelect, selectedParcels, parcelSource) => {
+const parcelSelection = (map, allowSelect, selectedParcels, parcelSource, sbi) => {
   if (allowSelect) {
-    const selectClick = selectLayer(map)
+    document.getElementById('parcelInfo').style.display = 'none'
+    document.getElementById('landDetails').style.display = 'none'
+    // document.getElementById('map2').style.display = 'none'
+
+    const selectClick = selectLayer(map, sbi)
     const selectfeatures = selectClick.getFeatures()
     checkBoxSelection(parcelSource, selectfeatures)
     selectPointerMove(map)
@@ -227,9 +237,8 @@ const selectMapStyle = (layers) => {
   onChange()
 }
 
-export function displayMap (apiKey, sbi, parcels, coordinates, selectedParcels = [], allowSelect = false) {
-  document.getElementById('parcelInfo').style.display = 'none'
-  document.getElementById('landDetails').style.display = 'none'
+export function displayMap (apiKey, sbi, parcels, coordinates, selectedParcels = [], allowSelect = false, target = 'map') {
+  initiateMap('map2', apiKey, coordinates)
 
   const features = new GeoJSON().readFeatures(parcels)
   const parcelSource = new VectorSource({ features })
@@ -251,11 +260,11 @@ export function displayMap (apiKey, sbi, parcels, coordinates, selectedParcels =
 
   const map = new Map({ // eslint-disable-line no-unused-vars
     layers: layerGroup,
-    target: 'map',
+    target,
     view
   })
 
-  parcelSelection(map, allowSelect, selectedParcels, parcelSource)
+  parcelSelection(map, allowSelect, selectedParcels, parcelSource, sbi)
   map.getView().fit(parcelSource.getExtent(), { size: map.getSize(), maxZoom: 16 })
   selectMapStyle(layers)
 }
