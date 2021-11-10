@@ -79,22 +79,19 @@ const getParcelCovers = (sbi, sheetId, parcelId) => {
     let landCover = ''
 
     for (const cover of response.covers) {
-      landCover += `${cover.description}<br />${cover.area_ha.toFixed(4)}ha<br />`
+      landCover += `<strong>${cover.description}:</strong> ${cover.area_ha.toFixed(4)}ha<br />`
     }
 
-    document.getElementById('map2').style.display = 'block'
-    document.getElementById('parcelInfo').style.display = 'block'
+    document.getElementById('parcelCover').style.display = 'block'
 
     addParcel(response.parcels)
 
-    document.getElementById('parcelInfo').innerHTML =
-          `<strong>${response.sheetId}${response.parcelId}</strong>
-          <br />
-          Total Area: ${response.totalArea.toFixed(4)}ha
-          <br />
-          <br />
-          ${landCover}
-          <a id="selectParcelLink" class="govuk-link" href="#" style="margin-top:10px;">Add this parcel</a>`
+    document.getElementById('parcelId').innerHTML = `${response.sheetId}${response.parcelId}`
+
+    document.getElementById('parcelCoverInfo').innerHTML = `<br />
+          <strong>Total Area:</strong> ${response.totalArea.toFixed(4)}ha
+          <br /><br />
+          ${landCover}`
   }
 }
 
@@ -195,9 +192,7 @@ const checkBoxSelection = (parcelSource, selectfeatures) => {
 
 const parcelSelection = (map, allowSelect, selectedParcels, parcelSource, sbi) => {
   if (allowSelect) {
-    document.getElementById('parcelInfo').style.display = 'none'
-    document.getElementById('landDetails').style.display = 'none'
-    // document.getElementById('map2').style.display = 'none'
+    document.getElementById('parcelCover').style.display = 'none'
 
     const selectClick = selectLayer(map, sbi)
     const selectfeatures = selectClick.getFeatures()
@@ -238,7 +233,7 @@ const selectMapStyle = (layers) => {
 }
 
 export function displayMap (apiKey, sbi, parcels, coordinates, selectedParcels = [], allowSelect = false, target = 'map') {
-  initiateMap('map2', apiKey, coordinates)
+  initiateMap('parcelCoverMap', apiKey, coordinates)
 
   const features = new GeoJSON().readFeatures(parcels)
   const parcelSource = new VectorSource({ features })

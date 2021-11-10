@@ -70,53 +70,41 @@
           </li>
         </ul>
         <div class="govuk-tabs__panel" id="map-view">
-          <label class="govuk-label" for="sort">Change view</label>
-          <select class="govuk-select" id="layer-select" name="layer-select">
-            <option value="Road_27700" selected>Road</option>
-            <option value="Outdoor_27700">Outdoor</option>
-            <option value="Light_27700">Light</option>
-            <option value="Leisure_27700">Leisure</option>
-          </select>
-          <div class="mapContainer">
-            <p class="govuk-body"><div id="map" class="map"></div></p>
-            <p id="parcelInfo" class="govuk-body parcelnfo"></p>
-            <div id="map2" class="map2"></div>
-          </div>
-          <div id="key">
-            <p>
-              <h3 class="govuk-heading-s">Key</h3>
-              <div class="mapKey">
-                <ul>
-                    <li><span class="bpsIneligibleFeature"></span> BPS ineligible feature</li>
-                    <li><span class="arableLand"></span> Arable land</li>
-                    <li><span class="permanentGrassLand"></span> Permanent grassLand</li>
-                    <li><span class="permanentCrops"></span> Permanent crops</li>
-                </ul>
+          <div class="govuk-grid-row">
+            <div class="govuk-grid-column-two-thirds">
+              <label class="govuk-label" for="sort">Change view</label>
+              <select class="govuk-select" id="layer-select" name="layer-select">
+                <option value="Road_27700" selected>Road</option>
+                <option value="Outdoor_27700">Outdoor</option>
+                <option value="Light_27700">Light</option>
+                <option value="Leisure_27700">Leisure</option>
+              </select>
+              <div class="mapContainer">
+                <p class="govuk-body"><div id="map" class="map"></div></p>
               </div>
-            </p>
+            </div>
+
+            <div class="govuk-grid-column-one-third">
+              <div id="parcelCover">           
+                <h2 id="parcelId" class="govuk-heading-m"></h2>
+                <a id="selectParcelLink" class="govuk-link">Add this parcel</a>
+                <div id="parcelCoverMap" class="parcelCoverMap"></div>
+                <p id="parcelCoverInfo" class="govuk-body-s"></p>      
+                <div class="mapKey">
+                  <p>
+                    <h3 class="govuk-heading-s">Key</h3>
+                      <ul>
+                          <li><span class="bpsIneligibleFeature"></span> BPS ineligible feature</li>
+                          <li><span class="arableLand"></span> Arable land</li>
+                          <li><span class="permanentGrassLand"></span> Permanent grassLand</li>
+                          <li><span class="permanentCrops"></span> Permanent crops</li>
+                      </ul>
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
-          <hr />
-          <div id="landDetails">
-            <h3 class="govuk-heading-s">Land selected</h3>
-            <table class="govuk-table">
-              <thead class="govuk-table__head">
-                <tr class="govuk-table__row">
-                  <th scope="col" class="govuk-table__header">Parcels</th>
-                  <th scope="col" class="govuk-table__header">Permanent grassland</th>
-                  <th scope="col" class="govuk-table__header">Arable land</th>
-                  <th scope="col" class="govuk-table__header">Total land</th>
-                </tr>
-              </thead>
-              <tbody class="govuk-table__body">
-                <tr class="govuk-table__row">
-                  <th id="numberOfSelectedParcels" scope="row" class="govuk-table__header">2</th>
-                  <th id="totalPermanentGrasslandHa" scope="row" class="govuk-table__header">3.5 ha</th>
-                  <th id="totalArableLandHa" scope="row" class="govuk-table__header">3 ha</th>
-                  <th id="totalHa" scope="row" class="govuk-table__header">6.5 ha</th>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+          
         </div>
         <div class="govuk-tabs__panel govuk-tabs__panel--hidden" id="list-view">
           <div class="govuk-hint">
