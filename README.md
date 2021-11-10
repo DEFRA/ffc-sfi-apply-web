@@ -18,7 +18,7 @@ Optional:
 This service depends on a valid Azure Service Bus connection string for
 asynchronous communication.  The following environment variables need to be set
 in any non-production (`!config.isProd`) environment before the Docker
-container is started or tests are run. 
+container is started or tests are run.
 
 When deployed into an appropriately configured AKS
 cluster (where [AAD Pod Identity](https://github.com/Azure/aad-pod-identity) is
@@ -28,25 +28,25 @@ for
 and
 [azure-identity-binding](./helm/ffc-demo-claim-service/templates/azure-identity-binding.yaml).
 
-| Name | Description |
-| ---| --- |
-| MESSAGE_QUEUE_HOST | Azure Service Bus hostname, e.g. `myservicebus.servicebus.windows.net` |
-| MESSAGE_QUEUE_PASSWORD | Azure Service Bus SAS policy key |
-| MESSAGE_QUEUE_USER     | Azure Service Bus SAS policy name, e.g. `RootManageSharedAccessKey` |
-| ELIGIBILITY_TOPIC_ADDRESS |  |
-| VALIDATE_TOPIC_ADDRESS |  |
-| CALCULATE_TOPIC_ADDRESS |  |
-| SUBMIT_TOPIC_ADDRESS |  |
-| WITHDRAW_TOPIC_ADDRESS |  |
-| STANDARDSRESPONSE_QUEUE_ADDRESS |  |
-| CALCULATERESPONSE_QUEUE_ADDRESS |  |
-| ELIGIBILITYRESPONSE_QUEUE_ADDRESS |  |
-| PARCELSPATIAL_TOPIC_ADDRESS |  |
-| PARCELSPATIALRESPONSE_QUEUE_ADDRESS |  |
-| PARCEL_TOPIC_ADDRESS |  |
-| PARCELRESPONSE_QUEUE_ADDRESS |  |
-| PARCELSTANDARD_TOPIC_ADDRESS |  |
-| PARCELSTANDARDRESPONSE_QUEUE_ADDRESS |  |
+| Name                                 | Description                                                            |
+| ----                                 | -----------                                                            |
+| CALCULATE_TOPIC_ADDRESS              |                                                                        |
+| CALCULATERESPONSE_QUEUE_ADDRESS      |                                                                        |
+| ELIGIBILITY_TOPIC_ADDRESS            |                                                                        |
+| ELIGIBILITYRESPONSE_QUEUE_ADDRESS    |                                                                        |
+| MESSAGE_QUEUE_HOST                   | Azure Service Bus hostname, e.g. `myservicebus.servicebus.windows.net` |
+| MESSAGE_QUEUE_PASSWORD               | Azure Service Bus SAS policy key                                       |
+| MESSAGE_QUEUE_USER                   | Azure Service Bus SAS policy name, e.g. `RootManageSharedAccessKey`    |
+| PARCEL_TOPIC_ADDRESS                 |                                                                        |
+| PARCELRESPONSE_QUEUE_ADDRESS         |                                                                        |
+| PARCELSPATIAL_TOPIC_ADDRESS          |                                                                        |
+| PARCELSPATIALRESPONSE_QUEUE_ADDRESS  |                                                                        |
+| PARCELSTANDARD_TOPIC_ADDRESS         |                                                                        |
+| PARCELSTANDARDRESPONSE_QUEUE_ADDRESS |                                                                        |
+| STANDARDSRESPONSE_QUEUE_ADDRESS      |                                                                        |
+| SUBMIT_TOPIC_ADDRESS                 |                                                                        |
+| VALIDATE_TOPIC_ADDRESS               |                                                                        |
+| WITHDRAW_TOPIC_ADDRESS               |                                                                        |
 
 ### Environment variables
 
@@ -55,10 +55,10 @@ Values for development are set in the Docker Compose configuration. Default
 values for production-like deployments are set in the Helm chart and may be
 overridden by build and release pipelines.
 
-| Name | Description |
-| --- | --- |
-| OS_MAP_API_KEY | Ordnance Survey API key |
+| Name           | Description                      |
+| ----           | -----------                      |
 | CH_API_GATEWAY | API Gatway URL for Crown Hosting |
+| OS_MAP_API_KEY | Ordnance Survey API key          |
 
 ## Running the application
 

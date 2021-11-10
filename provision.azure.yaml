@@ -1,24 +1,24 @@
 resources:
   topics:
-    - name: eligibility
-    - name: standards
-    - name: validate
     - name: calculate
-    - name: submit
-    - name: withdraw
-    - name: parcelSpatial
+    - name: eligibility
     - name: parcel
+    - name: parcelSpatial
     - name: parcelStandard
+    - name: standards
+    - name: submit
+    - name: validate
+    - name: withdraw
   queues:
     - name: calculateResponse
       enableSessions: true
-    - name: standardsResponse
-      enableSessions: true
     - name: eligibilityCheckResponse
-      enableSessions: true
-    - name: parcelSpatialResponse
       enableSessions: true
     - name: parcelResponse
       enableSessions: true
+    - name: parcelSpatialResponse
+      enableSessions: true
     - name: parcelStandardResponse
+      enableSessions: true
+    - name: standardsResponse
       enableSessions: true
