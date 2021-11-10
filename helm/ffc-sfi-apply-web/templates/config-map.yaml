@@ -18,12 +18,12 @@ data:
   PARCELSPATIAL_TOPIC_ADDRESS: {{ quote .Values.container.parcelSpatialTopicAddress }}
   PARCEL_TOPIC_ADDRESS: {{ quote .Values.container.parcelTopicAddress }}
   PARCELSTANDARD_TOPIC_ADDRESS: {{ quote .Values.container.parcelStandardTopicAddress }}
-  STANDARDSRESPONSE_QUEUE_ADDRESS: {{ quote .Values.container.responseStandardsQueueAddress }}
-  CALCULATERESPONSE_QUEUE_ADDRESS: {{ quote .Values.container.responseCalculateQueueAddress }}
+  STANDARDSRESPONSE_QUEUE_ADDRESS: {{ quote .Values.container.standardsResponseQueueAddress }}
+  CALCULATERESPONSE_QUEUE_ADDRESS: {{ quote .Values.container.calculateResponseQueueAddress }}
   PARCELSPATIALRESPONSE_QUEUE_ADDRESS: {{ quote .Values.container.parcelSpatialResponseQueueAddress }}
   PARCELRESPONSE_QUEUE_ADDRESS: {{ quote .Values.container.parcelResponseQueueAddress }}
   PARCELSTANDARDRESPONSE_QUEUE_ADDRESS: {{ quote .Values.container.parcelStandardResponseQueueAddress }}
-  ELIGIBILITYRESPONSE_QUEUE_ADDRESS: {{ quote .Values.container.responseEligibilityCheckQueueAddress }}
+  ELIGIBILITYRESPONSE_QUEUE_ADDRESS: {{ quote .Values.container.eligibilityCheckResponseQueueAddress }}
   AGREEMENT_CALCULATOR_ENDPOINT: {{ quote .Values.container.agreementCalculatorEndpoint }}
   AGREEMENT_API_ENDPOINT: {{ quote .Values.container.agreementApiEndpoint }}
   AZURE_STORAGE_ACCOUNT_NAME: {{ quote .Values.container.azureStorageAccountName }}

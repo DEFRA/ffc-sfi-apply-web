@@ -10,11 +10,11 @@ resources:
     - name: parcel
     - name: parcelStandard
   queues:
-    - name: responseCalculate
+    - name: calculateResponse
       enableSessions: true
-    - name: responseStandards
+    - name: standardsResponse
       enableSessions: true
-    - name: responseEligibilityCheck
+    - name: eligibilityCheckResponse
       enableSessions: true
     - name: parcelSpatialResponse
       enableSessions: true
