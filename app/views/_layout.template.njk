@@ -1,4 +1,5 @@
 {% extends "govuk/template.njk" %}
+{% from "govuk/components/phase-banner/macro.njk" import govukPhaseBanner %}
 
 {% block head %}
   {% if cookiesPolicy and cookiesPolicy.analytics %}
@@ -28,6 +29,14 @@
     serviceName: serviceName,
     serviceUrl: "/"
   }) }}
+  <div class="govuk-grid-row govuk-width-container">
+    {{ govukPhaseBanner({
+      tag: {
+        text: "beta"
+      },
+      html: 'This is a new service – your <a class="govuk-link" href="#">feedback</a> will help us to improve it.'
+    }) }}
+  </div>
 {% endblock %}
 
 {% block bodyStart %}
