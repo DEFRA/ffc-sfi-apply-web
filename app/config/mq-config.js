@@ -226,38 +226,38 @@ if (mqResult.error) {
   throw new Error(`The message queue config is invalid. ${mqResult.error.message}`)
 }
 
-const eligibilityTopic = { ...mqResult.value.messageQueue, ...mqResult.value.eligibilityTopic }
-const standardsTopic = { ...mqResult.value.messageQueue, ...mqResult.value.standardsTopic }
-const validateTopic = { ...mqResult.value.messageQueue, ...mqResult.value.validateTopic }
 const calculateTopic = { ...mqResult.value.messageQueue, ...mqResult.value.calculateTopic }
-const submitTopic = { ...mqResult.value.messageQueue, ...mqResult.value.submitTopic }
-const withdrawTopic = { ...mqResult.value.messageQueue, ...mqResult.value.withdrawTopic }
-const requestSBITopic = { ...mqResult.value.messageQueue, ...mqResult.value.requestSBITopic }
+const eligibilityTopic = { ...mqResult.value.messageQueue, ...mqResult.value.eligibilityTopic }
 const parcelSpatialTopic = { ...mqResult.value.messageQueue, ...mqResult.value.parcelSpatialTopic }
-const parcelTopic = { ...mqResult.value.messageQueue, ...mqResult.value.parcelTopic }
 const parcelStandardTopic = { ...mqResult.value.messageQueue, ...mqResult.value.parcelStandardTopic }
-const responseStandardsQueue = { ...mqResult.value.messageQueue, ...mqResult.value.responseStandardsQueue }
+const parcelTopic = { ...mqResult.value.messageQueue, ...mqResult.value.parcelTopic }
+const requestSBITopic = { ...mqResult.value.messageQueue, ...mqResult.value.requestSBITopic }
 const responseCalculateQueue = { ...mqResult.value.messageQueue, ...mqResult.value.responseCalculateQueue }
 const responseEligibilityQueue = { ...mqResult.value.messageQueue, ...mqResult.value.responseEligibilityQueue }
-const responseParcelSpatialQueue = { ...mqResult.value.messageQueue, ...mqResult.value.responseParcelSpatialQueue }
 const responseParcelQueue = { ...mqResult.value.messageQueue, ...mqResult.value.responseParcelQueue }
+const responseParcelSpatialQueue = { ...mqResult.value.messageQueue, ...mqResult.value.responseParcelSpatialQueue }
 const responseParcelStandardQueue = { ...mqResult.value.messageQueue, ...mqResult.value.responseParcelStandardQueue }
+const responseStandardsQueue = { ...mqResult.value.messageQueue, ...mqResult.value.responseStandardsQueue }
+const standardsTopic = { ...mqResult.value.messageQueue, ...mqResult.value.standardsTopic }
+const submitTopic = { ...mqResult.value.messageQueue, ...mqResult.value.submitTopic }
+const validateTopic = { ...mqResult.value.messageQueue, ...mqResult.value.validateTopic }
+const withdrawTopic = { ...mqResult.value.messageQueue, ...mqResult.value.withdrawTopic }
 
 module.exports = {
-  eligibilityTopic,
-  standardsTopic,
-  validateTopic,
   calculateTopic,
-  submitTopic,
-  withdrawTopic,
-  requestSBITopic,
+  eligibilityTopic,
   parcelSpatialTopic,
-  parcelTopic,
   parcelStandardTopic,
-  responseStandardsQueue,
+  parcelTopic,
+  requestSBITopic,
   responseCalculateQueue,
   responseEligibilityQueue,
-  responseParcelSpatialQueue,
   responseParcelQueue,
-  responseParcelStandardQueue
+  responseParcelSpatialQueue,
+  responseParcelStandardQueue,
+  responseStandardsQueue,
+  standardsTopic,
+  submitTopic,
+  validateTopic,
+  withdrawTopic
 }
