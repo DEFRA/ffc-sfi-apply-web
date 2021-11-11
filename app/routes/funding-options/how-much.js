@@ -9,14 +9,16 @@ module.exports = [
   {
     method: 'GET',
     path: '/funding-options/how-much',
-    auth: { strategy: 'jwt' },
-    handler: async (request, h) => {
-      const { parcelStandards, applyJourney } = await getParcelStandards(request)
-      const selectedParcelStandard = await downloadParcelStandardFile(parcelStandards.filename)
-      const viewModel = new ViewModel(applyJourney, selectedParcelStandard)
-      const mapParcels = await getMapParcels(request)
-      viewModel.map = mapParcels
-      return h.view('funding-options/how-much', viewModel)
+    options: {
+      auth: { strategy: 'jwt' },
+      handler: async (request, h) => {
+        const { parcelStandards, applyJourney } = await getParcelStandards(request)
+        const selectedParcelStandard = await downloadParcelStandardFile(parcelStandards.filename)
+        const viewModel = new ViewModel(applyJourney, selectedParcelStandard)
+        const mapParcels = await getMapParcels(request)
+        viewModel.map = mapParcels
+        return h.view('funding-options/how-much', viewModel)
+      }
     }
   },
   {
