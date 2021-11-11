@@ -10,7 +10,7 @@ services:
     image: ffc-sfi-apply-web-development
     container_name: ffc-sfi-apply-web-test
     command: npm run test
-    environment: 
+    environment:
       NODE_ENV: test
       PACT_BROKER_URL: ${PACT_BROKER_URL:-notset}
       PACT_BROKER_USERNAME: ${PACT_BROKER_USERNAME:-notset}
