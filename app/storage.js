@@ -26,13 +26,23 @@ const getBlob = async (container, filename) => {
 
 const downloadParcelStandardFile = async (filename) => {
   const blob = await getBlob(parcelStandardContainer, filename)
-  const downloaded = await blob.downloadToBuffer()
+  let downloaded
+  try {
+    downloaded = await blob.downloadToBuffer()
+  } catch (e) {
+    console.error(e)
+  }
   return JSON.parse(downloaded.toString())
 }
 
 const downloadParcelSpatialFile = async (filename) => {
   const blob = await getBlob(parcelSpatialContainer, filename)
-  const downloaded = await blob.downloadToBuffer()
+  let downloaded
+  try {
+    downloaded = await blob.downloadToBuffer()
+  } catch (e) {
+    console.error(e)
+  }
   return JSON.parse(downloaded.toString())
 }
 
