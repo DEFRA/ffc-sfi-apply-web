@@ -2,11 +2,11 @@ Feature: Apply for land funding
     Scenario: User can successfully open sign in page
         Given I open the url "/"
         Then I expect that the title contains "Apply for land funding - GOV.UK"
-        Then I expect that element "h1" contains the text "Apply for land funding"
+        And I expect that element "h1" contains the text "Apply for land funding"
         When I click on the button ".govuk-button--start"
-        And I pause for 500ms
+        # And I pause for 500ms
         Then I expect that the url contains "/sign-in"
-        Then I expect that element "h1" contains the text "Sign in"
+        And I expect that element "h1" contains the text "Sign in"
         When I clear the inputfield "#crn"
         And I add "9867012345" to the inputfield "#crn"
         And I clear the inputfield "#callerId"
@@ -15,32 +15,32 @@ Feature: Apply for land funding
         And I add "kdaihsra" to the inputfield "#password"
         And I click on the element "#submit"
         Then I mock the response for "which-business"
-        When I pause for 500ms
+        # When I pause for 500ms
         Then I expect that the url contains "/which-business"
         When I click on the element "#sbi"
         And I click on the element "#submit"
-        And I pause for 500ms
+        # And I pause for 500ms
         Then I expect that the url contains "/application-task-list"
         When I click on the link "Confirm your land details"
         Then I mock the response for "confirm-details"
         And I expect that the url contains "/confirm-details"
         And I click on the element "#landControlCheck"
         And I click on the element "#submit"
-        Then I expect that the url contains "/relationship"
-        When I click on the element "#relationship"
+        And I expect that the url contains "/management-control"
+        When I click on the element "#managementControlCheck"
         And I click on the element "#submit"
         Then I expect that the url contains "/application-task-list"
-        And I pause for 500ms
+        # And I pause for 500ms
         When I click on the link "Choose funding option"
         Then I mock the response for "what-funding"
-        #When I click on the element "//a[contains(@href,'/funding-options/what-funding')]"
-        When I pause for 500ms
+        # When I pause for 500ms
         Then I expect that the url contains "/what-funding"
         When I click on the soil type
         And I click on the element "#submit"
         Then I expect that the url contains "/arable-overview"
         And I click on the element "#submit"
-        Then I expect that the url contains "/how-much"
+        And I mock the response for "how-much"
+        And I expect that the url contains "/how-much"
         When I click on the element "#SJ64706324"
         And I click on the element "#submit"
         Then I mock the response for "what-payment-level"
@@ -48,11 +48,11 @@ Feature: Apply for land funding
         When I click on the element "#level"
         And I click on the element "#submit"
         Then I expect that the url contains "/application-task-list"
-        When I click on the link "Tell us how you will carry out the actions"
-        And I pause for 500ms
+        When I click on the link "Choose your actions"
+        # And I pause for 500ms
         Then I expect that the url contains "/arable-soils"
         And I click on the element "#submit"
-        Then I expect that the url contains "/soil-assessment"
+        And I expect that the url contains "/soil-assessment"
         When I click on the element "#soil-assessment"
         And I click on the element "#submit"
         Then I expect that the url contains "/soil-compaction"
