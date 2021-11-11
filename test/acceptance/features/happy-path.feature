@@ -4,7 +4,6 @@ Feature: Apply for land funding
         Then I expect that the title contains "Apply for land funding - GOV.UK"
         And I expect that element "h1" contains the text "Apply for land funding"
         When I click on the button ".govuk-button--start"
-        # And I pause for 500ms
         Then I expect that the url contains "/sign-in"
         And I expect that element "h1" contains the text "Sign in"
         When I clear the inputfield "#crn"
@@ -15,11 +14,9 @@ Feature: Apply for land funding
         And I add "kdaihsra" to the inputfield "#password"
         And I click on the element "#submit"
         Then I mock the response for "which-business"
-        # When I pause for 500ms
         Then I expect that the url contains "/which-business"
         When I click on the element "#sbi"
         And I click on the element "#submit"
-        # And I pause for 500ms
         Then I expect that the url contains "/application-task-list"
         When I click on the link "Confirm your land details"
         Then I mock the response for "confirm-details"
@@ -30,10 +27,8 @@ Feature: Apply for land funding
         When I click on the element "#managementControlCheck"
         And I click on the element "#submit"
         Then I expect that the url contains "/application-task-list"
-        # And I pause for 500ms
         When I click on the link "Choose funding option"
         Then I mock the response for "what-funding"
-        # When I pause for 500ms
         Then I expect that the url contains "/what-funding"
         When I click on the soil type
         And I click on the element "#submit"
@@ -49,7 +44,6 @@ Feature: Apply for land funding
         And I click on the element "#submit"
         Then I expect that the url contains "/application-task-list"
         When I click on the link "Choose your actions"
-        # And I pause for 500ms
         Then I expect that the url contains "/arable-soils"
         And I click on the element "#submit"
         And I expect that the url contains "/soil-assessment"
