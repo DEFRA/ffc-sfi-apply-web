@@ -15,11 +15,22 @@ data:
   SUBMIT_TOPIC_ADDRESS: {{ quote .Values.container.submitTopicAddress }}
   WITHDRAW_TOPIC_ADDRESS: {{ quote .Values.container.withdrawTopicAddress }}
   REQUEST_SBI_TOPIC_ADDRESS: {{ quote .Values.container.requestSbiTopicAddress }}
+  PARCELSPATIAL_TOPIC_ADDRESS: {{ quote .Values.container.parcelSpatialTopicAddress }}
+  PARCEL_TOPIC_ADDRESS: {{ quote .Values.container.parcelTopicAddress }}
+  PARCELSTANDARD_TOPIC_ADDRESS: {{ quote .Values.container.parcelStandardTopicAddress }}
   STANDARDSRESPONSE_QUEUE_ADDRESS: {{ quote .Values.container.responseStandardsQueueAddress }}
   CALCULATERESPONSE_QUEUE_ADDRESS: {{ quote .Values.container.responseCalculateQueueAddress }}
+  PARCELSPATIALRESPONSE_QUEUE_ADDRESS: {{ quote .Values.container.parcelSpatialResponseQueueAddress }}
+  PARCELRESPONSE_QUEUE_ADDRESS: {{ quote .Values.container.parcelResponseQueueAddress }}
+  PARCELSTANDARDRESPONSE_QUEUE_ADDRESS: {{ quote .Values.container.parcelStandardResponseQueueAddress }}
   ELIGIBILITYRESPONSE_QUEUE_ADDRESS: {{ quote .Values.container.responseEligibilityCheckQueueAddress }}
   AGREEMENT_CALCULATOR_ENDPOINT: {{ quote .Values.container.agreementCalculatorEndpoint }}
   AGREEMENT_API_ENDPOINT: {{ quote .Values.container.agreementApiEndpoint }}
+  AZURE_STORAGE_ACCOUNT_NAME: {{ quote .Values.container.azureStorageAccountName }}
+  AZURE_STORAGE_CONNECTION_STRING: {{ quote .Values.container.azureStorageConnectionString }}
+  AZURE_STORAGE_USE_CONNECTION_STRING: {{ quote .Values.container.azureStorageUseConnectionString }}
+  AZURE_STORAGE_PARCEL_STANDARD: {{ quote .Values.container.parcelStandardContainer }}
+  AZURE_STORAGE_PARCEL_SPATIAL: {{ quote .Values.container.parcelSpatialContainer }}
   {{- if .Values.container.redisHostname }}
   REDIS_HOSTNAME: {{ quote .Values.container.redisHostname }}
   {{- end }}

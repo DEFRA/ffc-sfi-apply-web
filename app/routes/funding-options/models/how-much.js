@@ -1,6 +1,8 @@
 const { convertToInteger, convertToDecimal } = require('../../../conversion')
 
-function ViewModel (selectedStandard, selectedParcels, payload) {
+function ViewModel (applyJourney, parcelStandards, payload) {
+  const selectedStandard = groupParcels(parcelStandards)
+  const selectedParcels = applyJourney.selectedParcels
   const landInHectares = payload ? getLandInHectares(payload, selectedStandard.parcels) : selectedParcels
   const items = getAllItems(selectedStandard, landInHectares)
   const parcelArea = landInHectares ? landInHectares.reduce((x, y) => x + convertToInteger(y.value), 0) : 0
@@ -13,8 +15,25 @@ function ViewModel (selectedStandard, selectedParcels, payload) {
     invalidValues,
     checkboxItems: items.checkboxItems,
     totalHa: items.totalHa,
-    selectedStandardCode: selectedStandard.code
+    selectedStandardCode: selectedStandard.code,
+    selectedParcels: selectedParcels ?? [],
+    parcelStandards
   }
+}
+
+const groupParcels = (parcelStandards) => {
+  const result = []
+  parcelStandards.parcels.reduce((acc, cur) => {
+    if (!acc[cur.id]) {
+      acc[cur.id] = { id: cur.id, area: 0, warnings: [] }
+      result.push(acc[cur.id])
+    }
+    acc[cur.id].area += parseFloat(cur.area)
+    acc[cur.id].warnings = [...acc[cur.id].warnings, ...cur.warnings]
+    return acc
+  }, {})
+  parcelStandards.parcels = result
+  return parcelStandards
 }
 
 const getLandInHectares = (payload, parcels) => {
@@ -44,8 +63,11 @@ const getAllItems = (selectedStandard, selectedParcels) => {
   const parcels = selectedStandard?.parcels
   const checkboxItems = parcels.map(x => (
     {
-      text: `${x.id}, ${x.area}ha`,
+      text: `${x.id}`,
       value: `${x.id}`,
+      hint: {
+        text: `${x.area}ha`
+      },
       checked: isChecked(selectedParcels, x.id),
       textBoxValue: selectedParcels && selectedParcels.find(item => item.id === x.id)
         ? selectedParcels.find(item => item.id === x.id).value

@@ -37,6 +37,33 @@ async function sendRequestSBIMessage (payload, correlationId) {
   console.info('SBI(s) requested')
 }
 
+async function sendParcelSpatialMessage (payload, correlationId, messageId) {
+  await sendMessage(payload, 'uk.gov.sfi.parcel.spatial.request', correlationId, config.parcelSpatialTopic, messageId)
+  console.info('parcel spatial data requested')
+}
+
+async function sendParcelMessage (payload, correlationId, messageId) {
+  await sendMessage(payload, 'uk.gov.sfi.parcel.request', correlationId, config.parcelTopic, messageId)
+  console.info('parcel data requested')
+}
+
+async function sendParcelStandardMessage (payload, correlationId, messageId) {
+  await sendMessage(payload, 'uk.gov.sfi.parcel.standard.request', correlationId, config.parcelStandardTopic, messageId)
+  console.info('parcel standard requested')
+}
+
+async function recieveParcelSpatialMessage (messageId) {
+  return receiveMessage(messageId, config.responseParcelSpatialQueue)
+}
+
+async function recieveParcelMessage (messageId) {
+  return receiveMessage(messageId, config.responseParcelQueue)
+}
+
+async function recieveParcelStandardMessage (messageId) {
+  return receiveMessage(messageId, config.responseParcelStandardQueue)
+}
+
 async function receiveStandardsResponseMessage (messageId) {
   return receiveMessage(messageId, config.responseStandardsQueue)
 }
@@ -57,6 +84,12 @@ module.exports = {
   sendAgreementSubmitMessage,
   sendAgreementWithdrawMessage,
   sendRequestSBIMessage,
+  sendParcelSpatialMessage,
+  sendParcelMessage,
+  sendParcelStandardMessage,
+  recieveParcelSpatialMessage,
+  recieveParcelMessage,
+  recieveParcelStandardMessage,
   receiveStandardsResponseMessage,
   receiveCalculateResponseMessage,
   receiveEligibilityResponseMessage

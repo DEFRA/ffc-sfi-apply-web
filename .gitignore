@@ -18,3 +18,5 @@ _layout.njk
 _cookie-banner.njk
 map.njk
 parcel.njk
+confirm-details.njk
+how-much.njk
