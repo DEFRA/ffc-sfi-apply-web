@@ -82,12 +82,10 @@ const getParcelCovers = (sbi, sheetId, parcelId) => {
       landCover += `<strong>${cover.description}:</strong> ${cover.area_ha.toFixed(4)}ha<br />`
     }
 
-    document.getElementById('parcelCover').style.display = 'block'
-
     addParcel(response.parcels)
 
+    document.getElementById('parcelCover').style.display = 'block'
     document.getElementById('parcelId').innerHTML = `${response.sheetId}${response.parcelId}`
-
     document.getElementById('parcelCoverInfo').innerHTML = `<br />
           <strong>Total Area:</strong> ${response.totalArea.toFixed(4)}ha
           <br /><br />
