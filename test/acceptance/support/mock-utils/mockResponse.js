@@ -4,8 +4,44 @@ import { subscriptionConfig } from './mqConfig'
 const organisationId = 5426800
 const standardsBody = require('../data/standards.json')
 
+async function mockConfirmDetails () {
+  const receiverConfig = {
+    ...subscriptionConfig,
+    address: process.env.PARCELSPATIAL_SUBSCRIPTION_ADDRESS,
+    topic: process.env.PARCELSPATIAL_TOPIC_ADDRESS
+  }
+  const baseResponseMessage = {
+    body: {
+      organisationId,
+      filename: `${organisationId}.json`,
+      storageUrl: `https://ffclandmock.blob.core.windows.net/parcels-spatial/${organisationId}.json`
+    },
+    source: 'ffc-sfi-agreement-calculator',
+    type: 'uk.gov.sfi.agreement.parcel.spatial.request.response'
+  }
+  await mockResponseMessage(baseResponseMessage, process.env.PARCELSPATIALRESPONSE_QUEUE_ADDRESS, receiverConfig)
+}
+
+async function mockHowMuch () {
+  const receiverConfig = {
+    ...subscriptionConfig,
+    address: process.env.PARCELSTANDARD_SUBSCRIPTION_ADDRESS,
+    topic: process.env.PARCELSTANDARD_TOPIC_ADDRESS
+  }
+  const baseResponseMessage = {
+    body: {
+      organisationId,
+      filename: `${organisationId}-sfi-arable-soil.json`,
+      storageUrl: `https://ffclandmock.blob.core.windows.net/parcels-standard/${organisationId}-sfi-arable-soil.json`
+    },
+    source: 'ffc-sfi-agreement-calculator',
+    type: 'uk.gov.sfi.agreement.parcel.standard.request.response'
+  }
+  await mockResponseMessage(baseResponseMessage, process.env.PARCELSTANDARDRESPONSE_QUEUE_ADDRESS, receiverConfig)
+}
+
 async function mockWhatFunding () {
-  const standardsSubscription = {
+  const receiverConfig = {
     ...subscriptionConfig,
     address: process.env.STANDARDS_SUBSCRIPTION_ADDRESS,
     topic: process.env.STANDARDS_TOPIC_ADDRESS
@@ -15,11 +51,11 @@ async function mockWhatFunding () {
     source: 'ffc-sfi-agreement-calculator',
     type: 'uk.gov.sfi.agreement.standards.request.response'
   }
-  await mockResponseMessage(baseResponseMessage, process.env.STANDARDSRESPONSE_QUEUE_ADDRESS, standardsSubscription)
+  await mockResponseMessage(baseResponseMessage, process.env.STANDARDSRESPONSE_QUEUE_ADDRESS, receiverConfig)
 }
 
 async function mockWhatPaymentLevel () {
-  const calculateSubscription = {
+  const receiverConfig = {
     ...subscriptionConfig,
     address: process.env.CALCULATE_SUBSCRIPTION_ADDRESS,
     topic: process.env.CALCULATE_TOPIC_ADDRESS
@@ -33,11 +69,11 @@ async function mockWhatPaymentLevel () {
     source: 'ffc-sfi-agreement-calculator',
     type: 'uk.gov.sfi.agreement.calculate.response'
   }
-  await mockResponseMessage(baseResponseMessage, process.env.CALCULATERESPONSE_QUEUE_ADDRESS, calculateSubscription)
+  await mockResponseMessage(baseResponseMessage, process.env.CALCULATERESPONSE_QUEUE_ADDRESS, receiverConfig)
 }
 
 async function mockWhichBusiness () {
-  const eligibilitySubscription = {
+  const receiverConfig = {
     ...subscriptionConfig,
     address: process.env.ELIGIBILITY_SUBSCRIPTION_ADDRESS,
     topic: process.env.ELIGIBILITY_TOPIC_ADDRESS
@@ -47,26 +83,9 @@ async function mockWhichBusiness () {
     source: 'ffc-sfi-agreement-calculator',
     type: 'uk.gov.sfi.agreement.eligibility.request.response'
   }
-  await mockResponseMessage(baseResponseMessage, process.env.ELIGIBILITYRESPONSE_QUEUE_ADDRESS, eligibilitySubscription)
+  await mockResponseMessage(baseResponseMessage, process.env.ELIGIBILITYRESPONSE_QUEUE_ADDRESS, receiverConfig)
 }
 
-async function mockConfirmDetails () {
-  const parcelSpatialSubscription = {
-    ...subscriptionConfig,
-    address: process.env.PARCELSPATIAL_SUBSCRIPTION_ADDRESS,
-    topic: process.env.PARCELSPATIAL_TOPIC_ADDRESS
-  }
-  const baseResponseMessage = {
-    body: {
-      organisationId,
-      filename: `${organisationId}.json`,
-      storageUrl: `https://ffcland.blob.core.windows.net/parcels-spatial/${organisationId}.json`
-    },
-    source: 'ffc-sfi-agreement-calculator',
-    type: 'uk.gov.sfi.agreement.parcel.spatial.request.response'
-  }
-  await mockResponseMessage(baseResponseMessage, process.env.PARCELSPATIALRESPONSE_QUEUE_ADDRESS, parcelSpatialSubscription)
-}
 /**
  * Mock async request/response.
  *
@@ -79,6 +98,9 @@ export default async responseType => {
     switch (responseType) {
       case 'confirm-details':
         await mockConfirmDetails()
+        break
+      case 'how-much':
+        await mockHowMuch()
         break
       case 'what-funding':
         await mockWhatFunding()
