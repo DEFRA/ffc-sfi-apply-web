@@ -1,6 +1,7 @@
 import mockResponseMessage from './mockResponseMessage'
 import { subscriptionConfig } from './mqConfig'
 
+const organisationId = 5426800
 const standardsBody = require('../data/standards.json')
 
 async function mockWhatFunding () {
@@ -42,13 +43,30 @@ async function mockWhichBusiness () {
     topic: process.env.ELIGIBILITY_TOPIC_ADDRESS
   }
   const baseResponseMessage = {
-    body: { eligibility: [{ sbi: 107700399, name: 'Test user', organisationId: 5426800, address: 'A farm, Somewhere near, Somewhere far, AB12 3CD' }] },
+    body: { eligibility: [{ sbi: 107700399, name: 'Test user', organisationId, address: 'A farm, Somewhere near, Somewhere far, AB12 3CD' }] },
     source: 'ffc-sfi-agreement-calculator',
     type: 'uk.gov.sfi.agreement.eligibility.request.response'
   }
   await mockResponseMessage(baseResponseMessage, process.env.ELIGIBILITYRESPONSE_QUEUE_ADDRESS, eligibilitySubscription)
 }
 
+async function mockConfirmDetails () {
+  const parcelSpatialSubscription = {
+    ...subscriptionConfig,
+    address: process.env.PARCELSPATIAL_SUBSCRIPTION_ADDRESS,
+    topic: process.env.PARCELSPATIAL_TOPIC_ADDRESS
+  }
+  const baseResponseMessage = {
+    body: {
+      organisationId,
+      filename: `${organisationId}.json`,
+      storageUrl: `https://ffcland.blob.core.windows.net/parcels-spatial/${organisationId}.json`
+    },
+    source: 'ffc-sfi-agreement-calculator',
+    type: 'uk.gov.sfi.agreement.parcel.spatial.request.response'
+  }
+  await mockResponseMessage(baseResponseMessage, process.env.PARCELSPATIALRESPONSE_QUEUE_ADDRESS, parcelSpatialSubscription)
+}
 /**
  * Mock async request/response.
  *
@@ -57,8 +75,11 @@ async function mockWhichBusiness () {
 export default async responseType => {
   // NOTE: PR_BUILD is set within the build pipeline for PR builds
   if (process.env.PR_BUILD) {
-    console.log(`PR environment found. Mocking is active. Mocking responseType:`, responseType)
+    console.log('PR environment found. Mocking is active. Mocking responseType:', responseType)
     switch (responseType) {
+      case 'confirm-details':
+        await mockConfirmDetails()
+        break
       case 'what-funding':
         await mockWhatFunding()
         break

@@ -21,8 +21,9 @@ Feature: Apply for land funding
         And I click on the element "#submit"
         And I pause for 500ms
         Then I expect that the url contains "/application-task-list"
-        When I click on the link "Confirm your land and business details"
-        Then I expect that the url contains "/confirm-details"
+        When I click on the link "Confirm your land details"
+        Then I mock the response for "confirm-details"
+        And I expect that the url contains "/confirm-details"
         And I click on the element "#landControlCheck"
         And I click on the element "#submit"
         Then I expect that the url contains "/relationship"
