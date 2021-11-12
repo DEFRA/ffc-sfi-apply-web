@@ -5,7 +5,7 @@ const { getParcelSpatial } = require('./parcels')
 const { downloadParcelSpatialFile } = require('./storage')
 
 const getMapParcels = async (request) => {
-  const applyJourney = await cache.get('apply-journey', request.yar.id)
+  const applyJourney = await cache.get('agreement', request.yar.id)
   const sbi = applyJourney.selectedOrganisation.sbi
 
   const mapStyle = ''

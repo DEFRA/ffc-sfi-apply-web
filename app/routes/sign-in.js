@@ -34,7 +34,7 @@ module.exports = [{
       const token = JWT.sign({ callerId }, config.jwtConfig.secret, { expiresIn: 3600 * 1000 })
       return h.redirect('/which-business')
         .header('Authorization', token)
-        .state('dl_token', token, config.cookieOptionsIdentity)
+        .state('ffc_sfi_identity', token, config.cookieOptionsIdentity)
     }
   }
 }]

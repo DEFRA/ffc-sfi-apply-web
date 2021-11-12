@@ -31,6 +31,7 @@ data:
   AZURE_STORAGE_USE_CONNECTION_STRING: {{ quote .Values.container.azureStorageUseConnectionString }}
   AZURE_STORAGE_PARCEL_STANDARD: {{ quote .Values.container.parcelStandardContainer }}
   AZURE_STORAGE_PARCEL_SPATIAL: {{ quote .Values.container.parcelSpatialContainer }}
+  TTL_AUTH: {{ quote .Values.container.ttlAuth }}
   {{- if .Values.container.redisHostname }}
   REDIS_HOSTNAME: {{ quote .Values.container.redisHostname }}
   {{- end }}

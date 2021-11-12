@@ -8,7 +8,7 @@ module.exports = {
       server.auth.strategy('jwt', 'jwt', {
         key: jwtConfig.secret,
         validate,
-        cookieKey: 'dl_token'
+        cookieKey: 'ffc_sfi_identity'
       })
       server.auth.default({ strategy: 'jwt', mode: 'try' })
     }

@@ -3,13 +3,13 @@ const { sendParcelStandardMessage, recieveParcelStandardMessage } = require('../
 const { v4: uuidv4 } = require('uuid')
 
 const getParcelStandards = async (request, error) => {
-  const applyJourney = await cache.get('apply-journey', request.yar.id)
+  const applyJourney = await cache.get('agreement', request.yar.id)
   let parcelStandards = applyJourney.parcelStandards
   if (error && parcelStandards) {
     return { applyJourney, parcelStandards }
   } else {
     parcelStandards = await sendParcelStandardRequest(applyJourney, request, parcelStandards)
-    await cache.update('apply-journey', request.yar.id, { parcelStandards })
+    await cache.update('agreement', request.yar.id, { parcelStandards })
   }
   return { applyJourney, parcelStandards }
 }

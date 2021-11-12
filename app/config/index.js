@@ -104,7 +104,7 @@ if (!value.useRedis) {
 
 value.cookieOptionsIdentity = {
   ...value.cookieOptions,
-  ttl: 1000 * 60 * 60 * 24 * 30,
+  ttl: 1000 * 60 * 60 * 24 * 30, // 30 days
   encoding: 'none'
 }
 
