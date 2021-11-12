@@ -18,7 +18,7 @@ module.exports = [{
     auth: { strategy: 'jwt' },
     handler: async (request, h) => {
       await cache.update('progress', request.yar.id, {
-        progress: { schedule: true }
+        progress: { schedule: true, chooseActions: true }
       })
       return h.redirect('/check-your-answers')
     }

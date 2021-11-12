@@ -18,7 +18,7 @@ module.exports = [{
     auth: { strategy: 'jwt' },
     handler: async (request, h) => {
       await cache.update('progress', request.yar.id, {
-        progress: { agreement: true, createAgreement: true }
+        progress: { agreement: true, createAgreement: true, actions: true }
       })
       return h.redirect('/application-task-list')
     }
