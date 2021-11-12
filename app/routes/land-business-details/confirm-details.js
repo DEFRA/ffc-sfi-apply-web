@@ -9,8 +9,9 @@ module.exports = [
     options: {
       auth: { strategy: 'jwt' },
       handler: async (request, h) => {
-        const applyJourney = await cache.get('agreement', request.yar.id)
-        const { totalHectares, landCovers } = await getLandCovers(applyJourney.selectedOrganisation.organisationId, applyJourney.callerId)
+        const agreement = await cache.get('agreement', request.yar.id)
+        const application = agreement.application
+        const { totalHectares, landCovers } = await getLandCovers(application.selectedOrganisation.organisationId, application.callerId)
         const mapParcels = await getMapParcels(request)
 
         return h.view('land-business-details/confirm-details',
@@ -20,8 +21,8 @@ module.exports = [
             center: mapParcels.center,
             mapStyle: mapParcels.mapStyle,
             sbi: mapParcels.sbi,
-            name: applyJourney.selectedOrganisation.name,
-            address: applyJourney.selectedOrganisation.address,
+            name: application.selectedOrganisation.name,
+            address: application.selectedOrganisation.address,
             totalHa: totalHectares,
             landCovers
           })

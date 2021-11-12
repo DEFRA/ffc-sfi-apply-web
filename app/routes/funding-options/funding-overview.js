@@ -27,7 +27,7 @@ module.exports = [{
     auth: { strategy: 'jwt' },
     handler: async (request, h) => {
       const agreement = await cache.get('agreement', request.yar.id)
-      const standard = agreement.selectedStandard.code
+      const standard = agreement.application.selectedStandard.code
       if (standard === 'sfi-improved-grassland') {
         return h.redirect('/funding-options/grassland-overview')
       }
@@ -42,7 +42,7 @@ module.exports = [{
   options: {
     auth: { strategy: 'jwt' },
     handler: async (request, h) => {
-      await cache.update('progress', request.yar.id, {
+      await cache.update('agreement', request.yar.id, {
         progress: { fundingOptionOverview: true }
       })
       return h.redirect('/funding-options/how-much')

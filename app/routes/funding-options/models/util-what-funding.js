@@ -4,25 +4,31 @@ const { v4: uuidv4 } = require('uuid')
 
 const getAllStandards = async (request, error) => {
   const agreement = await cache.get('agreement', request.yar.id)
-  let standards = agreement.standards
+  const application = agreement.application
+  let standards = application.standards
   if (error && standards) {
-    return { agreement, standards }
+    return { application, standards }
   } else {
-    standards = await sendStandardsRequest(agreement, request, standards)
+    standards = await sendStandardsRequest(application, request, standards)
   }
 
-  return { agreement, standards }
+  return { application, standards }
 }
 
-const sendStandardsRequest = async (agreement, request, standards) => {
+const sendStandardsRequest = async (application, request, standards) => {
   const messageId = uuidv4()
-  await sendStandardsRequestMessage({ sbi: agreement.selectedOrganisation.sbi, organisationId: agreement.selectedOrganisation.organisationId, callerId: agreement.callerId }, request.yar.id, messageId)
+  await sendStandardsRequestMessage(
+    {
+      sbi: application.selectedOrganisation.sbi,
+      organisationId: application.selectedOrganisation.organisationId,
+      callerId: application.callerId
+    }, request.yar.id, messageId)
 
   const response = await receiveStandardsResponseMessage(messageId)
 
   if (response) {
     console.info('Standards request received', response)
-    await cache.update('agreement', request.yar.id, { standards: response.standards })
+    await cache.update('agreement', request.yar.id, { application: { standards: response.standards } })
     standards = response.standards
   }
 

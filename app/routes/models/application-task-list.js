@@ -22,10 +22,9 @@ const checkTasksInProgressAndRoute = (progress, taskGroup, fundingOption, paymen
   })
 }
 
-const validateSchema = (progressCache, fundingOption, paymentLevel) => {
+const validateSchema = (progress, fundingOption, paymentLevel) => {
   const taskListData = JSON.parse(JSON.stringify(taskList))
-  if (progressCache?.progress) {
-    const progress = progressCache.progress
+  if (progress) {
     return taskListData.map((taskGroup) => {
       progress[taskGroup.dependsOn] && updateStatus(progress, taskGroup, 'NOT STARTED')
       checkTasksInProgressAndRoute(progress, taskGroup, fundingOption, paymentLevel)

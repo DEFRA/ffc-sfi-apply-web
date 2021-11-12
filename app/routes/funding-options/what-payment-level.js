@@ -9,10 +9,14 @@ module.exports = [{
   options: {
     auth: { strategy: 'jwt' },
     handler: async (request, h) => {
-      const { agreement, paymentRates } = await getPaymentRates(request)
+      const { application, paymentRates } = await getPaymentRates(request)
       if (paymentRates) {
         return h.view('funding-options/what-payment-level', ViewModel(
-          agreement.selectedOrganisation.sbi, agreement.selectedStandard.name, agreement.parcelArea, paymentRates, agreement.selectedAmbitionLevel, agreement.selectedStandard.code
+          application.selectedOrganisation.sbi,
+          application.selectedStandard.name,
+          application.parcelArea, paymentRates,
+          application.selectedAmbitionLevel,
+          application.selectedStandard.code
         ))
       }
       return h.view('no-response')
@@ -42,14 +46,16 @@ module.exports = [{
       const agreement = await cache.get('agreement', request.yar.id)
 
       const level = request.payload.level
-      const selectedAmbitionLevel = agreement.paymentRates[level]
+      const selectedAmbitionLevel = agreement.application.paymentRates[level]
 
       await cache.update('agreement', request.yar.id, {
-        selectedAmbitionLevel: { name: level, level: selectedAmbitionLevel },
-        paymentAmount: selectedAmbitionLevel.paymentAmount
+        application: {
+          selectedAmbitionLevel: { name: level, level: selectedAmbitionLevel },
+          paymentAmount: selectedAmbitionLevel.paymentAmount
+        }
       })
 
-      await cache.update('progress', request.yar.id, {
+      await cache.update('agreement', request.yar.id, {
         progress: { fundingDetails: true, paymentLevel: true }
       })
 

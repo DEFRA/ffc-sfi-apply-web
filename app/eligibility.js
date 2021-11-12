@@ -4,12 +4,13 @@ const { v4: uuidv4 } = require('uuid')
 
 const getEligibility = async (request, error) => {
   const agreement = await cache.get('agreement', request.yar.id)
-  let eligibility = agreement.eligibility
+  const application = agreement?.application
+  let eligibility = application.eligibility
   if (error && eligibility) {
-    return { agreement, eligibility }
+    return { application, eligibility }
   } else {
-    eligibility = await sendEligibilityRequest(agreement, request, eligibility)
-    await cache.update('agreement', request.yar.id, { eligibleOrganisations: eligibility })
+    eligibility = await sendEligibilityRequest(application, request, eligibility)
+    await cache.update('agreement', request.yar.id, { application: { eligibleOrganisations: eligibility } })
   }
 
   return { agreement, eligibility }

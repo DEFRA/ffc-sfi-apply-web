@@ -40,10 +40,10 @@ module.exports = [{
     handler: async (request, h) => {
       const sbiValue = request.payload.sbi
       const agreement = await cache.get('agreement', request.yar.id)
-      const selectedOrganisation = agreement.eligibleOrganisations.find(x => x.sbi === parseInt(sbiValue))
+      const selectedOrganisation = agreement.application.eligibleOrganisations.find(x => x.sbi === parseInt(sbiValue))
 
       if (selectedOrganisation) {
-        await cache.update('agreement', request.yar.id, { selectedOrganisation, submitted: false })
+        await cache.update('agreement', request.yar.id, { application: { selectedOrganisation, submitted: false } })
         return h.redirect('/application-task-list')
       }
 

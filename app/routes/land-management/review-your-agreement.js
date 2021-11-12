@@ -7,7 +7,7 @@ module.exports = [{
     auth: { strategy: 'jwt' },
     handler: async (request, h) => {
       const agreement = await cache.get('agreement', request.yar.id)
-      return h.view('land-management/review-your-agreement', { selectedStandardCode: agreement.selectedStandard.code })
+      return h.view('land-management/review-your-agreement', { selectedStandardCode: agreement.application.selectedStandard.code })
     }
   }
 },
@@ -17,7 +17,7 @@ module.exports = [{
   options: {
     auth: { strategy: 'jwt' },
     handler: async (request, h) => {
-      await cache.update('progress', request.yar.id, {
+      await cache.update('agreement', request.yar.id, {
         progress: { agreement: true, createAgreement: true, actions: true }
       })
       return h.redirect('/application-task-list')

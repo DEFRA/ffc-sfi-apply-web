@@ -7,7 +7,7 @@ module.exports = [{
     auth: { strategy: 'jwt' },
     handler: async (request, h) => {
       const agreement = await cache.get('agreement', request.yar.id)
-      return h.view('relationship', { name: agreement.selectedOrganisation.name })
+      return h.view('relationship', { name: agreement.application.selectedOrganisation.name })
     }
   }
 },
@@ -17,7 +17,7 @@ module.exports = [{
   options: {
     auth: { strategy: 'jwt' },
     handler: async (request, h) => {
-      await cache.update('progress', request.yar.id, {
+      await cache.update('agreement', request.yar.id, {
         progress: { businessDetails: true }
       })
       return h.redirect('/application-task-list')

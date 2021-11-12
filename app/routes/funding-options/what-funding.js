@@ -9,9 +9,9 @@ module.exports = [{
   options: {
     auth: { strategy: 'jwt' },
     handler: async (request, h) => {
-      const { agreement, standards } = await getAllStandards(request)
+      const { application, standards } = await getAllStandards(request)
       if (standards) {
-        return h.view('funding-options/what-funding', new ViewModel(standards, agreement.selectedStandard))
+        return h.view('funding-options/what-funding', new ViewModel(standards, application.selectedStandard))
       }
       return h.view('no-response')
     }
@@ -29,7 +29,7 @@ module.exports = [{
       failAction: async (request, h, error) => {
         const { agreement, standards } = await getAllStandards(request, error)
         if (standards) {
-          return h.view('funding-options/what-funding', new ViewModel(standards, agreement.selectedStandard, error)).code(400).takeover()
+          return h.view('funding-options/what-funding', new ViewModel(standards, agreement?.selectedStandard, error)).code(400).takeover()
         }
         return h.view('no-response')
       }
@@ -38,10 +38,10 @@ module.exports = [{
       const standard = request.payload.standard
       const agreement = await cache.get('agreement', request.yar.id)
 
-      const selectedStandard = agreement.standards.find(x => x.code === standard)
-      await cache.update('agreement', request.yar.id, { selectedStandard })
+      const selectedStandard = agreement.application.standards.find(x => x.code === standard)
+      await cache.update('agreement', request.yar.id, { application: { selectedStandard } })
 
-      await cache.update('progress', request.yar.id, {
+      await cache.update('agreement', request.yar.id, {
         progress: { fundingOption: true }
       })
 

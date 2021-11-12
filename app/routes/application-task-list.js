@@ -10,13 +10,14 @@ module.exports = [{
   options: {
     auth: { strategy: 'jwt' },
     handler: async (request, h) => {
-      const progress = await cache.get('progress', request.yar.id)
       const agreement = await cache.get('agreement', request.yar.id)
-      const fundingOption = agreement?.selectedStandard?.code === 'sfi-improved-grassland' ? 'improved-grassland-soils' : 'arable-soils'
-      const paymentLevel = paymentLevels.find(x => x.name === agreement?.selectedAmbitionLevel?.name)
-      const selectedOrganisation = agreement?.selectedOrganisation
+      const application = agreement?.application
+      const progress = agreement?.progress
+      const fundingOption = application?.selectedStandard?.code === 'sfi-improved-grassland' ? 'improved-grassland-soils' : 'arable-soils'
+      const paymentLevel = paymentLevels.find(x => x.name === application?.selectedAmbitionLevel?.name)
+      const selectedOrganisation = application?.selectedOrganisation
       const savedAgreements = await getAgreementsBySbi(selectedOrganisation.sbi)
-      return h.view('application-task-list', new ViewModel(progress, fundingOption, paymentLevel?.paymentLevel, savedAgreements.agreements, agreement.selectedOrganisation))
+      return h.view('application-task-list', new ViewModel(progress, fundingOption, paymentLevel?.paymentLevel, savedAgreements.agreements, selectedOrganisation))
     }
   }
 },
@@ -38,10 +39,12 @@ module.exports = [{
       const agreement = await getAgreement(request.params.agreementNumber, request.params.sbi)
       const progress = await getProgress(agreement.progressId)
       agreement.agreementData.agreement.agreementNumber = request.params.agreementNumber
-      await cache.clear('agreement', request.yar.id, agreement.agreementData.agreement)
-      await cache.clear('progress', request.yar.id, progress)
-      await cache.update('agreement', request.yar.id, agreement.agreementData.agreement)
-      await cache.update('progress', request.yar.id, progress)
+      await cache.clear('agreement', request.yar.id)
+      await cache.update('agreement', request.yar.id,
+        {
+          application: agreement.agreementData.agreement,
+          progress
+        })
       return h.redirect('/application-task-list')
     }
   }
