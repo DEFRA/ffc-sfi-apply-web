@@ -68,6 +68,11 @@ const buildMapLayers = (parcelSource, apiKey) => {
   return layers
 }
 
+const resetSelectAll = () => {
+  const selectAll = document.getElementById('selectAllParcels')
+  selectAll.checked = false
+}
+
 const selectLayer = (map) => {
   const selectClick = new Select({
     condition: click,
@@ -81,6 +86,7 @@ const selectLayer = (map) => {
       : `${e.deselected[0].values_.sheet_id}${e.deselected[0].values_.parcel_id}`
     const parcelCheckBox = document.getElementById(parcelId)
     parcelCheckBox.checked = !parcelCheckBox.checked
+    resetSelectAll()
   })
 
   map.addInteraction(selectClick)
@@ -110,6 +116,7 @@ const convertToParcelSheetId = (parcelId) => {
 const addCheckboxEventListener = (checkbox, selectfeatures, parcelSource) => {
   checkbox.addEventListener('change', (e) => {
     addToSelectFeatures(selectfeatures, parcelSource, e.target, e.target.id)
+    e.target.id !== 'selectAllParcels' && resetSelectAll()
   })
 }
 
