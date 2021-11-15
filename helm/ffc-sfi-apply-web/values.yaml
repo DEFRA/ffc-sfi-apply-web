@@ -75,6 +75,7 @@ container:
   parcelStandardContainer: parcels-standard
   parcelSpatialContainer: parcels-spatial
   jwtSecret:
+  jwtTtl:
 
 ingress:
   class: nginx

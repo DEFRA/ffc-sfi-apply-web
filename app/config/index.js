@@ -28,7 +28,8 @@ const schema = joi.object({
   osMapApiKey: joi.string().default('').allow(''),
   jwtConfig: joi.object({
     secret: joi.string()
-  })
+  }),
+  jwtTtl: joi.number().default(2592000000) // 30 days
 })
 
 // Build config
@@ -56,7 +57,8 @@ const config = {
   restClientTimeoutMillis: process.env.REST_CLIENT_TIMEOUT_IN_MILLIS,
   jwtConfig: {
     secret: process.env.JWT_SECRET
-  }
+  },
+  jwtTtl: process.env.JWT_TTL
 }
 
 // Validate config
@@ -104,7 +106,7 @@ if (!value.useRedis) {
 
 value.cookieOptionsIdentity = {
   ...value.cookieOptions,
-  ttl: 1000 * 60 * 60 * 24 * 30, // 30 days
+  ttl: value.jwtTtl,
   encoding: 'none'
 }
 
