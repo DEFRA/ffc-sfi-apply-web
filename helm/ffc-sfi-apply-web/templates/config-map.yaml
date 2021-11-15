@@ -17,7 +17,7 @@ data:
   CALCULATE_TOPIC_ADDRESS: {{ quote .Values.container.calculateTopicAddress }}
   CALCULATERESPONSE_QUEUE_ADDRESS: {{ quote .Values.container.calculateResponseQueueAddress }}
   ELIGIBILITY_TOPIC_ADDRESS: {{ quote .Values.container.eligibilityTopicAddress }}
-  ELIGIBILITYRESPONSE_QUEUE_ADDRESS: {{ quote .Values.container.eligibilityCheckResponseQueueAddress }}
+  ELIGIBILITYCHECKRESPONSE_QUEUE_ADDRESS: {{ quote .Values.container.eligibilityCheckResponseQueueAddress }}
   JWT_TTL: {{ quote .Values.container.jwtTtl }}
   MESSAGE_QUEUE_HOST: {{ quote .Values.container.messageQueueHost }}
   PARCEL_TOPIC_ADDRESS: {{ quote .Values.container.parcelTopicAddress }}

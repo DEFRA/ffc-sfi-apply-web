@@ -28,25 +28,25 @@ for
 and
 [azure-identity-binding](./helm/ffc-demo-claim-service/templates/azure-identity-binding.yaml).
 
-| Name                                 | Description                                                            |
-| ----                                 | -----------                                                            |
-| CALCULATE_TOPIC_ADDRESS              |                                                                        |
-| CALCULATERESPONSE_QUEUE_ADDRESS      |                                                                        |
-| ELIGIBILITY_TOPIC_ADDRESS            |                                                                        |
-| ELIGIBILITYRESPONSE_QUEUE_ADDRESS    |                                                                        |
-| MESSAGE_QUEUE_HOST                   | Azure Service Bus hostname, e.g. `myservicebus.servicebus.windows.net` |
-| MESSAGE_QUEUE_PASSWORD               | Azure Service Bus SAS policy key                                       |
-| MESSAGE_QUEUE_USER                   | Azure Service Bus SAS policy name, e.g. `RootManageSharedAccessKey`    |
-| PARCEL_TOPIC_ADDRESS                 |                                                                        |
-| PARCELRESPONSE_QUEUE_ADDRESS         |                                                                        |
-| PARCELSPATIAL_TOPIC_ADDRESS          |                                                                        |
-| PARCELSPATIALRESPONSE_QUEUE_ADDRESS  |                                                                        |
-| PARCELSTANDARD_TOPIC_ADDRESS         |                                                                        |
-| PARCELSTANDARDRESPONSE_QUEUE_ADDRESS |                                                                        |
-| STANDARDSRESPONSE_QUEUE_ADDRESS      |                                                                        |
-| SUBMIT_TOPIC_ADDRESS                 |                                                                        |
-| VALIDATE_TOPIC_ADDRESS               |                                                                        |
-| WITHDRAW_TOPIC_ADDRESS               |                                                                        |
+| Name                                   | Description                                                            |
+| ----                                   | -----------                                                            |
+| CALCULATE_TOPIC_ADDRESS                |                                                                        |
+| CALCULATERESPONSE_QUEUE_ADDRESS        |                                                                        |
+| ELIGIBILITY_TOPIC_ADDRESS              |                                                                        |
+| ELIGIBILITYCHECKRESPONSE_QUEUE_ADDRESS |                                                                        |
+| MESSAGE_QUEUE_HOST                     | Azure Service Bus hostname, e.g. `myservicebus.servicebus.windows.net` |
+| MESSAGE_QUEUE_PASSWORD                 | Azure Service Bus SAS policy key                                       |
+| MESSAGE_QUEUE_USER                     | Azure Service Bus SAS policy name, e.g. `RootManageSharedAccessKey`    |
+| PARCEL_TOPIC_ADDRESS                   |                                                                        |
+| PARCELRESPONSE_QUEUE_ADDRESS           |                                                                        |
+| PARCELSPATIAL_TOPIC_ADDRESS            |                                                                        |
+| PARCELSPATIALRESPONSE_QUEUE_ADDRESS    |                                                                        |
+| PARCELSTANDARD_TOPIC_ADDRESS           |                                                                        |
+| PARCELSTANDARDRESPONSE_QUEUE_ADDRESS   |                                                                        |
+| STANDARDSRESPONSE_QUEUE_ADDRESS        |                                                                        |
+| SUBMIT_TOPIC_ADDRESS                   |                                                                        |
+| VALIDATE_TOPIC_ADDRESS                 |                                                                        |
+| WITHDRAW_TOPIC_ADDRESS                 |                                                                        |
 
 ### Environment variables
 

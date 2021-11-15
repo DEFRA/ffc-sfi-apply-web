@@ -192,8 +192,8 @@ const mqConfig = {
     type: 'sessionQueue'
   },
   responseEligibilityQueue: {
-    name: process.env.ELIGIBILITYRESPONSE_QUEUE_NAME,
-    address: process.env.ELIGIBILITYRESPONSE_QUEUE_ADDRESS,
+    name: process.env.ELIGIBILITYCHECKRESPONSE_QUEUE_NAME,
+    address: process.env.ELIGIBILITYCHECKRESPONSE_QUEUE_ADDRESS,
     username: process.env.MESSAGE_QUEUE_USER,
     password: process.env.MESSAGE_QUEUE_PASSWORD
   },
