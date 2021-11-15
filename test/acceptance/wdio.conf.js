@@ -12,7 +12,7 @@ exports.config = {
   hostname: 'hub-cloud.browserstack.com',
   user,
   key,
-  specs: ['./features/**/happy-path.feature'],
+  specs: ['./features/**/*.feature'],
   exclude: ['./scratch/**'],
 
   maxInstances,
