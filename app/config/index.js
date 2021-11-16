@@ -1,6 +1,7 @@
 const joi = require('joi')
 const cacheConfig = require('./cache')
 const mqConfig = require('./mq-config')
+const jwtConfig = require('./jwt-config')
 const storageConfig = require('./storage-config')
 
 // Define config schema
@@ -25,11 +26,7 @@ const schema = joi.object({
   restClientTimeoutMillis: joi.number().default(60000),
   publicApi: joi.string().default('https://environment.data.gov.uk/arcgis/rest/services/RPA/'),
   chApiGateway: joi.string().default('').regex(/[a-zA-Z:0-9]$/).allow(''),
-  osMapApiKey: joi.string().default('').allow(''),
-  jwtConfig: joi.object({
-    secret: joi.string()
-  }),
-  jwtTtl: joi.number().default(2592000000) // 30 days
+  osMapApiKey: joi.string().default('').allow('')
 })
 
 // Build config
@@ -54,11 +51,7 @@ const config = {
   osMapApiKey: process.env.OS_MAP_API_KEY,
   agreementApiEndpoint: process.env.AGREEMENT_API_ENDPOINT,
   agreementCalculatorEndpoint: process.env.AGREEMENT_CALCULATOR_ENDPOINT,
-  restClientTimeoutMillis: process.env.REST_CLIENT_TIMEOUT_IN_MILLIS,
-  jwtConfig: {
-    secret: process.env.JWT_SECRET
-  },
-  jwtTtl: process.env.JWT_TTL
+  restClientTimeoutMillis: process.env.REST_CLIENT_TIMEOUT_IN_MILLIS
 }
 
 // Validate config
@@ -92,6 +85,7 @@ value.responseParcelStandardQueue = mqConfig.responseParcelStandardQueue
 
 value.cacheConfig = cacheConfig
 value.storageConfig = storageConfig
+value.jwtConfig = jwtConfig
 
 value.isDev = value.env === 'development'
 value.isTest = value.env === 'test'
@@ -106,7 +100,7 @@ if (!value.useRedis) {
 
 value.cookieOptionsIdentity = {
   ...value.cookieOptions,
-  ttl: value.jwtTtl,
+  ttl: value.jwtConfig.ttl,
   encoding: 'none'
 }
 

@@ -2,7 +2,6 @@ module.exports = [{
   method: 'GET',
   path: '/confirmation',
   options: {
-
     handler: async (request, h) => {
       return h.view('confirmation')
     }
@@ -12,7 +11,6 @@ module.exports = [{
   method: 'POST',
   path: '/confirmation',
   options: {
-
     handler: async (request, h) => {
       return h.redirect('/arable-soils/payment-schedule')
     }
