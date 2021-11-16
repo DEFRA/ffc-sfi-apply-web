@@ -4,7 +4,6 @@ module.exports = [{
   method: 'GET',
   path: '/save-application',
   options: {
-    auth: { strategy: 'jwt' },
     handler: async (request, h) => {
       const agreement = await saveAgreement(request)
       const url = new URL(request.headers.referer)

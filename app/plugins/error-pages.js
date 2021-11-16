@@ -23,7 +23,7 @@ module.exports = {
           // In the event of 401
           // redirect to sign-in
           if (statusCode === 401) {
-            return h.redirect('/sign-in')
+            return h.redirect('/')
           }
 
           request.log('error', {

@@ -8,7 +8,6 @@ module.exports = [{
   method: 'GET',
   path: '/application-task-list',
   options: {
-    auth: { strategy: 'jwt' },
     handler: async (request, h) => {
       const agreement = await cache.get('agreement', request.yar.id)
       const application = agreement?.application
@@ -25,7 +24,6 @@ module.exports = [{
   method: 'GET',
   path: '/application-task-list/{agreementNumber}/{sbi}',
   options: {
-    auth: { strategy: 'jwt' },
     validate: {
       params: joi.object().keys({
         agreementNumber: joi.string().required(),

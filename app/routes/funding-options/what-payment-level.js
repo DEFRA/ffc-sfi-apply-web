@@ -7,7 +7,6 @@ module.exports = [{
   method: 'GET',
   path: '/funding-options/what-payment-level',
   options: {
-    auth: { strategy: 'jwt' },
     handler: async (request, h) => {
       const { application, paymentRates } = await getPaymentRates(request)
       if (paymentRates) {
@@ -27,7 +26,6 @@ module.exports = [{
   method: 'POST',
   path: '/funding-options/what-payment-level',
   options: {
-    auth: { strategy: 'jwt' },
     validate: {
       payload: joi.object({
         level: joi.any().required()

@@ -7,6 +7,7 @@ module.exports = [{
   method: 'GET',
   path: '/sign-in',
   options: {
+    auth: false,
     handler: async (request, h) => {
       const agreement = await cache.get('agreement', request.yar.id)
       return h.view('sign-in', { crn: agreement?.application?.crn, callerId: agreement?.application?.callerId })

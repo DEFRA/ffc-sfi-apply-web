@@ -7,7 +7,6 @@ module.exports = [
     method: 'GET',
     path: '/confirm-details',
     options: {
-      auth: { strategy: 'jwt' },
       handler: async (request, h) => {
         const agreement = await cache.get('agreement', request.yar.id)
         const application = agreement.application

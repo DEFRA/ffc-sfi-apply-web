@@ -10,7 +10,7 @@ module.exports = {
         validate,
         cookieKey: 'ffc_sfi_identity'
       })
-      server.auth.default({ strategy: 'jwt', mode: 'try' })
+      server.auth.default({ strategy: 'jwt', mode: 'required' })
     }
   }
 }

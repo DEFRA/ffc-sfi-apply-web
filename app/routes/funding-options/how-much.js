@@ -10,7 +10,6 @@ module.exports = [
     method: 'GET',
     path: '/funding-options/how-much',
     options: {
-      auth: { strategy: 'jwt' },
       handler: async (request, h) => {
         const { parcelStandards, application } = await getParcelStandards(request)
         const selectedParcelStandard = await downloadParcelStandardFile(parcelStandards.filename)
@@ -25,7 +24,6 @@ module.exports = [
     method: 'POST',
     path: '/funding-options/how-much',
     options: {
-      auth: { strategy: 'jwt' },
       validate: {
         payload: joi.object().keys({
           parcels: joi.array().items(joi.string()).single().required()
