@@ -1,9 +1,10 @@
 version: '3.8'
+
 services:
-  wdio-cucumber:
+  ffc-sfi-apply-web-acceptance-tests:
     build: .
-    image: wdio-cucumber
-    container_name: webdriver-cuke
+    image: ffc-sfi-apply-web-acceptance-tests
+    container_name: ffc-sfi-apply-web-acceptance-tests
     environment:
       BRANCH_NAME: ${BRANCH_NAME}
       BROWSERSTACK_ACCESS_KEY: ${BROWSERSTACK_ACCESS_KEY}
