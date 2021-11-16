@@ -1,3 +1,3 @@
-@Library('defra-library@use-sh-exit-code-acceptance-tests') _
+@Library('defra-library@v-9') _
 
 buildNodeJs()
