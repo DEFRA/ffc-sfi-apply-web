@@ -6,7 +6,6 @@ services:
     image: ffc-sfi-apply-web-acceptance-tests
     container_name: ffc-sfi-apply-web-acceptance-tests
     environment:
-      BRANCH_NAME: ${BRANCH_NAME}
       BROWSERSTACK_ACCESS_KEY: ${BROWSERSTACK_ACCESS_KEY}
       BROWSERSTACK_USERNAME: ${BROWSERSTACK_USERNAME}
       CALCULATE_SUBSCRIPTION_ADDRESS: ${CALCULATE_SUBSCRIPTION_ADDRESS:-notset}
