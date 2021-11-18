@@ -41,7 +41,7 @@ const taskList = [{
     id: 'answers',
     taskName: 'Check your answers',
     status: 'CANNOT START YET',
-    url: '/#fundingOption#/check-your-answers'
+    url: '/check-your-answers'
   }]
 },
 {

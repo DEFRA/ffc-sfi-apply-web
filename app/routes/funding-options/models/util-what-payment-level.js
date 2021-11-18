@@ -3,19 +3,20 @@ const cache = require('../../../cache')
 const { v4: uuidv4 } = require('uuid')
 
 async function getPaymentRates (request, error) {
-  const applyJourney = await cache.get('apply-journey', request.yar.id)
+  const agreement = await cache.get('agreement', request.yar.id)
+  const application = agreement.application
   let paymentRates = null
-  if (error && applyJourney.paymentRates) {
-    paymentRates = applyJourney.paymentRates
+  if (error && application.paymentRates) {
+    paymentRates = application.paymentRates
   } else {
     const messageId = uuidv4()
 
     await sendAgreementCalculateMessage(
       {
-        agreementNumber: applyJourney.agreementNumber,
-        callerId: applyJourney.callerId,
-        code: applyJourney.selectedStandard.code,
-        parcels: applyJourney.selectedParcels.map(x => ({ area: x.value }))
+        agreementNumber: application.agreementNumber,
+        callerId: application.callerId,
+        code: application.selectedStandard.code,
+        parcels: application.selectedParcels.map(x => ({ area: x.value }))
       }, request.yar.id,
       messageId)
 
@@ -23,11 +24,11 @@ async function getPaymentRates (request, error) {
 
     if (response) {
       console.info('Calculate request received', response)
-      await cache.update('apply-journey', request.yar.id, { paymentRates: response })
+      await cache.update('agreement', request.yar.id, { application: { paymentRates: response } })
       paymentRates = response
     }
   }
-  return { applyJourney, paymentRates }
+  return { application, paymentRates }
 }
 
 module.exports = getPaymentRates

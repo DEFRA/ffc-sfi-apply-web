@@ -5,8 +5,9 @@ const { getParcelSpatial } = require('./parcels')
 const { downloadParcelSpatialFile } = require('./storage')
 
 const getMapParcels = async (request) => {
-  const applyJourney = await cache.get('apply-journey', request.yar.id)
-  const sbi = applyJourney.selectedOrganisation.sbi
+  const agreement = await cache.get('agreement', request.yar.id)
+  const application = agreement?.application
+  const sbi = application.selectedOrganisation.sbi
 
   const mapStyle = ''
   const apiKey = config.osMapApiKey || ''

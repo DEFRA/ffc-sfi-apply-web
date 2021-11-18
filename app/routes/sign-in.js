@@ -1,19 +1,23 @@
 const joi = require('joi')
 const cache = require('../cache')
+const JWT = require('jsonwebtoken')
+const config = require('../config')
 
 module.exports = [{
   method: 'GET',
   path: '/sign-in',
   options: {
+    auth: false,
     handler: async (request, h) => {
-      const applyJourney = await cache.get('apply-journey', request.yar.id)
-      return h.view('sign-in', { crn: applyJourney.crn, callerId: applyJourney.callerId })
+      const agreement = await cache.get('agreement', request.yar.id)
+      return h.view('sign-in', { crn: agreement?.application?.crn, callerId: agreement?.application?.callerId })
     }
   }
 }, {
   method: 'POST',
   path: '/sign-in',
   options: {
+    auth: false,
     validate: {
       payload: joi.object({
         crn: joi.string().length(10).pattern(/^[0-9]+$/).required(),
@@ -27,8 +31,11 @@ module.exports = [{
     handler: async (request, h) => {
       const crn = request.payload.crn
       const callerId = request.payload.callerId
-      await cache.update('apply-journey', request.yar.id, { crn, callerId })
+      await cache.update('agreement', request.yar.id, { application: { crn, callerId } })
+      const token = JWT.sign({ callerId }, config.jwtConfig.secret, { expiresIn: 3600 * 1000 })
       return h.redirect('/which-business')
+        .header('Authorization', token)
+        .state('ffc_sfi_identity', token, config.cookieOptionsIdentity)
     }
   }
 }]

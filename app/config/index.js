@@ -1,6 +1,7 @@
 const joi = require('joi')
 const cacheConfig = require('./cache')
 const mqConfig = require('./mq-config')
+const jwtConfig = require('./jwt-config')
 const storageConfig = require('./storage-config')
 
 // Define config schema
@@ -84,6 +85,7 @@ value.responseParcelStandardQueue = mqConfig.responseParcelStandardQueue
 
 value.cacheConfig = cacheConfig
 value.storageConfig = storageConfig
+value.jwtConfig = jwtConfig
 
 value.isDev = value.env === 'development'
 value.isTest = value.env === 'test'
@@ -94,6 +96,12 @@ value.useRedis = !value.isTest && value.cacheConfig.redisCatboxOptions.host !== 
 
 if (!value.useRedis) {
   console.info('Redis disabled, using in memory cache')
+}
+
+value.cookieOptionsIdentity = {
+  ...value.cookieOptions,
+  ttl: value.jwtConfig.ttl,
+  encoding: 'none'
 }
 
 module.exports = value

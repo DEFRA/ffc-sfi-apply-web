@@ -6,14 +6,20 @@ const cache = require('../../cache')
 module.exports = [{
   method: 'GET',
   path: '/funding-options/what-payment-level',
-  handler: async (request, h) => {
-    const { applyJourney, paymentRates } = await getPaymentRates(request)
-    if (paymentRates) {
-      return h.view('funding-options/what-payment-level', ViewModel(
-        applyJourney.selectedOrganisation.sbi, applyJourney.selectedStandard.name, applyJourney.parcelArea, paymentRates, applyJourney.selectedAmbitionLevel, applyJourney.selectedStandard.code
-      ))
+  options: {
+    handler: async (request, h) => {
+      const { application, paymentRates } = await getPaymentRates(request)
+      if (paymentRates) {
+        return h.view('funding-options/what-payment-level', ViewModel(
+          application.selectedOrganisation.sbi,
+          application.selectedStandard.name,
+          application.parcelArea, paymentRates,
+          application.selectedAmbitionLevel,
+          application.selectedStandard.code
+        ))
+      }
+      return h.view('no-response')
     }
-    return h.view('no-response')
   }
 },
 {
@@ -25,27 +31,29 @@ module.exports = [{
         level: joi.any().required()
       }),
       failAction: async (request, h, error) => {
-        const { applyJourney, paymentRates } = await getPaymentRates(request, error)
+        const { agreement, paymentRates } = await getPaymentRates(request, error)
         if (paymentRates) {
           return h.view('funding-options/what-payment-levell', ViewModel(
-            applyJourney.selectedOrganisation.sbi, applyJourney.selectedStandard.name, applyJourney.parcelArea, paymentRates, applyJourney.selectedAmbitionLevel, error
+            agreement.selectedOrganisation.sbi, agreement.selectedStandard.name, agreement.parcelArea, paymentRates, agreement.selectedAmbitionLevel, error
           )).code(400).takeover()
         }
         return h.view('no-response')
       }
     },
     handler: async (request, h) => {
-      const applyJourney = await cache.get('apply-journey', request.yar.id)
+      const agreement = await cache.get('agreement', request.yar.id)
 
       const level = request.payload.level
-      const selectedAmbitionLevel = applyJourney.paymentRates[level]
+      const selectedAmbitionLevel = agreement.application.paymentRates[level]
 
-      await cache.update('apply-journey', request.yar.id, {
-        selectedAmbitionLevel: { name: level, level: selectedAmbitionLevel },
-        paymentAmount: selectedAmbitionLevel.paymentAmount
+      await cache.update('agreement', request.yar.id, {
+        application: {
+          selectedAmbitionLevel: { name: level, level: selectedAmbitionLevel },
+          paymentAmount: selectedAmbitionLevel.paymentAmount
+        }
       })
 
-      await cache.update('progress', request.yar.id, {
+      await cache.update('agreement', request.yar.id, {
         progress: { fundingDetails: true, paymentLevel: true }
       })
 

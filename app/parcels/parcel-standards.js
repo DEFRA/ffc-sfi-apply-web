@@ -3,24 +3,25 @@ const { sendParcelStandardMessage, recieveParcelStandardMessage } = require('../
 const { v4: uuidv4 } = require('uuid')
 
 const getParcelStandards = async (request, error) => {
-  const applyJourney = await cache.get('apply-journey', request.yar.id)
-  let parcelStandards = applyJourney.parcelStandards
+  const agreement = await cache.get('agreement', request.yar.id)
+  const application = agreement?.application
+  let parcelStandards = application.parcelStandards
   if (error && parcelStandards) {
-    return { applyJourney, parcelStandards }
+    return { application, parcelStandards }
   } else {
-    parcelStandards = await sendParcelStandardRequest(applyJourney, request, parcelStandards)
-    await cache.update('apply-journey', request.yar.id, { parcelStandards })
+    parcelStandards = await sendParcelStandardRequest(application, request, parcelStandards)
+    await cache.update('agreement', request.yar.id, { application: { parcelStandards } })
   }
-  return { applyJourney, parcelStandards }
+  return { application, parcelStandards }
 }
 
-const sendParcelStandardRequest = async (applyJourney, request, parcelStandards) => {
+const sendParcelStandardRequest = async (application, request, parcelStandards) => {
   const messageId = uuidv4()
 
-  const sbi = applyJourney.selectedOrganisation.sbi
-  const callerId = applyJourney.callerId
-  const organisationId = applyJourney.selectedOrganisation.organisationId
-  const standardCode = applyJourney.selectedStandard.code
+  const sbi = application.selectedOrganisation.sbi
+  const callerId = application.callerId
+  const organisationId = application.selectedOrganisation.organisationId
+  const standardCode = application.selectedStandard.code
 
   await sendParcelStandardMessage({ sbi, callerId, organisationId, standardCode }, request.yar.id, messageId)
 

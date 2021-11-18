@@ -6,6 +6,7 @@ module.exports = [{
   method: 'GET',
   path: '/declaration',
   options: {
+
     handler: async (request, h) => {
       await saveAgreement(request)
       return h.view('submit-application')
@@ -16,11 +17,12 @@ module.exports = [{
   method: 'POST',
   path: '/declaration',
   options: {
+
     handler: async (request, h) => {
       await saveAgreement(request)
-      const applyJourney = await cache.get('apply-journey', request.yar.id)
-      await submitAgreement(applyJourney.agreementNumber, applyJourney.selectedOrganisation.sbi)
-      await cache.update('progress', request.yar.id, {
+      const agreement = await cache.get('agreement', request.yar.id)
+      await submitAgreement(agreement.application.agreementNumber, agreement.application.selectedOrganisation.sbi)
+      await cache.update('agreement', request.yar.id, {
         progress: { submitted: true }
       })
       return h.redirect('/confirmation')

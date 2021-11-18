@@ -3,15 +3,16 @@ const { sendParcelSpatialMessage, recieveParcelSpatialMessage } = require('../me
 const { v4: uuidv4 } = require('uuid')
 
 const getParcelSpatial = async (request, error) => {
-  const applyJourney = await cache.get('apply-journey', request.yar.id)
-  let parcelSpatial = applyJourney.parcelSpatial
+  const agreement = await cache.get('agreement', request.yar.id)
+  const application = agreement?.application
+  let parcelSpatial = application.parcelSpatial
   if (error && parcelSpatial) {
-    return { applyJourney, parcelSpatial }
+    return { application, parcelSpatial }
   } else {
-    parcelSpatial = await sendParcelSpatialRequest(applyJourney, request, parcelSpatial)
-    await cache.update('apply-journey', request.yar.id, { parcelSpatial })
+    parcelSpatial = await sendParcelSpatialRequest(application, request, parcelSpatial)
+    await cache.update('agreement', request.yar.id, { application: { parcelSpatial } })
   }
-  return { applyJourney, parcelSpatial }
+  return { application, parcelSpatial }
 }
 
 const sendParcelSpatialRequest = async (applyJourney, request, parcelSpatial) => {

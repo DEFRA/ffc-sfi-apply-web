@@ -45,10 +45,11 @@
 
       <h2 class="govuk-heading-m">Summary</h2>
       <p class="govuk-body">
-        72 hectares of arable land across 31 parcels<br>
-        74 hectares of permanent grassland across 24 parcels<br>
-        3 hectares of non-agricultural land across 2 parcels<br>
-        0 hectares of site of special scientific interest (SSSI) land<br>
+        <ul class="govuk-list">
+          {% for landCover in landCovers %}
+            <li>{{ landCover.area | round(2) }} hectares of {{ landCover.name }}</li>
+          {% endfor %}
+        </ul>
       </p>
 
       {{ govukRadios({

@@ -7,6 +7,7 @@ module.exports = [{
   method: 'GET',
   path: '/withdraw',
   options: {
+
     handler: async (request, h) => {
       return h.view('withdraw', new ViewModel())
     }
@@ -16,6 +17,7 @@ module.exports = [{
   method: 'POST',
   path: '/withdraw',
   options: {
+
     validate: {
       payload: joi.object({
         withdraw: joi.boolean().required()
@@ -27,12 +29,12 @@ module.exports = [{
     handler: async (request, h) => {
       if (request.payload.withdraw) {
         const agreement = await cache.get('agreement', request.yar.id)
-        if (agreement.submitted) {
-          await sendAgreementWithdrawMessage({ sbi: agreement.sbi, agreementNumber: agreement.agreementNumber }, request.yar.id)
-          await cache.clear('eligibility', request.yar.id)
+        const application = agreement?.application
+        if (application.submitted) {
+          await sendAgreementWithdrawMessage({ sbi: application.sbi, agreementNumber: application.agreementNumber }, request.yar.id)
           await cache.clear('agreement', request.yar.id)
           await cache.clear('progress', request.yar.id)
-          return h.redirect(`/withdrawn?agreementNumber=${agreement.agreementNumber}`)
+          return h.redirect(`/withdrawn?agreementNumber=${application.agreementNumber}`)
         }
       }
       return h.redirect('/application-task-list')

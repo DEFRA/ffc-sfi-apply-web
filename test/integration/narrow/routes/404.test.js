@@ -1,5 +1,8 @@
 describe('404', () => {
   jest.mock('ffc-messaging')
+  jest.mock('../../../../app/cache')
+  const mockCache = require('../../../../app/cache')
+
   let createServer
   let server
 
@@ -7,9 +10,14 @@ describe('404', () => {
     createServer = require('../../../../app/server')
     server = await createServer()
     await server.initialize()
+
+    mockCache.get.mockResolvedValue({
+      callerId: 123456789
+    })
   })
 
   afterEach(async () => {
+    jest.clearAllMocks()
     await server.stop()
   })
 

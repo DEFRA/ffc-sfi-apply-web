@@ -9,13 +9,15 @@ module.exports = [
   {
     method: 'GET',
     path: '/funding-options/how-much',
-    handler: async (request, h) => {
-      const { parcelStandards, applyJourney } = await getParcelStandards(request)
-      const selectedParcelStandard = await downloadParcelStandardFile(parcelStandards.filename)
-      const viewModel = new ViewModel(applyJourney, selectedParcelStandard)
-      const mapParcels = await getMapParcels(request)
-      viewModel.map = mapParcels
-      return h.view('funding-options/how-much', viewModel)
+    options: {
+      handler: async (request, h) => {
+        const { parcelStandards, application } = await getParcelStandards(request)
+        const selectedParcelStandard = await downloadParcelStandardFile(parcelStandards.filename)
+        const viewModel = new ViewModel(application, selectedParcelStandard)
+        const mapParcels = await getMapParcels(request)
+        viewModel.map = mapParcels
+        return h.view('funding-options/how-much', viewModel)
+      }
     }
   },
   {
@@ -24,13 +26,13 @@ module.exports = [
     options: {
       validate: {
         payload: joi.object().keys({
-          parcels: joi.array().items(joi.string()).single()
+          parcels: joi.array().items(joi.string()).single().required()
         }).unknown(true),
         failAction: async (request, h, error) => {
           const { payload } = request
-          const { parcelStandards, applyJourney } = await getParcelStandards(request)
+          const { parcelStandards, application } = await getParcelStandards(request)
           const selectedParcelStandard = await downloadParcelStandardFile(parcelStandards.filename)
-          const viewModel = new ViewModel(applyJourney, selectedParcelStandard, payload)
+          const viewModel = new ViewModel(application, selectedParcelStandard, payload)
           const mapParcels = await getMapParcels(request)
           viewModel.map = mapParcels
           return h.view('funding-options/how-much', viewModel).code(400).takeover()
@@ -38,14 +40,17 @@ module.exports = [
       },
       handler: async (request, h) => {
         const { payload } = request
-        const { parcelStandards, applyJourney } = await getParcelStandards(request)
+        const { parcelStandards, application } = await getParcelStandards(request)
         const selectedParcelStandard = await downloadParcelStandardFile(parcelStandards.filename)
-        const viewModel = new ViewModel(applyJourney, selectedParcelStandard, payload)
+        const viewModel = new ViewModel(application, selectedParcelStandard, payload)
 
-        await cache.update('apply-journey', request.yar.id,
+        await cache.update('agreement', request.yar.id,
           {
-            selectedParcels: viewModel.model.landInHectares,
-            parcelArea: Number(viewModel.model.parcelArea).toFixed(2)
+            application:
+            {
+              selectedParcels: viewModel.model.landInHectares,
+              parcelArea: Number(viewModel.model.parcelArea).toFixed(2)
+            }
           })
 
         if (viewModel.model.error || viewModel.model.invalidValues) {

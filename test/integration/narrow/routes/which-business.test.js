@@ -1,3 +1,6 @@
+const JWT = require('jsonwebtoken')
+const config = require('../../../../app/config')
+
 describe('which-business route', () => {
   jest.mock('ffc-messaging')
   jest.mock('../../../../app/plugins/crumb')
@@ -8,10 +11,13 @@ describe('which-business route', () => {
 
   let createServer
   let server
+  let token
+  const callerId = 123456789
+
   const organisations = [{
     sbi: 123456789,
-    name: 'Title Forename Lastname1',
-    organisationId: 1234567,
+    name: 'Title Forename 6Lastname1',
+    organisationId: 123457,
     address: 'address1, address2, address3, postalCode'
   },
   {
@@ -22,18 +28,23 @@ describe('which-business route', () => {
   }]
 
   beforeEach(async () => {
+    token = JWT.sign({ callerId }, config.jwtConfig.secret)
     getEligibility.mockResolvedValue(
       {
         eligibility: organisations,
-        applyJourney: {
+        agreement: {
           selectedOrganisation: organisations[0]
         }
       }
     )
 
-    mockCache.get.mockResolvedValue({
-      eligibleOrganisations: organisations
-    })
+    mockCache.get.mockResolvedValue(
+      {
+        application: {
+          callerId,
+          eligibleOrganisations: organisations
+        }
+      })
 
     createServer = require('../../../../app/server')
     server = await createServer()
@@ -45,10 +56,55 @@ describe('which-business route', () => {
     await server.stop()
   })
 
-  test('GET /which-business returns 200', async () => {
+  test('GET /which-business Auth mode "required" token incorrect callerId', async () => {
+    token = JWT.sign({ callerId: 9999 }, config.jwtConfig.secret)
     const options = {
       method: 'GET',
       url: '/which-business'
+    }
+
+    const result = await server.inject(options)
+    expect(result.statusCode).toBe(302)
+  })
+
+  test('GET /which-business Auth mode "required" token expired', async () => {
+    token = JWT.sign({ callerId }, config.jwtConfig.secret, { expiresIn: '1ms' })
+    const options = {
+      method: 'GET',
+      url: '/which-business'
+    }
+
+    const result = await server.inject(options)
+    expect(result.statusCode).toBe(302)
+  })
+
+  test('GET /which-business Auth mode "required" should require header', async () => {
+    const options = {
+      method: 'GET',
+      url: '/which-business'
+    }
+
+    const result = await server.inject(options)
+    expect(result.statusCode).toBe(302)
+  })
+
+  test('GET /which-business Auth mode "required" should fail with invalid token', async () => {
+    token = JWT.sign({ callerId }, 'bad secret')
+    const options = {
+      method: 'GET',
+      url: '/which-business',
+      headers: { authorization: token }
+    }
+
+    const result = await server.inject(options)
+    expect(result.statusCode).toBe(302)
+  })
+
+  test('GET /which-business returns 200', async () => {
+    const options = {
+      method: 'GET',
+      url: '/which-business',
+      headers: { authorization: token }
     }
 
     const result = await server.inject(options)
@@ -58,7 +114,8 @@ describe('which-business route', () => {
   test('GET /which-business returns which-business view', async () => {
     const options = {
       method: 'GET',
-      url: '/which-business'
+      url: '/which-business',
+      headers: { authorization: token }
     }
 
     const result = await server.inject(options)
@@ -69,13 +126,14 @@ describe('which-business route', () => {
   test('GET /which-business returns no-businesses view when no organisations returned', async () => {
     const options = {
       method: 'GET',
-      url: '/which-business'
+      url: '/which-business',
+      headers: { authorization: token }
     }
 
     getEligibility.mockResolvedValue(
       {
         eligibility: [],
-        applyJourney: {
+        agreement: {
           selectedOrganisation: []
         }
       }
@@ -89,13 +147,14 @@ describe('which-business route', () => {
   test('GET /which-business returns no-response view when no response received', async () => {
     const options = {
       method: 'GET',
-      url: '/which-business'
+      url: '/which-business',
+      headers: { authorization: token }
     }
 
     getEligibility.mockResolvedValue(
       {
         eligibility: undefined,
-        applyJourney: {
+        agreement: {
           selectedOrganisation: []
         }
       }
@@ -110,6 +169,7 @@ describe('which-business route', () => {
     const options = {
       method: 'POST',
       url: '/which-business',
+      headers: { authorization: token },
       payload: { sbi: '123456789' }
     }
 
@@ -121,6 +181,7 @@ describe('which-business route', () => {
     const options = {
       method: 'POST',
       url: '/which-business',
+      headers: { authorization: token },
       payload: { sbi: '213456789' }
     }
 
@@ -133,6 +194,7 @@ describe('which-business route', () => {
     const options = {
       method: 'POST',
       url: '/which-business',
+      headers: { authorization: token },
       payload: { sbi: 123456789 }
     }
 

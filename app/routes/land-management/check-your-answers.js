@@ -4,9 +4,10 @@ module.exports = [{
   method: 'GET',
   path: '/check-your-answers',
   options: {
+
     handler: async (request, h) => {
-      const applyJourney = await cache.get('apply-journey', request.yar.id)
-      return h.view('land-management/check-your-answers', { selectedStandardCode: applyJourney.selectedStandard.code })
+      const agreement = await cache.get('agreement', request.yar.id)
+      return h.view('land-management/check-your-answers', { selectedStandardCode: agreement.application.selectedStandard.code })
     }
   }
 },
@@ -14,8 +15,9 @@ module.exports = [{
   method: 'POST',
   path: '/check-your-answers',
   options: {
+
     handler: async (request, h) => {
-      await cache.update('progress', request.yar.id, {
+      await cache.update('agreement', request.yar.id, {
         progress: { answers: true }
       })
       return h.redirect('/review-your-agreement')
