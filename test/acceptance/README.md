@@ -15,18 +15,6 @@ CI environments.
 BrowserStack is used to run the tests to reduce complexity and provide an
 improved experience that would otherwise be possible running tests locally.
 
-## Setup
-
-Need to have environment variables made available to the container. Created `.env` file in acceptance test directory.
-
-Env vars:
-
-TODO: add table
-
-Special env var `PR_BUILD` that will be set within the build environment. That
-can also be set locally to test with the same setup, simply set it to true i.e.
-`PR_BUILD=true`.
-
 ## Requirements
 
 - Docker Desktop 2.2.0.3 (42716) or higher
