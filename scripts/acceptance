@@ -1,0 +1,19 @@
+#!/usr/bin/env sh
+
+set -e
+projectRoot="$(a="/$0"; a=${a%/*}; a=${a:-.}; a=${a#/}/; cd "$a/.." || return; pwd)"
+
+cd "${projectRoot}"
+
+# start web application
+./scripts/start -d
+
+# run acceptance tests
+cd test/acceptance
+docker-compose down -v
+
+if [ "$1" = "debug" ]; then
+  docker-compose -f docker-compose.yaml -f docker-compose.override.yaml -f docker-compose.debug.yaml up --build --abort-on-container-exit
+else
+  docker-compose up --build --abort-on-container-exit
+fi

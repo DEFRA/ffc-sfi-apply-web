@@ -5,7 +5,7 @@ version: '3.8'
 
 services:
   ffc-sfi-apply-web:
-    depends_on: 
+    depends_on:
       - redis
     build:
       target: development
@@ -14,9 +14,9 @@ services:
     ports:
       - "3000:3000"
       - "9229:9229"
-    environment: 
+    environment:
+      AZURE_STORAGE_CONNECTION_STRING: ${AZURE_STORAGE_CONNECTION_STRING:-"DefaultEndpointsProtocol=http;AccountName=devstoreaccount1;AccountKey=Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==;BlobEndpoint=http://ffc-sfi-agreement-calculator-azurite:10000/devstoreaccount1;"}
       REDIS_HOSTNAME: redis
-      AZURE_STORAGE_CONNECTION_STRING: DefaultEndpointsProtocol=http;AccountName=devstoreaccount1;AccountKey=Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==;BlobEndpoint=http://ffc-sfi-agreement-calculator-azurite:10000/devstoreaccount1;
     volumes:
       - ./app:/home/node/app
       - ./package.json:/home/node/package.json

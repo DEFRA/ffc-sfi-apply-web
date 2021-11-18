@@ -57,9 +57,9 @@ container:
   parcelSpatialResponseQueueAddress: ffc-sfi-parcel-spatial-response
   parcelResponseQueueAddress: ffc-sfi-parcel-response
   parcelStandardResponseQueueAddress: ffc-sfi-parcel-standard-response
-  responseStandardsQueueAddress: ffc-sfi-standards-request-response
-  responseCalculateQueueAddress: ffc-sfi-agreement-calculate-response
-  responseEligibilityCheckQueueAddress: ffc-sfi-eligibility-check-response
+  standardsResponseQueueAddress: ffc-sfi-standards-request-response
+  calculateResponseQueueAddress: ffc-sfi-agreement-calculate-response
+  eligibilityCheckResponseQueueAddress: ffc-sfi-eligibility-check-response
   agreementCalculatorEndpoint: http://ffc-sfi-agreement-calculator.ffc-sfi
   agreementApiEndpoint: http://ffc-sfi-agreement-api.ffc-sfi
   redisHostname: redis-redis-ha.default

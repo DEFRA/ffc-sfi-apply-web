@@ -14,26 +14,33 @@ if (config.useConnectionStr) {
 const parcelStandardContainer = blobServiceClient.getContainerClient(config.parcelStandardContainer)
 const parcelSpatialContainer = blobServiceClient.getContainerClient(config.parcelSpatialContainer)
 
-const initialiseContainers = async () => {
+async function initialiseContainers () {
   await parcelStandardContainer.createIfNotExists()
   containersInitialised = true
 }
 
-const getBlob = async (container, filename) => {
+async function getBlockBlobClient (container, filename) {
   containersInitialised ?? await initialiseContainers()
   return container.getBlockBlobClient(filename)
 }
 
-const downloadParcelStandardFile = async (filename) => {
-  const blob = await getBlob(parcelStandardContainer, filename)
-  const downloaded = await blob.downloadToBuffer()
-  return JSON.parse(downloaded.toString())
+async function downloadFile (container, filename) {
+  const blockBlobClient = await getBlockBlobClient(container, filename)
+  let downloadBuffer
+  try {
+    downloadBuffer = await blockBlobClient.downloadToBuffer()
+  } catch (e) {
+    console.error(e)
+  }
+  return JSON.parse(downloadBuffer.toString())
 }
 
-const downloadParcelSpatialFile = async (filename) => {
-  const blob = await getBlob(parcelSpatialContainer, filename)
-  const downloaded = await blob.downloadToBuffer()
-  return JSON.parse(downloaded.toString())
+async function downloadParcelStandardFile (filename) {
+  return downloadFile(parcelStandardContainer, filename)
+}
+
+async function downloadParcelSpatialFile (filename) {
+  return downloadFile(parcelSpatialContainer, filename)
 }
 
 module.exports = {
