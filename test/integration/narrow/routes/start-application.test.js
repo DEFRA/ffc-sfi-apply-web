@@ -1,7 +1,7 @@
 const JWT = require('jsonwebtoken')
 const config = require('../../../../app/config')
 
-describe('which-business route', () => {
+describe('start-application route', () => {
   jest.mock('ffc-messaging')
   jest.mock('../../../../app/plugins/crumb')
   jest.mock('../../../../app/eligibility')
@@ -56,43 +56,43 @@ describe('which-business route', () => {
     await server.stop()
   })
 
-  test('GET /which-business Auth mode "required" token incorrect callerId', async () => {
+  test('GET /start-application Auth mode "required" token incorrect callerId', async () => {
     token = JWT.sign({ callerId: 9999 }, config.jwtConfig.secret)
     const options = {
       method: 'GET',
-      url: '/which-business'
+      url: '/start-application'
     }
 
     const result = await server.inject(options)
     expect(result.statusCode).toBe(302)
   })
 
-  test('GET /which-business Auth mode "required" token expired', async () => {
+  test('GET /start-applicationAuth mode "required" token expired', async () => {
     token = JWT.sign({ callerId }, config.jwtConfig.secret, { expiresIn: '1ms' })
     const options = {
       method: 'GET',
-      url: '/which-business'
+      url: 'start-application'
     }
 
     const result = await server.inject(options)
     expect(result.statusCode).toBe(302)
   })
 
-  test('GET /which-business Auth mode "required" should require header', async () => {
+  test('GET /start-application Auth mode "required" should require header', async () => {
     const options = {
       method: 'GET',
-      url: '/which-business'
+      url: '/start-application'
     }
 
     const result = await server.inject(options)
     expect(result.statusCode).toBe(302)
   })
 
-  test('GET /which-business Auth mode "required" should fail with invalid token', async () => {
+  test('GET /start-application Auth mode "required" should fail with invalid token', async () => {
     token = JWT.sign({ callerId }, 'bad secret')
     const options = {
       method: 'GET',
-      url: '/which-business',
+      url: '/start-application',
       headers: { authorization: token }
     }
 
@@ -100,10 +100,10 @@ describe('which-business route', () => {
     expect(result.statusCode).toBe(302)
   })
 
-  test('GET /which-business returns 200', async () => {
+  test('GET /start-application returns 200', async () => {
     const options = {
       method: 'GET',
-      url: '/which-business',
+      url: '/start-application',
       headers: { authorization: token }
     }
 
@@ -111,22 +111,22 @@ describe('which-business route', () => {
     expect(result.statusCode).toBe(200)
   })
 
-  test('GET /which-business returns which-business view', async () => {
+  test('GET /start-application returns start-application view', async () => {
     const options = {
       method: 'GET',
-      url: '/which-business',
+      url: '/start-application',
       headers: { authorization: token }
     }
 
     const result = await server.inject(options)
     expect(result.request.response.variety).toBe('view')
-    expect(result.request.response.source.template).toBe('which-business')
+    expect(result.request.response.source.template).toBe('start-application')
   })
 
-  test('GET /which-business returns no-businesses view when no organisations returned', async () => {
+  test('GET /start-application returns no-businesses view when no organisations returned', async () => {
     const options = {
       method: 'GET',
-      url: '/which-business',
+      url: '/start-application',
       headers: { authorization: token }
     }
 
@@ -144,10 +144,10 @@ describe('which-business route', () => {
     expect(result.request.response.source.template).toBe('no-businesses')
   })
 
-  test('GET /which-business returns no-response view when no response received', async () => {
+  test('GET /start-application returns no-response view when no response received', async () => {
     const options = {
       method: 'GET',
-      url: '/which-business',
+      url: '/start-application',
       headers: { authorization: token }
     }
 
@@ -165,10 +165,10 @@ describe('which-business route', () => {
     expect(result.request.response.source.template).toBe('no-response')
   })
 
-  test('POST /which-business returns 300', async () => {
+  test('POST /start-application returns 300', async () => {
     const options = {
       method: 'POST',
-      url: '/which-business',
+      url: '/start-application',
       headers: { authorization: token },
       payload: { sbi: '123456789' }
     }
@@ -177,29 +177,29 @@ describe('which-business route', () => {
     expect(result.statusCode).toBe(302)
   })
 
-  test('POST /which-business sbi not found in cache', async () => {
+  test('POST /start-application sbi not found in cache', async () => {
     const options = {
       method: 'POST',
-      url: '/which-business',
+      url: '/start-application',
       headers: { authorization: token },
       payload: { sbi: '213456789' }
     }
 
     const result = await server.inject(options)
     expect(result.request.response.variety).toBe('view')
-    expect(result.request.response.source.template).toBe('which-business')
+    expect(result.request.response.source.template).toBe('start-application')
   })
 
-  test('POST /which-business sbi is not string returns view', async () => {
+  test('POST /start-application sbi is not string returns view', async () => {
     const options = {
       method: 'POST',
-      url: '/which-business',
+      url: '/start-application',
       headers: { authorization: token },
       payload: { sbi: 123456789 }
     }
 
     const result = await server.inject(options)
     expect(result.request.response.variety).toBe('view')
-    expect(result.request.response.source.template).toBe('which-business')
+    expect(result.request.response.source.template).toBe('start-application')
   })
 })

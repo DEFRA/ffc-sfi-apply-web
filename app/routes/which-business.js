@@ -1,11 +1,11 @@
 const joi = require('joi')
-const ViewModel = require('./models/which-business')
+const ViewModel = require('./models/start-application')
 const cache = require('../cache')
 const getEligibility = require('../eligibility')
 
 module.exports = [{
   method: 'GET',
-  path: '/which-business',
+  path: '/start-application',
   options: {
     handler: async (request, h) => {
       const { eligibility, agreement } = await getEligibility(request)
@@ -18,13 +18,13 @@ module.exports = [{
         return h.view('no-businesses')
       }
 
-      return h.view('which-business', new ViewModel(eligibility, agreement.selectedOrganisation))
+      return h.view('start-application', new ViewModel(eligibility, agreement.selectedOrganisation))
     }
   }
 },
 {
   method: 'POST',
-  path: '/which-business',
+  path: '/start-application',
   options: {
     validate: {
       payload: joi.object({
@@ -32,7 +32,7 @@ module.exports = [{
       }),
       failAction: async (request, h, error) => {
         const { eligibility, agreement } = await getEligibility(request, error)
-        return h.view('which-business', new ViewModel(eligibility, agreement.selectedOrganisation, error)).code(400).takeover()
+        return h.view('start-application', new ViewModel(eligibility, agreement.selectedOrganisation, error)).code(400).takeover()
       }
     },
     handler: async (request, h) => {
@@ -47,7 +47,7 @@ module.exports = [{
 
       const { eligibility } = await getEligibility(request)
       const error = { message: 'SBI number not found' }
-      return h.view('which-business', new ViewModel(eligibility, selectedOrganisation, error)).code(400).takeover()
+      return h.view('start-application', new ViewModel(eligibility, selectedOrganisation, error)).code(400).takeover()
     }
   }
 }]

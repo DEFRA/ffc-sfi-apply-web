@@ -6,7 +6,7 @@ const routes = [].concat(
   require('../routes/home'),
   require('../routes/cookies'),
   require('../routes/sign-in'),
-  require('../routes/which-business'),
+  require('../routes/start-application'),
   require('../routes/application-task-list'),
   require('../routes/land-business-details/confirm-details'),
   require('../routes/land-business-details/management-control'),

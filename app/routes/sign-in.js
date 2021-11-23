@@ -33,7 +33,7 @@ module.exports = [{
       const callerId = request.payload.callerId
       await cache.update('agreement', request.yar.id, { application: { crn, callerId } })
       const token = JWT.sign({ callerId }, config.jwtConfig.secret, { expiresIn: 3600 * 1000 })
-      return h.redirect('/which-business')
+      return h.redirect('/start-application')
         .header('Authorization', token)
         .state('ffc_sfi_identity', token, config.cookieOptionsIdentity)
     }
