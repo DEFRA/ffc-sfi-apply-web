@@ -5,109 +5,57 @@ const mqSchema = joi.object({
     host: joi.string().default('localhost'),
     useCredentialChain: joi.bool().default(false),
     type: joi.string(),
-    appInsights: joi.object()
+    appInsights: joi.object(),
+    username: joi.string(),
+    password: joi.string()
   },
   eligibilityTopic: {
-    name: joi.string().default('ffc-sfi-eligibility-check'),
-    address: joi.string().default('eligibility'),
-    username: joi.string(),
-    password: joi.string()
+    address: joi.string()
   },
   standardsTopic: {
-    name: joi.string().default('ffc-sfi-standards-request'),
-    address: joi.string().default('standards'),
-    username: joi.string(),
-    password: joi.string()
+    address: joi.string()
   },
   validateTopic: {
-    name: joi.string().default('ffc-sfi-agreement-validate'),
-    address: joi.string().default('validate'),
-    username: joi.string(),
-    password: joi.string()
+    address: joi.string()
   },
   calculateTopic: {
-    name: joi.string().default('ffc-sfi-agreement-calculate'),
-    address: joi.string().default('calculate'),
-    username: joi.string(),
-    password: joi.string()
+    address: joi.string()
   },
   submitTopic: {
-    name: joi.string().default('ffc-sfi-agreement-submit'),
-    address: joi.string().default('submit'),
-    username: joi.string(),
-    password: joi.string()
+    address: joi.string()
   },
   withdrawTopic: {
-    name: joi.string().default('ffc-sfi-agreement-withdraw'),
-    address: joi.string().default('withdraw'),
-    username: joi.string(),
-    password: joi.string()
+    address: joi.string()
   },
   requestSBITopic: {
-    name: joi.string().default('ffc-sfi-request-sbi'),
-    address: joi.string().default('request-sbi'),
-    username: joi.string(),
-    password: joi.string()
+    address: joi.string()
   },
   parcelSpatialTopic: {
-    name: joi.string().default('ffc-sfi-parcel-spatial-request'),
-    address: joi.string(),
-    username: joi.string(),
-    password: joi.string()
+    address: joi.string()
   },
   parcelTopic: {
-    name: joi.string().default('ffc-sfi-parcel-request'),
-    address: joi.string(),
-    username: joi.string(),
-    password: joi.string()
+    address: joi.string()
   },
   parcelStandardTopic: {
-    name: joi.string().default('ffc-sfi-parcel-standard-request'),
-    address: joi.string(),
-    username: joi.string(),
-    password: joi.string()
+    address: joi.string()
   },
   responseStandardsQueue: {
-    name: joi.string(),
-    address: joi.string(),
-    username: joi.string(),
-    password: joi.string(),
-    type: joi.string()
+    address: joi.string()
   },
   responseCalculateQueue: {
-    name: joi.string(),
-    address: joi.string(),
-    username: joi.string(),
-    password: joi.string(),
-    type: joi.string()
+    address: joi.string()
   },
   responseEligibilityQueue: {
-    name: joi.string(),
-    address: joi.string(),
-    username: joi.string(),
-    password: joi.string(),
-    type: joi.string()
+    address: joi.string()
   },
   responseParcelSpatialQueue: {
-    name: joi.string(),
-    address: joi.string(),
-    username: joi.string(),
-    password: joi.string(),
-    type: joi.string()
+    address: joi.string()
   },
   responseParcelQueue: {
-    name: joi.string(),
-    address: joi.string(),
-    username: joi.string(),
-    password: joi.string(),
-    type: joi.string()
+    address: joi.string()
   },
   responseParcelStandardQueue: {
-    name: joi.string(),
-    address: joi.string(),
-    username: joi.string(),
-    password: joi.string(),
-    type: joi.string()
+    address: joi.string()
   }
 })
 const mqConfig = {
@@ -115,105 +63,57 @@ const mqConfig = {
     host: process.env.MESSAGE_QUEUE_HOST,
     useCredentialChain: process.env.NODE_ENV === 'production',
     type: 'Topic',
-    appInsights: process.env.NODE_ENV === 'production' ? require('applicationinsights') : undefined
+    appInsights: process.env.NODE_ENV === 'production' ? require('applicationinsights') : undefined,
+    username: process.env.MESSAGE_QUEUE_USER,
+    password: process.env.MESSAGE_QUEUE_PASSWORD
   },
   eligibilityTopic: {
-    name: process.env.ELIGIBILITY_TOPIC_NAME,
-    address: process.env.ELIGIBILITY_TOPIC_ADDRESS,
-    username: process.env.MESSAGE_QUEUE_USER,
-    password: process.env.MESSAGE_QUEUE_PASSWORD
+    address: process.env.ELIGIBILITY_TOPIC_ADDRESS
   },
   standardsTopic: {
-    name: process.env.STANDARDS_TOPIC_NAME,
-    address: process.env.STANDARDS_TOPIC_ADDRESS,
-    username: process.env.MESSAGE_QUEUE_USER,
-    password: process.env.MESSAGE_QUEUE_PASSWORD
+    address: process.env.STANDARDS_TOPIC_ADDRESS
   },
   validateTopic: {
-    name: process.env.VALIDATE_TOPIC_NAME,
-    address: process.env.VALIDATE_TOPIC_ADDRESS,
-    username: process.env.MESSAGE_QUEUE_USER,
-    password: process.env.MESSAGE_QUEUE_PASSWORD
+    address: process.env.VALIDATE_TOPIC_ADDRESS
   },
   calculateTopic: {
-    name: process.env.CALCULATE_TOPIC_NAME,
-    address: process.env.CALCULATE_TOPIC_ADDRESS,
-    username: process.env.MESSAGE_QUEUE_USER,
-    password: process.env.MESSAGE_QUEUE_PASSWORD
+    address: process.env.CALCULATE_TOPIC_ADDRESS
   },
   submitTopic: {
-    name: process.env.SUBMIT_TOPIC_NAME,
-    address: process.env.SUBMIT_TOPIC_ADDRESS,
-    username: process.env.MESSAGE_QUEUE_USER,
-    password: process.env.MESSAGE_QUEUE_PASSWORD
+    address: process.env.SUBMIT_TOPIC_ADDRESS
   },
   withdrawTopic: {
-    name: process.env.WITHDRAW_TOPIC_NAME,
-    address: process.env.WITHDRAW_TOPIC_ADDRESS,
-    username: process.env.MESSAGE_QUEUE_USER,
-    password: process.env.MESSAGE_QUEUE_PASSWORD
+    address: process.env.WITHDRAW_TOPIC_ADDRESS
   },
   requestSBITopic: {
-    name: process.env.REQUEST_SBI_TOPIC_NAME,
-    address: process.env.REQUEST_SBI_TOPIC_ADDRESS,
-    username: process.env.MESSAGE_QUEUE_USER,
-    password: process.env.MESSAGE_QUEUE_PASSWORD
+    address: process.env.REQUEST_SBI_TOPIC_ADDRESS
   },
   parcelSpatialTopic: {
-    name: process.env.PARCELSPATIAL_TOPIC_NAME,
-    address: process.env.PARCELSPATIAL_TOPIC_ADDRESS,
-    username: process.env.MESSAGE_QUEUE_USER,
-    password: process.env.MESSAGE_QUEUE_PASSWORD
+    address: process.env.PARCELSPATIAL_TOPIC_ADDRESS
   },
   parcelTopic: {
-    name: process.env.PARCEL_TOPIC_NAME,
-    address: process.env.PARCEL_TOPIC_ADDRESS,
-    username: process.env.MESSAGE_QUEUE_USER,
-    password: process.env.MESSAGE_QUEUE_PASSWORD
+    address: process.env.PARCEL_TOPIC_ADDRESS
   },
   parcelStandardTopic: {
-    name: process.env.PARCELSTANDARD_TOPIC_NAME,
-    address: process.env.PARCELSTANDARD_TOPIC_ADDRESS,
-    username: process.env.MESSAGE_QUEUE_USER,
-    password: process.env.MESSAGE_QUEUE_PASSWORD
+    address: process.env.PARCELSTANDARD_TOPIC_ADDRESS
   },
   responseStandardsQueue: {
-    name: process.env.STANDARDSRESPONSE_QUEUE_NAME,
-    address: process.env.STANDARDSRESPONSE_QUEUE_ADDRESS,
-    username: process.env.MESSAGE_QUEUE_USER,
-    password: process.env.MESSAGE_QUEUE_PASSWORD,
-    type: 'sessionQueue'
+    address: process.env.STANDARDSRESPONSE_QUEUE_ADDRESS
   },
   responseCalculateQueue: {
-    name: process.env.CALCULATERESPONSE_QUEUE_NAME,
-    address: process.env.CALCULATERESPONSE_QUEUE_ADDRESS,
-    username: process.env.MESSAGE_QUEUE_USER,
-    password: process.env.MESSAGE_QUEUE_PASSWORD,
-    type: 'sessionQueue'
+    address: process.env.CALCULATERESPONSE_QUEUE_ADDRESS
   },
   responseEligibilityQueue: {
-    name: process.env.ELIGIBILITYCHECKRESPONSE_QUEUE_NAME,
-    address: process.env.ELIGIBILITYCHECKRESPONSE_QUEUE_ADDRESS,
-    username: process.env.MESSAGE_QUEUE_USER,
-    password: process.env.MESSAGE_QUEUE_PASSWORD
+    address: process.env.ELIGIBILITYCHECKRESPONSE_QUEUE_ADDRESS
   },
   responseParcelSpatialQueue: {
-    name: process.env.PARCELSPATIALRESPONSE_QUEUE_NAME,
-    address: process.env.PARCELSPATIALRESPONSE_QUEUE_ADDRESS,
-    username: process.env.MESSAGE_QUEUE_USER,
-    password: process.env.MESSAGE_QUEUE_PASSWORD
+    address: process.env.PARCELSPATIALRESPONSE_QUEUE_ADDRESS
   },
   responseParcelQueue: {
-    name: process.env.PARCELRESPONSE_QUEUE_NAME,
-    address: process.env.PARCELRESPONSE_QUEUE_ADDRESS,
-    username: process.env.MESSAGE_QUEUE_USER,
-    password: process.env.MESSAGE_QUEUE_PASSWORD
+    address: process.env.PARCELRESPONSE_QUEUE_ADDRESS
   },
   responseParcelStandardQueue: {
-    name: process.env.PARCELSTANDARDRESPONSE_QUEUE_NAME,
-    address: process.env.PARCELSTANDARDRESPONSE_QUEUE_ADDRESS,
-    username: process.env.MESSAGE_QUEUE_USER,
-    password: process.env.MESSAGE_QUEUE_PASSWORD
+    address: process.env.PARCELSTANDARDRESPONSE_QUEUE_ADDRESS
   }
 }
 
