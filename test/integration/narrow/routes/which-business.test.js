@@ -5,6 +5,7 @@ describe('which-business route', () => {
   jest.mock('ffc-messaging')
   jest.mock('../../../../app/plugins/crumb')
   jest.mock('../../../../app/eligibility')
+  jest.mock('../../../../app/config/mq-config')
   const getEligibility = require('../../../../app/eligibility')
   jest.mock('../../../../app/cache')
   const mockCache = require('../../../../app/cache')

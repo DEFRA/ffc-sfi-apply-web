@@ -1,6 +1,7 @@
 describe('404', () => {
   jest.mock('ffc-messaging')
   jest.mock('../../../../app/cache')
+  jest.mock('../../../../app/config/mq-config')
   const mockCache = require('../../../../app/cache')
 
   let createServer
