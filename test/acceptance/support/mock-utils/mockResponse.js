@@ -83,7 +83,7 @@ async function mockWhichBusiness () {
     source: 'ffc-sfi-agreement-calculator',
     type: 'uk.gov.sfi.agreement.eligibility.request.response'
   }
-  await mockResponseMessage(baseResponseMessage, process.env.ELIGIBILITYCHECKRESPONSE_QUEUE_ADDRESS, receiverConfig)
+  await mockResponseMessage(baseResponseMessage, process.env.ELIGIBILITYRESPONSE_QUEUE_ADDRESS, receiverConfig)
 }
 
 /**
