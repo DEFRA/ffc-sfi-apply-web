@@ -1,5 +1,4 @@
 describe('Healthy test', () => {
-  jest.mock('../../../../app/config/mq-config')
   jest.mock('ffc-messaging')
   const createServer = require('../../../../app/server')
   let server

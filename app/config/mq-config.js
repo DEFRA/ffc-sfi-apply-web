@@ -121,8 +121,8 @@ const mqResult = mqSchema.validate(mqConfig, {
   abortEarly: false
 })
 
-// Throw if config is invalid
-if (mqResult.error) {
+// Throw if config is invalid and not running in test mode
+if (mqResult.error && process.env.NODE_ENV !== 'test') {
   throw new Error(`The message queue config is invalid. ${mqResult.error.message}`)
 }
 

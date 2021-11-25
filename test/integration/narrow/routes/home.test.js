@@ -1,6 +1,5 @@
 describe('home route', () => {
   jest.mock('ffc-messaging')
-  jest.mock('../../../../app/config/mq-config')
   const createServer = require('../../../../app/server')
   let server
 
