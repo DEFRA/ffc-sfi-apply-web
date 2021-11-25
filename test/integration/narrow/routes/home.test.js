@@ -1,11 +1,10 @@
 describe('home route', () => {
-  jest.mock('../../../../app/config/mq-config')
   jest.mock('ffc-messaging')
-  let createServer
+  jest.mock('../../../../app/config/mq-config')
+  const createServer = require('../../../../app/server')
   let server
 
   beforeEach(async () => {
-    createServer = require('../../../../app/server')
     server = await createServer()
     await server.initialize()
   })
