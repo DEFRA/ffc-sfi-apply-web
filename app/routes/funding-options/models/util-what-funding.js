@@ -25,7 +25,7 @@ const sendStandardsRequest = async (application, request, standards) => {
   const response = await receiveStandardsResponseMessage(messageId)
 
   if (response) {
-    console.info('Standards request received', util.inspect(response, false, null, true))
+    console.info('Standards request received:', util.inspect(response, false, null, true))
     await cache.update('agreement', request.yar.id, { application: { standards: response.standards } })
     standards = response.standards
   }

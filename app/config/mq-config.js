@@ -104,7 +104,7 @@ const mqConfig = {
     address: process.env.CALCULATERESPONSE_QUEUE_ADDRESS
   },
   responseEligibilityQueue: {
-    address: process.env.ELIGIBILITYCHECKRESPONSE_QUEUE_ADDRESS
+    address: process.env.ELIGIBILITYRESPONSE_QUEUE_ADDRESS
   },
   responseParcelSpatialQueue: {
     address: process.env.PARCELSPATIALRESPONSE_QUEUE_ADDRESS

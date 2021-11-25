@@ -1,6 +1,7 @@
 const cache = require('../cache')
-const { sendParcelStandardMessage, recieveParcelStandardMessage } = require('../messaging')
+const { sendParcelStandardMessage, receiveParcelStandardMessage } = require('../messaging')
 const { v4: uuidv4 } = require('uuid')
+const util = require('util')
 
 const getParcelStandards = async (request, error) => {
   const agreement = await cache.get('agreement', request.yar.id)
@@ -25,10 +26,10 @@ const sendParcelStandardRequest = async (application, request, parcelStandards) 
 
   await sendParcelStandardMessage({ sbi, callerId, organisationId, standardCode }, request.yar.id, messageId)
 
-  const response = await recieveParcelStandardMessage(messageId)
+  const response = await receiveParcelStandardMessage(messageId)
 
   if (response) {
-    console.info('Parcel Standards request received', response)
+    console.info('Parcel Standards request received:', util.inspect(response, false, null, true))
     parcelStandards = response
   }
 

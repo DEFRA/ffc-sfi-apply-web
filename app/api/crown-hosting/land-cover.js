@@ -9,15 +9,13 @@ const getLandCovers = async (organisationId, callerId) => {
     const infos = parcel.info
 
     for (const info of infos) {
-      let area = 0
-      if (landCovers.find(x => x.name === info.name) !== undefined) {
-        const landCover = landCovers.find(x => x.name === info.name)
+      const landCover = landCovers.find(x => x.name === info.name)
+      if (landCover) {
         landCover.area += convertMetresToHectares(info.area)
       } else {
-        area += convertMetresToHectares(info.area)
         landCovers.push({
           name: info.name,
-          area
+          area: convertMetresToHectares(info.area)
         })
       }
     }

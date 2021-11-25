@@ -44,14 +44,12 @@ module.exports = [
         const selectedParcelStandard = await downloadParcelStandardFile(parcelStandards.filename)
         const viewModel = new ViewModel(application, selectedParcelStandard, payload)
 
-        await cache.update('agreement', request.yar.id,
-          {
-            application:
-            {
-              selectedParcels: viewModel.model.landInHectares,
-              parcelArea: Number(viewModel.model.parcelArea).toFixed(2)
-            }
-          })
+        await cache.update('agreement', request.yar.id, {
+          application: {
+            selectedParcels: viewModel.model.landInHectares,
+            parcelArea: Number(viewModel.model.parcelArea).toFixed(2)
+          }
+        })
 
         if (viewModel.model.error || viewModel.model.invalidValues) {
           return h.view('funding-options/how-much', viewModel).code(400).takeover()
