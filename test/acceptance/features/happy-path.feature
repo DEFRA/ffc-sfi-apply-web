@@ -13,9 +13,9 @@ Feature: Apply for land funding
         And I clear the inputfield "#password"
         And I add "kdaihsra" to the inputfield "#password"
         And I click on the element "#submit"
-        Then I mock the response for "which-business"
+        Then I mock the response for "start-application"
         When I pause for 500ms
-        Then I expect that the url contains "/which-business"
+        Then I expect that the url contains "/start-application"
         When I click on the element "#sbi"
         And I click on the element "#submit"
         Then I expect that the url contains "/application-task-list"
