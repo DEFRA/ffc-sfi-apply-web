@@ -4,8 +4,6 @@ const config = require('../../../../app/config')
 describe('start-application route', () => {
   jest.mock('ffc-messaging')
   jest.mock('../../../../app/plugins/crumb')
-  jest.mock('../../../../app/eligibility')
-  const getEligibility = require('../../../../app/eligibility')
   jest.mock('../../../../app/cache')
   const mockCache = require('../../../../app/cache')
 
@@ -29,14 +27,6 @@ describe('start-application route', () => {
 
   beforeEach(async () => {
     token = JWT.sign({ callerId }, config.jwtConfig.secret)
-    getEligibility.mockResolvedValue(
-      {
-        eligibility: organisations,
-        agreement: {
-          selectedOrganisation: organisations[0]
-        }
-      }
-    )
 
     mockCache.get.mockResolvedValue(
       {
@@ -60,7 +50,7 @@ describe('start-application route', () => {
     token = JWT.sign({ callerId: 9999 }, config.jwtConfig.secret)
     const options = {
       method: 'GET',
-      url: '/start-application'
+      url: '/start-application?sbi=123456789'
     }
 
     const result = await server.inject(options)
@@ -71,7 +61,7 @@ describe('start-application route', () => {
     token = JWT.sign({ callerId }, config.jwtConfig.secret, { expiresIn: '1ms' })
     const options = {
       method: 'GET',
-      url: 'start-application'
+      url: '/start-application?sbi=123456789'
     }
 
     const result = await server.inject(options)
@@ -81,7 +71,7 @@ describe('start-application route', () => {
   test('GET /start-application Auth mode "required" should require header', async () => {
     const options = {
       method: 'GET',
-      url: '/start-application'
+      url: '/start-application?sbi=123456789'
     }
 
     const result = await server.inject(options)
@@ -92,7 +82,7 @@ describe('start-application route', () => {
     token = JWT.sign({ callerId }, 'bad secret')
     const options = {
       method: 'GET',
-      url: '/start-application',
+      url: '/start-application?sbi=123456789',
       headers: { authorization: token }
     }
 
@@ -103,7 +93,7 @@ describe('start-application route', () => {
   test('GET /start-application returns 200', async () => {
     const options = {
       method: 'GET',
-      url: '/start-application',
+      url: '/start-application?sbi=123456789',
       headers: { authorization: token }
     }
 
@@ -114,55 +104,13 @@ describe('start-application route', () => {
   test('GET /start-application returns start-application view', async () => {
     const options = {
       method: 'GET',
-      url: '/start-application',
+      url: '/start-application?sbi=123456789',
       headers: { authorization: token }
     }
 
     const result = await server.inject(options)
     expect(result.request.response.variety).toBe('view')
     expect(result.request.response.source.template).toBe('start-application')
-  })
-
-  test('GET /start-application returns no-businesses view when no organisations returned', async () => {
-    const options = {
-      method: 'GET',
-      url: '/start-application',
-      headers: { authorization: token }
-    }
-
-    getEligibility.mockResolvedValue(
-      {
-        eligibility: [],
-        agreement: {
-          selectedOrganisation: []
-        }
-      }
-    )
-
-    const result = await server.inject(options)
-    expect(result.request.response.variety).toBe('view')
-    expect(result.request.response.source.template).toBe('no-businesses')
-  })
-
-  test('GET /start-application returns no-response view when no response received', async () => {
-    const options = {
-      method: 'GET',
-      url: '/start-application',
-      headers: { authorization: token }
-    }
-
-    getEligibility.mockResolvedValue(
-      {
-        eligibility: undefined,
-        agreement: {
-          selectedOrganisation: []
-        }
-      }
-    )
-
-    const result = await server.inject(options)
-    expect(result.request.response.variety).toBe('view')
-    expect(result.request.response.source.template).toBe('no-response')
   })
 
   test('POST /start-application returns 300', async () => {
@@ -177,7 +125,7 @@ describe('start-application route', () => {
     expect(result.statusCode).toBe(302)
   })
 
-  test('POST /start-application sbi not found in cache', async () => {
+  test('POST /start-application redirects to select-organisation if sbi not found in cache', async () => {
     const options = {
       method: 'POST',
       url: '/start-application',
@@ -186,20 +134,7 @@ describe('start-application route', () => {
     }
 
     const result = await server.inject(options)
-    expect(result.request.response.variety).toBe('view')
-    expect(result.request.response.source.template).toBe('start-application')
-  })
-
-  test('POST /start-application sbi is not string returns view', async () => {
-    const options = {
-      method: 'POST',
-      url: '/start-application',
-      headers: { authorization: token },
-      payload: { sbi: 123456789 }
-    }
-
-    const result = await server.inject(options)
-    expect(result.request.response.variety).toBe('view')
-    expect(result.request.response.source.template).toBe('start-application')
+    expect(result.statusCode).toBe(302)
+    expect(result.headers.location).toBe('/select-organisation')
   })
 })
