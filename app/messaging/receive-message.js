@@ -1,7 +1,7 @@
 const { MessageReceiver } = require('ffc-messaging')
 
 async function receiveMessage (messageId, config) {
-  let result = 'No response'
+  let result = 'no response'
   const receiver = new MessageReceiver(config)
   await receiver.acceptSession(messageId)
   const messages = await receiver.receiveMessages(1, { maxWaitTimeInMs: 50000 })
