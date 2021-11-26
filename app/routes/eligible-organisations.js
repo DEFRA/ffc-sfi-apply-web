@@ -1,4 +1,3 @@
-const cache = require('../cache')
 const getEligibility = require('../eligibility')
 
 module.exports = [{
@@ -17,9 +16,7 @@ module.exports = [{
       }
 
       if (eligibility.length === 1) {
-        const selectedOrganisation = eligibility[0]
-        await cache.update('agreement', request.yar.id, { application: { selectedOrganisation, submitted: false } })
-        return h.redirect('/start-application')
+        return h.redirect(`/start-application?sbi=${eligibility[0].sbi}`)
       }
 
       return h.view('eligible-organisations', { organisations: eligibility })
