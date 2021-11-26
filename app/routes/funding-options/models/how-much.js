@@ -40,9 +40,7 @@ const getLandInHectares = (payload, parcels) => {
     const [name, value] = entry
     const [, parcelId] = name.split('_')
     if (payload.parcels && payload.parcels.includes(parcelId)) {
-      const parcelArea = parcels.find(parcel => {
-        return parcel.parcelId === parcelId
-      })
+      const parcelArea = parcels.find(x => x.parcelId === parcelId)
 
       return {
         parcelId: parcelArea.parcelId,

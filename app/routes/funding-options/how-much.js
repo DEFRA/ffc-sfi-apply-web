@@ -47,7 +47,8 @@ module.exports = [
         await cache.update('agreement', request.yar.id, {
           application: {
             selectedParcels: viewModel.model.landInHectares,
-            parcelArea: Number(viewModel.model.parcelArea).toFixed(2)
+            parcelArea: viewModel.model.parcelArea,
+            selectedLandCovers: selectedParcelStandard.landCovers.filter(x => payload.parcels.includes(x.parcelId))
           }
         })
 
