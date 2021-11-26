@@ -1,43 +1,60 @@
 {% extends '_layout.njk' %}
 
-{% from "govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
-{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
-
-{% block beforeContent %}
-  {{ govukBreadcrumbs({
-    items: [
-      {
-        text: "Home",
-        href: "#"
-      }]
-  }) }}
-{% endblock %}
 
 {% block content %}
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
-    <span class="govuk-caption-l">Sustainable Farming Incentive</span>
-      <h1 class="govuk-heading-xl">{{serviceName}}</h1>
+      <span class="govuk-caption-l">Sustainable Farming Incentive</span>
+      <h1 class="govuk-heading-l">{{serviceName}}</h1>
+
+      <p class="govuk-body">Use this service to apply for a 3-year agreement through the Sustainable Farming Incentive.</p>
+
+      <p class="govuk-body">Only apply if:</p>
+      <ul class="govuk-list govuk-list--bullet">
+        <li>Your farm business is eligible to claim Basic Payment Scheme (BPS)</li>
+        <li>Your farm is registered in England</li>
+        <li>You have management control of the land</li>
+      </ul>
+
+      <p class="govuk-body">You can use this service to work out how much you will be paid based on the amount of work you do.</p>
+
+      <p class="govuk-body">You can save the application at any time during the application process.</p>
+
+      <p class="govuk-body">Read more about:</p>
+      <ul class="govuk-list govuk-list--bullet">
+        <li>
+          <a class="govuk-link" href="#">eligibility rules</a>
+        </li>
+        <li>
+          <a class="govuk-link" href="#">how to qualify for funding</a>
+        </li>
+        <li>
+          <a class="govuk-link" href="#">funding rates</a>
+        </li>
+      </ul>
 
       {{ govukButton({
-        classes: "govuk-!-margin-top-2 govuk-!-margin-bottom-8",
+        classes: "govuk-!-margin-top-2 govuk-!-margin-bottom-5",
         href: "/sign-in",
         isStartButton: true,
-        text: "Start new agreement"
+        text: "Start now"
       }) }}
 
+      <p class="govuk-body">or</p>
+
+      <p class="govuk-body">
+        <a class="govuk-link" id="continue-link" href="/sign-in">Continue a saved application</a>
+      </p>
+
       <h2 class="govuk-heading-m">Before you start</h2>
-      <p class="govuk-body">You'll need to know:</p>
+
+      <p class="govuk-body">You should have:</p>
       <ul class="govuk-list govuk-list--bullet">
-      <li>Your SBI (Single Business Identifier).</li>
-      <li>Your Rural Payments Agency (RPA) account details</li>
-      </ul>
-      
-      <h2 class="govuk-heading-m">Only apply if</h2>
-      <ul class="govuk-list govuk-list--bullet">
-      <li>You claimed Basic Payment Scheme (BPS) funding in the last 12 months</li>
-      <li>Your farm is registered in</li>
+        <li>read about how Sustainable Farming Incentive funding works</li>
+        <li>decided what things you will do to make your farm more sustainable that qualify for funding</li>
+        <li>decided what land to carry out the work on</li>
+        <li>updated your land with the Rural Payments Agency (RPA)</li>
       </ul>
 
     </div>
