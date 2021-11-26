@@ -1,7 +1,6 @@
 {% extends '_layout.njk' %}
 {% set mainClasses = "govuk-main-wrapper--auto-spacing" %}
 {% from "govuk/components/back-link/macro.njk" import govukBackLink %}
-{% from "govuk/components/radios/macro.njk" import govukRadios %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
 {% from "govuk/components/details/macro.njk" import govukDetails %}
@@ -25,17 +24,14 @@
         <div class="govuk-form-group">
           <fieldset class="govuk-fieldset" aria-describedby="contact-hint">
             <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-              <h1 class="govuk-fieldset__heading">Which business do you want to apply for?</h1>
+              <h1 class="govuk-fieldset__heading">SFI funding for this organisation</h1>
             </legend>
-            <div id="contact-hint" class="govuk-hint">Choose from the eligible businesses.</div>
-            {{ govukDetails({
-              summaryText: "What are the eligibility rules",
-              html: '<p class="govuk-body">Your business is eligible if;</p><ul class="govuk-list govuk-list--bullet"><li>you are eligible to apply for BPS funding on behalf of the business</li><li>you have at least 5Ha of land in England</li></ul>'
-            }) }}
-            {{ govukRadios(model) }}
+            <div class="govuk-form-group">
+            {{model.selectedOrganisation}}
+            </div>
           </div>
           {{ govukButton({
-            text: "Continue",
+            text: "Start new application",
             attributes: {
               id: "submit"
             }
