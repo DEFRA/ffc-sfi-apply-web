@@ -25,7 +25,7 @@ module.exports = [{
   options: {
     validate: {
       payload: Joi.object({
-        sbi: Joi.string().required()
+        sbi: Joi.number().required()
       })
     },
     handler: async (request, h) => {
