@@ -19,4 +19,24 @@ module.exports = [{
       return h.view('start-application', { organisation })
     }
   }
+}, {
+  method: 'POST',
+  path: '/start-application',
+  options: {
+    validate: {
+      payload: Joi.object({
+        sbi: Joi.string().required()
+      })
+    },
+    handler: async (request, h) => {
+      const agreement = await cache.get('agreement', request.yar.id)
+      const selectedOrganisation = agreement.application.eligibleOrganisations.find(x => x.sbi === request.payload.sbi)
+
+      if (selectedOrganisation) {
+        await cache.update('agreement', request.yar.id, { application: { selectedOrganisation, submitted: false } })
+        return h.redirect('/application-task-list')
+      }
+      return h.redirect('/select-organisation')
+    }
+  }
 }]
