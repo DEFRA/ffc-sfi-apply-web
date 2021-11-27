@@ -17,7 +17,6 @@ Feature: Apply for land funding
     When I pause for 500ms
     Then I expect that the url contains "/start-application"
     When I click on the button "#start-application"
-    And I click on the element "#submit"
     Then I expect that the url contains "/application-task-list"
     When I click on the link "Confirm your land details"
     Then I mock the response for "confirm-details"
