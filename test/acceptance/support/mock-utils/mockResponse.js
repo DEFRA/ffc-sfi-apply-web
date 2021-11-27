@@ -32,7 +32,7 @@ async function mockHowMuch () {
     body: {
       organisationId,
       filename: `${organisationId}-sfi-arable-soil-v2.json`,
-      storageUrl: `https://ffclandmock.blob.core.windows.net/parcels-standard/${organisationId}-sfi-arable-soil.json`
+      storageUrl: `https://ffclandmock.blob.core.windows.net/parcels-standard/${organisationId}-sfi-arable-soil-v2.json`
     },
     source: 'ffc-sfi-agreement-calculator',
     type: 'uk.gov.sfi.agreement.parcel.standard.request.response'
