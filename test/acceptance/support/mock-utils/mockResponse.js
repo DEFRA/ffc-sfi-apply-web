@@ -31,7 +31,7 @@ async function mockHowMuch () {
   const baseResponseMessage = {
     body: {
       organisationId,
-      filename: `${organisationId}-sfi-arable-soil.json`,
+      filename: `${organisationId}-sfi-arable-soil-v2.json`,
       storageUrl: `https://ffclandmock.blob.core.windows.net/parcels-standard/${organisationId}-sfi-arable-soil.json`
     },
     source: 'ffc-sfi-agreement-calculator',
