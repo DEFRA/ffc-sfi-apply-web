@@ -6,7 +6,6 @@ const routes = [].concat(
   require('../routes/home'),
   require('../routes/cookies'),
   require('../routes/sign-in'),
-  require('../routes/select-organisation'),
   require('../routes/start-application'),
   require('../routes/eligible-organisations'),
   require('../routes/application-task-list'),
