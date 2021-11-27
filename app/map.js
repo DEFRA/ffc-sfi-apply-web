@@ -4,15 +4,17 @@ const cache = require('./cache')
 const { getParcelSpatial } = require('./parcels')
 const { downloadParcelSpatialFile } = require('./storage')
 
-const getMapParcels = async (request) => {
+const getMapParcels = async (request, parcels) => {
   const agreement = await cache.get('agreement', request.yar.id)
   const application = agreement?.application
   const sbi = application.selectedOrganisation.sbi
 
   const mapStyle = ''
   const apiKey = config.osMapApiKey || ''
-  const { parcelSpatial } = await getParcelSpatial(request)
-  const parcels = await downloadParcelSpatialFile(parcelSpatial.filename)
+
+  if (!parcels) {
+    parcels = await getParcels(request)
+  }
 
   let center = []
 
@@ -28,6 +30,11 @@ const getMapParcels = async (request) => {
     mapStyle,
     sbi
   }
+}
+
+const getParcels = async (request) => {
+  const { parcelSpatial } = await getParcelSpatial(request)
+  return downloadParcelSpatialFile(parcelSpatial.filename)
 }
 
 module.exports = getMapParcels

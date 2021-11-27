@@ -14,7 +14,7 @@ module.exports = [
         const { parcelStandards, application } = await getParcelStandards(request)
         const selectedParcelStandard = await downloadParcelStandardFile(parcelStandards.filename)
         const viewModel = new ViewModel(application, selectedParcelStandard)
-        const mapParcels = await getMapParcels(request)
+        const mapParcels = await getMapParcels(request, selectedParcelStandard.spatial)
         viewModel.map = mapParcels
         return h.view('funding-options/how-much', viewModel)
       }
