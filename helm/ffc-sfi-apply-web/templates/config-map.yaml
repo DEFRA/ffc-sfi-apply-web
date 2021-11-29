@@ -20,13 +20,10 @@ data:
   ELIGIBILITYRESPONSE_QUEUE_ADDRESS: {{ quote .Values.container.eligibilityResponseQueueAddress }}
   JWT_TTL: {{ quote .Values.container.jwtTtl }}
   MESSAGE_QUEUE_HOST: {{ quote .Values.container.messageQueueHost }}
-  PARCEL_TOPIC_ADDRESS: {{ quote .Values.container.parcelTopicAddress }}
   PARCELSPATIAL_TOPIC_ADDRESS: {{ quote .Values.container.parcelSpatialTopicAddress }}
-  PARCELRESPONSE_QUEUE_ADDRESS: {{ quote .Values.container.parcelResponseQueueAddress }}
   PARCELSTANDARD_TOPIC_ADDRESS: {{ quote .Values.container.parcelStandardTopicAddress }}
   PARCELSPATIALRESPONSE_QUEUE_ADDRESS: {{ quote .Values.container.parcelSpatialResponseQueueAddress }}
   PARCELSTANDARDRESPONSE_QUEUE_ADDRESS: {{ quote .Values.container.parcelStandardResponseQueueAddress }}
-  REQUEST_SBI_TOPIC_ADDRESS: {{ quote .Values.container.requestSbiTopicAddress }}
   STANDARDS_TOPIC_ADDRESS: {{ quote .Values.container.standardsTopicAddress }}
   STANDARDSRESPONSE_QUEUE_ADDRESS: {{ quote .Values.container.standardsResponseQueueAddress }}
   SUBMIT_TOPIC_ADDRESS: {{ quote .Values.container.submitTopicAddress }}
