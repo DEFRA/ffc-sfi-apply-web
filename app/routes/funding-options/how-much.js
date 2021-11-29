@@ -12,7 +12,7 @@ module.exports = [
     options: {
       handler: async (request, h) => {
         const { parcelStandards, application } = await getParcelStandards(request)
-        const selectedParcelStandard = await downloadParcelStandardFile(parcelStandards.filename)
+        const selectedParcelStandard = await downloadParcelStandardFile({ filename: parcelStandards.filename, url: parcelStandards.storageUrl })
         const viewModel = new ViewModel(application, selectedParcelStandard)
         const mapParcels = await getMapParcels(request, selectedParcelStandard.spatial)
         viewModel.map = mapParcels

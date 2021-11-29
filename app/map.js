@@ -34,7 +34,7 @@ const getMapParcels = async (request, parcels) => {
 
 const getParcels = async (request) => {
   const { parcelSpatial } = await getParcelSpatial(request)
-  return downloadParcelSpatialFile(parcelSpatial.filename)
+  return downloadParcelSpatialFile({ filename: parcelSpatial.filename, storageUrl: parcelSpatial.storageUrl })
 }
 
 module.exports = getMapParcels
