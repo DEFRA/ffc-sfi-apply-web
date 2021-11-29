@@ -1,7 +1,7 @@
 const JWT = require('jsonwebtoken')
 const config = require('../../../../app/config')
 
-describe('start-application route', () => {
+describe('eligible-organisations route', () => {
   jest.mock('ffc-messaging')
   jest.mock('../../../../app/plugins/crumb')
   jest.mock('../../../../app/eligibility')
@@ -56,43 +56,43 @@ describe('start-application route', () => {
     await server.stop()
   })
 
-  test('GET /eligible-organisation Auth mode "required" token incorrect callerId', async () => {
+  test('GET /eligible-organisations Auth mode "required" token incorrect callerId', async () => {
     token = JWT.sign({ callerId: 9999 }, config.jwtConfig.secret)
     const options = {
       method: 'GET',
-      url: '/eligible-organisation'
+      url: '/eligible-organisations'
     }
 
     const result = await server.inject(options)
     expect(result.statusCode).toBe(302)
   })
 
-  test('GET /eligible-organisation Auth mode "required" token expired', async () => {
+  test('GET /eligible-organisations Auth mode "required" token expired', async () => {
     token = JWT.sign({ callerId }, config.jwtConfig.secret, { expiresIn: '1ms' })
     const options = {
       method: 'GET',
-      url: 'eligible-organisation'
+      url: '/eligible-organisations'
     }
 
     const result = await server.inject(options)
     expect(result.statusCode).toBe(302)
   })
 
-  test('GET /eligible-organisation Auth mode "required" should require header', async () => {
+  test('GET /eligible-organisations Auth mode "required" should require header', async () => {
     const options = {
       method: 'GET',
-      url: '/eligible-organisation'
+      url: '/eligible-organisations'
     }
 
     const result = await server.inject(options)
     expect(result.statusCode).toBe(302)
   })
 
-  test('GET /eligible-organisation Auth mode "required" should fail with invalid token', async () => {
+  test('GET /eligible-organisations Auth mode "required" should fail with invalid token', async () => {
     token = JWT.sign({ callerId }, 'bad secret')
     const options = {
       method: 'GET',
-      url: '/eligible-organisation',
+      url: '/eligible-organisations',
       headers: { authorization: token }
     }
 
@@ -100,10 +100,10 @@ describe('start-application route', () => {
     expect(result.statusCode).toBe(302)
   })
 
-  test('GET /eligible-organisation returns 200', async () => {
+  test('GET /eligible-organisations returns 200', async () => {
     const options = {
       method: 'GET',
-      url: '/eligible-organisation',
+      url: '/eligible-organisations',
       headers: { authorization: token }
     }
 
@@ -111,22 +111,22 @@ describe('start-application route', () => {
     expect(result.statusCode).toBe(200)
   })
 
-  test('GET /eligible-organisation returns eligible-organisation view', async () => {
+  test('GET /eligible-organisations returns eligible-organisations view', async () => {
     const options = {
       method: 'GET',
-      url: '/eligible-organisation',
+      url: '/eligible-organisations',
       headers: { authorization: token }
     }
 
     const result = await server.inject(options)
     expect(result.request.response.variety).toBe('view')
-    expect(result.request.response.source.template).toBe('eligible-organisation')
+    expect(result.request.response.source.template).toBe('eligible-organisations')
   })
 
-  test('GET /eligible-organisation returns no-businesses view when no organisations returned', async () => {
+  test('GET /eligible-organisations returns no-businesses view when no organisations returned', async () => {
     const options = {
       method: 'GET',
-      url: '/eligible-organisation',
+      url: '/eligible-organisations',
       headers: { authorization: token }
     }
 
@@ -144,10 +144,10 @@ describe('start-application route', () => {
     expect(result.request.response.source.template).toBe('no-businesses')
   })
 
-  test('GET /eligible-organisation returns no-response view when no response received', async () => {
+  test('GET /start-application returns no-response view when no response received', async () => {
     const options = {
       method: 'GET',
-      url: '/eligible-organisation',
+      url: '/eligible-organisations',
       headers: { authorization: token }
     }
 
@@ -163,43 +163,5 @@ describe('start-application route', () => {
     const result = await server.inject(options)
     expect(result.request.response.variety).toBe('view')
     expect(result.request.response.source.template).toBe('no-response')
-  })
-
-  test('POST /eligible-organisation returns 300', async () => {
-    const options = {
-      method: 'POST',
-      url: '/eligible-organisation',
-      headers: { authorization: token },
-      payload: { sbi: '123456789' }
-    }
-
-    const result = await server.inject(options)
-    expect(result.statusCode).toBe(302)
-  })
-
-  test('POST /eligible-organisation sbi not found in cache', async () => {
-    const options = {
-      method: 'POST',
-      url: '/eligible-organisation',
-      headers: { authorization: token },
-      payload: { sbi: '213456789' }
-    }
-
-    const result = await server.inject(options)
-    expect(result.request.response.variety).toBe('view')
-    expect(result.request.response.source.template).toBe('eligible-organisation')
-  })
-
-  test('POST /eligible-organisation sbi is not string returns view', async () => {
-    const options = {
-      method: 'POST',
-      url: '/eligible-organisation',
-      headers: { authorization: token },
-      payload: { sbi: 123456789 }
-    }
-
-    const result = await server.inject(options)
-    expect(result.request.response.variety).toBe('view')
-    expect(result.request.response.source.template).toBe('eligible-organisation')
   })
 })
