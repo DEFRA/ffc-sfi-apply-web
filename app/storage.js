@@ -1,6 +1,5 @@
 const { DefaultAzureCredential } = require('@azure/identity')
 const { BlobServiceClient } = require('@azure/storage-blob')
-const wreck = require('@hapi/wreck')
 const config = require('./config').storageConfig
 let blobServiceClient
 let containersInitialised
@@ -36,22 +35,12 @@ async function downloadFile (container, filename) {
   return JSON.parse(downloadBuffer.toString())
 }
 
-async function downloadFileFromUrl (storageUrl) {
-  return wreck.get(storageUrl, { json: true })
+async function downloadParcelStandardFile (filename) {
+  return downloadFile(parcelStandardContainer, filename)
 }
 
-async function downloadParcelStandardFile (request) {
-  if (config.useBlobUrls) {
-    return downloadFileFromUrl(request.storageUrl)
-  }
-  return downloadFile(parcelStandardContainer, request.filename)
-}
-
-async function downloadParcelSpatialFile (request) {
-  if (config.useBlobUrls) {
-    return downloadFileFromUrl(request.storageUrl)
-  }
-  return downloadFile(parcelSpatialContainer, request.filename)
+async function downloadParcelSpatialFile (filename) {
+  return downloadFile(parcelSpatialContainer, filename)
 }
 
 module.exports = {

@@ -6,8 +6,7 @@ const schema = Joi.object({
   storageAccount: Joi.string().required(),
   parcelStandardContainer: Joi.string().default('parcels-standard'),
   parcelSpatialContainer: Joi.string().default('parcels-spatial'),
-  useConnectionStr: Joi.boolean().default(false),
-  useBlobUrls: Joi.boolean().default(false)
+  useConnectionStr: Joi.boolean().default(false)
 })
 
 // Build config
@@ -16,8 +15,7 @@ const config = {
   storageAccount: process.env.AZURE_STORAGE_ACCOUNT_NAME,
   parcelStandardContainer: process.env.AZURE_STORAGE_PARCEL_STANDARD,
   parcelSpatialContainer: process.env.AZURE_STORAGE_PARCEL_SPATIAL,
-  useConnectionStr: process.env.AZURE_STORAGE_USE_CONNECTION_STRING === 'true',
-  useBlobUrls: process.env.AZURE_STORAGE_USE_BLOB_URLS
+  useConnectionStr: process.env.AZURE_STORAGE_USE_CONNECTION_STRING === 'true'
 }
 
 // Validate config

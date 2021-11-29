@@ -72,7 +72,6 @@ container:
   azureStorageAccountName: sfiland
   azureStorageConnectionString: dummy
   azureStorageUseConnectionString: false
-  useBlobUrls: false
   parcelStandardContainer: parcels-standard
   parcelSpatialContainer: parcels-spatial
   jwtSecret: secretsecretsecret

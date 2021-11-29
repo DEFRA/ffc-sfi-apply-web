@@ -13,7 +13,6 @@ data:
   AZURE_STORAGE_CONNECTION_STRING: {{ quote .Values.container.azureStorageConnectionString }}
   AZURE_STORAGE_PARCEL_SPATIAL: {{ quote .Values.container.parcelSpatialContainer }}
   AZURE_STORAGE_PARCEL_STANDARD: {{ quote .Values.container.parcelStandardContainer }}
-  AZURE_STORAGE_USE_BLOB_URLS: {{ quote .Values.container.useBlobUrls }}
   AZURE_STORAGE_USE_CONNECTION_STRING: {{ quote .Values.container.azureStorageUseConnectionString }}
   CALCULATE_TOPIC_ADDRESS: {{ quote .Values.container.calculateTopicAddress }}
   CALCULATERESPONSE_QUEUE_ADDRESS: {{ quote .Values.container.calculateResponseQueueAddress }}
