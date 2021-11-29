@@ -1,0 +1,36 @@
+{% extends '_layout.njk' %}
+{% set mainClasses = "govuk-main-wrapper--auto-spacing" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <h1 class="govuk-heading-l">Select the organisation to make an application for</h1>
+      <p class="govuk-body">Only eligible organisations that you have access to are shown.</p>
+    </div>
+  </div>
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+      <table class="govuk-table">
+        <thead class="govuk-table__head">
+          <tr class="govuk-table__row">
+            <th scope="col" class="govuk-table__header">Organisation</th>
+            <th scope="col" class="govuk-table__header">SBI Number</th>
+            <th scope="col" class="govuk-table__header">Applications</th>
+            <th scope="col" class="govuk-table__header"></th>
+          </tr>
+        </thead>
+        <tbody class="govuk-table__body">
+          {% for organisation in organisations %}
+          <tr class="govuk-table__row">
+            <td class="govuk-table__cell">{{ organisation.name }}</td>
+            <td class="govuk-table__cell">{{ organisation.sbi }}</td>
+            <td class="govuk-table__cell">0</td>
+            <td class="govuk-table__cell"><a class="start-application-link" href='/start-application?sbi={{ organisation.sbi }}'>View or start applications</a></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+{% endblock %}

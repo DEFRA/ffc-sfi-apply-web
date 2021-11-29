@@ -21,22 +21,20 @@
     <div class="govuk-grid-column-two-thirds">
       <form method="POST" action="/start-application" novalidate>
         <input type="hidden" name="crumb" value="{{crumb}}"/>
+        <input type="hidden" name="sbi" value="{{ organisation.sbi }}"/>
         <div class="govuk-form-group">
           <fieldset class="govuk-fieldset" aria-describedby="contact-hint">
             <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
               <h1 class="govuk-fieldset__heading">SFI funding for this organisation</h1>
             </legend>
-            <tr class="govuk-table__row">
-            <td class="govuk-table__cell">{{ organisation.name }}</td>
-            <td class="govuk-table__cell">{{ organisation.sbi }}</td>
-            <td class="govuk-table__cell">0</td>
-            <td class="govuk-table__cell"><a class="start-application-link" href='/start-application?sbi={{ organisation.sbi }}'>View or start applications</a></td>
-          </tr>
+            <div class="govuk-form-group">
+            {{model.selectedOrganisation}}
+            </div>
           </div>
           {{ govukButton({
             text: "Start new application",
             attributes: {
-              id: "submit"
+              id: "start-application"
             }
           }) }}
         </form>
