@@ -6,7 +6,7 @@ const storageConfig = require('./storage-config')
 
 // Define config schema
 const schema = joi.object({
-  serviceName: joi.string().default('Apply for land funding'),
+  serviceName: joi.string().default('Apply for sustainable farming funding'),
   port: joi.number().default(3000),
   env: joi.string().valid('development', 'test', 'production').default('development'),
   cookiePassword: joi.string().required(),
