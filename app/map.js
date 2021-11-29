@@ -18,7 +18,7 @@ const getMapParcels = async (request, parcels) => {
 
   let center = []
 
-  if (parcels.features.length) {
+  if (parcels?.features.length) {
     const centroid = turf.centroid(parcels)
     center = centroid.geometry.coordinates
   }
@@ -34,7 +34,9 @@ const getMapParcels = async (request, parcels) => {
 
 const getParcels = async (request) => {
   const { parcelSpatial } = await getParcelSpatial(request)
-  return downloadParcelSpatialFile(parcelSpatial.filename)
+  if (parcelSpatial) {
+    return downloadParcelSpatialFile(parcelSpatial.filename)
+  }
 }
 
 module.exports = getMapParcels
