@@ -28,7 +28,11 @@
               <h1 class="govuk-fieldset__heading">SFI funding for this organisation</h1>
             </legend>
             <div class="govuk-form-group">
-            {{model.selectedOrganisation}}
+              <h2 class="govuk-heading-m">{{ organisation.name }}</h2>
+              <ul class="govuk-list">
+                <li><strong>SBI number:</strong> {{ organisation.sbi }}</li>
+                <li><strong>Address:</strong> {{ organisation.address }}</li>
+              </ul>
             </div>
           </div>
           {{ govukButton({
