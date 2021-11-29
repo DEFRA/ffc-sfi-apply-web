@@ -2,12 +2,10 @@ describe('404', () => {
   jest.mock('ffc-messaging')
   jest.mock('../../../../app/cache')
   const mockCache = require('../../../../app/cache')
-
-  let createServer
+  const createServer = require('../../../../app/server')
   let server
 
   beforeEach(async () => {
-    createServer = require('../../../../app/server')
     server = await createServer()
     await server.initialize()
 

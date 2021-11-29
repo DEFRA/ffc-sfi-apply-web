@@ -3,7 +3,7 @@ const cache = require('../../app/cache')
 const callerId = 123456
 const crn = 1234567890
 const organisationId = 1234567
-const name = 'Title Forename Lastname'
+const name = 'Title Forename LastName'
 const sbi = 123456789
 
 const mockSendMessage = jest.fn()
@@ -47,11 +47,10 @@ describe('process eligibility message', () => {
     }
   }
 
-  let createServer
+  const createServer = require('../../app/server')
   let server
 
   beforeAll(async () => {
-    createServer = require('../../app/server')
     server = await createServer()
     await server.initialize()
   })
@@ -61,7 +60,7 @@ describe('process eligibility message', () => {
   })
 
   afterEach(async () => {
-    jest.clearAllMocks()
+    jest.resetAllMocks()
   })
 
   afterAll(async () => {

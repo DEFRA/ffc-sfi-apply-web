@@ -1,5 +1,5 @@
 const cache = require('../cache')
-const { sendParcelSpatialMessage, recieveParcelSpatialMessage } = require('../messaging')
+const { sendParcelSpatialMessage, receiveParcelSpatialMessage } = require('../messaging')
 const { v4: uuidv4 } = require('uuid')
 
 const getParcelSpatial = async (request, error) => {
@@ -24,7 +24,7 @@ const sendParcelSpatialRequest = async (applyJourney, request, parcelSpatial) =>
 
   await sendParcelSpatialMessage({ sbi, callerId, organisationId }, request.yar.id, messageId)
 
-  const response = await recieveParcelSpatialMessage(messageId)
+  const response = await receiveParcelSpatialMessage(messageId)
 
   if (response) {
     console.info('Parcel Spatial request received', response)

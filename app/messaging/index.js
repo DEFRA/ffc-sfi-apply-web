@@ -52,15 +52,15 @@ async function sendParcelStandardMessage (payload, correlationId, messageId) {
   console.info('parcel standard requested')
 }
 
-async function recieveParcelSpatialMessage (messageId) {
+async function receiveParcelSpatialMessage (messageId) {
   return receiveMessage(messageId, config.responseParcelSpatialQueue)
 }
 
-async function recieveParcelMessage (messageId) {
+async function receiveParcelMessage (messageId) {
   return receiveMessage(messageId, config.responseParcelQueue)
 }
 
-async function recieveParcelStandardMessage (messageId) {
+async function receiveParcelStandardMessage (messageId) {
   return receiveMessage(messageId, config.responseParcelStandardQueue)
 }
 
@@ -87,9 +87,9 @@ module.exports = {
   sendParcelSpatialMessage,
   sendParcelMessage,
   sendParcelStandardMessage,
-  recieveParcelSpatialMessage,
-  recieveParcelMessage,
-  recieveParcelStandardMessage,
+  receiveParcelSpatialMessage,
+  receiveParcelMessage,
+  receiveParcelStandardMessage,
   receiveStandardsResponseMessage,
   receiveCalculateResponseMessage,
   receiveEligibilityResponseMessage

@@ -12,7 +12,7 @@ resources:
   queues:
     - name: calculateResponse
       enableSessions: true
-    - name: eligibilityCheckResponse
+    - name: eligibilityResponse
       enableSessions: true
     - name: parcelResponse
       enableSessions: true

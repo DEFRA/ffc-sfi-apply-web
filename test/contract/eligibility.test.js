@@ -2,7 +2,7 @@ const { MessageProviderPact } = require('@pact-foundation/pact')
 const createMessage = require('../../app/messaging/create-message')
 
 describe('Pact Verification', () => {
-  test('eligibity satisifies all reponses', async () => {
+  test('eligibility satisfies all responses', async () => {
     const eligibility = {
       callerId: '5089433',
       crn: '1234567890'

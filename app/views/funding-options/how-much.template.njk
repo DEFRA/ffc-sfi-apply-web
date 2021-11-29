@@ -112,43 +112,10 @@
                 <div class="govuk-form-group">
                   <label class="govuk-label" for="hectares_{{ item.value }}">
                     Hectares to use in this land parcel
-                  </label>                     
+                  </label>
                     <input class="govuk-input govuk-!-width-one-third" name="parcelArea_{{ item.value }}" value="{{ item.textBoxValue }}" type="text" spellcheck="false" autocomplete="false">                      
                 </div>
               </div>
-              {% if item.warnings.length > 0 %}
-                <div class="govuk-warning-text">
-                {% for warning in item.warnings %}
-                  {% if warning.SSSI === true %}
-                    <p>
-                      <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
-                      <strong class="govuk-warning-text__text">
-                      <span class="govuk-warning-text__assistive">Warning</span>
-                        Potential SSSI conflict
-                      </strong>
-                    </p>
-                  {% endif %}
-                  {% if warning.HEFER === true %}
-                    <p>
-                      <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
-                      <strong class="govuk-warning-text__text">
-                      <span class="govuk-warning-text__assistive">Warning</span>
-                        Potential HEFER conflict
-                      </strong>
-                    </p>
-                  {% endif %}
-                  {% if warning.SFI === true %}
-                    <p>
-                      <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
-                      <strong class="govuk-warning-text__text">
-                        <span class="govuk-warning-text__assistive">Warning</span>
-                        Potential SFI conflict
-                      </strong>
-                    </p>
-                  {% endif %}
-                {% endfor %}
-                </div>
-              {% endif %}
             </div>
           {% endfor %}
         </div>

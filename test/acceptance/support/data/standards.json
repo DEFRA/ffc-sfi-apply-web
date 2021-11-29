@@ -2,213 +2,210 @@
   "standards": [
     {
       "code": "sfi-arable-soil",
-      "landCoverCodes": ["110"],
       "name": "Arable and horticultural soils",
-      "parcels": [
+      "landCovers": [
         {
-          "id": "SJ80778858",
-          "area": "5.74",
-          "warnings": []
+          "parcelId": "SJ80778858",
+          "code": "110",
+          "area": "5.74"
         },
         {
-          "id": "SJ64706324",
-          "area": "3.14",
-          "warnings": []
+          "parcelId": "SJ64706324",
+          "code": "110",
+          "area": "3.14"
         },
         {
-          "id": "SJ80775382",
-          "area": "6.03",
-          "warnings": []
+          "parcelId": "SJ80775382",
+          "code": "110",
+          "area": "6.03"
         },
         {
-          "id": "SJ80717302",
-          "area": "7.15",
-          "warnings": []
+          "parcelId": "SJ80717302",
+          "code": "110",
+          "area": "7.15"
         },
         {
-          "id": "SJ81764085",
-          "area": "8.77",
-          "warnings": []
+          "parcelId": "SJ81764085",
+          "code": "110",
+          "area": "8.77"
         },
         {
-          "id": "SJ64706168",
-          "area": "12.08",
-          "warnings": []
+          "parcelId": "SJ64706168",
+          "code": "110",
+          "area": "12.08"
         },
         {
-          "id": "SJ75688266",
-          "area": "16.52",
-          "warnings": []
+          "parcelId": "SJ75688266",
+          "code": "110",
+          "area": "16.52"
         },
         {
-          "id": "SJ80776761",
-          "area": "4.99",
-          "warnings": []
+          "parcelId": "SJ80776761",
+          "code": "110",
+          "area": "4.99"
         },
         {
-          "id": "SJ64707893",
-          "area": "5.26",
-          "warnings": []
+          "parcelId": "SJ64707893",
+          "code": "110",
+          "area": "5.26"
         },
         {
-          "id": "SJ81765039",
-          "area": "4.94",
-          "warnings": []
+          "parcelId": "SJ81765039",
+          "code": "110",
+          "area": "4.94"
         },
         {
-          "id": "SJ81764956",
-          "area": "4.28",
-          "warnings": []
+          "parcelId": "SJ81764956",
+          "code": "110",
+          "area": "4.28"
         },
         {
-          "id": "SJ64702630",
-          "area": "16.48",
-          "warnings": []
+          "parcelId": "SJ64702630",
+          "code": "110",
+          "area": "16.48"
         },
         {
-          "id": "SJ64709483",
-          "area": "4.30",
-          "warnings": []
+          "parcelId": "SJ64709483",
+          "code": "110",
+          "area": "4.30"
         },
         {
-          "id": "SJ81763169",
-          "area": "3.17",
-          "warnings": []
+          "parcelId": "SJ81763169",
+          "code": "110",
+          "area": "3.17"
         },
         {
-          "id": "SJ64704450",
-          "area": "4.21",
-          "warnings": []
+          "parcelId": "SJ64704450",
+          "code": "110",
+          "area": "4.21"
         },
         {
-          "id": "SJ64708347",
-          "area": "8.88",
-          "warnings": []
+          "parcelId": "SJ64708347",
+          "code": "110",
+          "area": "8.88"
         }
       ]
     },
     {
       "code": "sfi-improved-grassland",
-      "landCoverCodes": ["130"],
       "name": "Improved grassland soils",
-      "parcels": [
+      "landCovers": [
         {
-          "id": "SJ65700595",
-          "area": "1.43",
-          "warnings": []
+          "parcelId": "SJ65700595",
+          "code": "130",
+          "area": "1.43"
         },
         {
-          "id": "SJ80716916",
-          "area": "0.49",
-          "warnings": []
+          "parcelId": "SJ80716916",
+          "code": "130",
+          "area": "0.49"
         },
         {
-          "id": "SJ80775382",
-          "area": "0.29",
-          "warnings": []
+          "parcelId": "SJ80775382",
+          "code": "130",
+          "area": "0.29"
         },
         {
-          "id": "SJ80717302",
-          "area": "0.75",
-          "warnings": []
+          "parcelId": "SJ80717302",
+          "code": "130",
+          "area": "0.75"
         },
         {
-          "id": "SJ64706142",
-          "area": "0.05",
-          "warnings": []
+          "parcelId": "SJ64706142",
+          "code": "130",
+          "area": "0.05"
         },
         {
-          "id": "SJ64706141",
-          "area": "0.14",
-          "warnings": []
+          "parcelId": "SJ64706141",
+          "code": "130",
+          "area": "0.14"
         },
         {
-          "id": "SJ64696878",
-          "area": "6.79",
-          "warnings": []
+          "parcelId": "SJ64696878",
+          "code": "130",
+          "area": "6.79"
         },
         {
-          "id": "SJ64707331",
-          "area": "0.38",
-          "warnings": []
+          "parcelId": "SJ64707331",
+          "code": "130",
+          "area": "0.38"
         },
         {
-          "id": "SJ64705511",
-          "area": "1.69",
-          "warnings": []
+          "parcelId": "SJ64705511",
+          "code": "130",
+          "area": "1.69"
         },
         {
-          "id": "SJ81765666",
-          "area": "1.27",
-          "warnings": []
+          "parcelId": "SJ81765666",
+          "code": "130",
+          "area": "1.27"
         },
         {
-          "id": "SJ64701453",
-          "area": "0.24",
-          "warnings": []
+          "parcelId": "SJ64701453",
+          "code": "130",
+          "area": "0.24"
         },
         {
-          "id": "SJ64706335",
-          "area": "0.23",
-          "warnings": []
+          "parcelId": "SJ64706335",
+          "code": "130",
+          "area": "0.23"
         },
         {
-          "id": "SJ81761498",
-          "area": "1.00",
-          "warnings": []
+          "parcelId": "SJ81761498",
+          "code": "130",
+          "area": "1.00"
         },
         {
-          "id": "SJ80717418",
-          "area": "0.04",
-          "warnings": []
+          "parcelId": "SJ80717418",
+          "code": "130",
+          "area": "0.04"
         },
         {
-          "id": "SJ64693792",
-          "area": "0.05",
-          "warnings": []
+          "parcelId": "SJ64693792",
+          "code": "130",
+          "area": "0.05"
         },
         {
-          "id": "SJ64705836",
-          "area": "0.09",
-          "warnings": []
+          "parcelId": "SJ64705836",
+          "code": "130",
+          "area": "0.09"
         },
         {
-          "id": "SJ64707032",
-          "area": "0.40",
-          "warnings": []
+          "parcelId": "SJ64707032",
+          "code": "130",
+          "area": "0.40"
         },
         {
-          "id": "SJ80717819",
-          "area": "0.75",
-          "warnings": []
+          "parcelId": "SJ80717819",
+          "code": "130",
+          "area": "0.75"
         },
         {
-          "id": "SJ64702554",
-          "area": "0.45",
-          "warnings": []
+          "parcelId": "SJ64702554",
+          "code": "130",
+          "area": "0.45"
         },
         {
-          "id": "SJ64701750",
-          "area": "0.36",
-          "warnings": []
+          "parcelId": "SJ64701750",
+          "code": "130",
+          "area": "0.36"
         },
         {
-          "id": "SJ80719008",
-          "area": "1.15",
-          "warnings": []
+          "parcelId": "SJ80719008",
+          "code": "130",
+          "area": "1.15"
         },
         {
-          "id": "SJ77796368",
-          "area": "4.45",
-          "warnings": []
+          "parcelId": "SJ77796368",
+          "code": "130",
+          "area": "4.45"
         }
       ]
     },
     {
       "code": "sfi-moorland",
-      "landCoverCodes": [],
       "name": "Moorland and rough grazing",
-      "parcels": []
+      "landCovers": []
     }
   ]
 }

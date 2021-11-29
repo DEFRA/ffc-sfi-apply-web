@@ -14,7 +14,7 @@ module.exports = [
         const { parcelStandards, application } = await getParcelStandards(request)
         const selectedParcelStandard = await downloadParcelStandardFile(parcelStandards.filename)
         const viewModel = new ViewModel(application, selectedParcelStandard)
-        const mapParcels = await getMapParcels(request)
+        const mapParcels = await getMapParcels(request, selectedParcelStandard.spatial)
         viewModel.map = mapParcels
         return h.view('funding-options/how-much', viewModel)
       }
@@ -44,14 +44,13 @@ module.exports = [
         const selectedParcelStandard = await downloadParcelStandardFile(parcelStandards.filename)
         const viewModel = new ViewModel(application, selectedParcelStandard, payload)
 
-        await cache.update('agreement', request.yar.id,
-          {
-            application:
-            {
-              selectedParcels: viewModel.model.landInHectares,
-              parcelArea: Number(viewModel.model.parcelArea).toFixed(2)
-            }
-          })
+        await cache.update('agreement', request.yar.id, {
+          application: {
+            selectedParcels: viewModel.model.landInHectares,
+            parcelArea: viewModel.model.parcelArea,
+            selectedLandCovers: selectedParcelStandard.landCovers.filter(x => payload.parcels.includes(x.parcelId))
+          }
+        })
 
         if (viewModel.model.error || viewModel.model.invalidValues) {
           return h.view('funding-options/how-much', viewModel).code(400).takeover()

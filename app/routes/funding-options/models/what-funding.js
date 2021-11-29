@@ -29,7 +29,7 @@ const isChecked = (selected, value) => {
 }
 
 const mapStandards = (values, selected) => {
-  return values.filter(item => item.parcels.length > 0)
+  return values.filter(item => item.landCovers.length > 0)
     .map(x => {
       return {
         text: standards.find(s => s.code === x.code).name,

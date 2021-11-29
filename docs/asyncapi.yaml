@@ -10,6 +10,13 @@ channels:
     subscribe:
       message:
         $ref: '#/components/messages/EligibilityResponse'
+  agreement/standards:
+    publish:
+      message:
+        $ref: '#/components/messages/StandardRequest'
+    subscribe:
+      message:
+        $ref: '#/components/messages/StandardResponse'
 
 components:
   messages:
@@ -56,5 +63,62 @@ components:
                 address:
                   type: string
                   description: Organisation address
+    StandardRequest:
+      contentType: application/json
+      headers:
+        type: object
+        properties:
+          correlationId:
+            type: string
+            description: GUID unique to user session
+          messageId:
+            type: string
+            description: GUID unique to message
+      payload:
+        type: object
+        properties:
+          organisationId:
+            type: number
+            description: Unique organisation reference
+          callerId:
+            type: number
+            description: Unique agreement reference for CRN
+          sbi:
+            type: number
+            description: Single Business Identifier
+    StandardResponse:
+      contentType: application/json
+      payload:
+        type: object
+        properties:
+          eligibility:
+            type: array
+            description: List of organisations eligible to apply for SFI
+            items:
+              type: object
+              properties:
+                standards:
+                  type: array
+                  description: List of all SFI standards
+                  items:
+                    code:
+                      type: string
+                      description: Unique standard reference
+                    name:
+                      type: string
+                      description: Description of standard
+                    landCovers:
+                      type: array
+                      description: List of eligible land covers for standard
+                      items:
+                        parcelId:
+                          type: string
+                          description: Parcel Id made up of Sheet Id and Parcel Reference land cover is info
+                        code:
+                          type: string
+                          description: Land cover code
+                        area:
+                          type: number
+                          description: Decimal value for land cover area in hectares
 
 

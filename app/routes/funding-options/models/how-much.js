@@ -23,13 +23,12 @@ function ViewModel (applyJourney, parcelStandards, payload) {
 
 const groupParcels = (parcelStandards) => {
   const result = []
-  parcelStandards.parcels.reduce((acc, cur) => {
-    if (!acc[cur.id]) {
-      acc[cur.id] = { id: cur.id, area: 0, warnings: [] }
-      result.push(acc[cur.id])
+  parcelStandards.landCovers.reduce((acc, cur) => {
+    if (!acc[cur.parcelId]) {
+      acc[cur.parcelId] = { parcelId: cur.parcelId, area: 0, warnings: [] }
+      result.push(acc[cur.parcelId])
     }
-    acc[cur.id].area += parseFloat(cur.area)
-    acc[cur.id].warnings = [...acc[cur.id].warnings, ...cur.warnings]
+    acc[cur.parcelId].area += parseFloat(cur.area)
     return acc
   }, {})
   parcelStandards.parcels = result
@@ -41,12 +40,10 @@ const getLandInHectares = (payload, parcels) => {
     const [name, value] = entry
     const [, parcelId] = name.split('_')
     if (payload.parcels && payload.parcels.includes(parcelId)) {
-      const parcelArea = parcels.find(parcel => {
-        return parcel.id === parcelId
-      })
+      const parcelArea = parcels.find(x => x.parcelId === parcelId)
 
       return {
-        id: parcelArea.id,
+        parcelId: parcelArea.parcelId,
         value: value,
         area: parcelArea.area,
         valid: value !== '' && Number(value) > 0 && Number(value) <= Number(parcelArea.area)
@@ -61,20 +58,18 @@ const getLandInHectares = (payload, parcels) => {
 
 const getAllItems = (selectedStandard, selectedParcels) => {
   const parcels = selectedStandard?.parcels
-  const checkboxItems = parcels.map(x => (
-    {
-      text: `${x.id}`,
-      value: `${x.id}`,
-      hint: {
-        text: `${x.area}ha`
-      },
-      checked: isChecked(selectedParcels, x.id),
-      textBoxValue: selectedParcels && selectedParcels.find(item => item.id === x.id)
-        ? selectedParcels.find(item => item.id === x.id).value
-        : Number(x.area).toFixed(2),
-      warnings: []
-    }
-  ))
+  const checkboxItems = parcels.map(x => ({
+    text: `${x.parcelId}`,
+    value: `${x.parcelId}`,
+    hint: {
+      text: `${x.area}ha`
+    },
+    checked: isChecked(selectedParcels, x.parcelId),
+    textBoxValue: selectedParcels && selectedParcels.find(item => item.parcelId === x.parcelId)
+      ? selectedParcels.find(item => item.parcelId === x.parcelId).value
+      : Number(x.area).toFixed(2),
+    warnings: []
+  }))
 
   const totalHa = convertToDecimal(parcels?.reduce((acc, cur) => acc + convertToInteger(cur.area), 0))
 
@@ -84,7 +79,7 @@ const getAllItems = (selectedStandard, selectedParcels) => {
 const isChecked = (selectedParcels, value) => {
   if (selectedParcels) {
     return !!selectedParcels.find(parcels => {
-      return parcels.id === value
+      return parcels.parcelId === value
     })
   }
   return false
