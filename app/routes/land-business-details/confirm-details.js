@@ -13,6 +13,10 @@ module.exports = [
         const { totalHectares, landCovers } = await getLandCovers(application.selectedOrganisation.organisationId, application.callerId)
         const mapParcels = await getMapParcels(request)
 
+        if (!mapParcels.parcels) {
+          return h.view('no-response')
+        }
+
         return h.view('land-business-details/confirm-details',
           {
             apiKey: mapParcels.apiKey,
