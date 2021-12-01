@@ -16,6 +16,8 @@ import setInputField from '../support/action/setInputField'
 import setPromptText from '../support/action/setPromptText'
 import whatFund from '../page-objects/what-fund'
 import signIn from '../page-objects/sign-in'
+import eligibleOrganisation  from '../page-objects/eligible-organisation'
+
 
 const { When } = require('cucumber')
 
@@ -107,8 +109,57 @@ When(/^I click on the continue button$/, async () => {
   signIn.clickOnContinueButton()
 })
 
+When (/^I click on organisation start application link$/, async () => {
+  eligibleOrganisation.clickOnsbi1()
+})
+
+
+When(/^I click on organisation "([^"]*)?"$/, async (startApplication)=> {
+  
+  if (startApplication === 'A G COLLIS') {
+    eligibleOrganisation.clickOnsbi1()
+    console.log(eligibleOrganisation)
+  } else if (startApplication === 'AISLA JONES') {
+    eligibleOrganisation.clickOnsbi2()
+  } else if (startApplication === 'Browsholme Hall') {
+    eligibleOrganisation.clickOnsbi3()
+  } else if (startApplication === 'Chris Hall') {
+    eligibleOrganisation.clickOnsbi4()
+  } else if (startApplication === 'Christine Gillott') {
+    eligibleOrganisation.clickOnsbi5()
+  } else if (startApplication === 'Donald Crofts') {
+    eligibleOrganisation.clickOnsbi6()
+  } else if (startApplication === 'E THOMPSON & SON') {
+    eligibleOrganisation.clickOnsbi7()
+  } else if (startApplication === 'Edgar Zoo') {
+    eligibleOrganisation.clickOnsbi8()
+  } else if (startApplication === 'Mr J G Romeril') {
+    eligibleOrganisation.clickOnsbi9()
+  } else if (startApplication === 'FALLON, S') {
+    eligibleOrganisation.clickOnsbi10()
+  } else if (startApplication === 'FJ & LA Poole and Son') {
+    eligibleOrganisation.clickOnsbi11()
+  } else if (startApplication === 'FRIEND FARMS LTD') {
+    eligibleOrganisation.clickOnsbi12()
+  } else if (startApplication === 'Farm & Woodland Services') {
+    eligibleOrganisation.clickOnsbi13()
+  } else if (startApplication === 'Fraser Sheader') {
+    eligibleOrganisation.clickOnsbi14()
+  } else if (startApplication === 'Friend Farm Produce') {
+    eligibleOrganisation.clickOnsbi15()
+  } else if (startApplication === 'G M PRICHARD & SON') {
+    eligibleOrganisation.clickOnsbi16()
+  } else if (startApplication === 'Glynis Nicholls') {
+    eligibleOrganisation.clickOnsbi17()
+  } else if (startApplication === 'Graham Dare') {
+    eligibleOrganisation.clickOnsbi18()
+  } else if (startApplication === 'Helen Harrison') {
+    eligibleOrganisation.clickOnsbi9()
+  }
+})
+    
+
 When(/^I enter crn number (.*)$/, async (crnNumber) => {
-  // signIn.clearCrnNumber()
   signIn.enterCrnNumber(crnNumber)
 })
 
