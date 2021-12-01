@@ -30,6 +30,9 @@ import waitForVisible from '../support/action/waitForDisplayed'
 import checkIfElementExists from '../support/lib/checkIfElementExists'
 import checkURLContains from '../support/check/checkURLContains'
 import mockResponse from '../support/mock-utils/mockResponse'
+import eligibleOrganisation from '../page-objects/eligible-organisation'
+import 'chai/register-should'
+
 
 const { Then } = require('cucumber')
 
@@ -202,3 +205,14 @@ Then(
   /^I mock the response for "([^"]*)?"$/,
   mockResponse
 )
+
+Then(   
+  /^I should see sbi error message (.*)$/, async (message) => {
+    eligibleOrganisation.verifySbiErrorMessage(message)
+  });
+
+Then(
+  /^I should see (.*)$/, async (message) => {
+   eligibleOrganisation.verifySbiNumber(message)
+  });
+
