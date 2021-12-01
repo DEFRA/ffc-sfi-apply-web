@@ -39,7 +39,8 @@ module.exports = [
     options: {
       validate: {
         payload: joi.object({
-          landControlCheck: joi.boolean().required()
+          landControlCheck: joi.boolean().required(),
+          'layer-select': joi.string().required()
         }),
         failAction: async (request, h, error) => {
           return h.redirect('/confirm-details')
@@ -55,7 +56,7 @@ module.exports = [
           return h.redirect('/application-task-list')
         }
 
-        return h.redirect('/land-business-details/change-land-details')
+        return h.redirect('/change-land-details')
       }
     }
   }]
