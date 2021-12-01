@@ -219,3 +219,7 @@ When(/^I enter callerId number (.*)$/, async (callerId) => {
 When(/^I enter password (.*)$/, async (passwordNumber) => {
   signIn.enterPassword(passwordNumber)
 })
+
+When(/^I search sbi number (.*)$/, async (sbiNumber) => {
+  eligibleOrganisation.enterSbiNumber(sbiNumber)
+})
