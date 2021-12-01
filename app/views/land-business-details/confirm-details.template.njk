@@ -28,7 +28,7 @@
 {% block content %}
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
-    <form method="GET" action="/management-control" novalidate>
+    <form method="POST" action="/confirm-details" novalidate>
       <input type="hidden" name="crumb" value="{{crumb}}"/>
       <h1 class="govuk-heading-l">Your land details</h1>   
       <p class="govuk-body">This is the land cover information currenty registered in your Rural Payments Agency (RPA) account.</p>
@@ -65,11 +65,11 @@
           },
           items: [
             {
-              value: "yes",
+              value: true,
               text: "Yes, my information is correct"
             },
             {
-              value: "no",
+              value: false,
               text: "No, I need to update my information"
             }
           ]

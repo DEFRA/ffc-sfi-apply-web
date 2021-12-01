@@ -1,6 +1,7 @@
 const cache = require('../../cache')
 const { getLandCovers } = require('../../api/crown-hosting/land-cover')
 const getMapParcels = require('../../map')
+const joi = require('joi')
 
 module.exports = [
   {
@@ -29,6 +30,32 @@ module.exports = [
             totalHa: totalHectares,
             landCovers
           })
+      }
+    }
+  },
+  {
+    method: 'POST',
+    path: '/confirm-details',
+    options: {
+      validate: {
+        payload: joi.object({
+          landControlCheck: joi.boolean().required()
+        }),
+        failAction: async (request, h, error) => {
+          return h.redirect('/confirm-details')
+        }
+      },
+      handler: async (request, h) => {
+        const payload = request.payload
+
+        if (payload.landControlCheck) {
+          await cache.update('agreement', request.yar.id, {
+            progress: { businessDetails: true }
+          })
+          return h.redirect('/application-task-list')
+        }
+
+        return h.redirect('/land-business-details/change-land-details')
       }
     }
   }]
