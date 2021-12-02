@@ -111,6 +111,9 @@ export default async responseType => {
       case 'which-business':
         await mockWhichBusiness()
         break
+      case 'which-business':
+        await mockEligibleOrganisations()
+        break
       default:
         console.error('Trying to mock an unmocked action', responseType)
         break
