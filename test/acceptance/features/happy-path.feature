@@ -22,7 +22,7 @@ Feature: Apply for land funding
     Then I mock the response for "confirm-details"
     When I pause for 500ms
     Then I expect that the url contains "/confirm-details"
-    And I click on the element "#landControlCheck"
+    And I click on the element "#isLandCorrect"
     And I click on the element "#submit"
     And I expect that the url contains "/management-control"
     When I click on the element "#managementControlCheck"

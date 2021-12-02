@@ -28,7 +28,7 @@
 {% block content %}
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
-    <form method="GET" action="/management-control" novalidate>
+    <form method="POST" action="/confirm-details" novalidate>
       <input type="hidden" name="crumb" value="{{crumb}}"/>
       <h1 class="govuk-heading-l">Your land details</h1>   
       <p class="govuk-body">This is the land cover information currenty registered in your Rural Payments Agency (RPA) account.</p>
@@ -52,10 +52,28 @@
         </ul>
       </p>
 
+      {% if errors %}
+        <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" tabindex="-1" data-module="govuk-error-summary">
+          <h2 class="govuk-error-summary__title" id="error-summary-title">
+            There is a problem
+          </h2>
+          <div class="govuk-error-summary__body">
+            <ul class="govuk-list govuk-error-summary__list">
+              {% for errorDetail in errors.details %}
+                <span class="govuk-error-message">
+                  <span class="govuk-visually-hidden">Error:</span>
+                  Please select if your land cover information is correct.
+                </span>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>        
+      {% endif %}
+
       {{ govukRadios({
           classes: "govuk-radios",
-          idPrefix: "landControlCheck",
-          name: "landControlCheck",
+          idPrefix: "isLandCorrect",
+          name: "isLandCorrect",
           fieldset: {
             legend: {
               text: "Is your land cover information correct?",
@@ -65,11 +83,11 @@
           },
           items: [
             {
-              value: "yes",
+              value: true,
               text: "Yes, my information is correct"
             },
             {
-              value: "no",
+              value: false,
               text: "No, I need to update my information"
             }
           ]

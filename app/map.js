@@ -3,11 +3,16 @@ const config = require('./config')
 const cache = require('./cache')
 const { getParcelSpatial } = require('./parcels')
 const { downloadParcelSpatialFile } = require('./storage')
+const { getLandCovers } = require('./api/crown-hosting/land-cover')
 
 const getMapParcels = async (request, parcels) => {
   const agreement = await cache.get('agreement', request.yar.id)
   const application = agreement?.application
   const sbi = application.selectedOrganisation.sbi
+  const name = application.selectedOrganisation.name
+  const address = application.selectedOrganisation.address
+
+  const { totalHectares, landCovers } = await getLandCovers(application.selectedOrganisation.organisationId, application.callerId)
 
   const mapStyle = ''
   const apiKey = config.osMapApiKey || ''
@@ -28,7 +33,11 @@ const getMapParcels = async (request, parcels) => {
     parcels,
     center,
     mapStyle,
-    sbi
+    sbi,
+    name,
+    address,
+    totalHectares,
+    landCovers
   }
 }
 

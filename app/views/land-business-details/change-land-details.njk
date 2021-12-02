@@ -1,0 +1,26 @@
+{% extends '_layout.njk' %}
+
+{% set mainClasses = "govuk-main-wrapper--l" %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <h1 class="govuk-heading-l">You need to update your land details before you apply for sustainable farming funding </h1>
+      <p class="govuk-body">
+        Use the <a href="https://www.gov.uk/government/organisations/rural-payments-agency" class="govuk-link">Rural Payments Service</a> to: 
+      </p>
+      <ul class="govuk-list govuk-list--bullet">
+        <li>
+          transfer entitlements
+        </li>
+        <li>
+          transfer land
+        </li>
+        <li>
+          remove land
+        </li>
+      </ul>
+      <p class="govuk-body">See <a href="https://www.gov.uk/government/publications/tell-the-rural-payments-agency-about-land-changes-and-entitlement-transfers" class="govuk-link">guidance about making changes to your land details</a>. This includes a downloadable, printable form if you are unable to make changes using the Rural Payments Service. </p>
+    </div>
+  </div>
+{% endblock %}

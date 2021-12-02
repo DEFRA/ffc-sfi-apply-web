@@ -10,6 +10,7 @@ const routes = [].concat(
   require('../routes/application-task-list'),
   require('../routes/land-business-details/confirm-details'),
   require('../routes/land-business-details/management-control'),
+  require('../routes/land-business-details/change-land-details'),
   require('../routes/relationship'),
   require('../routes/save-application'),
   require('../routes/submit-application'),
