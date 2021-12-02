@@ -49,6 +49,17 @@ describe('confirm details route', () => {
     expect(result.statusCode).toBe(200)
   })
 
+  test('GET /confirm-details with auth returns view land-business-details/confirm-details', async () => {
+    const options = {
+      method: 'GET',
+      url: '/confirm-details',
+      headers: { authorization: token }
+    }
+
+    const result = await server.inject(options)
+    expect(result.request.response.source.template).toBe('land-business-details/confirm-details')
+  })
+
   test('GET /confirm-details without auth returns 302', async () => {
     const options = {
       method: 'GET',
@@ -57,6 +68,7 @@ describe('confirm details route', () => {
 
     const result = await server.inject(options)
     expect(result.statusCode).toBe(302)
+    expect(result.headers.location).toBe('/')
   })
 
   test('GET /confirm-details with auth no parcels returns /no-response view ', async () => {
@@ -81,9 +93,10 @@ describe('confirm details route', () => {
 
     const result = await server.inject(options)
     expect(result.statusCode).toBe(302)
+    expect(result.headers.location).toBe('/')
   })
 
-  test('POST /confirm-details with auth returns /management-control view', async () => {
+  test('POST /confirm-details with auth redirects to /management-control', async () => {
     const options = {
       method: 'POST',
       url: '/confirm-details',
@@ -99,7 +112,7 @@ describe('confirm details route', () => {
     expect(result.headers.location).toBe('/management-control')
   })
 
-  test('POST /confirm-details with auth returns /change-land-details view', async () => {
+  test('POST /confirm-details with auth redirects to /change-land-details', async () => {
     const options = {
       method: 'POST',
       url: '/confirm-details',

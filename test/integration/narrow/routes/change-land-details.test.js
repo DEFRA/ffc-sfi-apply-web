@@ -37,6 +37,7 @@ describe('change land details route', () => {
 
     const result = await server.inject(options)
     expect(result.statusCode).toBe(302)
+    expect(result.headers.location).toBe('/')
   })
 
   test('GET /change-land-details with auth returns 200', async () => {
