@@ -79,7 +79,24 @@ async function mockWhichBusiness () {
     topic: process.env.ELIGIBILITY_TOPIC_ADDRESS
   }
   const baseResponseMessage = {
-    body: { eligibility: [{ sbi: 107700399, name: 'Test user', organisationId, address: 'A farm, Somewhere near, Somewhere far, AB12 3CD' }] },
+    body: { eligibility: [ { sbi: 107700399, name: 'Test user', organisationId, address: 'A farm, Somewhere near, Somewhere far, AB12 3CD' } ] },
+    source: 'ffc-sfi-agreement-calculator',
+    type: 'uk.gov.sfi.agreement.eligibility.request.response'
+  }
+  await mockResponseMessage(baseResponseMessage, process.env.ELIGIBILITYRESPONSE_QUEUE_ADDRESS, receiverConfig)
+}
+
+async function mockEligibleOrganisations () {
+  const receiverConfig = {
+    ...subscriptionConfig,
+    address: process.env.ELIGIBILITY_SUBSCRIPTION_ADDRESS,
+    topic: process.env.ELIGIBILITY_TOPIC_ADDRESS
+  }
+  const baseResponseMessage = {
+    body: { eligibility: [
+      { sbi: 12345678, name: 'Farm one', organisationId, address: 'Farm one, the field, long lane, AB12 4EF' },
+      { sbi: 87654321, name: 'Farm two', organisationId, address: 'Farm two, paddy field, house martin, AB12 5GH' }
+    ] },
     source: 'ffc-sfi-agreement-calculator',
     type: 'uk.gov.sfi.agreement.eligibility.request.response'
   }
@@ -111,7 +128,7 @@ export default async responseType => {
       case 'which-business':
         await mockWhichBusiness()
         break
-      case 'which-business':
+      case 'eligible-organisations':
         await mockEligibleOrganisations()
         break
       default:

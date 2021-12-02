@@ -3,9 +3,11 @@ import clickElement from '../support/action/clickElement'
 import closeLastOpenedWindow from '../support/action/closeLastOpenedWindow'
 import deleteCookies from '../support/action/deleteCookies'
 import dragElement from '../support/action/dragElement'
+import eligibleOrganisation from '../page-objects/eligible-organisation'
 import focusLastOpenedWindow from '../support/action/focusLastOpenedWindow'
 import handleModal from '../support/action/handleModal'
 import moveTo from '../support/action/moveTo'
+import navigateBack from '../support/action/navigateBack'
 import pause from '../support/action/pause'
 import pressButton from '../support/action/pressButton'
 import scroll from '../support/action/scroll'
@@ -14,12 +16,15 @@ import selectOptionByIndex from '../support/action/selectOptionByIndex'
 import setCookie from '../support/action/setCookie'
 import setInputField from '../support/action/setInputField'
 import setPromptText from '../support/action/setPromptText'
-import whatFund from '../page-objects/what-fund'
 import signIn from '../page-objects/sign-in'
-import eligibleOrganisation  from '../page-objects/eligible-organisation'
-
+import whatFund from '../page-objects/what-fund'
 
 const { When } = require('cucumber')
+
+When(
+  /^I click the back button$/,
+  navigateBack
+)
 
 When(
   /^I (click|doubleclick) on the (link|button|element) "([^"]*)?"$/,
@@ -109,13 +114,24 @@ When(/^I click on the continue button$/, async () => {
   signIn.clickOnContinueButton()
 })
 
-When (/^I click on organisation start application link$/, async () => {
+When(/^I click on organisation start application link$/, async () => {
   eligibleOrganisation.clickOnsbi1()
 })
 
+When(/^I click on the application for the "(.*)" organisation$/, async (orgNumber) => {
+  switch (orgNumber) {
+    case 'first':
+      eligibleOrganisation.clickOnsbi1()
+      break
+    case 'second':
+      eligibleOrganisation.clickOnsbi2()
+      break
+    default:
+      console.error("Unknown org number. Expected 'first' or 'second'.")
+  }
+})
 
-When(/^I click on organisation "([^"]*)?"$/, async (startApplication)=> {
-  
+When(/^I click on organisation "([^"]*)?"$/, async (startApplication) => {
   if (startApplication === 'A G COLLIS') {
     eligibleOrganisation.clickOnsbi1()
     console.log(eligibleOrganisation)
@@ -157,7 +173,6 @@ When(/^I click on organisation "([^"]*)?"$/, async (startApplication)=> {
     eligibleOrganisation.clickOnsbi9()
   }
 })
-    
 
 When(/^I enter crn number (.*)$/, async (crnNumber) => {
   signIn.enterCrnNumber(crnNumber)
