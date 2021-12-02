@@ -10,7 +10,7 @@ Feature: Singin for Single Organisation details page
     And I enter password tyyteryyeru
     And I add "kdaihsra" to the inputfield "#password"
     And I click on the continue button
-    Then I mock the response for "which-business"
+    #Then I mock the response for "which-business"
     When I pause for 500ms
     Then I expect that the url contains "/start-application"
     Then I expect that element "h1" contains the text "SFI funding for this organisation"
