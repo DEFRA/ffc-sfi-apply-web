@@ -1,7 +1,6 @@
  Feature: Singin for Multiple Organisation details page
   Scenario Outline: User can successfully signin on multiple organisation page
     Given I open the url "/sign-in"
-    #Then I expect that element "h1" contains the text "Sign in"
     When I clear the inputfield "#crn"
     And I enter crn number 9867012345
     And I clear the inputfield "#callerId"
