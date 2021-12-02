@@ -59,6 +59,20 @@ describe('confirm details route', () => {
     expect(result.statusCode).toBe(302)
   })
 
+  test('GET /confirm-details with auth no parcels returns /no-response view ', async () => {
+    const options = {
+      method: 'GET',
+      url: '/confirm-details',
+      headers: { authorization: token }
+    }
+
+    getMapParcels.mockResolvedValue({})
+
+    const result = await server.inject(options)
+    expect(result.statusCode).toBe(200)
+    expect(result.request.response.source.template).toBe('no-response')
+  })
+
   test('POST /confirm-details without auth returns 302', async () => {
     const options = {
       method: 'POST',
