@@ -36,7 +36,7 @@ const getMapParcels = async (request, parcels) => {
     sbi,
     name,
     address,
-    totalHa: totalHectares,
+    totalHectares,
     landCovers
   }
 }

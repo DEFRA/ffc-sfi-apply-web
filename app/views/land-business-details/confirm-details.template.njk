@@ -62,7 +62,7 @@
               {% for errorDetail in errors.details %}
                 <span class="govuk-error-message">
                   <span class="govuk-visually-hidden">Error:</span>
-                  Please select if your land cover information correct.
+                  Please select if your land cover information is correct.
                 </span>
               {% endfor %}
             </ul>
@@ -72,8 +72,8 @@
 
       {{ govukRadios({
           classes: "govuk-radios",
-          idPrefix: "landControlCheck",
-          name: "landControlCheck",
+          idPrefix: "isLandCorrect",
+          name: "isLandCorrect",
           fieldset: {
             legend: {
               text: "Is your land cover information correct?",

@@ -24,7 +24,7 @@ module.exports = [
     options: {
       validate: {
         payload: joi.object({
-          landControlCheck: joi.boolean().required(),
+          isLandCorrect: joi.boolean().required(),
           'layer-select': joi.string()
         }),
         failAction: async (request, h, error) => {
@@ -36,7 +36,7 @@ module.exports = [
       handler: async (request, h) => {
         const payload = request.payload
 
-        if (payload.landControlCheck) {
+        if (payload.isLandCorrect) {
           await cache.update('agreement', request.yar.id, {
             progress: { businessDetails: true }
           })

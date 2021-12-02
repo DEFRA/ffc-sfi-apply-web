@@ -102,7 +102,7 @@ describe('confirm details route', () => {
       url: '/confirm-details',
       headers: { authorization: token },
       payload: {
-        landControlCheck: true,
+        isLandCorrect: true,
         'layer-select': 'road'
       }
     }
@@ -118,7 +118,7 @@ describe('confirm details route', () => {
       url: '/confirm-details',
       headers: { authorization: token },
       payload: {
-        landControlCheck: false,
+        isLandCorrect: false,
         'layer-select': 'road'
       }
     }
