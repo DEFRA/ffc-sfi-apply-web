@@ -9,6 +9,9 @@
       <p class="govuk-body">Only eligible organisations that you have access to are shown.</p>
     </div>
   </div>
+
+  <!-- search bar: what validation on the front-end will there be -->
+
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-full">
       <table class="govuk-table">
@@ -21,18 +24,20 @@
           </tr>
         </thead>
         <tbody class="govuk-table__body">
+
+        <!-- what happens if they is no results, is it just an error message or does the table reduce down to just headers? -->
+
           {% if unvailable %}
             No matches found
-          {% else %}
-            {% for organisation in organisations %}
-            <tr class="govuk-table__row">
-              <td class="govuk-table__cell">{{ organisation.name }}</td>
-              <td class="govuk-table__cell">{{ organisation.sbi }}</td>
-              <td class="govuk-table__cell">0</td>
-              <td class="govuk-table__cell"><a class="start-application-link" href='/start-application?sbi={{ organisation.sbi }}'>View or start applications</a></td>
-            </tr>
-            {% endfor %}
           {% endif %}
+          {% for organisation in organisations %}
+          <tr class="govuk-table__row">
+            <td class="govuk-table__cell">{{ organisation.name }}</td>
+            <td class="govuk-table__cell">{{ organisation.sbi }}</td>
+            <td class="govuk-table__cell">0</td>
+            <td class="govuk-table__cell"><a class="start-application-link" href='/start-application?sbi={{ organisation.sbi }}'>View or start applications</a></td>
+          </tr>
+          {% endfor %}
         </tbody>
       </table>
     </div>

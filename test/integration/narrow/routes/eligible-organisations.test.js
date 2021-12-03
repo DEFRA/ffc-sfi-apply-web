@@ -164,4 +164,76 @@ describe('eligible-organisations route', () => {
     expect(result.request.response.variety).toBe('view')
     expect(result.request.response.source.template).toBe('no-response')
   })
+
+  // test that the request object contains the field for the SBI number, i.e. request.payload.sbi?
+
+
+  test('POST /eligible-organisations with valid SBI number returns a table', async () => {
+    const options = {
+      method: 'POST',
+      url: '/eligible-organisations',
+      headers: { authorization: token },
+      payload: { sbi: 987654321 }
+    }
+
+    const result = await server.inject(options)
+
+    expect(result has 1 table)
+  })
+
+  test('POST /eligible-organisations with valid SBI number returns a table with 1 row', async () => {
+    const options = {
+      method: 'POST',
+      url: '/eligible-organisations',
+      headers: { authorization: token },
+      payload: { sbi: 987654321 }
+    }
+
+    const result = await server.inject(options)
+
+    expect(result has 1 table with 1 row)
+  })
+
+  test('POST /eligible-organisations with valid SBI number returns a record with that SBI number', async () => {
+    const options = {
+      method: 'POST',
+      url: '/eligible-organisations',
+      headers: { authorization: token },
+      payload: { sbi: 987654321 }
+    }
+
+    const result = await server.inject(options)
+
+    expect(result has 1 table with 1 row and that rows SBI number is the SBI from payload)
+  })
+
+  // what does this actual return? -- is this useful to negate for happy path, i.e. valid = no error bar
+  test('POST /eligible-organisations with invalid SBI number returns an error bar', async () => {
+    const options = {
+      method: 'POST',
+      url: '/eligible-organisations',
+      headers: { authorization: token },
+      payload: { sbi: 0000001 }
+    }
+
+    const result = await server.inject(options)
+
+    expect(result has an error bar appear)
+  })
+
+  // what is returned for an invalid SBI, is it just error message, error message with the table intact, error message with the table emptied?
+  test('POST /eligible-organisations with invalid SBI number returns an empty table', async () => {
+    const options = {
+      method: 'POST',
+      url: '/eligible-organisations',
+      headers: { authorization: token },
+      payload: { sbi: 0000001 }
+    }
+
+    const result = await server.inject(options)
+
+    expect(result has an error bar appear)
+  })
+
+
 })
