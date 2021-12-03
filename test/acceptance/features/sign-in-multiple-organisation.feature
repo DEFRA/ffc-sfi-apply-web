@@ -12,7 +12,7 @@ Feature: Sign-in for Multiple Organisation details page
     Then I mock the response for "eligible-organisations"
     And I pause for 700ms
     And I expect that the url contains "/eligible-organisations"
-    When I click on the link for the "first" organisation
+    When I click on the application for the "first" organisation
     And I pause for 600ms
     Then I expect that the url contains "/start-application?sbi"
     And I expect that element "ul.govuk-list" contains the text "12345678"
