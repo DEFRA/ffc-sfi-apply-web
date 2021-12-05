@@ -1,8 +1,7 @@
 import Page from './page'
 
 class eligibleOrganisation extends Page {
-
-  get sbi1 () { return $('//tr[1]/td[4]/a') }  
+  get sbi1 () { return $('//tr[1]/td[4]/a') }
   get sbi2 () { return $('//tr[2]/td[4]/a') }
   get sbi3 () { return $('//tr[3]/td[4]/a') }
   get sbi4 () { return $('//tr[4]/td[4]/a') }
@@ -35,7 +34,8 @@ class eligibleOrganisation extends Page {
   }
   async clickOnsbi3 () {
     await (await this.sbi3).click()
-  }async clickOnsbi4 () {
+  }
+  async clickOnsbi4 () {
     await (await this.sbi4).click()
   }
   async clickOnsbi5 () {
@@ -70,7 +70,8 @@ class eligibleOrganisation extends Page {
   }
   async clickOnsbi15 () {
     await (await this.sbi15).click()
-  }async clickOnsbi16 () {
+  }
+  async clickOnsbi16 () {
     await (await this.sbi16).click()
   }
   async clickOnsbi17 () {

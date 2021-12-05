@@ -1,4 +1,4 @@
-Feature: Singin for Single Organisation details page
+Feature: Sign-in for Single Organisation details page
   Scenario: User can successfully signin on single organisation page
     Given I open the url "/sign-in"
     Then I expect that element "h1" contains the text "Sign in"
@@ -10,13 +10,13 @@ Feature: Singin for Single Organisation details page
     And I enter password tyyteryyeru
     And I add "kdaihsra" to the inputfield "#password"
     And I click on the continue button
-    #Then I mock the response for "which-business"
+    Then I mock the response for "which-business"
     When I pause for 500ms
     Then I expect that the url contains "/start-application"
     Then I expect that element "h1" contains the text "SFI funding for this organisation"
 
 
-    Scenario: User cannot successfully signin with invalid details
+  Scenario: User cannot successfully signin with invalid details
     Given I open the url "/sign-in"
     Then I expect that element "h1" contains the text "Sign in"
     When I clear the inputfield "#crn"
@@ -31,9 +31,3 @@ Feature: Singin for Single Organisation details page
     Then I expect that the url contains "/sign-in"
     Then I expect that element "div.govuk-error-summary__body" contains the text "length must be 10 characters long"
     Then I expect that element "div.govuk-error-summary__body" contains the text "length must be 7 characters long"
-
-
-
-
-
-
