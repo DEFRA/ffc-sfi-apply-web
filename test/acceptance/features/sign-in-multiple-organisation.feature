@@ -44,7 +44,7 @@ Feature: Sign-in for Multiple Organisation details page
     Then I expect that the url contains "/application-task-list"
 
     
-    # Scenario: User can move back from SFI funding screen to eligible organistion screen
+    ## Scenario: User can move back from SFI funding screen to eligible organistion screen
     # Given I open the url "/sign-in"
     # Then I expect that element "h1" contains the text "Sign in"
     # When I clear the inputfield "#crn"
