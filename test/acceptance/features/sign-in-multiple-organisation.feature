@@ -15,13 +15,13 @@ Feature: Sign-in for Multiple Organisation details page
     When I click on the application for the "first" organisation
     And I pause for 600ms
     Then I expect that the url contains "/start-application?sbi"
-    And I expect that element "ul.govuk-list" contains the text "12345678"
+    And I expect that element "ul.govuk-list" contains the text "07103820"
     When I click the back button
     Then I expect that the url contains "/eligible-organisations"
     When I click on the application for the "second" organisation
     And I pause for 600ms
     Then I expect that the url contains "/start-application?sbi"
-    And I expect that element "ul.govuk-list" contains the text "87654321"
+    And I expect that element "ul.govuk-list" contains the text "106982014"
 
   Scenario: User can start new application after signing in
     Given I open the url "/sign-in"
@@ -43,7 +43,7 @@ Feature: Sign-in for Multiple Organisation details page
     When I click on the element "#start-application"
     Then I expect that the url contains "/application-task-list"
 
-
+    
     # Scenario: User can move back from SFI funding screen to eligible organistion screen
     # Given I open the url "/sign-in"
     # Then I expect that element "h1" contains the text "Sign in"
