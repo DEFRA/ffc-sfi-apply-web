@@ -56,7 +56,7 @@ Feature: Sign-in for Multiple Organisation details page
     # And I add "kdaihsra" to the inputfield "#password"
     # And I click on the continue button
     # Then I mock the response for "which-business"
-    # And I pause for 500ms
+    # And I pause for 600ms
     # Then I expect that the url contains "/eligible-organisations"
     # When I click on the element "//tr[1]/td[4]/a"
     # And I pause for 500ms

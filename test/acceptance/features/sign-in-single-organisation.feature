@@ -11,7 +11,7 @@ Feature: Sign-in for Single Organisation details page
     And I add "kdaihsra" to the inputfield "#password"
     And I click on the continue button
     Then I mock the response for "which-business"
-    When I pause for 500ms
+    When I pause for 600ms
     Then I expect that the url contains "/start-application"
     Then I expect that element "h1" contains the text "SFI funding for this organisation"
 
