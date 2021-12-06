@@ -7,27 +7,13 @@ import { Tile as TileLayer, Vector as VectorLayer, Group } from 'ol/layer'
 import Select from 'ol/interaction/Select'
 import { click, pointerMove } from 'ol/events/condition'
 import TileGrid from 'ol/tilegrid/TileGrid'
-import { landParcelStyles, landCoverStyles, highlightStyle, selectedStyle } from './map-styles'
+import { landParcelStyles, highlightStyle, selectedStyle } from './map-styles'
 
 const styleFunction = (feature) => {
-  const label = `${feature.get('sheet_id')} ${feature.get('parcel_id')}`
-
-  if (feature.get('land_cover_class_code') !== undefined) {
-    const landCoverClassCode = feature.get('land_cover_class_code')
-
-    const landCoverClassCodeStyle = landCoverStyles.find(({ Code }) => Code === landCoverClassCode)
-
-    if (landCoverClassCodeStyle !== null && landCoverClassCodeStyle !== undefined) {
-      landCoverClassCodeStyle.Polygon.getText().setText(label)
-      return landCoverClassCodeStyle[feature.getGeometry().getType()]
-    } else {
-      landCoverStyles[0].Polygon.getText().setText(label)
-      return landCoverStyles[0][feature.getGeometry().getType()]
-    }
-  } else {
-    landParcelStyles.Polygon.getText().setText(label)
-    return landParcelStyles[feature.getGeometry().getType()]
-  }
+  console.log(feature)
+  const label = `${feature.get('sheetId')} ${feature.get('parcelId')}`
+  landParcelStyles.Polygon.getText().setText(label)
+  return landParcelStyles[feature.getGeometry().getType()]
 }
 
 const tilegrid = new TileGrid({
@@ -82,8 +68,8 @@ const selectLayer = (map) => {
 
   selectClick.on('select', function (e) {
     const parcelId = e.selected.length
-      ? `${e.selected[0].values_.sheet_id}${e.selected[0].values_.parcel_id}`
-      : `${e.deselected[0].values_.sheet_id}${e.deselected[0].values_.parcel_id}`
+      ? `${e.selected[0].values_.sheetId}${e.selected[0].values_.parcelId}`
+      : `${e.deselected[0].values_.sheetId}${e.deselected[0].values_.parcelId}`
     const parcelCheckBox = document.getElementById(parcelId)
     parcelCheckBox.checked = !parcelCheckBox.checked
     resetSelectAll()
@@ -101,7 +87,7 @@ const selectPointerMove = (map) => {
 
   selectMove.on('select', function (e) {
     if (e.selected.length) {
-      const parcelId = `${e.selected[0].values_.sheet_id}${e.selected[0].values_.parcel_id}`
+      const parcelId = `${e.selected[0].values_.sheetId}${e.selected[0].values_.parcelId}`
       document.getElementById('parcelInfo').innerHTML = parcelId
     }
   })
@@ -142,7 +128,7 @@ const addToSelectFeatures = (selectfeatures, parcelSource, target, id) => {
   const parcelId = convertToParcelSheetId(target.id)
   const parcelFeatures = parcelSource.getFeatures()
   for (const feature of parcelFeatures) {
-    if (feature.get('parcel_id') === parcelId[1] && feature.get('sheet_id') === parcelId[0]) {
+    if (feature.get('parcelId') === parcelId[1] && feature.get('sheetId') === parcelId[0]) {
       target.checked ? selectfeatures.push(feature) : selectfeatures.remove(feature)
     }
   }
@@ -171,7 +157,7 @@ const preParcelSelection = (selectedParcels, parcelSource, selectfeatures) => {
     const parcelId = convertToParcelSheetId(parcel.id)
     const parcelFeatures = parcelSource.getFeatures()
     for (const feature of parcelFeatures) {
-      if (feature.get('parcel_id') === parcelId[1] && feature.get('sheet_id') === parcelId[0]) {
+      if (feature.get('parcelId') === parcelId[1] && feature.get('sheetId') === parcelId[0]) {
         selectfeatures.push(feature)
       }
     }
