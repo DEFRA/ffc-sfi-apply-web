@@ -1,6 +1,7 @@
 {% extends '_layout.njk' %}
 {% set mainClasses = "govuk-main-wrapper--auto-spacing" %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
 
 {% block content %}
   <div class="govuk-grid-row">
@@ -10,7 +11,17 @@
     </div>
   </div>
 
-  <!-- search bar: what validation on the front-end will there be -->
+  <div class="user-search-box govuk-!-width-two-thirds">
+    <form method="POST" action="/eligible-organisations">
+      {{ govukInput(searchComponent.model) }}
+      {{ govukButton({
+        text: "Search",
+        attributes: {
+          id: "search"
+        }
+      }) }}
+    </form>
+  </div>
 
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-full">

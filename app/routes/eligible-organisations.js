@@ -1,4 +1,5 @@
 const getEligibility = require('../eligibility')
+const ViewModel = require('./models/search')
 
 module.exports = [{
   method: 'GET',
@@ -19,9 +20,9 @@ module.exports = [{
         return h.redirect(`/start-application?sbi=${eligibility[0].sbi}`)
       }
 
-      return h.view('eligible-organisations', { organisations: eligibility })
-    }
+      return h.view('eligible-organisations', { organisations: eligibility, searchComponent: new ViewModel() })
   }
+}
 },
 
 {
@@ -30,7 +31,7 @@ module.exports = [{
   options: {
     handler: async (request, h) => {
       const { eligibility } = await getEligibility(request)
-
+      
       // get the organisations from the cache
       const organisations = cache.get('agreement', request.yar.id, { application: { eligibleOrganisations: eligibility } })
       const sbi = request.payload.sbi
