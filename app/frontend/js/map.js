@@ -7,11 +7,22 @@ import { Tile as TileLayer, Vector as VectorLayer, Group } from 'ol/layer'
 import Select from 'ol/interaction/Select'
 import { click, pointerMove } from 'ol/events/condition'
 import TileGrid from 'ol/tilegrid/TileGrid'
-import { landParcelStyles, highlightStyle, selectedStyle } from './map-styles'
+import { landParcelStyles, landCoverStyles, highlightStyle, selectedStyle } from './map-styles'
 
 const styleFunction = (feature) => {
-  console.log(feature)
   const label = `${feature.get('sheetId')} ${feature.get('parcelId')}`
+
+  if (feature.get('land_cover_class_code')) {
+    const landCoverClassCode = feature.get('land_cover_class_code')
+    const landCoverClassCodeStyle = landCoverStyles.find(({ Code }) => Code === landCoverClassCode)
+
+    if (landCoverClassCodeStyle) {
+      landCoverClassCodeStyle.Polygon.getText().setText(label)
+      return landCoverClassCodeStyle[feature.getGeometry().getType()]
+    }
+    landCoverStyles[0].Polygon.getText().setText(label)
+    return landCoverStyles[0][feature.getGeometry().getType()]
+  }
   landParcelStyles.Polygon.getText().setText(label)
   return landParcelStyles[feature.getGeometry().getType()]
 }
