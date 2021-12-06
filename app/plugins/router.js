@@ -65,8 +65,6 @@ const routes = [].concat(
   require('../routes/land-management/improved-grassland-soils/high/stocking-density'),
   require('../routes/land-management/improved-grassland-soils/high/soil-management'),
   require('../routes/land-management/improved-grassland-soils/high/high-end'),
-  require('../routes/map'),
-  require('../routes/map/parcel'),
   require('../routes/withdraw'),
   require('../routes/withdrawn'),
   require('../routes/clear-session')
