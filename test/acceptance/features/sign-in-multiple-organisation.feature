@@ -53,10 +53,10 @@ Feature: Sign-in for Multiple Organisation details page
     |Christine Gillott       |106889602 |
     |Donald Crofts           |200656757 |
     |E THOMPSON & SON        |107008163 |
-    |Edgar Zoo               |122200885 |
     |Mr J G Romeril          |107082108 |    
     |FALLON, S               |106940295 |
     |FJ & LA Poole and Son   |200156320 |
+    |Edgar Zoo               |122200885 |
     
 
 
