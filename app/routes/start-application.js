@@ -10,12 +10,16 @@ module.exports = [{
         sbi: Joi.number().required()
       }),
       failAction: async (request, h, error) => {
-        return h.view('/404').takeover()
+        return h.view('404').takeover()
       }
     },
     handler: async (request, h) => {
       const agreement = await cache.get('agreement', request.yar.id)
-      const organisation = agreement.application.eligibleOrganisations.find(x => x.sbi === request.query.sbi)
+      const selectedSbi = request.query.sbi ?? agreement?.application?.selectedOrganisation?.sbi
+      if (!selectedSbi) {
+        return h.view('404')
+      }
+      const organisation = agreement.application.eligibleOrganisations.find(x => x.sbi === selectedSbi)
       return h.view('start-application', { organisation })
     }
   }
