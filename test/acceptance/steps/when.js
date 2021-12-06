@@ -126,8 +126,11 @@ When(/^I click on the application for the "(.*)" organisation$/, async (orgNumbe
     case 'second':
       eligibleOrganisation.clickOnsbi2()
       break
+    case 'third':
+      eligibleOrganisation.clickOnsbi3()
+      break
     default:
-      console.error("Unknown org number. Expected 'first' or 'second'.")
+      console.error("Unknown org number. Expected 'first' or 'second' or 'third'.")
   }
 })
 

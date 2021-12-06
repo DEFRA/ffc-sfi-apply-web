@@ -94,11 +94,9 @@ async function mockEligibleOrganisations () {
   }
   const baseResponseMessage = {
     body: { eligibility: [
-      
-      // { sbi: 12345678, name: 'Farm one', organisationId, address: 'Farm one, the field, long lane, AB12 4EF' },
-      // { sbi: 87654321, name: 'Farm two', organisationId, address: 'Farm two, paddy field, house martin, AB12 5GH' }
          { sbi: 107103820, name: 'Farm one', organisationId, address: 'Farm one, the field, long lane, AB12 4EF' },
-         { sbi: 106982014, name: 'Farm two', organisationId, address: 'Farm two, paddy field, house martin, AB12 5GH' }
+         { sbi: 106982014, name: 'Farm two', organisationId, address: 'Farm two, paddy field, house martin, AB12 5GH' },
+         { sbi: 107365827, name: 'Farm three', organisationId, address: 'Farm three, paddy field, house martin, AB12 5GH' }        
     ] },
     source: 'ffc-sfi-agreement-calculator',
     type: 'uk.gov.sfi.agreement.eligibility.request.response'

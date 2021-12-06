@@ -22,6 +22,12 @@ Feature: Sign-in for Multiple Organisation details page
     And I pause for 600ms
     Then I expect that the url contains "/start-application?sbi"
     And I expect that element "ul.govuk-list" contains the text "106982014"
+    When I click the back button
+    Then I expect that the url contains "/eligible-organisations"
+    When I click on the application for the "third" organisation
+    And I pause for 600ms
+    Then I expect that the url contains "/start-application?sbi"
+    And I expect that element "ul.govuk-list" contains the text "107365827"
 
   Scenario: User can start new application after signing in
     Given I open the url "/sign-in"
