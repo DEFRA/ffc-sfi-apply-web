@@ -129,6 +129,33 @@ When(/^I click on the application for the "(.*)" organisation$/, async (orgNumbe
     case 'third':
       eligibleOrganisation.clickOnsbi3()
       break
+    case 'Chris Hall':
+      eligibleOrganisation.clickOnsbi4()
+      break
+    case 'Christine Gillott':
+      eligibleOrganisation.clickOnsbi5()
+      break
+    case 'Donald Crofts':
+      eligibleOrganisation.clickOnsbi6()
+      break
+    case 'E THOMPSON & SON':
+      eligibleOrganisation.clickOnsbi7()
+      break
+    case 'Edgar Zoo':
+      eligibleOrganisation.clickOnsbi8()
+      break
+    case 'Mr J G Romeril':
+      eligibleOrganisation.clickOnsbi9()
+      break
+    case 'FALLON, S':
+      eligibleOrganisation.clickOnsbi10()
+      break
+    case 'FJ & LA Poole and Son':
+      eligibleOrganisation.clickOnsbi11()
+      break
+    case 'Farm & Woodland Services':
+      eligibleOrganisation.clickOnsbi12()
+      break
     default:
       console.error("Unknown org number. Expected 'first' or 'second' or 'third'.")
   }
