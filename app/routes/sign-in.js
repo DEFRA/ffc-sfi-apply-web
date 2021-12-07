@@ -9,7 +9,7 @@ module.exports = [{
   options: {
     auth: false,
     handler: async (request, h) => {
-      const agreement = await cache.get('agreement', request.yar.id)
+      const agreement = await cache.get(request)
       return h.view('sign-in', { crn: agreement?.application?.crn, callerId: agreement?.application?.callerId })
     }
   }
@@ -31,7 +31,7 @@ module.exports = [{
     handler: async (request, h) => {
       const crn = request.payload.crn
       const callerId = request.payload.callerId
-      await cache.update('agreement', request.yar.id, { application: { crn, callerId } })
+      await cache.update(request, { application: { crn, callerId } })
       const token = JWT.sign({ callerId }, config.jwtConfig.secret, { expiresIn: 3600 * 1000 })
       return h.redirect('/eligible-organisations')
         .header('Authorization', token)

@@ -34,12 +34,12 @@ module.exports = [{
     },
     handler: async (request, h) => {
       const standard = request.payload.standard
-      const agreement = await cache.get('agreement', request.yar.id)
+      const agreement = await cache.get(request)
 
       const selectedStandard = agreement.application.standards.find(x => x.code === standard)
-      await cache.update('agreement', request.yar.id, { application: { selectedStandard } })
+      await cache.update(request, { application: { selectedStandard } })
 
-      await cache.update('agreement', request.yar.id, {
+      await cache.update(request, {
         progress: { fundingOption: true }
       })
 

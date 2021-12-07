@@ -23,7 +23,7 @@ module.exports = [{
   path: '/funding-options/funding-overview',
   options: {
     handler: async (request, h) => {
-      const agreement = await cache.get('agreement', request.yar.id)
+      const agreement = await cache.get(request)
       const standard = agreement.application.selectedStandard.code
       if (standard === 'sfi-improved-grassland') {
         return h.redirect('/funding-options/grassland-overview')
@@ -38,7 +38,7 @@ module.exports = [{
   path: '/funding-options/funding-overview',
   options: {
     handler: async (request, h) => {
-      await cache.update('agreement', request.yar.id, {
+      await cache.update(request, {
         progress: { fundingOptionOverview: true }
       })
       return h.redirect('/funding-options/how-much')

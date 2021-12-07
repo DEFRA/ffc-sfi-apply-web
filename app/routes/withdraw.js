@@ -28,12 +28,11 @@ module.exports = [{
     },
     handler: async (request, h) => {
       if (request.payload.withdraw) {
-        const agreement = await cache.get('agreement', request.yar.id)
+        const agreement = await cache.get(request)
         const application = agreement?.application
         if (application.submitted) {
           await sendAgreementWithdrawMessage({ sbi: application.sbi, agreementNumber: application.agreementNumber }, request.yar.id)
-          await cache.clear('agreement', request.yar.id)
-          await cache.clear('progress', request.yar.id)
+          await cache.clear(request)
           return h.redirect(`/withdrawn?agreementNumber=${application.agreementNumber}`)
         }
       }

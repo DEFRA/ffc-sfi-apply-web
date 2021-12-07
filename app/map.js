@@ -6,7 +6,7 @@ const { downloadParcelSpatialFile } = require('./storage')
 const { getLandCovers } = require('./api/crown-hosting/land-cover')
 
 const getMapParcels = async (request, parcels) => {
-  const agreement = await cache.get('agreement', request.yar.id)
+  const agreement = await cache.get(request)
   const application = agreement?.application
   const sbi = application.selectedOrganisation.sbi
   const name = application.selectedOrganisation.name

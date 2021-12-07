@@ -7,6 +7,7 @@ module.exports = {
     storeBlank: true,
     maxCookieSize: config.useRedis ? 0 : 1024,
     cache: {
+      cache: 'session',
       expiresIn: config.cacheConfig.defaultExpiresIn
     },
     cookieOptions: {

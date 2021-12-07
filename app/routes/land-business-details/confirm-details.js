@@ -37,7 +37,7 @@ module.exports = [
         const payload = request.payload
 
         if (payload.isLandCorrect) {
-          await cache.update('agreement', request.yar.id, {
+          await cache.update(request, {
             progress: { businessDetails: true }
           })
           return h.redirect('/management-control')

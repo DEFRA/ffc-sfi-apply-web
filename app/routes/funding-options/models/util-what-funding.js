@@ -4,7 +4,7 @@ const { v4: uuidv4 } = require('uuid')
 const util = require('util')
 
 const getAllStandards = async (request, error) => {
-  const agreement = await cache.get('agreement', request.yar.id)
+  const agreement = await cache.get(request)
   const application = agreement.application
   let standards = application.standards
   if (error && standards) {
@@ -26,7 +26,7 @@ const sendStandardsRequest = async (application, request, standards) => {
 
   if (response) {
     console.info('Standards request received:', util.inspect(response, false, null, true))
-    await cache.update('agreement', request.yar.id, { application: { standards: response.standards } })
+    await cache.update(request, { application: { standards: response.standards } })
     standards = response.standards
   }
 

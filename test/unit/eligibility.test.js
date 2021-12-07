@@ -56,7 +56,7 @@ describe('process eligibility message', () => {
   })
 
   beforeEach(async () => {
-    await cache.update('agreement', request.yar.id, { application: { crn, callerId } })
+    await cache.update(request, { application: { crn, callerId } })
   })
 
   afterEach(async () => {
@@ -64,7 +64,7 @@ describe('process eligibility message', () => {
   })
 
   afterAll(async () => {
-    await cache.clear('agreement', request.yar.id)
+    await cache.clear(request)
     await server.stop()
   })
 

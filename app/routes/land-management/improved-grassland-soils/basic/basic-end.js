@@ -14,7 +14,7 @@ module.exports = [{
   path: '/improved-grassland-soils/basic/basic-end',
   options: {
     handler: async (request, h) => {
-      await cache.update('agreement', request.yar.id, {
+      await cache.update(request, {
         progress: { createAgreementOptions: true, how: true }
       })
       return h.redirect('/payment-schedule')

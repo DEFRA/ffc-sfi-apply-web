@@ -6,7 +6,7 @@ module.exports = [{
   path: '/start-application',
   options: {
     handler: async (request, h) => {
-      const agreement = await cache.get('agreement', request.yar.id)
+      const agreement = await cache.get(request)
       // if SBI not provided as query parameter, then use previously selected organisation from cache if exists.
       const sbi = request.query.sbi ?? agreement?.application?.selectedOrganisation?.sbi
       if (sbi) {
@@ -26,11 +26,11 @@ module.exports = [{
       })
     },
     handler: async (request, h) => {
-      const agreement = await cache.get('agreement', request.yar.id)
+      const agreement = await cache.get(request)
       const selectedOrganisation = agreement.application.eligibleOrganisations.find(x => x.sbi === request.payload.sbi)
 
       if (selectedOrganisation) {
-        await cache.update('agreement', request.yar.id, { application: { selectedOrganisation, submitted: false } })
+        await cache.update(request, { application: { selectedOrganisation, submitted: false } })
         return h.redirect('/application-task-list')
       }
       return h.redirect('/select-organisation')

@@ -6,7 +6,7 @@ module.exports = [{
   options: {
 
     handler: async (request, h) => {
-      const agreement = await cache.get('agreement', request.yar.id)
+      const agreement = await cache.get(request)
       return h.view('land-management/payment-schedule', { selectedStandardCode: agreement.application.selectedStandard.code })
     }
   }
@@ -17,7 +17,7 @@ module.exports = [{
   options: {
 
     handler: async (request, h) => {
-      await cache.update('agreement', request.yar.id, {
+      await cache.update(request, {
         progress: { schedule: true, chooseActions: true }
       })
       return h.redirect('/check-your-answers')

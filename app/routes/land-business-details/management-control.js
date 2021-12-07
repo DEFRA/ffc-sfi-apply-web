@@ -5,7 +5,7 @@ module.exports = [{
   path: '/management-control',
   options: {
     handler: async (request, h) => {
-      const applyJourney = await cache.get('agreement', request.yar.id)
+      const applyJourney = await cache.get(request)
       return h.view('land-business-details/management-control', { name: applyJourney.application.selectedOrganisation.name })
     }
   }
@@ -15,7 +15,7 @@ module.exports = [{
   path: '/management-control',
   options: {
     handler: async (request, h) => {
-      await cache.update('agreement', request.yar.id, {
+      await cache.update(request, {
         progress: { businessDetails: true }
       })
       return h.redirect('/application-task-list')

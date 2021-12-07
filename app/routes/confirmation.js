@@ -5,7 +5,7 @@ module.exports = [{
   path: '/confirmation',
   options: {
     handler: async (request, h) => {
-      const agreement = await cache.get('agreement', request.yar.id)
+      const agreement = await cache.get(request)
       return h.view('confirmation', { agreementNumber: agreement.application.agreementNumber })
     }
   }

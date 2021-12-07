@@ -47,7 +47,7 @@ module.exports = [
         const selectedParcelStandard = await downloadParcelStandardFile(parcelStandards.filename)
         const viewModel = new ViewModel(application, selectedParcelStandard, payload)
 
-        await cache.update('agreement', request.yar.id, {
+        await cache.update(request, {
           application: {
             selectedParcels: viewModel.model.landInHectares,
             parcelArea: viewModel.model.parcelArea,

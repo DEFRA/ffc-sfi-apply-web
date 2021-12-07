@@ -20,9 +20,9 @@ module.exports = [{
 
     handler: async (request, h) => {
       await saveAgreement(request)
-      const agreement = await cache.get('agreement', request.yar.id)
+      const agreement = await cache.get(request)
       await submitAgreement(agreement.application.agreementNumber, agreement.application.selectedOrganisation.sbi)
-      await cache.update('agreement', request.yar.id, {
+      await cache.update(request, {
         progress: { submitted: true }
       })
       return h.redirect('/confirmation')

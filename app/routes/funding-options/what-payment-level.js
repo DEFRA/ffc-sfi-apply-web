@@ -33,7 +33,7 @@ module.exports = [{
       failAction: async (request, h, error) => {
         const { agreement, paymentRates } = await getPaymentRates(request, error)
         if (paymentRates) {
-          return h.view('funding-options/what-payment-levell', ViewModel(
+          return h.view('funding-options/what-payment-level', ViewModel(
             agreement.selectedOrganisation.sbi, agreement.selectedStandard.name, agreement.parcelArea, paymentRates, agreement.selectedAmbitionLevel, error
           )).code(400).takeover()
         }
@@ -41,19 +41,19 @@ module.exports = [{
       }
     },
     handler: async (request, h) => {
-      const agreement = await cache.get('agreement', request.yar.id)
+      const agreement = await cache.get(request)
 
       const level = request.payload.level
       const selectedAmbitionLevel = agreement.application.paymentRates[level]
 
-      await cache.update('agreement', request.yar.id, {
+      await cache.update(request, {
         application: {
           selectedAmbitionLevel: { name: level, level: selectedAmbitionLevel },
           paymentAmount: selectedAmbitionLevel.paymentAmount
         }
       })
 
-      await cache.update('agreement', request.yar.id, {
+      await cache.update(request, {
         progress: { fundingDetails: true, paymentLevel: true }
       })
 

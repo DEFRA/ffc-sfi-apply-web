@@ -18,7 +18,7 @@ module.exports = [{
 
       if (eligibility.length === 1) {
         const selectedOrganisation = eligibility[0]
-        await cache.update('agreement', request.yar.id, { application: { selectedOrganisation, submitted: false } })
+        await cache.update(request, { application: { selectedOrganisation, submitted: false } })
         return h.redirect('/start-application')
       }
 

@@ -3,7 +3,7 @@ const cache = require('../../../cache')
 const { v4: uuidv4 } = require('uuid')
 
 async function getPaymentRates (request, error) {
-  const agreement = await cache.get('agreement', request.yar.id)
+  const agreement = await cache.get(request)
   const application = agreement.application
   let paymentRates = null
   if (error && application.paymentRates) {
@@ -24,7 +24,7 @@ async function getPaymentRates (request, error) {
 
     if (response) {
       console.info('Calculate request received', response)
-      await cache.update('agreement', request.yar.id, { application: { paymentRates: response } })
+      await cache.update(request, { application: { paymentRates: response } })
       paymentRates = response
     }
   }

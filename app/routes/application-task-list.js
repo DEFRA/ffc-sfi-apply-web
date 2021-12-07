@@ -9,7 +9,7 @@ module.exports = [{
   path: '/application-task-list',
   options: {
     handler: async (request, h) => {
-      const agreement = await cache.get('agreement', request.yar.id)
+      const agreement = await cache.get(request)
       const application = agreement?.application
       const progress = agreement?.progress
       const fundingOption = application?.selectedStandard?.code === 'sfi-improved-grassland' ? 'improved-grassland-soils' : 'arable-soils'
@@ -37,8 +37,8 @@ module.exports = [{
       const agreement = await getAgreement(request.params.agreementNumber, request.params.sbi)
       const progress = await getProgress(agreement.progressId)
       agreement.agreementData.agreement.agreementNumber = request.params.agreementNumber
-      await cache.clear('agreement', request.yar.id)
-      await cache.update('agreement', request.yar.id,
+      await cache.clear(request)
+      await cache.update(request,
         {
           application: agreement.agreementData.agreement,
           progress

@@ -4,14 +4,14 @@ const { v4: uuidv4 } = require('uuid')
 const util = require('util')
 
 const getParcelStandards = async (request, error) => {
-  const agreement = await cache.get('agreement', request.yar.id)
+  const agreement = await cache.get(request)
   const application = agreement?.application
   let parcelStandards = application.parcelStandards
   if (error && parcelStandards) {
     return { application, parcelStandards }
   } else {
     parcelStandards = await sendParcelStandardRequest(application, request, parcelStandards)
-    await cache.update('agreement', request.yar.id, { application: { parcelStandards } })
+    await cache.update(request, { application: { parcelStandards } })
   }
   return { application, parcelStandards }
 }
