@@ -19,10 +19,6 @@
 {% block content %}
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
-      <form class="search-form govuk-!-width-one-half" action="/eligible-organisations" method="POST">
-          <input class="govuk-input" id="user-search" name="user-search" type="text"/>
-          <button class="search-button" data-module="govuk-button"></button>
-      </form>
       <form method="POST" action="/sign-in">
         <input type="hidden" name="crumb" value="{{crumb}}"/>
 

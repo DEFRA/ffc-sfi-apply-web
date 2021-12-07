@@ -6,7 +6,20 @@ module.exports = [{
   path: '/eligible-organisations',
   options: {
     handler: async (request, h) => {
-      const { eligibility } = await getEligibility(request)
+      // const { eligibility } = await getEligibility(request)
+
+      const eligibility = [{
+        sbi: 123456789,
+        name: 'Title Forename 6Lastname1',
+        organisationId: 123457,
+        address: 'address1, address2, address3, postalCode'
+      },
+      {
+        sbi: 987654321,
+        name: 'Title Forename Lastname2',
+        organisationId: 7654321,
+        address: 'address1, address2, address3, postalCode'
+      }]
 
       if (!eligibility) {
         return h.view('no-response')
@@ -20,7 +33,7 @@ module.exports = [{
         return h.redirect(`/start-application?sbi=${eligibility[0].sbi}`)
       }
 
-      return h.view('eligible-organisations', { organisations: eligibility, searchComponent: new ViewModel() })
+      return h.view('eligible-organisations', { organisations: eligibility, ...new ViewModel() })
   }
 }
 },

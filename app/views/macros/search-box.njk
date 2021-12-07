@@ -1,0 +1,9 @@
+{% macro searchBox(model) %}
+    <label class="govuk-label {{model.label.classes}}" for="{{model.name}}">{{model.label.text}}</label>
+    <input class="govuk-input {{model.input.classes}}" 
+        id="{{model.id}}" 
+        name="{{model.name}}" 
+        inputmode="{{model.inputmode}}"
+        type="text"/>
+    <button class="{{model.button.classes}}" data-module="govuk-button"></button>
+{% endmacro %}
