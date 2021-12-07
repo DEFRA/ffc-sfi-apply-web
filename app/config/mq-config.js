@@ -27,13 +27,7 @@ const mqSchema = joi.object({
   withdrawTopic: {
     address: joi.string()
   },
-  requestSBITopic: {
-    address: joi.string()
-  },
   parcelSpatialTopic: {
-    address: joi.string()
-  },
-  parcelTopic: {
     address: joi.string()
   },
   parcelStandardTopic: {
@@ -49,9 +43,6 @@ const mqSchema = joi.object({
     address: joi.string()
   },
   responseParcelSpatialQueue: {
-    address: joi.string()
-  },
-  responseParcelQueue: {
     address: joi.string()
   },
   responseParcelStandardQueue: {
@@ -85,14 +76,8 @@ const mqConfig = {
   withdrawTopic: {
     address: process.env.WITHDRAW_TOPIC_ADDRESS
   },
-  requestSBITopic: {
-    address: process.env.REQUEST_SBI_TOPIC_ADDRESS
-  },
   parcelSpatialTopic: {
     address: process.env.PARCELSPATIAL_TOPIC_ADDRESS
-  },
-  parcelTopic: {
-    address: process.env.PARCEL_TOPIC_ADDRESS
   },
   parcelStandardTopic: {
     address: process.env.PARCELSTANDARD_TOPIC_ADDRESS
@@ -108,9 +93,6 @@ const mqConfig = {
   },
   responseParcelSpatialQueue: {
     address: process.env.PARCELSPATIALRESPONSE_QUEUE_ADDRESS
-  },
-  responseParcelQueue: {
-    address: process.env.PARCELRESPONSE_QUEUE_ADDRESS
   },
   responseParcelStandardQueue: {
     address: process.env.PARCELSTANDARDRESPONSE_QUEUE_ADDRESS
@@ -130,11 +112,8 @@ const calculateTopic = { ...mqResult.value.messageQueue, ...mqResult.value.calcu
 const eligibilityTopic = { ...mqResult.value.messageQueue, ...mqResult.value.eligibilityTopic }
 const parcelSpatialTopic = { ...mqResult.value.messageQueue, ...mqResult.value.parcelSpatialTopic }
 const parcelStandardTopic = { ...mqResult.value.messageQueue, ...mqResult.value.parcelStandardTopic }
-const parcelTopic = { ...mqResult.value.messageQueue, ...mqResult.value.parcelTopic }
-const requestSBITopic = { ...mqResult.value.messageQueue, ...mqResult.value.requestSBITopic }
 const responseCalculateQueue = { ...mqResult.value.messageQueue, ...mqResult.value.responseCalculateQueue }
 const responseEligibilityQueue = { ...mqResult.value.messageQueue, ...mqResult.value.responseEligibilityQueue }
-const responseParcelQueue = { ...mqResult.value.messageQueue, ...mqResult.value.responseParcelQueue }
 const responseParcelSpatialQueue = { ...mqResult.value.messageQueue, ...mqResult.value.responseParcelSpatialQueue }
 const responseParcelStandardQueue = { ...mqResult.value.messageQueue, ...mqResult.value.responseParcelStandardQueue }
 const responseStandardsQueue = { ...mqResult.value.messageQueue, ...mqResult.value.responseStandardsQueue }
@@ -148,11 +127,8 @@ module.exports = {
   eligibilityTopic,
   parcelSpatialTopic,
   parcelStandardTopic,
-  parcelTopic,
-  requestSBITopic,
   responseCalculateQueue,
   responseEligibilityQueue,
-  responseParcelQueue,
   responseParcelSpatialQueue,
   responseParcelStandardQueue,
   responseStandardsQueue,

@@ -32,19 +32,9 @@ async function sendAgreementWithdrawMessage (payload, correlationId) {
   console.info('Agreement withdrawn')
 }
 
-async function sendRequestSBIMessage (payload, correlationId) {
-  await sendMessage(payload, 'uk.gov.sfi.sbi.request', correlationId, config.requestSBITopic)
-  console.info('SBI(s) requested')
-}
-
 async function sendParcelSpatialMessage (payload, correlationId, messageId) {
   await sendMessage(payload, 'uk.gov.sfi.parcel.spatial.request', correlationId, config.parcelSpatialTopic, messageId)
   console.info('parcel spatial data requested')
-}
-
-async function sendParcelMessage (payload, correlationId, messageId) {
-  await sendMessage(payload, 'uk.gov.sfi.parcel.request', correlationId, config.parcelTopic, messageId)
-  console.info('parcel data requested')
 }
 
 async function sendParcelStandardMessage (payload, correlationId, messageId) {
@@ -54,10 +44,6 @@ async function sendParcelStandardMessage (payload, correlationId, messageId) {
 
 async function receiveParcelSpatialMessage (messageId) {
   return receiveMessage(messageId, config.responseParcelSpatialQueue)
-}
-
-async function receiveParcelMessage (messageId) {
-  return receiveMessage(messageId, config.responseParcelQueue)
 }
 
 async function receiveParcelStandardMessage (messageId) {
@@ -83,12 +69,9 @@ module.exports = {
   sendAgreementCalculateMessage,
   sendAgreementSubmitMessage,
   sendAgreementWithdrawMessage,
-  sendRequestSBIMessage,
   sendParcelSpatialMessage,
-  sendParcelMessage,
   sendParcelStandardMessage,
   receiveParcelSpatialMessage,
-  receiveParcelMessage,
   receiveParcelStandardMessage,
   receiveStandardsResponseMessage,
   receiveCalculateResponseMessage,
