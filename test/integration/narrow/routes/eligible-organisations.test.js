@@ -227,6 +227,7 @@ describe('eligible-organisations route', () => {
     const result = await server.inject(options)
     expect(result.request.response.variety).toBe('view')
     expect(result.request.response.source.template).toBe('eligible-organisations')
+    expect(result.request.response.source.context.model.value).toEqual(options.payload.sbi)
     expect(result.request.response.source.context.organisations[0]).toEqual(expectedOrganisation)
   })
 
