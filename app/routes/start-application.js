@@ -5,22 +5,15 @@ module.exports = [{
   method: 'GET',
   path: '/start-application',
   options: {
-    validate: {
-      query: Joi.object({
-        sbi: Joi.number().required()
-      }),
-      failAction: async (request, h, error) => {
-        return h.view('404').takeover()
-      }
-    },
     handler: async (request, h) => {
       const agreement = await cache.get('agreement', request.yar.id)
-      const selectedSbi = request.query.sbi ?? agreement?.application?.selectedOrganisation?.sbi
-      if (!selectedSbi) {
-        return h.view('404')
+      // if SBI not provided as query parameter, then use previously selected organisation from cache.
+      const sbi = request.query.sbi ?? agreement?.application?.selectedOrganisation?.sbi
+      if (sbi) {
+        const organisation = agreement.application.eligibleOrganisations.find(x => x.sbi === parseInt(sbi))
+        return h.view('start-application', { organisation })
       }
-      const organisation = agreement.application.eligibleOrganisations.find(x => x.sbi === selectedSbi)
-      return h.view('start-application', { organisation })
+      return h.view('404')
     }
   }
 }, {
