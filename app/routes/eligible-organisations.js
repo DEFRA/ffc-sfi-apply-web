@@ -1,5 +1,5 @@
 const cache = require('../cache')
-const getEligibility = require('../eligibility')
+// const getEligibility = require('../eligibility')
 const ViewModel = require('./models/search')
 const schema = require('./schemas/sbi')
 
@@ -38,8 +38,8 @@ module.exports = [{
       }
 
       return h.view('eligible-organisations', { organisations: eligibility, ...new ViewModel() })
+    }
   }
-}
 },
 {
   method: 'POST',
@@ -53,13 +53,14 @@ module.exports = [{
     },
     handler: async (request, h) => {
       const sbi = request.payload.sbi
-      const organisations = (await cache.get('agreement', request.yar.id)).application.eligibleOrganisations
-      var organisation = organisations.filter(organisation => organisation.sbi == sbi)
+      const agreement = await cache.get('agreement', request.yar.id)
+      const organisations = agreement.application.eligibleOrganisations
+      const organisation = organisations.filter(organisation => organisation.sbi === sbi)
 
       if (organisation.length) {
         return h.view('eligible-organisations', { organisations: organisation, ...new ViewModel(sbi) })
       }
-      return h.view('eligible-organisations', new ViewModel(sbi, {message: 'No organisation matching SBI.'}))
+      return h.view('eligible-organisations', new ViewModel(sbi, { message: 'No organisation matching SBI.' })).code(400)
     }
   }
 }]

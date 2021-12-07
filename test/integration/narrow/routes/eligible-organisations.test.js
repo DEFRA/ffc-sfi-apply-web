@@ -144,7 +144,7 @@ describe('eligible-organisations route', () => {
     expect(result.request.response.source.template).toBe('no-businesses')
   })
 
-  test('GET /start-application returns no-response view when no response received', async () => {
+  test('GET /eligible-organisations returns no-response view when no response received', async () => {
     const options = {
       method: 'GET',
       url: '/eligible-organisations',
@@ -165,33 +165,48 @@ describe('eligible-organisations route', () => {
     expect(result.request.response.source.template).toBe('no-response')
   })
 
-  // test that the request object contains the field for the SBI number, i.e. request.payload.sbi?
-
-
-  test('POST /eligible-organisations with valid SBI number returns a table', async () => {
+  test('POST /eligible-organisations Auth mode "required" token incorrect callerId', async () => {
+    token = JWT.sign({ callerId: 9999 }, config.jwtConfig.secret)
     const options = {
       method: 'POST',
-      url: '/eligible-organisations',
-      headers: { authorization: token },
-      payload: { sbi: 987654321 }
+      url: '/eligible-organisations'
     }
 
     const result = await server.inject(options)
-
-    expect(result has 1 table)
+    expect(result.statusCode).toBe(302)
   })
 
-  test('POST /eligible-organisations with valid SBI number returns a table with 1 row', async () => {
+  test('POST /eligible-organisations Auth mode "required" token expired', async () => {
+    token = JWT.sign({ callerId }, config.jwtConfig.secret, { expiresIn: '1ms' })
     const options = {
       method: 'POST',
-      url: '/eligible-organisations',
-      headers: { authorization: token },
-      payload: { sbi: 987654321 }
+      url: '/eligible-organisations'
     }
 
     const result = await server.inject(options)
+    expect(result.statusCode).toBe(302)
+  })
 
-    expect(result has 1 table with 1 row)
+  test('POST /eligible-organisations Auth mode "required" should require header', async () => {
+    const options = {
+      method: 'POST',
+      url: '/eligible-organisations'
+    }
+
+    const result = await server.inject(options)
+    expect(result.statusCode).toBe(302)
+  })
+
+  test('POST /eligible-organisations Auth mode "required" should fail with invalid token', async () => {
+    token = JWT.sign({ callerId }, 'bad secret')
+    const options = {
+      method: 'POST',
+      url: '/eligible-organisations',
+      headers: { authorization: token }
+    }
+
+    const result = await server.inject(options)
+    expect(result.statusCode).toBe(302)
   })
 
   test('POST /eligible-organisations with valid SBI number returns a record with that SBI number', async () => {
@@ -202,38 +217,72 @@ describe('eligible-organisations route', () => {
       payload: { sbi: 987654321 }
     }
 
-    const result = await server.inject(options)
+    const expectedOrganisation = {
+      sbi: 987654321,
+      name: 'Title Forename Lastname2',
+      organisationId: 7654321,
+      address: 'address1, address2, address3, postalCode'
+    }
 
-    expect(result has 1 table with 1 row and that rows SBI number is the SBI from payload)
+    const result = await server.inject(options)
+    expect(result.request.response.variety).toBe('view')
+    expect(result.request.response.source.template).toBe('eligible-organisations')
+    expect(result.request.response.source.context.organisations[0]).toEqual(expectedOrganisation)
   })
 
-  // what does this actual return? -- is this useful to negate for happy path, i.e. valid = no error bar
-  test('POST /eligible-organisations with invalid SBI number returns an error bar', async () => {
+  test('POST /eligible-organisations with SBI number shorter than minimum returns an error message', async () => {
     const options = {
       method: 'POST',
       url: '/eligible-organisations',
       headers: { authorization: token },
-      payload: { sbi: 0000001 }
+      payload: { sbi: 104999999 }
     }
 
     const result = await server.inject(options)
-
-    expect(result has an error bar appear)
+    expect(result.statusCode).toBe(400)
+    expect(result.request.response.variety).toBe('view')
+    expect(result.request.response.source.context.model.errorMessage.text).toEqual('The SBI is too short.')
   })
 
-  // what is returned for an invalid SBI, is it just error message, error message with the table intact, error message with the table emptied?
-  test('POST /eligible-organisations with invalid SBI number returns an empty table', async () => {
+  test('POST /eligible-organisations with SBI number greater than maximum returns an error message', async () => {
     const options = {
       method: 'POST',
       url: '/eligible-organisations',
       headers: { authorization: token },
-      payload: { sbi: 0000001 }
+      payload: { sbi: 1000000000 }
     }
 
     const result = await server.inject(options)
-
-    expect(result has an error bar appear)
+    expect(result.statusCode).toBe(400)
+    expect(result.request.response.variety).toBe('view')
+    expect(result.request.response.source.context.model.errorMessage.text).toEqual('The SBI is too long.')
   })
 
+  test('POST /eligible-organisations with SBI number containing letters returns an error message', async () => {
+    const options = {
+      method: 'POST',
+      url: '/eligible-organisations',
+      headers: { authorization: token },
+      payload: { sbi: '123abc456' }
+    }
 
+    const result = await server.inject(options)
+    expect(result.statusCode).toBe(400)
+    expect(result.request.response.variety).toBe('view')
+    expect(result.request.response.source.context.model.errorMessage.text).toEqual('The SBI must be a number.')
+  })
+
+  test('POST /eligible-organisations with valid SBI number but none available returns an error message', async () => {
+    const options = {
+      method: 'POST',
+      url: '/eligible-organisations',
+      headers: { authorization: token },
+      payload: { sbi: 105000001 }
+    }
+
+    const result = await server.inject(options)
+    expect(result.statusCode).toBe(400)
+    expect(result.request.response.variety).toBe('view')
+    expect(result.request.response.source.context.model.errorMessage.text).toEqual('No organisation matching SBI.')
+  })
 })
