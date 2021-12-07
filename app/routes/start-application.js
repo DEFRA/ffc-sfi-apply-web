@@ -7,7 +7,7 @@ module.exports = [{
   options: {
     handler: async (request, h) => {
       const agreement = await cache.get('agreement', request.yar.id)
-      // if SBI not provided as query parameter, then use previously selected organisation from cache.
+      // if SBI not provided as query parameter, then use previously selected organisation from cache if exists.
       const sbi = request.query.sbi ?? agreement?.application?.selectedOrganisation?.sbi
       if (sbi) {
         const organisation = agreement.application.eligibleOrganisations.find(x => x.sbi === parseInt(sbi))
