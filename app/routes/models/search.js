@@ -1,7 +1,7 @@
 function ViewModel (value, error) {
     this.model = {
       id: 'user-search',
-      name: 'user-search',
+      name: 'sbi',
       label: {
         text: 'Search for an organisation by SBI number',
         classes: 'govuk-!-font-weight-bold',
@@ -15,7 +15,8 @@ function ViewModel (value, error) {
       hint: {
         text: 'Must be a 9 digit number'
       },
-      inputmode: 'numeric'
+      inputmode: 'numeric',
+      value: value
     }
   
     if (error) {

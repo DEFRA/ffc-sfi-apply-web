@@ -1,5 +1,7 @@
+const cache = require('../cache')
 const getEligibility = require('../eligibility')
 const ViewModel = require('./models/search')
+const schema = require('./schemas/sbi')
 
 module.exports = [{
   method: 'GET',
@@ -8,6 +10,7 @@ module.exports = [{
     handler: async (request, h) => {
       // const { eligibility } = await getEligibility(request)
 
+      // temp statements
       const eligibility = [{
         sbi: 123456789,
         name: 'Title Forename 6Lastname1',
@@ -20,6 +23,7 @@ module.exports = [{
         organisationId: 7654321,
         address: 'address1, address2, address3, postalCode'
       }]
+      await cache.update('agreement', request.yar.id, { application: { eligibleOrganisations: eligibility } })
 
       if (!eligibility) {
         return h.view('no-response')
@@ -37,28 +41,25 @@ module.exports = [{
   }
 }
 },
-
 {
   method: 'POST',
   path: '/eligible-organisations',
   options: {
-    handler: async (request, h) => {
-      const { eligibility } = await getEligibility(request)
-      
-      // get the organisations from the cache
-      const organisations = cache.get('agreement', request.yar.id, { application: { eligibleOrganisations: eligibility } })
-      const sbi = request.payload.sbi
-
-      // match sbi in the orginsations array
-      const organisation = [] // cast to array
-
-      const json = {
-        organisations: organisation,
-        unavaible: true, // bool value,
-        sbi: request.payload.sbi
+    validate: {
+      payload: schema,
+      failAction: async (request, h, error) => {
+        return h.view('eligible-organisations', new ViewModel(request.payload.sbi, error)).code(400).takeover()
       }
+    },
+    handler: async (request, h) => {
+      const sbi = request.payload.sbi
+      const organisations = (await cache.get('agreement', request.yar.id)).application.eligibleOrganisations
+      var organisation = organisations.filter(organisation => organisation.sbi == sbi)
 
-      return h.view('eligible-organisations', json)
+      if (organisation.length) {
+        return h.view('eligible-organisations', { organisations: organisation, ...new ViewModel(sbi) })
+      }
+      return h.view('eligible-organisations', new ViewModel(sbi, {message: 'No organisation matching SBI.'}))
     }
   }
 }]
