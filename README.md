@@ -22,11 +22,7 @@ container is started or tests are run.
 
 When deployed into an appropriately configured AKS
 cluster (where [AAD Pod Identity](https://github.com/Azure/aad-pod-identity) is
-configured) the microservice will use AAD Pod Identity through the manifests
-for
-[azure-identity](./helm/ffc-demo-claim-service/templates/azure-identity.yaml)
-and
-[azure-identity-binding](./helm/ffc-demo-claim-service/templates/azure-identity-binding.yaml).
+configured) the microservice will use AAD Pod Identity.
 
 | Name                                   | Description                                                            |
 | ----                                   | -----------                                                            |
@@ -37,8 +33,6 @@ and
 | MESSAGE_QUEUE_HOST                     | Azure Service Bus hostname, e.g. `myservicebus.servicebus.windows.net` |
 | MESSAGE_QUEUE_PASSWORD                 | Azure Service Bus SAS policy key                                       |
 | MESSAGE_QUEUE_USER                     | Azure Service Bus SAS policy name, e.g. `RootManageSharedAccessKey`    |
-| PARCEL_TOPIC_ADDRESS                   |                                                                        |
-| PARCELRESPONSE_QUEUE_ADDRESS           |                                                                        |
 | PARCELSPATIAL_TOPIC_ADDRESS            |                                                                        |
 | PARCELSPATIALRESPONSE_QUEUE_ADDRESS    |                                                                        |
 | PARCELSTANDARD_TOPIC_ADDRESS           |                                                                        |

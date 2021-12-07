@@ -12,6 +12,9 @@ module.exports = [
     options: {
       handler: async (request, h) => {
         const { parcelStandards, application } = await getParcelStandards(request)
+        if (!parcelStandards) {
+          return h.view('no-response')
+        }
         const selectedParcelStandard = await downloadParcelStandardFile(parcelStandards.filename)
         const viewModel = new ViewModel(application, selectedParcelStandard)
         const mapParcels = await getMapParcels(request, selectedParcelStandard.spatial)
