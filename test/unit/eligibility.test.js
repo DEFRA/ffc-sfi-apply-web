@@ -43,7 +43,11 @@ const getEligibility = require('../../app/eligibility')
 describe('process eligibility message', () => {
   const request = {
     yar: {
-      id: '1234567890'
+      id: '1234567890',
+      get: () => ({
+        application: { crn, callerId }
+      }),
+      set: jest.fn()
     }
   }
 
@@ -55,16 +59,11 @@ describe('process eligibility message', () => {
     await server.initialize()
   })
 
-  beforeEach(async () => {
-    await cache.update(request, { application: { crn, callerId } })
-  })
-
   afterEach(async () => {
     jest.resetAllMocks()
   })
 
   afterAll(async () => {
-    await cache.clear(request)
     await server.stop()
   })
 
