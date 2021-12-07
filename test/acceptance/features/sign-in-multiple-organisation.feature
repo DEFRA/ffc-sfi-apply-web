@@ -13,13 +13,13 @@ Feature: Sign-in for Multiple Organisation details page
     And I pause for 700ms
     And I expect that the url contains "/eligible-organisations"
     When I click on the application for the "first" organisation
-    And I pause for 600ms
+    And I pause for 700ms
     Then I expect that the url contains "/start-application?sbi"
     And I expect that element "ul.govuk-list" contains the text "07103820"
     When I click the back button
     Then I expect that the url contains "/eligible-organisations"
     When I click on the application for the "second" organisation
-    And I pause for 600ms
+    And I pause for 700ms
     Then I expect that the url contains "/start-application?sbi"
     And I expect that element "ul.govuk-list" contains the text "106982014"
     When I click the back button
@@ -75,7 +75,7 @@ Feature: Sign-in for Multiple Organisation details page
     And I pause for 700ms
     Then I expect that the url contains "/eligible-organisations"
     When I click on the element "//tr[1]/td[4]/a"
-    And I pause for 600ms
+    And I pause for 700ms
     Then I expect that the url contains "/start-application?sbi"
     When I click on the element "#start-application"
     Then I expect that the url contains "/application-task-list"
@@ -93,7 +93,7 @@ Feature: Sign-in for Multiple Organisation details page
     # And I add "kdaihsra" to the inputfield "#password"
     # And I click on the continue button
     # Then I mock the response for "which-business"
-    # And I pause for 600ms
+    # And I pause for 700ms
     # Then I expect that the url contains "/eligible-organisations"
     # When I click on the element "//tr[1]/td[4]/a"
     # And I pause for 700ms
