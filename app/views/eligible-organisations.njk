@@ -23,15 +23,17 @@
     }) }}
   {% endif %}
 
-  <div class="user-search-box govuk-!-width-two-thirds govuk-!-padding-bottom-7">
+  <div class="user-search-box govuk-!-width-two-thirds">
     <form class="search-form" action="/eligible-organisations" method="POST">
       <input type="hidden" name="crumb" value="{{crumb}}"/>
       {{searchBox(model)}}
     </form>
   </div>
 
+  <a href="/eligible-organisations" class="govuk-link govuk-link--no-visited-state">View all organisations</a>
+
   {% if not model.errorMessage %}
-    <div class="govuk-grid-row">
+    <div class="govuk-grid-row govuk-!-margin-top-5">
       <div class="govuk-grid-column-full">
         <table class="govuk-table">
           <thead class="govuk-table__head">
