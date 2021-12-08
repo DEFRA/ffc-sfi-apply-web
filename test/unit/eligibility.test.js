@@ -1,5 +1,3 @@
-const cache = require('../../app/cache')
-
 const callerId = 123456
 const crn = 1234567890
 const organisationId = 1234567
