@@ -1,5 +1,5 @@
 const cache = require('../cache')
-// const getEligibility = require('../eligibility')
+const getEligibility = require('../eligibility')
 const ViewModel = require('./models/search')
 const schema = require('./schemas/sbi')
 
@@ -8,22 +8,7 @@ module.exports = [{
   path: '/eligible-organisations',
   options: {
     handler: async (request, h) => {
-      // const { eligibility } = await getEligibility(request)
-
-      // temp statements
-      const eligibility = [{
-        sbi: 123456789,
-        name: 'Title Forename 6Lastname1',
-        organisationId: 123457,
-        address: 'address1, address2, address3, postalCode'
-      },
-      {
-        sbi: 987654321,
-        name: 'Title Forename Lastname2',
-        organisationId: 7654321,
-        address: 'address1, address2, address3, postalCode'
-      }]
-      await cache.update('agreement', request.yar.id, { application: { eligibleOrganisations: eligibility } })
+      const { eligibility } = await getEligibility(request)
 
       if (!eligibility) {
         return h.view('no-response')
