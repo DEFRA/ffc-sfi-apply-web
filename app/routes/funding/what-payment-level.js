@@ -1,6 +1,6 @@
 const Joi = require('joi')
 const ViewModel = require('./models/what-payment-level')
-const getPaymentRates = require('./models/util-what-payment-level')
+const getPaymentRates = require('../../funding/get-payment-rates')
 const cache = require('../../cache')
 
 module.exports = [{

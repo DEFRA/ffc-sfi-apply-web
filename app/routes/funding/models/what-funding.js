@@ -1,6 +1,4 @@
-const standards = require('../standards')
-
-function ViewModel (values, selected, error) {
+function ViewModel (eligibleFunding, selected, error) {
   this.model = {
     id: 'standard',
     name: 'standard',
@@ -11,7 +9,7 @@ function ViewModel (values, selected, error) {
         classes: 'govuk-fieldset__legend--l'
       }
     },
-    items: mapStandards(values, selected)
+    items: mapStandards(eligibleFunding, selected)
   }
 
   if (error) {
@@ -28,11 +26,11 @@ const isChecked = (selected, value) => {
   return false
 }
 
-const mapStandards = (values, selected) => {
-  return values.filter(item => item.landCovers.length > 0)
+const mapStandards = (eligibleFunding, selected) => {
+  return eligibleFunding.filter(item => item.landCovers.length > 0)
     .map(x => {
       return {
-        text: standards.find(s => s.code === x.code).name,
+        text: x.name,
         value: x.code,
         checked: isChecked(selected, x.code)
       }

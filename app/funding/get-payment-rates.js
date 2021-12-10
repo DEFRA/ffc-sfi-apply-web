@@ -1,5 +1,5 @@
-const { sendAgreementCalculateMessage, receiveCalculateResponseMessage } = require('../../../messaging')
-const cache = require('../../../cache')
+const { sendAgreementCalculateMessage, receiveCalculateResponseMessage } = require('../messaging')
+const cache = require('../cache')
 const { v4: uuidv4 } = require('uuid')
 
 async function getPaymentRates (request, error) {

@@ -1,6 +1,6 @@
 const Joi = require('joi')
 const cache = require('../../cache')
-const getAllStandards = require('./models/util-what-funding')
+const getFunding = require('../../funding/get-funding')
 const ViewModel = require('./models/what-funding')
 
 module.exports = [{
@@ -8,11 +8,12 @@ module.exports = [{
   path: '/what-funding',
   options: {
     handler: async (request, h) => {
-      const { application, standards } = await getAllStandards(request)
-      if (standards) {
-        return h.view('funding/what-funding', new ViewModel(standards, application.selectedStandard))
+      const { funding } = await cache.get(request)
+      const eligibleFunding = await getFunding(request)
+      if (!eligibleFunding) {
+        return h.view('no-response')
       }
-      return h.view('no-response')
+      return h.view('funding/what-funding', new ViewModel(eligibleFunding, funding))
     }
   }
 },
@@ -25,7 +26,7 @@ module.exports = [{
         standard: Joi.string().required()
       }),
       failAction: async (request, h, error) => {
-        const { agreement, standards } = await getAllStandards(request, error)
+        const { agreement, standards } = await getFunding(request, error)
         if (standards) {
           return h.view('funding/what-funding', new ViewModel(standards, agreement?.selectedStandard, error)).code(400).takeover()
         }
