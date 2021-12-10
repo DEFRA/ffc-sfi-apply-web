@@ -5,7 +5,7 @@ module.exports =
     path: '/change-land-details',
     options: {
       handler: async (request, h) => {
-        return h.view('land-business-details/change-land-details')
+        return h.view('land/change-land-details')
       }
     }
   }

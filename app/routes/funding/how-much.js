@@ -8,7 +8,7 @@ const { downloadParcelStandardFile } = require('../../storage')
 module.exports = [
   {
     method: 'GET',
-    path: '/funding-options/how-much',
+    path: '/funding/how-much',
     options: {
       handler: async (request, h) => {
         const { parcelStandards, application } = await getParcelStandards(request)
@@ -19,13 +19,13 @@ module.exports = [
         const viewModel = new ViewModel(application, selectedParcelStandard)
         const mapParcels = await getMapParcels(request, selectedParcelStandard.spatial)
         viewModel.map = mapParcels
-        return h.view('funding-options/how-much', viewModel)
+        return h.view('funding/how-much', viewModel)
       }
     }
   },
   {
     method: 'POST',
-    path: '/funding-options/how-much',
+    path: '/funding/how-much',
     options: {
       validate: {
         payload: Joi.object().keys({
@@ -38,7 +38,7 @@ module.exports = [
           const viewModel = new ViewModel(application, selectedParcelStandard, payload)
           const mapParcels = await getMapParcels(request)
           viewModel.map = mapParcels
-          return h.view('funding-options/how-much', viewModel).code(400).takeover()
+          return h.view('funding/how-much', viewModel).code(400).takeover()
         }
       },
       handler: async (request, h) => {
@@ -56,10 +56,10 @@ module.exports = [
         })
 
         if (viewModel.model.error || viewModel.model.invalidValues) {
-          return h.view('funding-options/how-much', viewModel).code(400).takeover()
+          return h.view('funding/how-much', viewModel).code(400).takeover()
         }
 
-        return h.redirect('/funding-options/what-payment-level')
+        return h.redirect('/funding/what-payment-level')
       }
     }
   }

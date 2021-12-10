@@ -51,7 +51,7 @@ describe('change land details route', () => {
     expect(result.statusCode).toBe(200)
   })
 
-  test('GET /change-land-details with auth returns land-business-details/change-land-details view', async () => {
+  test('GET /change-land-details with auth returns land/change-land-details view', async () => {
     const options = {
       method: 'GET',
       url: '/change-land-details',
@@ -60,6 +60,6 @@ describe('change land details route', () => {
 
     const result = await server.inject(options)
     expect(result.request.response.variety).toBe('view')
-    expect(result.request.response.source.template).toBe('land-business-details/change-land-details')
+    expect(result.request.response.source.template).toBe('land/change-land-details')
   })
 })

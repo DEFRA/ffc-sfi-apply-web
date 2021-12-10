@@ -5,12 +5,12 @@ const cache = require('../../cache')
 
 module.exports = [{
   method: 'GET',
-  path: '/funding-options/what-payment-level',
+  path: '/funding/what-payment-level',
   options: {
     handler: async (request, h) => {
       const { application, paymentRates } = await getPaymentRates(request)
       if (paymentRates) {
-        return h.view('funding-options/what-payment-level', ViewModel(
+        return h.view('funding/what-payment-level', ViewModel(
           application.selectedOrganisation.sbi,
           application.selectedStandard.name,
           application.parcelArea, paymentRates,
@@ -24,7 +24,7 @@ module.exports = [{
 },
 {
   method: 'POST',
-  path: '/funding-options/what-payment-level',
+  path: '/funding/what-payment-level',
   options: {
     validate: {
       payload: Joi.object({
@@ -33,7 +33,7 @@ module.exports = [{
       failAction: async (request, h, error) => {
         const { agreement, paymentRates } = await getPaymentRates(request, error)
         if (paymentRates) {
-          return h.view('funding-options/what-payment-level', ViewModel(
+          return h.view('funding/what-payment-level', ViewModel(
             agreement.selectedOrganisation.sbi, agreement.selectedStandard.name, agreement.parcelArea, paymentRates, agreement.selectedAmbitionLevel, error
           )).code(400).takeover()
         }

@@ -49,7 +49,7 @@ describe('confirm details route', () => {
     expect(result.statusCode).toBe(200)
   })
 
-  test('GET /confirm-details with auth returns view land-business-details/confirm-details', async () => {
+  test('GET /confirm-details with auth returns view land/confirm-details', async () => {
     const options = {
       method: 'GET',
       url: '/confirm-details',
@@ -57,7 +57,7 @@ describe('confirm details route', () => {
     }
 
     const result = await server.inject(options)
-    expect(result.request.response.source.template).toBe('land-business-details/confirm-details')
+    expect(result.request.response.source.template).toBe('land/confirm-details')
   })
 
   test('GET /confirm-details without auth returns 302', async () => {
@@ -128,7 +128,7 @@ describe('confirm details route', () => {
     expect(result.headers.location).toBe('/change-land-details')
   })
 
-  test('POST /confirm-details with auth and no payload returns land-business-details/confirm-details view', async () => {
+  test('POST /confirm-details with auth and no payload returns land/confirm-details view', async () => {
     const options = {
       method: 'POST',
       url: '/confirm-details',
@@ -138,10 +138,10 @@ describe('confirm details route', () => {
 
     const result = await server.inject(options)
     expect(result.statusCode).toBe(400)
-    expect(result.request.response.source.template).toBe('land-business-details/confirm-details')
+    expect(result.request.response.source.template).toBe('land/confirm-details')
   })
 
-  test('POST /confirm-details with auth and no landControlCheck returns land-business-details/confirm-details view', async () => {
+  test('POST /confirm-details with auth and no landControlCheck returns land/confirm-details view', async () => {
     const options = {
       method: 'POST',
       url: '/confirm-details',
@@ -153,6 +153,6 @@ describe('confirm details route', () => {
 
     const result = await server.inject(options)
     expect(result.statusCode).toBe(400)
-    expect(result.request.response.source.template).toBe('land-business-details/confirm-details')
+    expect(result.request.response.source.template).toBe('land/confirm-details')
   })
 })

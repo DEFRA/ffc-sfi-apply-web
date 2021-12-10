@@ -14,7 +14,7 @@ module.exports = [
           return h.view('no-response')
         }
 
-        return h.view('land-business-details/confirm-details', mapParcels)
+        return h.view('land/confirm-details', mapParcels)
       }
     }
   },
@@ -30,7 +30,7 @@ module.exports = [
         failAction: async (request, h, error) => {
           const mapParcels = await getMapParcels(request)
           mapParcels.errors = error
-          return h.view('land-business-details/confirm-details', mapParcels).code(400).takeover()
+          return h.view('land/confirm-details', mapParcels).code(400).takeover()
         }
       },
       handler: async (request, h) => {

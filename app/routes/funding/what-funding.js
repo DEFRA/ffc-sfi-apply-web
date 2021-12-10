@@ -5,12 +5,12 @@ const ViewModel = require('./models/what-funding')
 
 module.exports = [{
   method: 'GET',
-  path: '/funding-options/what-funding',
+  path: '/funding/what-funding',
   options: {
     handler: async (request, h) => {
       const { application, standards } = await getAllStandards(request)
       if (standards) {
-        return h.view('funding-options/what-funding', new ViewModel(standards, application.selectedStandard))
+        return h.view('funding/what-funding', new ViewModel(standards, application.selectedStandard))
       }
       return h.view('no-response')
     }
@@ -18,7 +18,7 @@ module.exports = [{
 },
 {
   method: 'POST',
-  path: '/funding-options/what-funding',
+  path: '/funding/what-funding',
   options: {
     validate: {
       payload: Joi.object({
@@ -27,7 +27,7 @@ module.exports = [{
       failAction: async (request, h, error) => {
         const { agreement, standards } = await getAllStandards(request, error)
         if (standards) {
-          return h.view('funding-options/what-funding', new ViewModel(standards, agreement?.selectedStandard, error)).code(400).takeover()
+          return h.view('funding/what-funding', new ViewModel(standards, agreement?.selectedStandard, error)).code(400).takeover()
         }
         return h.view('no-response')
       }
@@ -44,10 +44,10 @@ module.exports = [{
       })
 
       if (standard === 'sfi-improved-grassland') {
-        return h.redirect('/funding-options/grassland-overview')
+        return h.redirect('/funding/grassland-overview')
       }
 
-      return h.redirect('/funding-options/arable-overview')
+      return h.redirect('/funding/arable-overview')
     }
   }
 }]
