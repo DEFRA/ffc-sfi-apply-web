@@ -2,32 +2,29 @@ const cache = require('./cache')
 const { sendEligibilityCheckMessage, receiveEligibilityResponseMessage } = require('./messaging')
 const { v4: uuidv4 } = require('uuid')
 
-const getEligibility = async (request, error) => {
-  const agreement = await cache.get(request)
-  const application = agreement?.application
-  let eligibility = application.eligibility
-  if (error && eligibility) {
-    return { application, eligibility }
-  } else {
-    eligibility = await sendEligibilityRequest(application, request, eligibility)
-    await cache.update(request, { application: { eligibleOrganisations: eligibility } })
-  }
+const getEligibleOrganisations = async (request, error) => {
+  const { crn, callerId, data } = await cache.get(request)
+  let eligibleOrganisations = data?.eligibleOrganisations
 
-  return { agreement, eligibility }
+  if (error && eligibleOrganisations) {
+    return eligibleOrganisations
+  } else {
+    eligibleOrganisations = await sendEligibilityRequest(crn, callerId, request.yar.id)
+    await cache.update(request, { data: { eligibleOrganisations } })
+  }
+  return eligibleOrganisations
 }
 
-const sendEligibilityRequest = async (agreement, request, eligibility) => {
+const sendEligibilityRequest = async (crn, callerId, correlationId, eligibility) => {
   const messageId = uuidv4()
-  await sendEligibilityCheckMessage({ crn: agreement.crn, callerId: agreement.callerId }, request.yar.id, messageId)
+  await sendEligibilityCheckMessage({ crn, callerId }, correlationId, messageId)
 
   const response = await receiveEligibilityResponseMessage(messageId)
 
   if (response) {
     console.info('Eligibility request received', response)
-    eligibility = response.eligibility
+    return response.eligibility
   }
-
-  return eligibility
 }
 
-module.exports = getEligibility
+module.exports = getEligibleOrganisations

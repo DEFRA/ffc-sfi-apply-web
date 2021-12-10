@@ -1,4 +1,4 @@
-const joi = require('joi')
+const Joi = require('joi')
 const ViewModel = require('./models/task-list')
 const cache = require('../cache')
 const paymentLevels = require('./payment-levels')
@@ -25,9 +25,9 @@ module.exports = [{
   path: '/task-list/{agreementNumber}/{sbi}',
   options: {
     validate: {
-      params: joi.object().keys({
-        agreementNumber: joi.string().required(),
-        sbi: joi.string().required()
+      params: Joi.object().keys({
+        agreementNumber: Joi.string().required(),
+        sbi: Joi.string().required()
       }),
       failAction: async (request, h, error) => {
         return h.response('Bad request').code(400).takeover()

@@ -1,6 +1,6 @@
 const cache = require('../../cache')
 const getMapParcels = require('../../map')
-const joi = require('joi')
+const Joi = require('joi')
 
 module.exports = [
   {
@@ -23,9 +23,9 @@ module.exports = [
     path: '/confirm-details',
     options: {
       validate: {
-        payload: joi.object({
-          isLandCorrect: joi.boolean().required(),
-          'layer-select': joi.string()
+        payload: Joi.object({
+          isLandCorrect: Joi.boolean().required(),
+          'layer-select': Joi.string()
         }),
         failAction: async (request, h, error) => {
           const mapParcels = await getMapParcels(request)

@@ -1,4 +1,4 @@
-const joi = require('joi')
+const Joi = require('joi')
 const cache = require('../../cache')
 const getAllStandards = require('./models/util-what-funding')
 const ViewModel = require('./models/what-funding')
@@ -21,8 +21,8 @@ module.exports = [{
   path: '/funding-options/what-funding',
   options: {
     validate: {
-      payload: joi.object({
-        standard: joi.string().required()
+      payload: Joi.object({
+        standard: Joi.string().required()
       }),
       failAction: async (request, h, error) => {
         const { agreement, standards } = await getAllStandards(request, error)

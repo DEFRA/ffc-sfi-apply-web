@@ -1,52 +1,52 @@
-const joi = require('joi')
+const Joi = require('joi')
 
-const mqSchema = joi.object({
+const mqSchema = Joi.object({
   messageQueue: {
-    host: joi.string().default('localhost'),
-    useCredentialChain: joi.bool().default(false),
-    type: joi.string(),
-    appInsights: joi.object(),
-    username: joi.string(),
-    password: joi.string()
+    host: Joi.string().default('localhost'),
+    useCredentialChain: Joi.bool().default(false),
+    type: Joi.string(),
+    appInsights: Joi.object(),
+    username: Joi.string(),
+    password: Joi.string()
   },
   eligibilityTopic: {
-    address: joi.string()
+    address: Joi.string()
   },
   standardsTopic: {
-    address: joi.string()
+    address: Joi.string()
   },
   validateTopic: {
-    address: joi.string()
+    address: Joi.string()
   },
   calculateTopic: {
-    address: joi.string()
+    address: Joi.string()
   },
   submitTopic: {
-    address: joi.string()
+    address: Joi.string()
   },
   withdrawTopic: {
-    address: joi.string()
+    address: Joi.string()
   },
   parcelSpatialTopic: {
-    address: joi.string()
+    address: Joi.string()
   },
   parcelStandardTopic: {
-    address: joi.string()
+    address: Joi.string()
   },
   responseStandardsQueue: {
-    address: joi.string()
+    address: Joi.string()
   },
   responseCalculateQueue: {
-    address: joi.string()
+    address: Joi.string()
   },
   responseEligibilityQueue: {
-    address: joi.string()
+    address: Joi.string()
   },
   responseParcelSpatialQueue: {
-    address: joi.string()
+    address: Joi.string()
   },
   responseParcelStandardQueue: {
-    address: joi.string()
+    address: Joi.string()
   }
 })
 const mqConfig = {

@@ -1,5 +1,5 @@
 const cache = require('../../cache')
-const joi = require('joi')
+const Joi = require('joi')
 const ViewModel = require('./models/how-much')
 const getMapParcels = require('../../map')
 const { getParcelStandards } = require('../../parcels')
@@ -28,8 +28,8 @@ module.exports = [
     path: '/funding-options/how-much',
     options: {
       validate: {
-        payload: joi.object().keys({
-          parcels: joi.array().items(joi.string()).single().required()
+        payload: Joi.object().keys({
+          parcels: Joi.array().items(Joi.string()).single().required()
         }).unknown(true),
         failAction: async (request, h, error) => {
           const { payload } = request

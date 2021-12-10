@@ -1,9 +1,9 @@
 
-const joi = require('joi')
+const Joi = require('joi')
 
-const schema = joi.object({
-  secret: joi.string(),
-  ttl: joi.number().default(2592000000) // 30 days
+const schema = Joi.object({
+  secret: Joi.string(),
+  ttl: Joi.number().default(2592000000) // 30 days
 })
 
 const config = {

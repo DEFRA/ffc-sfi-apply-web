@@ -1,31 +1,31 @@
-const joi = require('joi')
+const Joi = require('joi')
 const cacheConfig = require('./cache')
 const mqConfig = require('./mq-config')
 const jwtConfig = require('./jwt-config')
 const storageConfig = require('./storage-config')
 
 // Define config schema
-const schema = joi.object({
-  serviceName: joi.string().default('Apply for sustainable farming funding'),
-  port: joi.number().default(3000),
-  env: joi.string().valid('development', 'test', 'production').default('development'),
-  cookiePassword: joi.string().required(),
-  staticCacheTimeoutMillis: joi.number().default(7 * 24 * 60 * 60 * 1000),
-  googleTagManagerKey: joi.string().default(''),
-  cookieOptions: joi.object({
-    ttl: joi.number().default(1000 * 60 * 60 * 24 * 365),
-    isSameSite: joi.string().valid('Lax').default('Lax'),
-    encoding: joi.string().valid('base64json').default('base64json'),
-    isSecure: joi.bool().default(true),
-    isHttpOnly: joi.bool().default(true),
-    clearInvalid: joi.bool().default(false),
-    strictHeader: joi.bool().default(true)
+const schema = Joi.object({
+  serviceName: Joi.string().default('Apply for sustainable farming funding'),
+  port: Joi.number().default(3000),
+  env: Joi.string().valid('development', 'test', 'production').default('development'),
+  cookiePassword: Joi.string().required(),
+  staticCacheTimeoutMillis: Joi.number().default(7 * 24 * 60 * 60 * 1000),
+  googleTagManagerKey: Joi.string().default(''),
+  cookieOptions: Joi.object({
+    ttl: Joi.number().default(1000 * 60 * 60 * 24 * 365),
+    isSameSite: Joi.string().valid('Lax').default('Lax'),
+    encoding: Joi.string().valid('base64json').default('base64json'),
+    isSecure: Joi.bool().default(true),
+    isHttpOnly: Joi.bool().default(true),
+    clearInvalid: Joi.bool().default(false),
+    strictHeader: Joi.bool().default(true)
   }),
-  agreementApiEndpoint: joi.string().uri().required(),
-  agreementCalculatorEndpoint: joi.string().uri().required(),
-  restClientTimeoutMillis: joi.number().default(60000),
-  chApiGateway: joi.string().default('').regex(/[a-zA-Z:0-9]$/).allow(''),
-  osMapApiKey: joi.string().default('').allow('')
+  agreementApiEndpoint: Joi.string().uri().required(),
+  agreementCalculatorEndpoint: Joi.string().uri().required(),
+  restClientTimeoutMillis: Joi.number().default(60000),
+  chApiGateway: Joi.string().default('').regex(/[a-zA-Z:0-9]$/).allow(''),
+  osMapApiKey: Joi.string().default('').allow('')
 })
 
 // Build config

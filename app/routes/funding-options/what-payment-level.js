@@ -1,4 +1,4 @@
-const joi = require('joi')
+const Joi = require('joi')
 const ViewModel = require('./models/what-payment-level')
 const getPaymentRates = require('./models/util-what-payment-level')
 const cache = require('../../cache')
@@ -27,8 +27,8 @@ module.exports = [{
   path: '/funding-options/what-payment-level',
   options: {
     validate: {
-      payload: joi.object({
-        level: joi.any().required()
+      payload: Joi.object({
+        level: Joi.any().required()
       }),
       failAction: async (request, h, error) => {
         const { agreement, paymentRates } = await getPaymentRates(request, error)
