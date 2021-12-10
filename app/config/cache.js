@@ -1,4 +1,4 @@
-const defaultExpiresIn = 3600 * 1000 // 1 hour
+const defaultExpiresIn = 3600 * 1000 * 24 * 30 // 30 days
 
 module.exports = {
   defaultExpiresIn,

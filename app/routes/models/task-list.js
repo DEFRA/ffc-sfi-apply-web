@@ -1,33 +1,27 @@
-const taskList = require('../../task-list')
+const tasks = require('./tasks')
 
-function ViewModel (progressCache, fundingOption, paymentLevel, savedAgreements, selectedOrganisation) {
+function ViewModel (progress) {
   this.model = {
-    taskList: validateSchema(progressCache, fundingOption, paymentLevel),
-    completedSections: completedSections(progressCache),
-    savedAgreements,
-    selectedOrganisation
+    taskList: validateSchema(progress),
+    completedSections: 0
   }
 }
 
-const checkTasksInProgressAndRoute = (progress, taskGroup, fundingOption, paymentLevel) => {
+const checkTasksInProgressAndRoute = (progress, taskGroup) => {
   taskGroup.tasks.map(task => {
-    task.url = task.url
-      .replace(/#paymentLevel#/g, paymentLevel)
-      .replace(/#fundingOption#/g, fundingOption)
     if (progress[task.id]) {
       task.status = 'IN PROGRESS'
     }
-
     return task
   })
 }
 
-const validateSchema = (progress, fundingOption, paymentLevel) => {
-  const taskListData = JSON.parse(JSON.stringify(taskList))
+const validateSchema = (progress) => {
+  const taskListData = JSON.parse(JSON.stringify(tasks))
   if (progress) {
     return taskListData.map((taskGroup) => {
       progress[taskGroup.dependsOn] && updateStatus(progress, taskGroup, 'NOT STARTED')
-      checkTasksInProgressAndRoute(progress, taskGroup, fundingOption, paymentLevel)
+      checkTasksInProgressAndRoute(progress, taskGroup)
       progress[taskGroup.id] && updateStatus(progress, taskGroup, 'COMPLETED')
       return taskGroup
     })
@@ -36,9 +30,9 @@ const validateSchema = (progress, fundingOption, paymentLevel) => {
   return taskListData
 }
 
-const updateStatus = (progressCache, taskGroup, status) => {
+const updateStatus = (progress, taskGroup, status) => {
   taskGroup.tasks.map(task => {
-    const dependsOn = progressCache[task.dependsOn]
+    const dependsOn = progress[task.dependsOn]
     if (dependsOn) {
       task.status = dependsOn[task.id] ? 'COMPLETED' : status
     } else {
@@ -47,12 +41,6 @@ const updateStatus = (progressCache, taskGroup, status) => {
 
     return task
   })
-}
-
-const completedSections = (progressCache) => {
-  return progressCache
-    ? Object.values(progressCache).filter(complete => complete === true).length
-    : 0
 }
 
 module.exports = ViewModel

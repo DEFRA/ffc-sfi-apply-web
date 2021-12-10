@@ -1,4 +1,4 @@
-const taskList = [{
+module.exports = [{
   id: 'land',
   taskGroup: 'Your land',
   dependsOn: '',
@@ -52,5 +52,3 @@ const taskList = [{
     url: '/declaration'
   }]
 }]
-
-module.exports = taskList
