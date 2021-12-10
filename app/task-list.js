@@ -1,36 +1,51 @@
 const taskList = [{
-  id: 'businessDetails',
-  taskGroup: 'Land and business details',
+  id: 'land',
+  taskGroup: 'Your land',
   dependsOn: '',
   tasks: [{
-    taskName: 'Confirm your land details',
+    taskName: 'Confirm your land cover details',
     status: 'NOT STARTED',
     url: 'confirm-details'
   }]
 },
 {
-  id: 'fundingDetails',
-  taskGroup: 'Funding options',
-  dependsOn: 'businessDetails',
+  id: 'funding',
+  taskGroup: 'Choose your funding options',
+  dependsOn: 'land',
   tasks: [{
     id: 'fundingOption',
-    dependsOn: 'fundingOptions',
+    dependsOn: 'funding',
     taskName: 'Choose funding option',
     status: 'CANNOT START YET',
     url: '/funding-options/what-funding'
-  },
-  {
-    id: 'fundingOptionLandParcels',
-    dependsOn: 'fundingOptions',
-    taskName: 'Choose land parcels',
-    status: 'CANNOT START YET',
-    url: 'funding-options/how-much'
   }]
 },
 {
-  id: 'submitted',
+  id: 'action',
+  taskGroup: 'Choose your actions',
+  dependsOn: 'fundingOption',
+  tasks: [{
+    id: 'actionOption',
+    dependsOn: 'action',
+    taskName: 'Choose your actions',
+    status: 'CANNOT START YET'
+  }]
+},
+{
+  id: 'check',
+  taskGroup: 'Check your answers',
+  dependsOn: 'actionOption',
+  tasks: [{
+    id: 'checkAnswers',
+    dependsOn: 'check',
+    taskName: 'Check your answers',
+    status: 'CANNOT START YET'
+  }]
+},
+{
+  id: 'submit',
   taskGroup: 'Submit your application',
-  dependsOn: 'fundingDetails',
+  dependsOn: 'checkAnswers',
   tasks: [{
     taskName: 'Submit your application',
     status: 'CANNOT START YET',
