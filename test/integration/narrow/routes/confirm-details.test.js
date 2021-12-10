@@ -5,7 +5,7 @@ describe('confirm details route', () => {
   jest.mock('ffc-messaging')
   jest.mock('../../../../app/plugins/crumb')
   jest.mock('../../../../app/map')
-  const getMapParcels = require('../../../../app/map')
+  const getMapParcels = require('../../../../app/land/land')
   const createServer = require('../../../../app/server')
   jest.mock('../../../../app/cache')
   const mockCache = require('../../../../app/cache')

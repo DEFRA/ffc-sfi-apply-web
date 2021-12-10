@@ -27,18 +27,9 @@ async function sendAgreementWithdrawMessage (payload, correlationId) {
   console.info('Agreement withdrawn')
 }
 
-async function sendParcelSpatialMessage (payload, correlationId, messageId) {
-  await sendMessage(payload, 'uk.gov.sfi.parcel.spatial.request', correlationId, config.parcelSpatialTopic, messageId)
-  console.info('parcel spatial data requested')
-}
-
 async function sendParcelStandardMessage (payload, correlationId, messageId) {
   await sendMessage(payload, 'uk.gov.sfi.parcel.standard.request', correlationId, config.parcelStandardTopic, messageId)
   console.info('parcel standard requested')
-}
-
-async function receiveParcelSpatialMessage (messageId) {
-  return receiveMessage(messageId, config.responseParcelSpatialQueue)
 }
 
 async function receiveParcelStandardMessage (messageId) {
@@ -59,9 +50,7 @@ module.exports = {
   sendAgreementCalculateMessage,
   sendAgreementSubmitMessage,
   sendAgreementWithdrawMessage,
-  sendParcelSpatialMessage,
   sendParcelStandardMessage,
-  receiveParcelSpatialMessage,
   receiveParcelStandardMessage,
   receiveStandardsResponseMessage,
   receiveCalculateResponseMessage,

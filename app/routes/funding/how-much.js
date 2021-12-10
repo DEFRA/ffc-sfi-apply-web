@@ -1,8 +1,8 @@
 const cache = require('../../cache')
 const Joi = require('joi')
 const ViewModel = require('./models/how-much')
-const getMapParcels = require('../../map')
-const { getParcelStandards } = require('../../parcels')
+const getMapParcels = require('../../land/land')
+const getParcelStandards = require('../../land/parcel-standards')
 const { downloadParcelStandardFile } = require('../../storage')
 
 module.exports = [

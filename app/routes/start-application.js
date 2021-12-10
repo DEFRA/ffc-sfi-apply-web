@@ -6,9 +6,9 @@ module.exports = [{
   path: '/start-application',
   options: {
     handler: async (request, h) => {
-      const { sbi: cachedSbi, data } = await cache.get(request)
+      const { organisation: cachedOrganisation, data } = await cache.get(request)
       // if SBI not provided as query parameter, then use previously selected organisation from cache if exists.
-      const sbi = request.query.sbi ?? cachedSbi
+      const sbi = request.query.sbi ?? cachedOrganisation.sbi
       if (sbi) {
         const organisation = data.eligibleOrganisations.find(x => x.sbi === parseInt(sbi))
         return h.view('start-application', { organisation })
@@ -28,7 +28,7 @@ module.exports = [{
       const selectedOrganisation = data.eligibleOrganisations.find(x => x.sbi === request.payload.sbi)
 
       if (selectedOrganisation) {
-        await cache.update(request, { sbi: selectedOrganisation.sbi })
+        await cache.update(request, { organisation: selectedOrganisation })
         return h.redirect('/task-list')
       }
       return h.redirect('/select-organisation')

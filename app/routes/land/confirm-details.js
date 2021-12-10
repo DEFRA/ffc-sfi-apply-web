@@ -1,5 +1,5 @@
 const cache = require('../../cache')
-const getMapParcels = require('../../map')
+const getLand = require('../../land/land')
 const Joi = require('joi')
 
 module.exports = [
@@ -8,13 +8,13 @@ module.exports = [
     path: '/confirm-details',
     options: {
       handler: async (request, h) => {
-        const mapParcels = await getMapParcels(request)
+        const land = await getLand(request)
 
-        if (!mapParcels.parcels) {
+        if (!land.parcels) {
           return h.view('no-response')
         }
 
-        return h.view('land/confirm-details', mapParcels)
+        return h.view('land/confirm-details', land)
       }
     }
   },
@@ -28,7 +28,7 @@ module.exports = [
           'layer-select': Joi.string()
         }),
         failAction: async (request, h, error) => {
-          const mapParcels = await getMapParcels(request)
+          const mapParcels = await getLand(request)
           mapParcels.errors = error
           return h.view('land/confirm-details', mapParcels).code(400).takeover()
         }
