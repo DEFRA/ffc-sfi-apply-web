@@ -5,7 +5,7 @@ const ViewModel = require('./models/what-funding')
 
 module.exports = [{
   method: 'GET',
-  path: '/funding/what-funding',
+  path: '/what-funding',
   options: {
     handler: async (request, h) => {
       const { application, standards } = await getAllStandards(request)
@@ -18,7 +18,7 @@ module.exports = [{
 },
 {
   method: 'POST',
-  path: '/funding/what-funding',
+  path: '/what-funding',
   options: {
     validate: {
       payload: Joi.object({
