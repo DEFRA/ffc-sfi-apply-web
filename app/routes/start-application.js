@@ -31,7 +31,7 @@ module.exports = [{
 
       if (selectedOrganisation) {
         await cache.update(request, { application: { selectedOrganisation, submitted: false } })
-        return h.redirect('/application-task-list')
+        return h.redirect('/task-list')
       }
       return h.redirect('/select-organisation')
     }

@@ -20,7 +20,7 @@ module.exports = [{
       await cache.update(request, {
         progress: { businessDetails: true }
       })
-      return h.redirect('/application-task-list')
+      return h.redirect('/task-list')
     }
   }
 }]

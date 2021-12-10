@@ -28,26 +28,9 @@ const taskList = [{
   }]
 },
 {
-  id: 'actions',
-  taskGroup: 'Create your land management agreement',
-  dependsOn: 'fundingDetails',
-  tasks: [{
-    id: 'chooseActions',
-    taskName: 'Choose your actions',
-    status: 'CANNOT START YET',
-    url: '#fundingOption#/#paymentLevel#/#paymentLevel#-overview'
-  },
-  {
-    id: 'answers',
-    taskName: 'Check your answers',
-    status: 'CANNOT START YET',
-    url: '/check-your-answers'
-  }]
-},
-{
   id: 'submitted',
   taskGroup: 'Submit your application',
-  dependsOn: 'createAgreement',
+  dependsOn: 'fundingDetails',
   tasks: [{
     taskName: 'Submit your application',
     status: 'CANNOT START YET',

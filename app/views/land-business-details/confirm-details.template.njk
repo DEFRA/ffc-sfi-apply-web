@@ -4,73 +4,75 @@
 {% from "govuk/components/back-link/macro.njk" import govukBackLink %}
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
 
-{% block beforeContent %} 
+{% block beforeContent %}
   <% htmlWebpackPlugin.files.css.forEach(file => { %>
     <link href="<%= file.replace('../dist/', 'static/') %>" rel="stylesheet">
-  <% }) %>
-  <div class="govuk-grid-row">
-    <div class="govuk-grid-column-one-half">
-      {{ govukBackLink({
+    <% }) %>
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-one-half">
+          {{ govukBackLink({
         text: "Back",
-        href: "/application-task-list",
+        href: "/task-list",
         attributes: {
           id: "back"
         }
         }) 
       }}
-    </div>
-    <div class="govuk-grid-column-one-half">
-      {% include "save/save.njk" %}
-    </div>
-  </div>
-{% endblock %}
+        </div>
+        <div class="govuk-grid-column-one-half">
+          {% include "save/save.njk" %}
+        </div>
+      </div>
+    {% endblock %}
 
-{% block content %}
-<div class="govuk-grid-row">
-  <div class="govuk-grid-column-full">
-    <form method="POST" action="/confirm-details" novalidate>
-      <input type="hidden" name="crumb" value="{{crumb}}"/>
-      <h1 class="govuk-heading-l">Your land details</h1>   
-      <p class="govuk-body">This is the land cover information currenty registered in your Rural Payments Agency (RPA) account.</p>
-      <div class="govuk-form-group">
-        <label class="govuk-label" for="sort">Change view</label>
-        <select class="govuk-select" id="layer-select" name="layer-select">
-          <option value="Road_27700" selected>Road</option>
-          <option value="Outdoor_27700">Outdoor</option>
-          <option value="Light_27700">Light</option>
-          <option value="Leisure_27700">Leisure</option>
-        </select>
-      </div>  
-      <p class="govuk-body"><div id="map" class="map"></div></p>
+    {% block content %}
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+          <form method="POST" action="/confirm-details" novalidate>
+            <input type="hidden" name="crumb" value="{{crumb}}"/>
+            <h1 class="govuk-heading-l">Your land details</h1>
+            <p class="govuk-body">This is the land cover information currenty registered in your Rural Payments Agency (RPA) account.</p>
+            <div class="govuk-form-group">
+              <label class="govuk-label" for="sort">Change view</label>
+              <select class="govuk-select" id="layer-select" name="layer-select">
+                <option value="Road_27700" selected>Road</option>
+                <option value="Outdoor_27700">Outdoor</option>
+                <option value="Light_27700">Light</option>
+                <option value="Leisure_27700">Leisure</option>
+              </select>
+            </div>
+            <p class="govuk-body">
+              <div id="map" class="map"></div>
+            </p>
 
-      <h2 class="govuk-heading-m">Summary</h2>
-      <p class="govuk-body">
-        <ul class="govuk-list">
-          {% for landCover in landCovers %}
-            <li>{{ landCover.area | round(2) }} hectares of {{ landCover.name }}</li>
-          {% endfor %}
-        </ul>
-      </p>
+            <h2 class="govuk-heading-m">Summary</h2>
+            <p class="govuk-body">
+              <ul class="govuk-list">
+                {% for landCover in landCovers %}
+                  <li>{{ landCover.area | round(2) }} hectares of {{ landCover.name }}</li>
+                {% endfor %}
+              </ul>
+            </p>
 
-      {% if errors %}
-        <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" tabindex="-1" data-module="govuk-error-summary">
-          <h2 class="govuk-error-summary__title" id="error-summary-title">
+            {% if errors %}
+              <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" tabindex="-1" data-module="govuk-error-summary">
+                <h2 class="govuk-error-summary__title" id="error-summary-title">
             There is a problem
           </h2>
-          <div class="govuk-error-summary__body">
-            <ul class="govuk-list govuk-error-summary__list">
-              {% for errorDetail in errors.details %}
-                <span class="govuk-error-message">
-                  <span class="govuk-visually-hidden">Error:</span>
+                <div class="govuk-error-summary__body">
+                  <ul class="govuk-list govuk-error-summary__list">
+                    {% for errorDetail in errors.details %}
+                      <span class="govuk-error-message">
+                        <span class="govuk-visually-hidden">Error:</span>
                   Please select if your land cover information is correct.
                 </span>
-              {% endfor %}
-            </ul>
-          </div>
-        </div>        
-      {% endif %}
+                    {% endfor %}
+                  </ul>
+                </div>
+              </div>
+            {% endif %}
 
-      {{ govukRadios({
+            {{ govukRadios({
           classes: "govuk-radios",
           idPrefix: "isLandCorrect",
           name: "isLandCorrect",
@@ -93,30 +95,31 @@
           ]
         }) }}
 
-      {{ govukButton({
+            {{ govukButton({
         text: "Continue",
         attributes: {
           id: "submit"
         }
       }) }}
-    </form>
-  </div>
-  <div>
-</div>
-<% htmlWebpackPlugin.files.js.forEach(file => { %>
-  <script src="<%= file.replace('../dist/', 'static/') %>"></script>
-<% }) %>
-<script>
-  const parcels = {{ parcels | dump | safe }}
-  const center = {{ center | dump | safe }}
-  const sbi = {{ sbi }}
-  const apiKey = {{ apiKey | dump | safe }}
-  const mapStyle = {{ mapStyle | dump | safe }}
-  if (mapStyle !== '') { 
-    document.getElementById("layer-select").value = mapStyle
-  }
-  if(apiKey !== '') {
-    map.displayMap(apiKey, sbi, parcels, center)
-  }
-</script>
-{% endblock %}
+          </form>
+        </div>
+        <div></div>
+        <% htmlWebpackPlugin.files.js.forEach(file => { %>
+          <script src="<%= file.replace('../dist/', 'static/') %>"></script>
+          <% }) %>
+            <script>
+              const parcels = {{ parcels | dump | safe }}
+              const center = {{ center | dump | safe }}
+              const sbi = {{ sbi }}
+              const apiKey = {{ apiKey | dump | safe }}
+              const mapStyle = {{ mapStyle | dump | safe }}
+              if (mapStyle !== '') {
+                document
+                  .getElementById("layer-select")
+                  .value = mapStyle
+              }
+              if (apiKey !== '') {
+                map.displayMap(apiKey, sbi, parcels, center)
+              }
+            </script>
+          {% endblock %}

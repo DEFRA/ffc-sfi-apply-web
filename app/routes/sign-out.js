@@ -2,7 +2,7 @@ const cache = require('../cache')
 
 module.exports = {
   method: 'GET',
-  path: '/clear-session',
+  path: '/sign-out',
   options: {
     handler: async (request, h) => {
       await cache.clear(request)

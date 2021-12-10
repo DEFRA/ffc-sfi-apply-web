@@ -1,12 +1,12 @@
 const joi = require('joi')
-const ViewModel = require('./models/application-task-list')
+const ViewModel = require('./models/task-list')
 const cache = require('../cache')
 const paymentLevels = require('./payment-levels')
 const { getAgreementsBySbi, getAgreement, getProgress } = require('../api/agreement')
 
 module.exports = [{
   method: 'GET',
-  path: '/application-task-list',
+  path: '/task-list',
   options: {
     handler: async (request, h) => {
       const agreement = await cache.get(request)
@@ -16,13 +16,13 @@ module.exports = [{
       const paymentLevel = paymentLevels.find(x => x.name === application?.selectedAmbitionLevel?.name)
       const selectedOrganisation = application?.selectedOrganisation
       const savedAgreements = await getAgreementsBySbi(selectedOrganisation.sbi)
-      return h.view('application-task-list', new ViewModel(progress, fundingOption, paymentLevel?.paymentLevel, savedAgreements.agreements, selectedOrganisation))
+      return h.view('task-list', new ViewModel(progress, fundingOption, paymentLevel?.paymentLevel, savedAgreements.agreements, selectedOrganisation))
     }
   }
 },
 {
   method: 'GET',
-  path: '/application-task-list/{agreementNumber}/{sbi}',
+  path: '/task-list/{agreementNumber}/{sbi}',
   options: {
     validate: {
       params: joi.object().keys({
@@ -43,7 +43,7 @@ module.exports = [{
           application: agreement.agreementData.agreement,
           progress
         })
-      return h.redirect('/application-task-list')
+      return h.redirect('/task-list')
     }
   }
 }]

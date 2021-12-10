@@ -10,7 +10,7 @@
     <div class="govuk-grid-column-one-half">
       {{ govukBackLink({
         text: "Back",
-        href: "/application-task-list",
+        href: "/task-list",
         attributes: {
           id: "back"
         }
@@ -26,34 +26,34 @@
 {% block content %}
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
-    <form method="POST" action="/declaration" novalidate>
-      <input type="hidden" name="crumb" value="{{crumb}}"/>
+      <form method="POST" action="/declaration" novalidate>
+        <input type="hidden" name="crumb" value="{{crumb}}"/>
 
-      <h1 class="govuk-heading-l">Declaration</h1>
+        <h1 class="govuk-heading-l">Declaration</h1>
 
-      <p class="govuk-body">
+        <p class="govuk-body">
         By sending the application you agree that:
       </p>
 
-      <ul class="govuk-list govuk-list--bullet">
-        <li>the information you’ve given is correct</li>
-        <li>you’ll carry out the land actions in your agreement</li>
-        <li>you’ll follow the <a href="#">cross-compliance</a> rules</li>
-      </ul>
+        <ul class="govuk-list govuk-list--bullet">
+          <li>the information you’ve given is correct</li>
+          <li>you’ll carry out the land actions in your agreement</li>
+          <li>you’ll follow the <a href="#">cross-compliance</a> rules</li>
+        </ul>
 
-      {{ govukWarningText({
+        {{ govukWarningText({
         text: "You could be prosecuted or have to pay a financial penalty if you deliberately give the wrong or incomplete information, or don’t report changes.",
         iconFallbackText: "Warning"
       }) }}
 
-      {{ govukButton({
+        {{ govukButton({
         text: "I agree - send my application",
         attributes: {
           id: "submit"
         }
       }) }}
 
-    </form>
+      </form>
     </div>
   </div>
 {% endblock %}

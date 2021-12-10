@@ -57,7 +57,7 @@ module.exports = [{
         progress: { fundingDetails: true, paymentLevel: true }
       })
 
-      return h.redirect('/application-task-list')
+      return h.redirect('/task-list')
     }
   }
 }]
