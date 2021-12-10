@@ -23,32 +23,28 @@ module.exports = [{
   options: {
     validate: {
       payload: Joi.object({
-        standard: Joi.string().required()
+        standard: Joi.array().items(Joi.string()).single()
       }),
       failAction: async (request, h, error) => {
-        const { agreement, standards } = await getFunding(request, error)
-        if (standards) {
-          return h.view('funding/what-funding', new ViewModel(standards, agreement?.selectedStandard, error)).code(400).takeover()
+        const { funding } = await cache.get(request)
+        const eligibleFunding = await getFunding(request)
+        if (!eligibleFunding) {
+          return h.view('no-response').takeover()
         }
-        return h.view('no-response')
+        return h.view('funding/what-funding', new ViewModel(eligibleFunding, funding, error)).code(400).takeover()
       }
     },
     handler: async (request, h) => {
-      const standard = request.payload.standard
-      const agreement = await cache.get(request)
+      const standard = request.payload
+      const { data } = await cache.get(request)
 
-      const selectedStandard = agreement.application.standards.find(x => x.code === standard)
-      await cache.update(request, { application: { selectedStandard } })
+      const funding = data?.eligibleFunding.filter(x => standard.includes(x.code)) ?? []
 
-      await cache.update(request, {
-        progress: { fundingOption: true }
-      })
-
-      if (standard === 'sfi-improved-grassland') {
-        return h.redirect('/funding/grassland-overview')
+      if (!funding.length) {
+        return h.redirect('/what-funding')
       }
-
-      return h.redirect('/funding/arable-overview')
+      await cache.update(request, { funding })
+      return h.redirect('/how-much')
     }
   }
 }]
