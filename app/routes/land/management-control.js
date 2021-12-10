@@ -1,3 +1,4 @@
+const Joi = require('joi')
 const cache = require('../../cache')
 
 module.exports = [{
@@ -5,8 +6,7 @@ module.exports = [{
   path: '/management-control',
   options: {
     handler: async (request, h) => {
-      const applyJourney = await cache.get(request)
-      return h.view('land/management-control', { name: applyJourney.application.selectedOrganisation.name })
+      return h.view('land/management-control')
     }
   }
 },
@@ -14,10 +14,19 @@ module.exports = [{
   method: 'POST',
   path: '/management-control',
   options: {
+    validate: {
+      payload: Joi.object({
+        hasManagementControl: Joi.boolean().required()
+      }),
+      failAction: async (request, h, error) => {
+        return h.view('land/management-control', { error }).code(400).takeover()
+      }
+    },
     handler: async (request, h) => {
-      await cache.update(request, {
-        progress: { businessDetails: true }
-      })
+      const { hasManagementControl } = request.payload
+      await cache.update(request, { land: { hasManagementControl } })
+
+      // TODO: Handle if no management control
       return h.redirect('/task-list')
     }
   }

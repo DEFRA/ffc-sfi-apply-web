@@ -26,12 +26,12 @@
 {% block content %}
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
-    <form method="POST" action="/relationship" novalidate>
-      <input type="hidden" name="crumb" value="{{crumb}}"/>
+      <form method="POST" action="/management-control" novalidate>
+        <input type="hidden" name="crumb" value="{{crumb}}"/>
         {{ govukRadios({
           classes: "govuk-radios",
-          idPrefix: "managementControlCheck",
-          name: "managementControlCheck",
+          idPrefix: "hasManagementControl",
+          name: "hasManagementControl",
           fieldset: {
             legend: {
               text: "Do you have management control of this land?",
@@ -44,24 +44,24 @@
           },
           items: [
             {
-              value: "yes",
+              value: true,
               text: "Yes"
             },
             {
-              value: "no",
+              value: false,
               text: "No"
             }
           ]
         }) }}
 
-      {{ govukButton({
+        {{ govukButton({
         text: "Continue",
         attributes: {
           id: "submit"
         }
       }) }}
 
-    </form>
+      </form>
     </div>
   </div>
 {% endblock %}
