@@ -1,10 +1,9 @@
-function createMessage (body, type, correlationId, messageId) {
+const createMessage = (body, type, options) => {
   return {
     body,
     type,
     source: 'ffc-sfi-apply-web',
-    correlationId,
-    messageId
+    ...options
   }
 }
 

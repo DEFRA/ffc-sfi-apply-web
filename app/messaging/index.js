@@ -2,11 +2,6 @@ const sendMessage = require('./send-message')
 const receiveMessage = require('./receive-message')
 const config = require('../config')
 
-async function sendEligibilityCheckMessage (payload, correlationId, messageId) {
-  await sendMessage(payload, 'uk.gov.sfi.eligibility.check', correlationId, config.eligibilityTopic, messageId)
-  console.info('Eligibility check requested')
-}
-
 async function sendStandardsRequestMessage (payload, correlationId, messageId) {
   await sendMessage(payload, 'uk.gov.sfi.standards.request', correlationId, config.standardsTopic, messageId)
   console.info('Available standards requested')
@@ -54,16 +49,11 @@ async function receiveStandardsResponseMessage (messageId) {
   return receiveMessage(messageId, config.responseStandardsQueue)
 }
 
-async function receiveEligibilityResponseMessage (messageId) {
-  return receiveMessage(messageId, config.responseEligibilityQueue)
-}
-
 async function receiveCalculateResponseMessage (messageId) {
   return receiveMessage(messageId, config.responseCalculateQueue)
 }
 
 module.exports = {
-  sendEligibilityCheckMessage,
   sendStandardsRequestMessage,
   sendAgreementValidateMessage,
   sendAgreementCalculateMessage,
@@ -75,5 +65,6 @@ module.exports = {
   receiveParcelStandardMessage,
   receiveStandardsResponseMessage,
   receiveCalculateResponseMessage,
-  receiveEligibilityResponseMessage
+  sendMessage,
+  receiveMessage
 }
