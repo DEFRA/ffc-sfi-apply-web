@@ -1,4 +1,5 @@
 $govuk-assets-path: "~govuk-frontend/govuk/assets/";
+$govuk-new-link-styles: true;
 @import "~govuk-frontend/govuk/all";
 @import "./app-task-list";
 @import "./guidance-layout";

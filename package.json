@@ -45,7 +45,7 @@
     "@turf/turf": "^6.3.0",
     "applicationinsights": "^1.8.10",
     "ffc-messaging": "^2.3.1",
-    "govuk-frontend": "^3.11.0",
+    "govuk-frontend": "^3.14.0",
     "hapi-pino": "^8.3.0",
     "joi": "^17.4.0",
     "jsonwebtoken": "^8.5.1",
