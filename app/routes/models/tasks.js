@@ -17,7 +17,7 @@ module.exports = [{
     dependsOn: 'funding',
     taskName: 'Choose funding option',
     status: 'CANNOT START YET',
-    url: '/funding/what-funding'
+    url: 'what-funding'
   }]
 },
 {
@@ -49,6 +49,6 @@ module.exports = [{
   tasks: [{
     taskName: 'Submit your application',
     status: 'CANNOT START YET',
-    url: '/declaration'
+    url: 'declaration'
   }]
 }]
