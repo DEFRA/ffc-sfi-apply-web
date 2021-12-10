@@ -25,7 +25,8 @@ const getLandCovers = async (organisationId, callerId) => {
 
   return {
     totalHectares,
-    landCovers: landCovers.map(x => ({ ...x, area: convertToDecimal(x.area) }))
+    landCovers: landCovers.filter(x => x.area > 0)
+      .map(x => ({ ...x, area: convertToDecimal(x.area) }))
   }
 }
 
