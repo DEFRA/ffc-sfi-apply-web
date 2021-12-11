@@ -37,7 +37,7 @@ module.exports = [{
       }
     },
     handler: async (request, h) => {
-      const standard = request.payload
+      const { standard } = request.payload
       const { data } = await cache.get(request)
 
       const funding = data?.eligibleFunding.filter(x => standard.includes(x.code)) ?? []
@@ -45,7 +45,7 @@ module.exports = [{
       if (!funding.length) {
         return h.redirect('/what-funding')
       }
-      await cache.update(request, { agreement: { funding } })
+      await cache.update(request, { agreement: { funding: funding.map(x => x.code) } })
       return h.redirect('/how-much')
     }
   }

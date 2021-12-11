@@ -7,12 +7,12 @@ const util = require('util')
 const getParcelStandards = async (request, standardCode) => {
   const { agreement, callerId, data } = await cache.get(request)
   const { organisation } = agreement
-  let eligibleStandardsSpatial = data.eligibleStandardsSpatial[standardCode]
+  let eligibleStandardsSpatial = data.eligibleStandardsSpatial?.[standardCode]
   if (eligibleStandardsSpatial) {
     return eligibleStandardsSpatial
   }
   eligibleStandardsSpatial = await requestParcelStandardSpatial(organisation, callerId, request.yar.id, standardCode)
-  await cache.update(request, { data: { eligibleStandardsSpatial: { standardCode: eligibleStandardsSpatial } } })
+  await cache.update(request, { data: { eligibleStandardsSpatial: { [standardCode]: eligibleStandardsSpatial } } })
   return eligibleStandardsSpatial
 }
 

@@ -18,7 +18,7 @@ module.exports = [{
         return h.view('no-response')
       }
       const selectedParcelStandard = await downloadParcelStandardFile(parcelStandards.filename)
-      const selectedLandCovers = agreement.action.landCovers
+      const selectedLandCovers = agreement.action[standardCode].landCovers
       const viewModel = new ViewModel(selectedLandCovers, selectedParcelStandard)
       const mapParcels = await getMapParcels(request, selectedParcelStandard.spatial)
       viewModel.map = mapParcels

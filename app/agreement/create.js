@@ -12,7 +12,7 @@ const create = () => {
     },
     funding: [],
     action: {
-      arableSoil: {
+      'sfi-arable-soil': {
         active: false,
         canTestOrganicMatter: undefined,
         canAssessSoil: undefined,
@@ -23,7 +23,7 @@ const create = () => {
         landCovers: [],
         paymentAmount: 0
       },
-      improvedGrassland: {
+      'sfi-improved-grassland': {
         active: false,
         canTestOrganicMatter: undefined,
         canAssessSoil: undefined,
@@ -33,7 +33,7 @@ const create = () => {
         landCovers: [],
         paymentAmount: 0
       },
-      moorland: {
+      'sfi-moorland': {
         active: false,
         paymentAmount: 0
       },
