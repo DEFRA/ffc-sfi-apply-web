@@ -24,7 +24,7 @@ module.exports = [{
     },
     handler: async (request, h) => {
       const { hasManagementControl } = request.payload
-      await cache.update(request, { land: { hasManagementControl } })
+      await cache.update(request, { agreement: { land: { hasManagementControl } } })
 
       // TODO: Handle if no management control
       return h.redirect('/task-list')

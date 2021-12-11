@@ -33,7 +33,7 @@ module.exports = [{
     },
     handler: async (request, h) => {
       const { isLandCorrect } = request.payload
-      await cache.update(request, { isLandCorrect })
+      await cache.update(request, { agreement: { land: { isLandCorrect } } })
 
       if (isLandCorrect) {
         return h.redirect('/management-control')
