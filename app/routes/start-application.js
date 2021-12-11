@@ -1,4 +1,4 @@
-const generateAgreementNumber = require('../agreement-number')
+const { create } = require('../agreement')
 const cache = require('../cache')
 const schema = require('./schemas/sbi')
 
@@ -26,46 +26,9 @@ module.exports = [{
     },
     handler: async (request, h) => {
       let { agreement, data } = await cache.get(request)
+
       if (!agreement) {
-        agreement = {
-          agreementNumber: generateAgreementNumber(),
-          confirmed: false,
-          submitted: false,
-          organisation: {},
-          land: {
-            isLandCorrect: undefined,
-            hasManagementControl: undefined
-          },
-          funding: [],
-          action: {
-            arableSoil: {
-              active: false,
-              canTestOrganicMatter: undefined,
-              canAssessSoil: undefined,
-              canProducePlan: undefined,
-              canHaveGreenCover: undefined,
-              canAddOrganicMatter: undefined,
-              canDiversifySpecies: undefined,
-              landCovers: [],
-              paymentAmount: 0
-            },
-            improvedGrassland: {
-              active: false,
-              canTestOrganicMatter: undefined,
-              canAssessSoil: undefined,
-              canProducePlan: undefined,
-              canHaveGreenCover: undefined,
-              canEstablishHerbalLeys: undefined,
-              landCovers: [],
-              paymentAmount: 0
-            },
-            moorland: {
-              active: false,
-              paymentAmount: 0
-            },
-            paymentAmount: 0
-          }
-        }
+        agreement = create()
       }
 
       const selectedOrganisation = data.eligibleOrganisations.find(x => x.sbi === request.payload.sbi)
