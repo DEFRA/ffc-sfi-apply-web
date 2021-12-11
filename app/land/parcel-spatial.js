@@ -5,7 +5,8 @@ const { v4: uuidv4 } = require('uuid')
 const util = require('util')
 
 const getParcelSpatial = async (request) => {
-  const { organisation, callerId, data } = await cache.get(request)
+  const { agreement, callerId, data } = await cache.get(request)
+  const { organisation } = agreement
   let land = data.land
   if (land) {
     return land

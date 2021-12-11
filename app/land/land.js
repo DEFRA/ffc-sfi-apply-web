@@ -6,7 +6,8 @@ const { downloadParcelSpatialFile } = require('../storage')
 const { getLandCovers } = require('../api/crown-hosting/land-cover')
 
 const getLand = async (request, parcels) => {
-  const { organisation, callerId } = await cache.get(request)
+  const { agreement, callerId } = await cache.get(request)
+  const { organisation } = agreement
   const { totalHectares, landCovers } = await getLandCovers(organisation.organisationId, callerId)
 
   const mapStyle = ''
