@@ -1,3 +1,4 @@
+const generateAgreementNumber = require('../agreement-number')
 const cache = require('../cache')
 const schema = require('./schemas/sbi')
 
@@ -24,11 +25,54 @@ module.exports = [{
       payload: schema
     },
     handler: async (request, h) => {
-      const { data } = await cache.get(request)
+      let { agreement, data } = await cache.get(request)
+      if (!agreement) {
+        agreement = {
+          agreementNumber: generateAgreementNumber(),
+          confirmed: false,
+          submitted: false,
+          organisation: {},
+          land: {
+            isLandCorrect: undefined,
+            hasManagementControl: undefined
+          },
+          funding: [],
+          action: {
+            arableSoil: {
+              active: false,
+              canTestOrganicMatter: undefined,
+              canAssessSoil: undefined,
+              canProducePlan: undefined,
+              canHaveGreenCover: undefined,
+              canAddOrganicMatter: undefined,
+              canDiversifySpecies: undefined,
+              landCovers: [],
+              paymentAmount: 0
+            },
+            improvedGrassland: {
+              active: false,
+              canTestOrganicMatter: undefined,
+              canAssessSoil: undefined,
+              canProducePlan: undefined,
+              canHaveGreenCover: undefined,
+              canEstablishHerbalLeys: undefined,
+              landCovers: [],
+              paymentAmount: 0
+            },
+            moorland: {
+              active: false,
+              paymentAmount: 0
+            },
+            paymentAmount: 0
+          }
+        }
+      }
+
       const selectedOrganisation = data.eligibleOrganisations.find(x => x.sbi === request.payload.sbi)
 
       if (selectedOrganisation) {
-        await cache.update(request, { organisation: selectedOrganisation })
+        agreement.organisation = selectedOrganisation
+        await cache.update(request, { agreement })
         return h.redirect('/task-list')
       }
       return h.redirect('/select-organisation')
