@@ -18,7 +18,7 @@ module.exports = [{
         return h.view('no-response')
       }
       const selectedParcelStandard = await downloadParcelStandardFile(parcelStandards.filename)
-      const selectedLandCovers = agreement?.action?.landCovers ?? []
+      const selectedLandCovers = agreement.action.landCovers
       const viewModel = new ViewModel(selectedLandCovers, selectedParcelStandard)
       const mapParcels = await getMapParcels(request, selectedParcelStandard.spatial)
       viewModel.map = mapParcels
@@ -35,28 +35,34 @@ module.exports = [{
         parcels: Joi.array().items(Joi.string()).single().required()
       }).unknown(true),
       failAction: async (request, h, error) => {
-        const { payload } = request
-        const { parcelStandards, application } = await getParcelStandards(request)
+        const { agreement } = await cache.get(request)
+        // TODO: When multiple funding added will need to specify which one here
+        const standardCode = agreement.funding[0]
+        const parcelStandards = await getParcelStandards(request, standardCode)
+        if (!parcelStandards) {
+          return h.view('no-response')
+        }
         const selectedParcelStandard = await downloadParcelStandardFile(parcelStandards.filename)
-        const viewModel = new ViewModel(application, selectedParcelStandard, payload)
-        const mapParcels = await getMapParcels(request)
+        const selectedLandCovers = agreement.action.landCovers
+        const viewModel = new ViewModel(selectedLandCovers, selectedParcelStandard, request.payload)
+        const mapParcels = await getMapParcels(request, selectedParcelStandard.spatial)
         viewModel.map = mapParcels
         return h.view('funding/how-much', viewModel).code(400).takeover()
       }
     },
     handler: async (request, h) => {
-      const { payload } = request
-      const { parcelStandards, application } = await getParcelStandards(request)
+      const { agreement } = await cache.get(request)
+      // TODO: When multiple funding added will need to specify which one here
+      const standardCode = agreement.funding[0]
+      const parcelStandards = await getParcelStandards(request, standardCode)
+      if (!parcelStandards) {
+        return h.view('no-response')
+      }
       const selectedParcelStandard = await downloadParcelStandardFile(parcelStandards.filename)
-      const viewModel = new ViewModel(application, selectedParcelStandard, payload)
+      const selectedLandCovers = agreement.action.landCovers
+      const viewModel = new ViewModel(selectedLandCovers, selectedParcelStandard, request.payload)
 
-      await cache.update(request, {
-        application: {
-          selectedParcels: viewModel.model.landInHectares,
-          parcelArea: viewModel.model.parcelArea,
-          selectedLandCovers: selectedParcelStandard.landCovers.filter(x => payload.parcels.includes(x.parcelId))
-        }
-      })
+      await cache.update(request, { action: { [standardCode]: { landCovers: selectedParcelStandard.landCovers.filter(x => request.payload.parcels.includes(x.parcelId)) } } })
 
       if (viewModel.model.error || viewModel.model.invalidValues) {
         return h.view('funding/how-much', viewModel).code(400).takeover()
@@ -65,5 +71,4 @@ module.exports = [{
       return h.redirect('/funding/what-payment-level')
     }
   }
-}
-]
+}]
