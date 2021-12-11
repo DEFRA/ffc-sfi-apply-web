@@ -1,10 +1,9 @@
 const { convertToInteger, convertToDecimal } = require('../../../conversion')
 
-function ViewModel (applyJourney, parcelStandards, payload) {
-  const selectedStandard = groupParcels(parcelStandards)
-  const selectedParcels = applyJourney.selectedParcels
-  const landInHectares = payload ? getLandInHectares(payload, selectedStandard.parcels) : selectedParcels
-  const items = getAllItems(selectedStandard, landInHectares)
+function ViewModel (selectedLandCovers, parcelStandards, payload) {
+  const parcels = groupParcels(parcelStandards.landCovers)
+  const landInHectares = payload ? getLandInHectares(payload, parcels) : selectedLandCovers
+  const items = getAllItems(parcels, landInHectares)
   const parcelArea = landInHectares ? landInHectares.reduce((x, y) => x + convertToInteger(y.value), 0) : 0
   const error = landInHectares && landInHectares.length === 0
   const invalidValues = landInHectares && landInHectares.some(element => !element.valid)
@@ -15,24 +14,23 @@ function ViewModel (applyJourney, parcelStandards, payload) {
     invalidValues,
     checkboxItems: items.checkboxItems,
     totalHa: items.totalHa,
-    selectedStandardCode: selectedStandard.code,
-    selectedParcels: selectedParcels ?? [],
+    selectedStandardCode: parcelStandards.code,
+    selectedParcels: selectedLandCovers ?? [],
     parcelStandards
   }
 }
 
-const groupParcels = (parcelStandards) => {
-  const result = []
-  parcelStandards.landCovers.reduce((acc, cur) => {
+const groupParcels = (landCovers) => {
+  const parcels = []
+  landCovers.reduce((acc, cur) => {
     if (!acc[cur.parcelId]) {
       acc[cur.parcelId] = { parcelId: cur.parcelId, area: 0, warnings: [] }
-      result.push(acc[cur.parcelId])
+      parcels.push(acc[cur.parcelId])
     }
     acc[cur.parcelId].area += parseFloat(cur.area)
     return acc
   }, {})
-  parcelStandards.parcels = result
-  return parcelStandards
+  return parcels
 }
 
 const getLandInHectares = (payload, parcels) => {

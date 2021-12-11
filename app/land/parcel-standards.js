@@ -1,39 +1,34 @@
 const cache = require('../cache')
-const { sendParcelStandardMessage, receiveParcelStandardMessage } = require('../messaging')
+const config = require('../config')
+const { sendMessage, receiveMessage } = require('../messaging')
 const { v4: uuidv4 } = require('uuid')
 const util = require('util')
 
-const getParcelStandards = async (request, error) => {
-  const agreement = await cache.get(request)
-  const application = agreement?.application
-  let parcelStandards = application.parcelStandards
-  if (error && parcelStandards) {
-    return { application, parcelStandards }
-  } else {
-    parcelStandards = await sendParcelStandardRequest(application, request, parcelStandards)
-    await cache.update(request, { application: { parcelStandards } })
+const getParcelStandards = async (request, standardCode) => {
+  const { organisation, callerId, data } = await cache.get(request)
+  let eligibleStandardsSpatial = data.eligibleStandardsSpatial[standardCode]
+  if (eligibleStandardsSpatial) {
+    return eligibleStandardsSpatial
   }
-  return { application, parcelStandards }
+  eligibleStandardsSpatial = await requestParcelStandardSpatial(organisation, callerId, request.yar.id, standardCode)
+  await cache.update(request, { data: { eligibleStandardsSpatial: { standardCode: eligibleStandardsSpatial } } })
+  return eligibleStandardsSpatial
 }
 
-const sendParcelStandardRequest = async (application, request, parcelStandards) => {
+const requestParcelStandardSpatial = async (organisation, callerId, correlationId, standardCode) => {
   const messageId = uuidv4()
+  const { sbi, organisationId } = organisation
+  const body = { sbi, callerId, organisationId, standardCode }
 
-  const sbi = application.selectedOrganisation.sbi
-  const callerId = application.callerId
-  const organisationId = application.selectedOrganisation.organisationId
-  const standardCode = application.selectedStandard.code
+  await sendMessage(body, 'uk.gov.sfi.parcel.standard.request', config.parcelStandardTopic, { correlationId, messageId })
+  console.info('Parcel Standards request sent:', util.inspect(body, false, null, true))
 
-  await sendParcelStandardMessage({ sbi, callerId, organisationId, standardCode }, request.yar.id, messageId)
-
-  const response = await receiveParcelStandardMessage(messageId)
+  const response = await receiveMessage(messageId, config.responseParcelStandardQueue)
 
   if (response) {
-    console.info('Parcel Standards request received:', util.inspect(response, false, null, true))
-    parcelStandards = response
+    console.info('Parcel Standards response received:', util.inspect(response, false, null, true))
+    return response
   }
-
-  return parcelStandards
 }
 
 module.exports = getParcelStandards

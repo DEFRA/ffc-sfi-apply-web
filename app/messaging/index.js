@@ -17,20 +17,6 @@ async function sendAgreementSubmitMessage (payload, correlationId) {
   console.info('Agreement submitted')
 }
 
-async function sendAgreementWithdrawMessage (payload, correlationId) {
-  await sendMessage(payload, 'uk.gov.sfi.agreement.withdraw', correlationId, config.withdrawTopic)
-  console.info('Agreement withdrawn')
-}
-
-async function sendParcelStandardMessage (payload, correlationId, messageId) {
-  await sendMessage(payload, 'uk.gov.sfi.parcel.standard.request', correlationId, config.parcelStandardTopic, messageId)
-  console.info('parcel standard requested')
-}
-
-async function receiveParcelStandardMessage (messageId) {
-  return receiveMessage(messageId, config.responseParcelStandardQueue)
-}
-
 async function receiveCalculateResponseMessage (messageId) {
   return receiveMessage(messageId, config.responseCalculateQueue)
 }
@@ -39,9 +25,6 @@ module.exports = {
   sendAgreementValidateMessage,
   sendAgreementCalculateMessage,
   sendAgreementSubmitMessage,
-  sendAgreementWithdrawMessage,
-  sendParcelStandardMessage,
-  receiveParcelStandardMessage,
   receiveCalculateResponseMessage,
   sendMessage,
   receiveMessage

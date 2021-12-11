@@ -1,12 +1,12 @@
 const hoek = require('@hapi/hoek')
 
 const get = async (request) => {
-  const object = await request.yar.get(request.yar.id)
+  const object = await request.yar.get('sfi')
   return object ?? {}
 }
 
 const set = async (request, value) => {
-  await request.yar.set(request.yar.id, value)
+  await request.yar.set('sfi', value)
 }
 
 const update = async (request, object) => {
@@ -17,7 +17,7 @@ const update = async (request, object) => {
 }
 
 const clear = async (request) => {
-  await request.yar.clear(request.yar.id)
+  await request.yar.clear('sfi')
 }
 
 module.exports = {
