@@ -8,7 +8,8 @@ module.exports = [{
   path: '/what-funding',
   options: {
     handler: async (request, h) => {
-      const { funding } = await cache.get(request)
+      const { agreement } = await cache.get(request)
+      const { funding } = agreement
       const eligibleFunding = await getFunding(request)
       if (!eligibleFunding) {
         return h.view('no-response')
@@ -26,7 +27,8 @@ module.exports = [{
         standard: Joi.array().items(Joi.string()).single()
       }),
       failAction: async (request, h, error) => {
-        const { funding } = await cache.get(request)
+        const { agreement } = await cache.get(request)
+        const { funding } = agreement
         const eligibleFunding = await getFunding(request)
         if (!eligibleFunding) {
           return h.view('no-response').takeover()
@@ -43,7 +45,7 @@ module.exports = [{
       if (!funding.length) {
         return h.redirect('/what-funding')
       }
-      await cache.update(request, { funding })
+      await cache.update(request, { agreement: { funding } })
       return h.redirect('/how-much')
     }
   }

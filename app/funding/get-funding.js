@@ -5,7 +5,8 @@ const { v4: uuidv4 } = require('uuid')
 const util = require('util')
 
 const getFunding = async (request) => {
-  const { data, organisation, callerId } = await cache.get(request)
+  const { data, agreement, callerId } = await cache.get(request)
+  const { organisation } = agreement
   let { eligibleFunding } = data
   if (eligibleFunding) {
     return eligibleFunding
