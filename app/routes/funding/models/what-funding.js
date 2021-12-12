@@ -20,8 +20,8 @@ function ViewModel (eligibleFunding, selected, error) {
 }
 
 const isChecked = (selected, value) => {
-  if (selected) {
-    return value === selected.code
+  if (selected.length) {
+    return selected.includes(value)
   }
   return false
 }
