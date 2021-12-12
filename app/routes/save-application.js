@@ -1,4 +1,4 @@
-const saveAgreement = require('./models/save-application')
+const saveAgreement = require('../agreement/save')
 
 module.exports = [{
   method: 'GET',
