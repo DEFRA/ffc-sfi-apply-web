@@ -55,7 +55,7 @@ const getLandInHectares = (payload, parcels) => {
 }
 
 const getAllItems = (selectedStandard, selectedParcels) => {
-  const parcels = selectedStandard?.parcels
+  const parcels = selectedStandard
   const checkboxItems = parcels.map(x => ({
     text: `${x.parcelId}`,
     value: `${x.parcelId}`,
