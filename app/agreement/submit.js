@@ -1,5 +1,5 @@
 const cache = require('../cache')
-const { save } = require('./save')
+const save = require('./save')
 const { post } = require('../api/agreement')
 
 const submit = async (request) => {

@@ -38,14 +38,20 @@ module.exports = [{
     },
     handler: async (request, h) => {
       const { standard } = request.payload
-      const { data } = await cache.get(request)
+      const { data, agreement } = await cache.get(request)
 
       const funding = data?.eligibleFunding.filter(x => standard.includes(x.code)) ?? []
 
       if (!funding.length) {
         return h.redirect('/what-funding')
       }
-      await cache.update(request, { agreement: { funding: funding.map(x => x.code) } })
+
+      for (const option in agreement.action) {
+        agreement.action[option].active = funding.includes(option)
+      }
+      agreement.funding = funding.map(x => x.code)
+
+      await cache.update(request, { agreement })
       return h.redirect('/how-much')
     }
   }
