@@ -68,7 +68,7 @@ module.exports = [{
         return h.view('funding/how-much', viewModel).code(400).takeover()
       }
 
-      return h.redirect('/funding/what-payment-level')
+      return h.redirect('/task-list')
     }
   }
 }]

@@ -12,13 +12,11 @@ const routes = [].concat(
   require('../routes/land/confirm-details'),
   require('../routes/land/management-control'),
   require('../routes/land/change-land-details'),
+  require('../routes/funding/what-funding'),
+  require('../routes/funding/how-much'),
   require('../routes/save-application'),
   require('../routes/submit-application'),
-  require('../routes/confirmation'),
-  require('../routes/funding/what-funding'),
-  require('../routes/funding/funding-overview'),
-  require('../routes/funding/how-much'),
-  require('../routes/funding/what-payment-level')
+  require('../routes/confirmation')
 )
 
 module.exports = {
