@@ -62,7 +62,7 @@ module.exports = [{
       const selectedLandCovers = agreement.action.landCovers
       const viewModel = new ViewModel(selectedLandCovers, selectedParcelStandard, request.payload)
 
-      await cache.update(request, { action: { [standardCode]: { landCovers: selectedParcelStandard.landCovers.filter(x => request.payload.parcels.includes(x.parcelId)) } } })
+      await cache.update(request, { agreement: { action: { [standardCode]: { landCovers: selectedParcelStandard.landCovers.filter(x => request.payload.parcels.includes(x.parcelId)) } } } })
 
       if (viewModel.model.error || viewModel.model.invalidValues) {
         return h.view('funding/how-much', viewModel).code(400).takeover()

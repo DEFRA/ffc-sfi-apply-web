@@ -47,7 +47,7 @@ module.exports = [{
       }
 
       for (const option in agreement.action) {
-        agreement.action[option].active = funding.includes(option)
+        agreement.action[option].active = funding.some(x => x.code === option)
       }
       agreement.funding = funding.map(x => x.code)
 
