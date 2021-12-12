@@ -12,7 +12,8 @@ module.exports = {
     },
     cookieOptions: {
       password: config.cookiePassword,
-      isSecure: config.cookieOptions.isSecure
+      isSecure: config.cookieOptions.isSecure,
+      ttl: config.cookieOptionsIdentity.ttl
     },
     customSessionIDGenerator: function (request) {
       return uuidv4()
