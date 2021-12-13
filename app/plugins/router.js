@@ -14,7 +14,7 @@ const routes = [].concat(
   require('../routes/land/change-land-details'),
   require('../routes/funding/what-funding'),
   require('../routes/funding/how-much'),
-  require('../routes/save-application'),
+  require('../routes/save'),
   require('../routes/declaration'),
   require('../routes/confirmation')
 )
