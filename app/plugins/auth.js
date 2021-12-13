@@ -20,7 +20,6 @@ module.exports = {
           const out = {
             valid: !!cached
           }
-
           if (out.valid) {
             // TODO: replace with Defra Customer account
             out.credentials = { name: 'A Farmer' }

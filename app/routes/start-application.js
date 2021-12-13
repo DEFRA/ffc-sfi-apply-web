@@ -8,9 +8,9 @@ module.exports = [{
   options: {
     handler: async (request, h) => {
       const { agreement, data } = await cache.get(request)
-      const { cachedOrganisation } = agreement
+
       // if SBI not provided as query parameter, then use previously selected organisation from cache if exists.
-      const sbi = request.query?.sbi ?? cachedOrganisation?.sbi
+      const sbi = request.query?.sbi ?? agreement?.organisation?.sbi
       if (sbi) {
         const organisation = data.eligibleOrganisations.find(x => x.sbi === parseInt(sbi))
         return h.view('start-application', { organisation })
