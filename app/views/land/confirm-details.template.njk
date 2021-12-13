@@ -110,7 +110,6 @@
             <script>
               const parcels = {{ parcels | dump | safe }}
               const center = {{ center | dump | safe }}
-              const sbi = {{ sbi }}
               const apiKey = {{ apiKey | dump | safe }}
               const mapStyle = {{ mapStyle | dump | safe }}
               if (mapStyle !== '') {
@@ -119,7 +118,7 @@
                   .value = mapStyle
               }
               if (apiKey !== '') {
-                map.displayMap(apiKey, sbi, parcels, center)
+                map.displayMap(apiKey, parcels, center)
               }
             </script>
           {% endblock %}

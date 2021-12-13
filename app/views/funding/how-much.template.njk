@@ -140,7 +140,6 @@
           <script>
             const parcels = {{ map.parcels | dump | safe }}
             const center = {{ map.center | dump | safe }}
-            const sbi = {{ map.sbi }}
             const apiKey = {{ map.apiKey | dump | safe }}
             const mapStyle = {{ map.mapStyle | dump | safe }}
             const selectedParcels = {{ model.selectedParcels | dump | safe }}
@@ -150,7 +149,7 @@
                 .value = mapStyle
             }
             if (apiKey !== '') {
-              map.displayMap(apiKey, sbi, parcels, center, selectedParcels, true)
+              map.displayMap(apiKey, parcels, center, selectedParcels, true)
             }
           </script>
         {% endblock %}
