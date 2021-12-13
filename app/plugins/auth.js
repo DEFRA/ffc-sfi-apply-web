@@ -14,7 +14,7 @@ module.exports = {
           isHttpOnly: config.isHttpOnly
         },
         keepAlive: true,
-        redirectTo: '/sign-in',
+        redirectTo: '/login',
         validateFunc: async (request, session) => {
           const cached = await server.app.cache.get(session.sid)
           const out = {

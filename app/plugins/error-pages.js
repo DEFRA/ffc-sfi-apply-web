@@ -21,7 +21,7 @@ module.exports = {
           }
 
           // In the event of 401
-          // redirect to sign-in
+          // redirect to login
           if (statusCode === 401) {
             return h.redirect('/')
           }

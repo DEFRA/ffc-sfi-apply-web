@@ -1,6 +1,6 @@
 module.exports = {
   method: 'GET',
-  path: '/sign-out',
+  path: '/logout',
   options: {
     handler: (request, h) => {
       request.server.app.cache.drop(request.state.ffc_sfi_identity.sid)

@@ -1,6 +1,6 @@
 Feature: Apply for land funding
   Scenario: User can successfully opes signing page
-    Given I open the url "/sign-in"
+    Given I open the url "/login"
     Then I expect that element "h1" contains the text "Sign in"
     When I clear the inputfield "#crn"
     And I enter crn number 9867012345

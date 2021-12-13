@@ -15,7 +15,7 @@ import setCookie from '../support/action/setCookie'
 import setInputField from '../support/action/setInputField'
 import setPromptText from '../support/action/setPromptText'
 import whatFund from '../page-objects/what-fund'
-import signIn from '../page-objects/sign-in'
+import signIn from '../page-objects/login'
 
 const { When } = require('cucumber')
 

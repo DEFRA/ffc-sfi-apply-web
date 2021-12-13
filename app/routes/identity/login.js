@@ -3,7 +3,7 @@ const { v4: uuidv4 } = require('uuid')
 
 module.exports = [{
   method: 'GET',
-  path: '/sign-in',
+  path: '/login',
   options: {
     auth: {
       mode: 'try'
@@ -17,12 +17,12 @@ module.exports = [{
       if (request.auth.isAuthenticated) {
         return h.redirect('/eligible-organisations')
       }
-      return h.view('identity/sign-in')
+      return h.view('identity/login')
     }
   }
 }, {
   method: 'POST',
-  path: '/sign-in',
+  path: '/login',
   options: {
     auth: {
       mode: 'try'
@@ -34,7 +34,7 @@ module.exports = [{
         password: Joi.string().required()
       }),
       failAction: async (request, h, error) => {
-        return h.view('identity/sign-in', { ...request.payload, errors: error }).code(400).takeover()
+        return h.view('identity/login', { ...request.payload, errors: error }).code(400).takeover()
       }
     },
     handler: async (request, h) => {

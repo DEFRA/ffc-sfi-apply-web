@@ -19,7 +19,7 @@
 {% block content %}
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
-      <form method="POST" action="/sign-in">
+      <form method="POST" action="/login">
         <input type="hidden" name="crumb" value="{{crumb}}"/>
         <h1 class="govuk-heading-l">Sign in</h1>
         {% if errors %}
@@ -61,10 +61,6 @@
             id: "submit"
           }
         }) }}
-
-        <p class="govuk-body">
-          <a href="#">Forgotten your password?</a>
-        </p>
 
         {{ govukDetails({
           summaryText: "Other problems signing in?",

@@ -1,6 +1,6 @@
 Feature: Which Business
   Scenario: User successfully opens which business
-    Given I open the url "/sign-in"
+    Given I open the url "/login"
     Then I expect that element "h1" contains the text "Sign in"
     When I clear the inputfield "#crn"
     And I add "9867012345" to the inputfield "#crn"
