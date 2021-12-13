@@ -4,7 +4,7 @@ const { v4: uuidv4 } = require('uuid')
 module.exports = {
   plugin: require('@hapi/yar'),
   options: {
-    storeBlank: true,
+    storeBlank: false,
     maxCookieSize: config.useRedis ? 0 : 1024,
     cache: {
       cache: 'session',

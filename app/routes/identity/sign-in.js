@@ -35,6 +35,12 @@ module.exports = [{
     },
     handler: async (request, h) => {
       const { crn, callerId } = request.payload
+      const { callerId: currentCallerId } = await cache.get(request)
+
+      // if user changes login during same session then remove all data
+      if (currentCallerId !== callerId) {
+        await cache.clear(request)
+      }
       await cache.update(request, { crn, callerId })
       const token = JWT.sign({ callerId }, config.secret, { expiresIn: config.ttl })
       return h.redirect('/eligible-organisations')
