@@ -1,5 +1,7 @@
 const generateNumber = require('./generate-number')
 
+// Undefined values added to make intended structure clear
+// TODO: set values back to 0 once calculation added
 const create = () => {
   return {
     agreementNumber: generateNumber(),
@@ -21,7 +23,7 @@ const create = () => {
         canAddOrganicMatter: undefined,
         canDiversifySpecies: undefined,
         landCovers: [],
-        paymentAmount: 0
+        paymentAmount: 100
       },
       'sfi-improved-grassland': {
         active: false,
@@ -31,13 +33,13 @@ const create = () => {
         canHaveGreenCover: undefined,
         canEstablishHerbalLeys: undefined,
         landCovers: [],
-        paymentAmount: 0
+        paymentAmount: 100
       },
       'sfi-moorland': {
         active: false,
-        paymentAmount: 0
+        paymentAmount: 100
       },
-      paymentAmount: 0
+      paymentAmount: 300
     }
   }
 }
