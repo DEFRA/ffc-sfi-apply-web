@@ -32,18 +32,20 @@
             <input type="hidden" name="crumb" value="{{crumb}}"/>
             <h1 class="govuk-heading-l">Your land details</h1>
             <p class="govuk-body">This is the land cover information currenty registered in your Rural Payments Agency (RPA) account.</p>
-            <div class="govuk-form-group">
-              <label class="govuk-label" for="sort">Change view</label>
-              <select class="govuk-select" id="layer-select" name="layer-select">
-                <option value="Road_27700" selected>Road</option>
-                <option value="Outdoor_27700">Outdoor</option>
-                <option value="Light_27700">Light</option>
-                <option value="Leisure_27700">Leisure</option>
-              </select>
-            </div>
-            <p class="govuk-body">
-              <div id="map" class="map"></div>
-            </p>
+            {% if apiKey != '' %}
+              <div class="govuk-form-group">
+                <label class="govuk-label" for="sort">Change view</label>
+                <select class="govuk-select" id="layer-select" name="layer-select">
+                  <option value="Road_27700" selected>Road</option>
+                  <option value="Outdoor_27700">Outdoor</option>
+                  <option value="Light_27700">Light</option>
+                  <option value="Leisure_27700">Leisure</option>
+                </select>
+              </div>
+              <p class="govuk-body">
+                <div id="map" class="map"></div>
+              </p>
+            {% endif %}
 
             <h2 class="govuk-heading-m">Summary</h2>
             <p class="govuk-body">
@@ -95,7 +97,7 @@
           ]
         }) }}
 
-            {{ govukButton({
+      {{ govukButton({
         text: "Continue",
         attributes: {
           id: "submit"

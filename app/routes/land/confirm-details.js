@@ -13,7 +13,7 @@ module.exports = [{
         return h.view('no-response')
       }
 
-      return h.view('land/confirm-details', land)
+      return h.view('land/confirm-details', { ...land })
     }
   }
 },
@@ -24,10 +24,15 @@ module.exports = [{
     validate: {
       payload: Joi.object({
         isLandCorrect: Joi.boolean().required(),
-        'layer-select': Joi.string()
+        'layer-select': Joi.string().allow('')
       }),
       failAction: async (request, h, error) => {
         const land = await getLand(request)
+
+        if (!land.parcels) {
+          return h.view('no-response')
+        }
+
         return h.view('land/confirm-details', { ...land, errors: error }).code(400).takeover()
       }
     },
