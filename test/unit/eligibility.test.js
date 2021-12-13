@@ -40,12 +40,13 @@ const getEligibility = require('../../app/eligibility')
 
 describe('process eligibility message', () => {
   const request = {
-    yar: {
-      id: '1234567890',
-      get: () => ({
-        application: { crn, callerId }
-      }),
-      set: jest.fn()
+    state: { ffc_sfi_identity: { sid: '1234567890' } },
+    server: {
+      app: {
+        cache: {
+          get: () => ({ crn, callerId })
+        }
+      }
     }
   }
 
