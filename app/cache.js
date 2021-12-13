@@ -12,7 +12,6 @@ const get = async (request) => {
   const key = getKey(request)
   const cache = getCache(request)
   const object = await cache.get(key)
-  console.log(`Retrieved ${key} from cache`)
   return object ?? {}
 }
 
@@ -20,7 +19,6 @@ const set = async (request, value) => {
   const key = getKey(request)
   const cache = getCache(request)
   await cache.set(key, value)
-  console.log(`Updated cache for ${key}`)
 }
 
 const update = async (request, object) => {
