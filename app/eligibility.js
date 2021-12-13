@@ -26,7 +26,7 @@ const requestEligibleOrganisations = async (crn, callerId, correlationId, eligib
   const response = await receiveMessage(messageId, config.responseEligibilityQueue)
 
   if (response) {
-    console.info('Eligibility response received', util.inspect(response, false, null, true))
+    console.info('Eligibility response received:', util.inspect(response, false, null, true))
     return response.eligibility
   }
 }

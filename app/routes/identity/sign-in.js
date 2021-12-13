@@ -42,7 +42,7 @@ module.exports = [{
       // TODO: add Defra Identity authentication before continuing to set cookie
       const sid = uuidv4()
       request.cookieAuth.set({ sid })
-      await request.server.app.cache.set(sid, { callerId, crn }, 0)
+      await request.server.app.cache.set(sid, { callerId, crn })
       return h.redirect('/eligible-organisations')
     }
   }

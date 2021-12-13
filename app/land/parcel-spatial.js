@@ -27,7 +27,7 @@ const requestParcelSpatial = async (organisation, callerId, correlationId, parce
   const response = await receiveMessage(messageId, config.responseParcelSpatialQueue)
 
   if (response) {
-    console.info('Parcel spatial response received', util.inspect(response, false, null, true))
+    console.info('Parcel spatial response received:', util.inspect(response, false, null, true))
     return response
   }
 }
