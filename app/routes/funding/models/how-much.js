@@ -5,7 +5,7 @@ function ViewModel (selectedLandCovers, parcelStandards, payload) {
   const landInHectares = payload ? getLandInHectares(payload, parcels) : selectedLandCovers
   const items = getAllItems(parcels, landInHectares)
   const parcelArea = landInHectares ? landInHectares.reduce((x, y) => x + convertToInteger(y.value), 0) : 0
-  const error = landInHectares && landInHectares.length === 0
+  const error = payload && payload.length === 0
   const invalidValues = landInHectares && landInHectares.some(element => !element.valid)
   this.model = {
     landInHectares,
