@@ -12,7 +12,7 @@ const getEligibleOrganisations = async (request) => {
     return eligibleOrganisations
   }
 
-  eligibleOrganisations = await requestEligibleOrganisations(crn, callerId, request.yar.id)
+  eligibleOrganisations = await requestEligibleOrganisations(crn, callerId, request.state.ffc_sfi_identity.sid)
   await cache.update(request, { data: { eligibleOrganisations } })
   return eligibleOrganisations
 }

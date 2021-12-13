@@ -1,15 +1,17 @@
 const Joi = require('joi')
-const cache = require('../../cache')
-const JWT = require('jsonwebtoken')
-const config = require('../../config').jwtConfig
+const { v4: uuidv4 } = require('uuid')
 
 module.exports = [{
   method: 'GET',
   path: '/sign-in',
   options: {
     auth: {
-      strategy: 'jwt',
       mode: 'try'
+    },
+    plugins: {
+      'hapi-auth-cookie': {
+        redirectTo: false
+      }
     },
     handler: async (request, h) => {
       if (request.auth.isAuthenticated) {
@@ -22,7 +24,9 @@ module.exports = [{
   method: 'POST',
   path: '/sign-in',
   options: {
-    auth: false,
+    auth: {
+      mode: 'try'
+    },
     validate: {
       payload: Joi.object({
         crn: Joi.string().length(10).pattern(/^\d+$/).required(),
@@ -34,18 +38,12 @@ module.exports = [{
       }
     },
     handler: async (request, h) => {
-      const { crn, callerId } = request.payload
-      const { callerId: currentCallerId } = await cache.get(request)
-
-      // if user changes login during same session then remove all data
-      if (currentCallerId !== callerId) {
-        await cache.clear(request)
-      }
-      await cache.update(request, { crn, callerId })
-      const token = JWT.sign({ callerId }, config.secret, { expiresIn: config.ttl })
+      const { callerId, crn } = request.payload
+      // TODO: add Defra Identity authentication before continuing to set cookie
+      const sid = uuidv4()
+      request.cookieAuth.set({ sid })
+      await request.server.app.cache.set(sid, { callerId, crn }, 0)
       return h.redirect('/eligible-organisations')
-        .header('Authorization', token)
-        .state('ffc_sfi_identity', token, config.cookieOptionsIdentity)
     }
   }
 }]

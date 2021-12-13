@@ -11,7 +11,7 @@ const getFunding = async (request) => {
   if (eligibleFunding) {
     return eligibleFunding
   }
-  eligibleFunding = await requestEligibleFunding(organisation, callerId, request.yar.id)
+  eligibleFunding = await requestEligibleFunding(organisation, callerId, request.state.ffc_sfi_identity.sid)
   await cache.update(request, { data: { eligibleFunding } })
   return eligibleFunding
 }

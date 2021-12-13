@@ -71,8 +71,6 @@ container:
   azureStorageUseConnectionString: false
   parcelStandardContainer: parcels-standard
   parcelSpatialContainer: parcels-spatial
-  jwtSecret: secretsecretsecret
-  jwtTtl: 2592000000
 
 ingress:
   class: nginx

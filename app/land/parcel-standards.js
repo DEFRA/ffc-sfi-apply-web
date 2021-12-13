@@ -11,7 +11,7 @@ const getParcelStandards = async (request, standardCode) => {
   if (eligibleStandardsSpatial) {
     return eligibleStandardsSpatial
   }
-  eligibleStandardsSpatial = await requestParcelStandardSpatial(organisation, callerId, request.yar.id, standardCode)
+  eligibleStandardsSpatial = await requestParcelStandardSpatial(organisation, callerId, request.state.ffc_sfi_identity.sid, standardCode)
   await cache.update(request, { data: { eligibleStandardsSpatial: { [standardCode]: eligibleStandardsSpatial } } })
   return eligibleStandardsSpatial
 }

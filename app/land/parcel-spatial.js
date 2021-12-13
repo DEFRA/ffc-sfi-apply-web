@@ -11,7 +11,7 @@ const getParcelSpatial = async (request) => {
   if (land) {
     return land
   }
-  land = await requestParcelSpatial(organisation, callerId, request.yar.id, land)
+  land = await requestParcelSpatial(organisation, callerId, request.state.ffc_sfi_identity.sid, land)
   await cache.update(request, { data: { land } })
   return land
 }
