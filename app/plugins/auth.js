@@ -3,7 +3,7 @@ const config = require('../config').cookieConfig
 module.exports = {
   plugin: {
     name: 'auth',
-    register: (server, options) => {
+    register: async (server, options) => {
       server.auth.strategy('session', 'cookie', {
         cookie: {
           name: 'ffc_sfi_identity',
@@ -16,7 +16,7 @@ module.exports = {
         keepAlive: true,
         redirectTo: '/login',
         validateFunc: async (request, session) => {
-          const cached = await server.app.cache.get(session.sid)
+          const cached = await request.server.app.cache.get(session.sid)
           const out = {
             valid: !!cached
           }
