@@ -13,8 +13,7 @@ Feature: Sign-in for Single Organisation details page
     Then I mock the response for "which-business"
     When I pause for 600ms
     Then I expect that the url contains "/start-application"
-    #Then I expect that element "h1" contains the text "SFI funding for this organisation"
-
+    
 
   Scenario: User cannot successfully signin with invalid details
     Given I open the url "/sign-in"
