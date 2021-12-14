@@ -16,6 +16,8 @@ const create = () => {
     action: {
       'sfi-arable-soil': {
         active: false,
+        actionsComplete: false,
+        optionalActionsComplete: false,
         canTestOrganicMatter: undefined,
         canAssessSoil: undefined,
         canProducePlan: undefined,
@@ -27,6 +29,8 @@ const create = () => {
       },
       'sfi-improved-grassland': {
         active: false,
+        actionsComplete: false,
+        optionalActionsComplete: false,
         canTestOrganicMatter: undefined,
         canAssessSoil: undefined,
         canProducePlan: undefined,
@@ -37,6 +41,8 @@ const create = () => {
       },
       'sfi-moorland': {
         active: false,
+        actionsComplete: false,
+        optionalActionsComplete: false,
         paymentAmount: 100
       },
       paymentAmount: 300
