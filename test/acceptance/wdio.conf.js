@@ -29,6 +29,16 @@ exports.config = {
       // //  args: chromeArgs
       // }
     }
+
+    // {
+    //   os: 'Windows',
+    //   osVersion: '10',
+    //   browserName: 'Firefox',
+    //   browserVersion: 'latest',
+    //   'browserstack.local': true,
+    //   acceptInsecureCerts: true,
+    //   acceptSslCerts: true
+    // }
   ],
   // ===================
   // Test Configurations
