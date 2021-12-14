@@ -99,11 +99,13 @@ Feature: Sign-in for Multiple Organisation details page
     # And I click on the element "//main[@id='main-content']/div[2]/form/div/button"
     # And I pause for 700ms
     # Then I expect that the url contains "/eligible-organisations"
-    # Then I should see <SBI number>
+    # #Then I should see <SBI number>
+    # #Then I expect that element "#tbody.govuk-table__body>tr.govuk-table__row" contains the text "SFI funding for this organisation"
+    # Then I expect that element "//*[@id='main-content']/div[3]/div/table/tbody/tr/td[2]" contains the text "SFI funding for this organisation"                            
     # Examples:
     # |SBI number|
     # |107103820 |
-    #|106889602 |
+    # |106889602 |
 
 
     Scenario Outline: User cannot search for sbi number with invalid sbi
@@ -124,15 +126,16 @@ Feature: Sign-in for Multiple Organisation details page
     And I click on the element "//main[@id='main-content']/div[2]/form/div/button"
     And I pause for 700ms
     Then I expect that the url contains "/eligible-organisations"
-    Then I should see sbi error message <errorMessage>
-    #Then I expect that element "//main[@id='main-content']/div[2]/div/ul/li" contains the text <errorMessage>
-    #//main[@id='main-content']/div[3]/form/div/span
-    #div.govuk-form-group.govuk-form-group--error
-    #//div/span
-    #//main[@id='main-content']/div[2]/div/ul/li
+    #Then I should see sbi error message <errorMessage>
+    Then I expect that element "#div.govuk-form-group.govuk-form-group--error" contains the text <errorMessage>
+    # #//main[@id='main-content']/div[3]/form/div/span
+    # #div.govuk-form-group.govuk-form-group--error
+    # #//div/span
+    # #//main[@id='main-content']/div[2]/div/ul/li
+    
 
-    #div.govuk-form-group.govuk-form-group--error
-    #div.govuk-error-summary__body
+    # #div.govuk-form-group.govuk-form-group--error
+    # #div.govuk-error-summary__body
     Examples:
     |SBI number|errorMessage             |
     |1068990544|The SBI is too long.     |
@@ -142,15 +145,15 @@ Feature: Sign-in for Multiple Organisation details page
 
 
     
-    ## Scenario: User can move back from SFI funding screen to eligible organistion screen
-    # Given I open the url "/sign-in"
-    # Then I expect that element "h1" contains the text "Sign in"
-    # When I clear the inputfield "#crn"
-    # And I enter crn number 9867012345
-    # And I clear the inputfield "#callerId"
-    # And I enter callerId number 5316557
-    # And I clear the inputfield "#password"
-    # And I enter password tyyteryyeru
+    # ## Scenario: User can move back from SFI funding screen to eligible organistion screen
+    # # Given I open the url "/sign-in"
+    # # Then I expect that element "h1" contains the text "Sign in"
+    # # When I clear the inputfield "#crn"
+    # # And I enter crn number 9867012345
+    # # And I clear the inputfield "#callerId"
+    # # And I enter callerId number 5316557
+    # # And I clear the inputfield "#password"
+    # # And I enter password tyyteryyeru
     # And I add "kdaihsra" to the inputfield "#password"
     # And I click on the continue button
     # Then I mock the response for "which-business"
