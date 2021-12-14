@@ -44,7 +44,8 @@ describe('process eligibility message', () => {
     server: {
       app: {
         cache: {
-          get: () => ({ crn, callerId })
+          get: () => ({ crn, callerId }),
+          set: () => jest.fn()
         }
       }
     }
