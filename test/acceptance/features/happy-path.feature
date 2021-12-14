@@ -28,7 +28,7 @@ Feature: Apply for land funding
     When I click on the element "#hasManagementControl"
     And I click on the element "#submit"
     Then I expect that the url contains "/task-list"
-    When I click on the link "Choose your funding options"
+    When I click on the link "Choose funding option"
     Then I mock the response for "what-funding"
     When I pause for 500ms
     Then I expect that the url contains "/what-funding"
