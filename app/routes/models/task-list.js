@@ -1,11 +1,16 @@
 const tasks = require('./tasks')
 
-function ViewModel (progress) {
+function ViewModel (cachedData) {
   this.model = {
-    taskList: validateSchema(progress),
-    completedSections: 0
+    backLink: '/task-list',
+    agreementNumber: cachedData.agreement.agreementNumber,
+    totalSections: 0,
+    completedSections: 0,
+    sections: []
   }
 }
+
+
 
 const checkTasksInProgressAndRoute = (progress, taskGroup) => {
   taskGroup.tasks.map(task => {
