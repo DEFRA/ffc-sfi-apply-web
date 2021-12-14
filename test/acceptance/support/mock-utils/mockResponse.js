@@ -79,12 +79,41 @@ async function mockWhichBusiness () {
     topic: process.env.ELIGIBILITY_TOPIC_ADDRESS
   }
   const baseResponseMessage = {
-    body: { eligibility: [{ sbi: 107700399, name: 'Test user', organisationId, address: 'A farm, Somewhere near, Somewhere far, AB12 3CD' }] },
+    body: { eligibility: [ { sbi: 107700399, name: 'Test user', organisationId, address: 'A farm, Somewhere near, Somewhere far, AB12 3CD' } ] },
     source: 'ffc-sfi-agreement-calculator',
     type: 'uk.gov.sfi.agreement.eligibility.request.response'
   }
   await mockResponseMessage(baseResponseMessage, process.env.ELIGIBILITYRESPONSE_QUEUE_ADDRESS, receiverConfig)
 }
+
+async function mockEligibleOrganisations () {
+  const receiverConfig = {
+    ...subscriptionConfig,
+    address: process.env.ELIGIBILITY_SUBSCRIPTION_ADDRESS,
+    topic: process.env.ELIGIBILITY_TOPIC_ADDRESS
+  }
+  const baseResponseMessage = {
+    body: { eligibility: [
+         { sbi: 107103820, name: 'Farm one', organisationId, address: 'Farm one, the field, long lane, AB12 4EF' },
+         { sbi: 106982014, name: 'Farm two', organisationId, address: 'Farm two, paddy field, house martin, AB12 5GH' },
+         { sbi: 107365827, name: 'Farm three', organisationId, address: 'Farm three, paddy field, house martin, AB12 5GH' },        
+         { sbi: 106899089, name: 'Chris Hall', organisationId, address: 'Farm one, the field, long lane, AB12 4EF' },
+         { sbi: 106889602, name: 'Christine Gillott', organisationId, address: 'Farm two, paddy field, house martin, AB12 5GH' },
+         { sbi: 200656757, name: 'Donald Crofts', organisationId, address: 'Farm three, paddy field, house martin, AB12 5GH' },           
+         { sbi: 107008163, name: 'E THOMPSON & SON', organisationId, address: 'Farm one, the field, long lane, AB12 4EF' },
+         { sbi: 122200885, name: 'Edgar Zoo', organisationId, address: 'Farm two, paddy field, house martin, AB12 5GH' },
+         { sbi: 107082108, name: 'Mr J G Romeril', organisationId, address: 'Farm three, paddy field, house martin, AB12 5GH' },        
+         { sbi: 106940295, name: 'FALLON, S', organisationId, address: 'Farm one, the field, long lane, AB12 4EF' },
+         { sbi: 200156320, name: 'FJ & LA Poole and Son', organisationId, address: 'Farm two, paddy field, house martin, AB12 5GH' },
+         { sbi: 113377765, name: 'Farm & Woodland Services', organisationId, address: 'Farm three, paddy field, house martin, AB12 5GH' }            
+        
+        ] },
+    source: 'ffc-sfi-agreement-calculator',
+    type: 'uk.gov.sfi.agreement.eligibility.request.response'
+  }
+  await mockResponseMessage(baseResponseMessage, process.env.ELIGIBILITYRESPONSE_QUEUE_ADDRESS, receiverConfig)
+}
+
 
 /**
  * Mock async request/response.
@@ -110,6 +139,9 @@ export default async responseType => {
         break
       case 'which-business':
         await mockWhichBusiness()
+        break
+      case 'eligible-organisations':
+        await mockEligibleOrganisations()
         break
       default:
         console.error('Trying to mock an unmocked action', responseType)
