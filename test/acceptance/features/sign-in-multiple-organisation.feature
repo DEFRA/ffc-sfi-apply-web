@@ -124,7 +124,7 @@ Feature: Sign-in for Multiple Organisation details page
     And I click on the element "//main[@id='main-content']/div[2]/form/div/button"
     And I pause for 400ms
     Then I expect that the url contains "/eligible-organisations"
-    #Then I should see sbi error message <errorMessage>
+    Then I should see sbi error message <errorMessage>
     And I expect that element ".govuk-error-message" contains the text "errorMessage"
     Examples:
     |SBI number|errorMessage             |
