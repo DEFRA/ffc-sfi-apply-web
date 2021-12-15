@@ -99,9 +99,7 @@ Feature: Sign-in for Multiple Organisation details page
     # And I click on the element "//main[@id='main-content']/div[2]/form/div/button"
     # And I pause for 700ms
     # Then I expect that the url contains "/eligible-organisations"
-    # #Then I should see <SBI number>
-    # #Then I expect that element "#tbody.govuk-table__body>tr.govuk-table__row" contains the text "SFI funding for this organisation"
-    # Then I expect that element "//*[@id='main-content']/div[3]/div/table/tbody/tr/td[2]" contains the text "SFI funding for this organisation"                            
+    # Then I should see <SBI number>                       
     # Examples:
     # |SBI number|
     # |107103820 |
@@ -124,23 +122,17 @@ Feature: Sign-in for Multiple Organisation details page
     When I clear the inputfield "#user-search"
     And I search sbi number <SBI number>
     And I click on the element "//main[@id='main-content']/div[2]/form/div/button"
-    And I pause for 700ms
+    And I pause for 400ms
     Then I expect that the url contains "/eligible-organisations"
-    #Then I should see sbi error message <errorMessage>
-    Then I expect that element "#div.govuk-form-group.govuk-form-group--error" contains the text <errorMessage>
-    # #//main[@id='main-content']/div[3]/form/div/span
-    # #div.govuk-form-group.govuk-form-group--error
-    # #//div/span
-    # #//main[@id='main-content']/div[2]/div/ul/li
-    
-
-    # #div.govuk-form-group.govuk-form-group--error
-    # #div.govuk-error-summary__body
+    Then I should see sbi error message <errorMessage>
+    #Then I expect that element "#ul.govuk-list.govuk-error-summary__list > li" contains the text <errorMessage>
+    #//div[3]/form/div/span
+   # //*[@id="main-content"]/div[2]/div/ul/li  #main-content > div.govuk-error-summary > div > ul > li
     Examples:
     |SBI number|errorMessage             |
     |1068990544|The SBI is too long.     |
-    |10688960  |The SBI is too short.    |
-    |10688dssa |The SBI must be a number.|
+    #|10688960  |The SBI is too short.    |
+    #|10688dssa |The SBI must be a number.|
 
 
 

@@ -1,9 +1,9 @@
 import chai from 'chai'
-//import { expect } from 'chai'
+import { expect } from 'chai'
 import Page from './page'
 
 class eligibleOrganisation extends Page {
-
+  //sbi number
   get sbi1 () { return $('//tr[1]/td[4]/a') }
   get sbi2 () { return $('//tr[2]/td[4]/a') }
   get sbi3 () { return $('//tr[3]/td[4]/a') }
@@ -26,27 +26,8 @@ class eligibleOrganisation extends Page {
 
   //searh sbi number element
   get sbiNumberField () { return $('#user-search') }
-  
-  //get sbiNum () { return $('#main-content > div.govuk-grid-row.govuk-\!-margin-top-5 > div > table > tbody > tr > td:nth-child(2)') }
-  //get sbiNum () { return $('//*[@id="main-content"]/div[3]/div/table/tbody/tr/td[2]') }
-  //get sbiNum () { return $('#tbody.govuk-table__body > tr.govuk-table__row') }
-  //get sbiNum () { return $('//main[@id="main-content"]/div[3]/div/table/tbody/tr/td[2]') }
-  get sbiNum () { return $('//*[@id="main-content"]/div[3]/div/table/tbody/tr/td[1]') }
-  get sbiError () { return $('//*[normalize-space(text()) and normalize-space(.)="Search for an organisation by SBI number"][1]/preceding::li[1]') }
-  // (.//*[normalize-space(text()) and normalize-space(.)='Select the organisation to make an application for'])[1]/following::li[1]
-  //#//main[@id='main-content']/div[3]/form/div/span
-  //#div.govuk-form-group.govuk-form-group--error  
-  //#//div/span
-  //#//main[@id='main-content']/div[2]/div/ul/li
-  //#div.govuk-error-summary__body
-  //#ul.govuk-list.govuk-error-summary__list
- 
-  
- 
-  
-  
-  //get sbiNum () { return $('#tbody.govuk-table__body') }
-  //#main-content>div.govuk-grid-row.govuk-\!-margin-top-5>div>table>tbody>tr>td:nth-child(2)
+  get sbiNum () { return $('//td[2]') }  
+  get sbiError () { return $('//li[2]')}  
   
   
   open () {
@@ -54,52 +35,26 @@ class eligibleOrganisation extends Page {
     browser.pause(3000)
   }
 
+  
   async verifySbiNumber() {
-    await (await this.sbiNum)
-    sbiNumber = (await this.sbiNum).getText();
-    //const sbiNum = await this.sbiNum
-    //expect(sbiNum).toHaveTextContaining(message)
+    
+    console.log(await (await this.sbiNum).getText());
+    const sbiNumber = await (await this.sbiNum).getText();
     chai.expect(sbiNumber).to.not.be.empty;
     console.log(sbiNumber);
-    return sbiNumber;
-    //await (await this.sbiNumberField).setValue(sbiNumber);   
+    return sbiNumber;  
   }
 
+ 
   async verifySbiErrorMessage() {
-    await (await this.sbiError)
-    sbiErrorText = (await this.sbiError).getText();
-    //const sbiNum = await this.sbiNum
-    //expect(sbiNum).toHaveTextContaining(message)
+    console.log(await (await this.sbiError).getText());
+    const sbiErrorText = await (await this.sbiError).getText();
     chai.expect(sbiErrorText).to.not.be.empty;
     console.log(sbiErrorText);
-    return sbiErrorText;
-    //await (await this.sbiNumberField).setValue(sbiNumber);   
+    return sbiErrorText;   
   }
 
-  // async verifySbiNumber() {
-  //   const sbiNum = await this.sbiNum.getText()
-  //   console.log(sbiNum);
-  //   return sbiNum;
-  //   //await (await this.sbiNumberField).setValue(sbiNumber);
-    
-  // }
-
-  //   verifySbiNumber() {
-  //    const sbiNum = $('#tbody.govuk-table__body')
-  //   // expect(sbiNum).toBeDisplayed()
-  //    expect(sbiNum).toHaveTextContaining('106899089')
-  //     //expect(sbiNum).toBeVisible()
-  //   // expect(sbiNum).toExist()
-  //  }
-
-  // const pageHeader = (await $('h1.govuk-panel__title')).getText;
-        // expect(pageHeader).toExist();
-        // (await pageHeader).getText();
-        // console.log(pageHeader.getText());
-        // //await (await this.titleHeader.getText());
-
   
-
   async enterSbiNumber(sbiNumber) {
     await (await this.sbiNumberField).setValue(sbiNumber);
   }

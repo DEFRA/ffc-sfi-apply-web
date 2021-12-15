@@ -208,59 +208,15 @@ Then(
 
  
 
-Then(
+Then(   
   /^I should see sbi error message (.*)$/, async (message) => {
+    //console.log (await eligibleOrganisation.verifySbiErrorMessage());
     eligibleOrganisation.verifySbiErrorMessage(message)
   });
 
 Then(
   /^I should see (.*)$/, async (message) => {
-   // expect(BspValuePage.verifyTitlePageText).toHaveTextContaining(message);
-   console.log(await eligibleOrganisation.verifySbiNumber);
-  // expect(eligibleOrganisation.verifySbiNumber).to.have.property(message)
-  // expect(eligibleOrganisation.verifySbiNumber).to.equal(message)
-   //expect(eligibleOrganisation.verifySbiNumber).to.be.a(message);
-  // expect(isDisplayed).to.equal(true, `Expected element "${selector}" to be displayed`)
-  // assert.equal(eligibleOrganisation.verifySbiNumber, message, 'eligibleOrganisation.verifySbiNumber equal `message`');
-  //expect(eligibleOrganisation.verifySbiNumber()).toHaveTextContaining(message)
-  eligibleOrganisation.verifySbiNumber(message)
-
-
-//    Should
-// chai.should();
-
-// foo.should.be.a('string');
-// foo.should.equal('bar');
-// foo.should.have.lengthOf(3);
-// tea.should.have.property('flavors')
-//   .with.lengthOf(3);
-                
-// Visit Should Guide→
-// Expect
-// var expect = chai.expect;
-
-// expect(foo).to.be.a('string');
-// expect(foo).to.equal('bar');
-// expect(foo).to.have.lengthOf(3);
-// expect(tea).to.have.property('flavors')
-//   .with.lengthOf(3);
-                
-// Visit Expect Guide→
-// Assert
-// var assert = chai.assert;
-
-// assert.typeOf(foo, 'string');
-// assert.equal(foo, 'bar');
-// assert.lengthOf(foo, 3)
-// assert.property(tea, 'flavors');
-// assert.lengthOf(tea.flavors, 3);
-                
-
-   
-//            // expect(pageHeader).toBeDispalyed();
-//            // expect(pageHeader).toBeExisting();
-//             //expect(pageHeader).toHaveTextContaining(message);       
-//           // expect(pageHeader).toHaveText(message);
-
+   console.log(await eligibleOrganisation.verifySbiNumber());
+   eligibleOrganisation.verifySbiNumber(message)
   });
 
