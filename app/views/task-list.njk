@@ -1,17 +1,11 @@
 {% extends '_layout.njk' %}
 {% set mainClasses = "govuk-main-wrapper--auto-spacing" %}
-{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
-{% from "govuk/components/tag/macro.njk" import govukTag %}
-{% from "govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
 {% from "macros/task-link.njk" import taskLink %}
 
 {% block beforeContent %}
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-one-half">
-      {{ govukBackLink({
-            text: "Back",
-            href: "/start-application"
-          }) }}
+      <a href="{{ backLink }}" class="govuk-back-link">Back</a>
     </div>
     <div class="govuk-grid-column-one-half">
       {% include "save/save.njk" %}
@@ -23,21 +17,22 @@
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
       <span class="govuk-caption-l">Sustainable Farming Incentive</span>
-      <h1 class="govuk-heading-l">{{serviceName}}</h1>
+      <h1 class="govuk-heading-l">{{ serviceName }}</h1>
 
-      <h2 class="govuk-heading-s govuk-!-margin-bottom-2">Application incomplete</h2>
-      <p class="govuk-body govuk-!-margin-bottom-7">You have completed {{ model.completedSections }} of 4 sections.</p>
+      <h2 class="govuk-heading-s govuk-!-margin-bottom-2">Application {{ model.agreementNumber }} {{ model.status }}</h2>
+      <p class="govuk-body govuk-!-margin-bottom-7">You have completed {{ model.completedSections }} of {{ model.totalSections }} sections.</p>
+
       <ol class="app-task-list">
-        {% for taskGroup in model.taskList %}
+        {% for section in model.sections %}
           <li>
             <h2 class="app-task-list__section">
               <span class="app-task-list__section-number">{{loop.index}}. </span>
-              {{ taskGroup.taskGroup }}
+              {{ section.name }}
             </h2>
             <ul class="app-task-list__items">
-              {% for task in taskGroup.tasks %}
+              {% for task in section.tasks %}
                 <li class="app-task-list__item">
-                  {{ taskLink(task.status, task.taskName, task.url) }}
+                  {{ taskLink(task.status, task.name, task.url) }}
                 </li>
               {% endfor %}
             </ul>

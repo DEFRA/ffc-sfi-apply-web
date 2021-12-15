@@ -4,7 +4,7 @@ const NOT_STARTED_YET = 'NOT STARTED YET'
 const COMPLETED = 'COMPLETED'
 
 function ViewModel (cachedData) {
-  const filteredSections = filterSections(cachedData)
+  const filteredSections = filterSections(cachedData.agreement)
   this.model = {
     backLink: getBackLink(cachedData.previousUrl),
     agreementNumber: cachedData.agreement.agreementNumber,
@@ -28,8 +28,8 @@ const filterSections = (cachedData) => {
   return updatedSections.filter(x => x.active)
 }
 
-const updateSections = (cachedData) => {
-  const { land, funding, action, confirmed, submitted } = cachedData
+const updateSections = (agreement) => {
+  const { land, funding, action, confirmed, submitted } = agreement
 
   // land section not started, return initial task list
   if (land.isLandCorrect == null) {
@@ -37,14 +37,16 @@ const updateSections = (cachedData) => {
   }
 
   const landSection = sections.find(x => x.name === 'Your land')
+  const landCoverTask = landSection.tasks.find(x => x.name === 'Confirm your land cover details')
   const fundingSection = sections.find(x => x.name === 'Choose your funding')
+  const fundingTask = fundingSection.tasks.find(x => x.name === 'Choose funding option')
 
   // land section complete but funding not set yet
   if (land.isLandCorrect != null && land.hasManagementControl != null && !funding.length) {
     landSection.completed = true
-    landSection.tasks.forEach(x => { x.status = COMPLETED })
+    landCoverTask.status = COMPLETED
     fundingSection.status = NOT_STARTED_YET
-    fundingSection.tasks[0].status = NOT_STARTED_YET
+    fundingTask.status = NOT_STARTED_YET
     return sections
   }
 
@@ -56,12 +58,13 @@ const updateSections = (cachedData) => {
     const moorlandSection = sections.find(x => x.name === 'Moorlands and rough grazing actions')
 
     actionSection.active = false
+    fundingTask.status = COMPLETED
 
     if (funding.includes('sfi-arable-soil')) {
       arableSoilSection.active = true
-      const arableSoilActionTask = arableSoilSection.tasks(x => x.name === 'Arable and horticultural soil actions')
-      const arableSoilParcelTask = arableSoilSection.tasks(x => x.name === 'Select arable and horticultural soil land parcels')
-      const arableSoilOptionalTask = arableSoilSection.tasks(x => x.name === 'Optional arable and horticultural soil actions')
+      const arableSoilActionTask = arableSoilSection.tasks.find(x => x.name === 'Arable and horticultural soil actions')
+      const arableSoilParcelTask = arableSoilSection.tasks.find(x => x.name === 'Select arable and horticultural soil land parcels')
+      const arableSoilOptionalTask = arableSoilSection.tasks.find(x => x.name === 'Optional arable and horticultural soil actions')
 
       // if mandatory actions complete, update status
       if (action['sfi-arable-soil'].actionsComplete) {
@@ -84,9 +87,9 @@ const updateSections = (cachedData) => {
 
     if (funding.includes('sfi-improved-grassland')) {
       improvedGrasslandSection.active = true
-      const improvedGrasslandActionTask = improvedGrasslandSection.tasks(x => x.name === 'Select improved grassland soil actions')
-      const improvedGrasslandParcelTask = improvedGrasslandSection.tasks(x => x.name === 'Select improved grassland soil parcels')
-      const improvedGrasslandOptionalTask = improvedGrasslandSection.tasks(x => x.name === 'Optional improved grassland soil actions')
+      const improvedGrasslandActionTask = improvedGrasslandSection.tasks.find(x => x.name === 'Select improved grassland soil actions')
+      const improvedGrasslandParcelTask = improvedGrasslandSection.tasks.find(x => x.name === 'Select improved grassland soil parcels')
+      const improvedGrasslandOptionalTask = improvedGrasslandSection.tasks.find(x => x.name === 'Optional improved grassland soil actions')
 
       // can only start this section if either arable soil not selected or is complete
       if (!funding.includes('sfi-arable-soil') || arableSoilSection.completed) {
@@ -110,56 +113,56 @@ const updateSections = (cachedData) => {
           }
         }
       }
+    }
 
-      if (funding.includes('sfi-moorland')) {
-        moorlandSection.active = true
-        const moorlandActionTask = moorlandSection.tasks(x => x.name === 'Moorlands and rough grazing actions')
+    if (funding.includes('sfi-moorland')) {
+      moorlandSection.active = true
+      const moorlandActionTask = moorlandSection.tasks.find(x => x.name === 'Moorlands and rough grazing actions')
 
-        // can only start this section if either no other options selected or all are complete
-        if ((!funding.includes('sfi-arable-soil') || arableSoilSection.completed) &&
+      // can only start this section if either no other options selected or all are complete
+      if ((!funding.includes('sfi-arable-soil') || arableSoilSection.completed) &&
         (!funding.includes('sfi-improved-grassland') || improvedGrasslandSection.completed)) {
-          moorlandSection.tasks[0].status = NOT_STARTED_YET
+        moorlandSection.tasks[0].status = NOT_STARTED_YET
 
-          if (action['sfi-moorland'].actionsComplete) {
-            moorlandSection.completed = true
-            moorlandActionTask.status = COMPLETED
-          }
+        if (action['sfi-moorland'].actionsComplete) {
+          moorlandSection.completed = true
+          moorlandActionTask.status = COMPLETED
         }
       }
+    }
 
-      const checkSection = sections.find(x => x.name === 'Check your answers')
+    const checkSection = sections.find(x => x.name === 'Check your answers')
 
-      // if all actions complete then update status
-      if (!actionSection.active &&
+    // if all actions complete then update status
+    if (!actionSection.active &&
         (!funding.includes('sfi-arable-soil') || arableSoilSection.completed) &&
         (!funding.includes('sfi-improved-grassland') || improvedGrasslandSection.completed) &&
         (!funding.includes('sfi-moorland') || moorlandSection.completed)) {
-        const checkTask = checkSection.find(x => x.name === 'Check your answers')
+      const checkTask = checkSection.find(x => x.name === 'Check your answers')
 
-        // if answers not confirmed then update status
-        if (!confirmed) {
-          checkTask.status = NOT_STARTED_YET
-          return sections
-        }
-
-        checkSection.completed = true
-        checkTask.status = COMPLETED
-
-        const submitSection = sections.find(x => x.name === 'Submit your application')
-        const submitTask = sections.find(x => x.name === 'Submit your application')
-        // if confirmed but not submitted then update status
-        if (!submitted) {
-          submitTask.status = NOT_STARTED_YET
-          return sections
-        }
-
-        submitSection.completed = true
-        submitTask.status = COMPLETED
+      // if answers not confirmed then update status
+      if (!confirmed) {
+        checkTask.status = NOT_STARTED_YET
         return sections
       }
 
+      checkSection.completed = true
+      checkTask.status = COMPLETED
+
+      const submitSection = sections.find(x => x.name === 'Submit your application')
+      const submitTask = sections.find(x => x.name === 'Submit your application')
+      // if confirmed but not submitted then update status
+      if (!submitted) {
+        submitTask.status = NOT_STARTED_YET
+        return sections
+      }
+
+      submitSection.completed = true
+      submitTask.status = COMPLETED
       return sections
     }
+
+    return sections
   }
 }
 

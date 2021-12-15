@@ -1,5 +1,5 @@
 const generateNumber = () => {
-  return `AG${new Date().getTime()}`
+  return `SFIA${new Date().getTime()}`
 }
 
 module.exports = generateNumber

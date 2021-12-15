@@ -7,7 +7,7 @@ module.exports = {
   options: {
     handler: async (request, h) => {
       const cachedData = await cache.get(request)
-      return h.view('task-list', new ViewModel(cachedData))
+      return h.view('task-list', { ...new ViewModel(cachedData) })
     }
   }
 }
