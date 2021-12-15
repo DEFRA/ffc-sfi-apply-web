@@ -8,6 +8,7 @@ function ViewModel (cachedData) {
   this.model = {
     backLink: getBackLink(cachedData.previousUrl),
     agreementNumber: cachedData.agreement.agreementNumber,
+    status: getStatus(cachedData.agreement.submitted),
     sections: filteredSections,
     totalSections: filteredSections.length,
     completedSections: filteredSections.filter(x => x.completed).length
@@ -16,6 +17,10 @@ function ViewModel (cachedData) {
 
 const getBackLink = (previousUrl) => {
   return previousUrl ?? '/start-application'
+}
+
+const getStatus = (submitted) => {
+  return submitted ? 'submitted' : 'in progress'
 }
 
 const filterSections = (cachedData) => {
@@ -140,7 +145,7 @@ const updateSections = (cachedData) => {
         checkSection.completed = true
         checkTask.status = COMPLETED
 
-        const submittedSection = sections.find(x => x.name === 'Submit your application')
+        const submitSection = sections.find(x => x.name === 'Submit your application')
         const submitTask = sections.find(x => x.name === 'Submit your application')
         // if confirmed but not submitted then update status
         if (!submitted) {
@@ -148,7 +153,7 @@ const updateSections = (cachedData) => {
           return sections
         }
 
-        submittedSection.completed = true
+        submitSection.completed = true
         submitTask.status = COMPLETED
         return sections
       }
