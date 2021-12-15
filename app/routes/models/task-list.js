@@ -19,6 +19,11 @@ const getBackLink = (previousUrl) => {
 }
 
 const filterSections = (cachedData) => {
+  const updatedSections = updateSections(cachedData)
+  return updatedSections.filter(x => x.active)
+}
+
+const updateSections = (cachedData) => {
   const { land, funding, action, confirmed, submitted } = cachedData
 
   // land section not started, return initial task list
@@ -31,6 +36,7 @@ const filterSections = (cachedData) => {
 
   // land section complete but funding not set yet
   if (land.isLandCorrect != null && land.hasManagementControl != null && !funding.length) {
+    landSection.completed = true
     landSection.tasks.forEach(x => { x.status = COMPLETED })
     fundingSection.status = NOT_STARTED_YET
     fundingSection.tasks[0].status = NOT_STARTED_YET
@@ -65,6 +71,7 @@ const filterSections = (cachedData) => {
 
         // if optional actions complete then section complete
         if (action['sfi-arable-soil'].optionalActionsComplete) {
+          arableSoilSection.completed = true
           arableSoilOptionalTask.status = COMPLETED
         }
       }
@@ -77,7 +84,7 @@ const filterSections = (cachedData) => {
       const improvedGrasslandOptionalTask = improvedGrasslandSection.tasks(x => x.name === 'Optional improved grassland soil actions')
 
       // can only start this section if either arable soil not selected or is complete
-      if (!funding.includes('sfi-arable-soil') || action['sfi-arable-soil'].optionalActionsComplete) {
+      if (!funding.includes('sfi-arable-soil') || arableSoilSection.completed) {
         improvedGrasslandSection.tasks[0].status = NOT_STARTED_YET
 
         // if mandatory actions complete, update status
@@ -93,6 +100,7 @@ const filterSections = (cachedData) => {
 
           // if optional actions complete then section complete
           if (action['sfi-improved-grassland'].optionalActionsComplete) {
+            improvedGrasslandSection.completed = true
             improvedGrasslandOptionalTask.status = COMPLETED
           }
         }
@@ -103,11 +111,12 @@ const filterSections = (cachedData) => {
         const moorlandActionTask = moorlandSection.tasks(x => x.name === 'Moorlands and rough grazing actions')
 
         // can only start this section if either no other options selected or all are complete
-        if ((!funding.includes('sfi-arable-soil') || action['sfi-arable-soil'].optionalActionsComplete) &&
-        (!funding.includes('sfi-improved-grassland') || action['sfi-improved-grassland'].optionalActionsComplete)) {
+        if ((!funding.includes('sfi-arable-soil') || arableSoilSection.completed) &&
+        (!funding.includes('sfi-improved-grassland') || improvedGrasslandSection.completed)) {
           moorlandSection.tasks[0].status = NOT_STARTED_YET
 
           if (action['sfi-moorland'].actionsComplete) {
+            moorlandSection.completed = true
             moorlandActionTask.status = COMPLETED
           }
         }
@@ -117,9 +126,9 @@ const filterSections = (cachedData) => {
 
       // if all actions complete then update status
       if (!actionSection.active &&
-        (!funding.includes('sfi-arable-soil') || action['sfi-arable-soil'].optionalActionsComplete) &&
-        (!funding.includes('sfi-improved-grassland') || action['sfi-improved-grassland'].optionalActionsComplete) &&
-        (!funding.includes('sfi-moorland') || action['sfi-moorland'].actionsComplete)) {
+        (!funding.includes('sfi-arable-soil') || arableSoilSection.completed) &&
+        (!funding.includes('sfi-improved-grassland') || improvedGrasslandSection.completed) &&
+        (!funding.includes('sfi-moorland') || moorlandSection.completed)) {
         const checkTask = checkSection.find(x => x.name === 'Check your answers')
 
         // if answers not confirmed then update status
@@ -128,15 +137,19 @@ const filterSections = (cachedData) => {
           return sections
         }
 
+        checkSection.completed = true
         checkTask.status = COMPLETED
+
         const submittedSection = sections.find(x => x.name === 'Submit your application')
+        const submitTask = sections.find(x => x.name === 'Submit your application')
         // if confirmed but not submitted then update status
         if (!submitted) {
-          submittedSection.status = NOT_STARTED_YET
+          submitTask.status = NOT_STARTED_YET
           return sections
         }
 
-        submittedSection.status = COMPLETED
+        submittedSection.completed = true
+        submitTask.status = COMPLETED
         return sections
       }
 

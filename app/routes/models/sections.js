@@ -2,6 +2,7 @@
 module.exports = [{
   name: 'Your land',
   active: true,
+  completed: false,
   tasks: [{
     name: 'Confirm your land cover details',
     url: '/confirm-details',
@@ -10,6 +11,7 @@ module.exports = [{
 }, {
   name: 'Choose your funding',
   active: true,
+  completed: false,
   tasks: [{
     name: 'Choose funding option',
     url: '/what-funding',
@@ -18,6 +20,7 @@ module.exports = [{
 }, {
   name: 'Choose your actions',
   active: true,
+  completed: false,
   tasks: [{
     name: 'Choose your actions',
     url: '#',
@@ -26,6 +29,7 @@ module.exports = [{
 }, {
   name: 'Arable and horticultural soil actions',
   active: false,
+  completed: false,
   tasks: [{
     name: 'Arable and horticultural soil actions',
     url: '#',
@@ -42,6 +46,7 @@ module.exports = [{
 }, {
   name: 'Improved grassland soil actions',
   active: false,
+  completed: false,
   tasks: [{
     name: 'Improved grassland soil actions',
     url: '#',
@@ -58,6 +63,7 @@ module.exports = [{
 }, {
   name: 'Moorlands and rough grazing actions',
   active: false,
+  completed: false,
   tasks: [{
     name: 'Moorlands and rough grazing actions',
     url: '#',
@@ -66,6 +72,7 @@ module.exports = [{
 }, {
   name: 'Check your answers',
   active: true,
+  completed: false,
   tasks: [{
     name: 'Check your answers',
     url: '#',
@@ -74,6 +81,7 @@ module.exports = [{
 }, {
   name: 'Submit your application',
   active: true,
+  completed: false,
   tasks: [{
     name: 'Submit your application',
     url: '/declaration',
