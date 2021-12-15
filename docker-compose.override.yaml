@@ -25,7 +25,6 @@ services:
     image: redis:4.0.14
     volumes:
       - redis_data:/data
-    entrypoint: redis-server --appendonly yes
     ports:
       - "6379:6379"
 

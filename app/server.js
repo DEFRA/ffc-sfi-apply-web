@@ -8,6 +8,7 @@ async function createServer () {
   const server = hapi.server({
     port: config.port,
     cache: [{
+      name: 'session',
       provider: {
         constructor: catbox,
         options: catboxOptions
@@ -25,7 +26,7 @@ async function createServer () {
     }
   })
 
-  const cache = server.cache({ segment: 'sessions', expiresIn: config.cacheConfig.expiresIn })
+  const cache = server.cache({ cache: 'session', segment: 'sessions', expiresIn: config.cacheConfig.expiresIn })
   server.app.cache = cache
 
   // Register the plugins
