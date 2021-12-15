@@ -30,9 +30,13 @@ const update = async (request, object) => {
 
 const reset = async (request) => {
   const existing = await get(request)
-  delete existing.data.land
-  delete existing.data.eligibleStandards
-  delete existing.data.eligibleStandardsSpatial
+  if (existing.data) {
+    delete existing.data.land
+    delete existing.data.eligibleStandards
+    delete existing.data.eligibleStandardsSpatial
+  } else {
+    existing.data = {}
+  }
   await set(request, existing)
 }
 

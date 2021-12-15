@@ -18,13 +18,12 @@ module.exports = {
         validateFunc: async (request, session) => {
           const sessionCache = await request.server.app.cache.get(session.sid)
           const valid = !!sessionCache
-          if (!valid) {
-            console.log(`Session has no cache: ${session.sid}`)
-          }
           const result = { valid }
-          if (result.valid) {
+          if (valid) {
             // TODO: replace with Defra Customer account
             result.credentials = { name: 'A Farmer' }
+          } else {
+            console.log(`Session has no cache: ${session.sid}`)
           }
 
           return result
