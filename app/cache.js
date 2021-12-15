@@ -29,7 +29,6 @@ const update = async (request, object) => {
 }
 
 const reset = async (request) => {
-  console.log('Resetting')
   const existing = await get(request)
   delete existing.data.land
   delete existing.data.eligibleStandards

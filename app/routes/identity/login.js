@@ -43,6 +43,7 @@ module.exports = [{
       const sid = uuidv4()
       request.cookieAuth.set({ sid })
       await request.server.app.cache.set(sid, { callerId, crn })
+      console.log(`New session created: ${sid}`)
       return h.redirect('/eligible-organisations')
     }
   }
