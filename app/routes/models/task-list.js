@@ -19,7 +19,7 @@ const getBackLink = (previousUrl) => {
 }
 
 const filterSections = (cachedData) => {
-  const { land, funding, action } = cachedData
+  const { land, funding, action, confirmed, submitted } = cachedData
 
   // land section not started, return initial task list
   if (land.isLandCorrect == null) {
@@ -111,6 +111,33 @@ const filterSections = (cachedData) => {
             moorlandActionTask.status = COMPLETED
           }
         }
+      }
+
+      const checkSection = sections.find(x => x.name === 'Check your answers')
+
+      // if all actions complete then update status
+      if (!actionSection.active &&
+        (!funding.includes('sfi-arable-soil') || action['sfi-arable-soil'].optionalActionsComplete) &&
+        (!funding.includes('sfi-improved-grassland') || action['sfi-improved-grassland'].optionalActionsComplete) &&
+        (!funding.includes('sfi-moorland') || action['sfi-moorland'].actionsComplete)) {
+        const checkTask = checkSection.find(x => x.name === 'Check your answers')
+
+        // if answers not confirmed then update status
+        if (!confirmed) {
+          checkTask.status = NOT_STARTED_YET
+          return sections
+        }
+
+        checkTask.status = COMPLETED
+        const submittedSection = sections.find(x => x.name === 'Submit your application')
+        // if confirmed but not submitted then update status
+        if (!submitted) {
+          submittedSection.status = NOT_STARTED_YET
+          return sections
+        }
+
+        submittedSection.status = COMPLETED
+        return sections
       }
 
       return sections
