@@ -25,7 +25,7 @@ async function createServer () {
     }
   })
 
-  const cache = await server.cache({ segment: 'sessions', expiresIn: config.cacheConfig.expiresIn })
+  const cache = server.cache({ segment: 'sessions', expiresIn: config.cacheConfig.expiresIn })
   server.app.cache = cache
 
   // Register the plugins
