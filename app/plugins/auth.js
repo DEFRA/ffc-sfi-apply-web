@@ -16,16 +16,15 @@ module.exports = {
         keepAlive: true,
         redirectTo: '/login',
         validateFunc: async (request, session) => {
-          const cached = await request.server.app.cache.get(session.sid)
-          const out = {
-            valid: !!cached
-          }
-          if (out.valid) {
+          const sessionCache = await request.server.app.cache.get(session.sid)
+          const valid = !!sessionCache
+          const result = { valid }
+          if (result.valid) {
             // TODO: replace with Defra Customer account
-            out.credentials = { name: 'A Farmer' }
+            result.credentials = { name: 'A Farmer' }
           }
 
-          return out
+          return result
         }
       })
       server.auth.default({ strategy: 'session', mode: 'required' })
