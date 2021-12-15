@@ -206,17 +206,13 @@ Then(
   mockResponse
 )
 
- 
-
 Then(   
   /^I should see sbi error message (.*)$/, async (message) => {
-    //console.log (await eligibleOrganisation.verifySbiErrorMessage());
     eligibleOrganisation.verifySbiErrorMessage(message)
   });
 
 Then(
   /^I should see (.*)$/, async (message) => {
-   console.log(await eligibleOrganisation.verifySbiNumber());
    eligibleOrganisation.verifySbiNumber(message)
   });
 

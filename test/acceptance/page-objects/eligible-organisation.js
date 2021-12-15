@@ -26,9 +26,8 @@ class eligibleOrganisation extends Page {
 
   //searh sbi number element
   get sbiNumberField () { return $('#user-search') }
-  get sbiNum () { return $('//td[2]') }  
-  //get sbiError () { return $('//li[2]')}  
-  get sbiError () { return $('.govuk-error-message')} 
+  get sbiNum () { return $('//td[2]') }   
+  get sbiError () { return $('#error-message')}
   
   
   open () {
@@ -38,7 +37,6 @@ class eligibleOrganisation extends Page {
 
   
   async verifySbiNumber() {
-    
     console.log(await (await this.sbiNum).getText());
     const sbiNumber = await (await this.sbiNum).getText();
     chai.expect(sbiNumber).to.not.be.empty;
