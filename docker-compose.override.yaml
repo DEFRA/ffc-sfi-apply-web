@@ -20,6 +20,7 @@ services:
     volumes:
       - ./app:/home/node/app
       - ./package.json:/home/node/package.json
+
   ffc-sfi-apply-web-redis:
     image: redis:4.0.14
     volumes:
