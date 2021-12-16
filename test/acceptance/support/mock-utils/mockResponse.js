@@ -121,7 +121,6 @@ async function mockEligibleOrganisations () {
   await mockResponseMessage(baseResponseMessage, process.env.ELIGIBILITYRESPONSE_QUEUE_ADDRESS, receiverConfig)
 }
 
-
 /**
  * Mock async request/response.
  *

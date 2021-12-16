@@ -131,7 +131,7 @@
   ##   |10688dssa |The SBI must be a number.|
 
 
-    Scenario: User can click on the pagination and navigate forward and backward pagination
+    Scenario: User can click on the pagination link and navigate forward and backward pagination
     Given I open the url "/sign-in"
     And I pause for 500ms
     When I clear the inputfield "#crn"
@@ -143,19 +143,35 @@
     And I add "kdaihsra" to the inputfield "#password"
     And I click on the continue button
     Then I mock the response for "eligible-organisations"
-    And I pause for 400ms
+    And I pause for 700ms
     Then I expect that the url contains "/eligible-organisations"
     When I click on the link "2"
-    And I pause for 400ms
+    And I pause for 700ms
     Then I expect that element "div.govuk-grid-column-one-third.text-align-right" contains the text "Showing 11 - 19 of 19 organisations"
     When I click on the link "1"
-    And I pause for 400ms
+    And I pause for 600ms
     Then I expect that element "div.govuk-grid-column-one-third.text-align-right" contains the text "Showing 1 - 10 of 19 organisations"
     When I click on the link "Next »"
-    And I pause for 400ms
+    And I pause for 500ms
     Then I expect that element "div.govuk-grid-column-one-third.text-align-right" contains the text "Showing 11 - 19 of 19 organisations"
     When I click on the link "« Previous"
     And I pause for 400ms
     Then I expect that element "div.govuk-grid-column-one-third.text-align-right" contains the text "Showing 1 - 10 of 19 organisations"
+
+    # Scenario: Verify count of eligible organisation in pagination
+    # Given I open the url "/sign-in"
+    # And I pause for 500ms
+    # When I clear the inputfield "#crn"
+    # And I enter crn number 9867012345
+    # And I clear the inputfield "#callerId"
+    # And I enter callerId number 5316557
+    # And I clear the inputfield "#password"
+    # And I enter password tyyteryyeru
+    # And I add "kdaihsra" to the inputfield "#password"
+    # And I click on the continue button
+    # Then I mock the response for "eligible-organisations"
+    # And I pause for 400ms
+    # Then I expect that the url contains "/eligible-organisations"
+    # Then ten eligible organsation counted in the pagination
     
   
