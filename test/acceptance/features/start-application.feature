@@ -1,6 +1,7 @@
 Feature: Apply for sustainable farming funding
   Scenario: User successfully start new application
-    Given I open the url "/login"
+    Given I open the url "/logout"
+    When I open the url "/login"
     Then I expect that element "h1" contains the text "Sign in"
     When I clear the inputfield "#crn"
     And I add "9867012345" to the inputfield "#crn"

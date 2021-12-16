@@ -1,6 +1,7 @@
 Feature: Sign-in for Multiple Organisation details page
   Scenario: User can successfully signin on multiple organisation page
-    Given I open the url "/login"
+    Given I open the url "/logout"
+    When I open the url "/login"
     When I clear the inputfield "#crn"
     And I enter crn number 9867012345
     And I clear the inputfield "#callerId"
@@ -31,7 +32,8 @@ Feature: Sign-in for Multiple Organisation details page
 
   
   Scenario Outline: User can clicks on all organisations on eligible page
-    Given I open the url "/login"
+    Given I open the url "/logout"
+    When I open the url "/login"
     When I clear the inputfield "#crn"
     And I enter crn number 9867012345
     And I clear the inputfield "#callerId"
@@ -59,7 +61,8 @@ Feature: Sign-in for Multiple Organisation details page
 
 
     Scenario: User can start new application after signing in
-    Given I open the url "/login"
+    Given I open the url "/logout"
+    When I open the url "/login"
     Then I expect that element "h1" contains the text "Sign in"
     When I clear the inputfield "#crn"
     And I enter crn number 9867012345
