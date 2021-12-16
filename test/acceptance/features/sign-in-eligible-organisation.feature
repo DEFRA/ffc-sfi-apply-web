@@ -1,6 +1,7 @@
  Feature: Sign-in for Multiple Organisation details page
   # Scenario: User can successfully signin on multiple organisation page
   #   Given I open the url "/sign-in"
+  #   And I pause for 500ms
   #   When I clear the inputfield "#crn"
   #   And I enter crn number 9867012345
   #   And I clear the inputfield "#callerId"
@@ -32,6 +33,7 @@
   
   # Scenario Outline: User can clicks on all organisations on eligible page
   #   Given I open the url "/sign-in"
+  #   And I pause for 500ms
   #   When I clear the inputfield "#crn"
   #   And I enter crn number 9867012345
   #   And I clear the inputfield "#callerId"
@@ -58,6 +60,7 @@
     
   #   Scenario: User can start new application after signing in
   #   Given I open the url "/sign-in"
+  #   And I pause for 500ms
   #   Then I expect that element "h1" contains the text "Sign in"
   #   When I clear the inputfield "#crn"
   #   And I enter crn number 9867012345
@@ -78,6 +81,7 @@
 
   #   Scenario Outline: User can search for sbi number 
   #   Given I open the url "/sign-in"
+  #   And I pause for 500ms
   #   When I clear the inputfield "#crn"
   #   And I enter crn number 9867012345
   #   And I clear the inputfield "#callerId"
@@ -129,6 +133,7 @@
 
     Scenario: User can click on the pagination and navigate forward and backward pagination
     Given I open the url "/sign-in"
+    And I pause for 500ms
     When I clear the inputfield "#crn"
     And I enter crn number 9867012345
     And I clear the inputfield "#callerId"
@@ -138,15 +143,19 @@
     And I add "kdaihsra" to the inputfield "#password"
     And I click on the continue button
     Then I mock the response for "eligible-organisations"
-    And I pause for 500ms
+    And I pause for 400ms
     Then I expect that the url contains "/eligible-organisations"
     When I click on the link "2"
+    And I pause for 400ms
     Then I expect that element "div.govuk-grid-column-one-third.text-align-right" contains the text "Showing 11 - 19 of 19 organisations"
     When I click on the link "1"
+    And I pause for 400ms
     Then I expect that element "div.govuk-grid-column-one-third.text-align-right" contains the text "Showing 1 - 10 of 19 organisations"
     When I click on the link "Next »"
+    And I pause for 400ms
     Then I expect that element "div.govuk-grid-column-one-third.text-align-right" contains the text "Showing 11 - 19 of 19 organisations"
     When I click on the link "« Previous"
+    And I pause for 400ms
     Then I expect that element "div.govuk-grid-column-one-third.text-align-right" contains the text "Showing 1 - 10 of 19 organisations"
     
   

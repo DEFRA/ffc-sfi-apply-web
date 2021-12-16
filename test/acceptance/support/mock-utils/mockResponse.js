@@ -94,9 +94,9 @@ async function mockEligibleOrganisations () {
   }
   const baseResponseMessage = {
     body: { eligibility: [
-         { sbi: 107103820, name: 'Farm one', organisationId, address: 'Farm one, the field, long lane, AB12 4EF' },
-         { sbi: 106982014, name: 'Farm two', organisationId, address: 'Farm two, paddy field, house martin, AB12 5GH' },
-         { sbi: 107365827, name: 'Farm three', organisationId, address: 'Farm three, paddy field, house martin, AB12 5GH' },        
+         { sbi: 107103820, name: 'A G COLLIS', organisationId, address: 'Farm one, the field, long lane, AB12 4EF' },
+         { sbi: 106982014, name: 'AISLA JONES JAMESFORD', organisationId, address: 'Farm two, paddy field, house martin, AB12 5GH' },
+         { sbi: 107365827, name: 'Browsholme Hall', organisationId, address: 'Farm three, paddy field, house martin, AB12 5GH' },        
          { sbi: 106899089, name: 'Chris Hall', organisationId, address: 'Farm one, the field, long lane, AB12 4EF' },
          { sbi: 106889602, name: 'Christine Gillott', organisationId, address: 'Farm two, paddy field, house martin, AB12 5GH' },
          { sbi: 200656757, name: 'Donald Crofts', organisationId, address: 'Farm three, paddy field, house martin, AB12 5GH' },           
@@ -105,9 +105,15 @@ async function mockEligibleOrganisations () {
          { sbi: 107082108, name: 'Mr J G Romeril', organisationId, address: 'Farm three, paddy field, house martin, AB12 5GH' },        
          { sbi: 106940295, name: 'FALLON, S', organisationId, address: 'Farm one, the field, long lane, AB12 4EF' },
          { sbi: 200156320, name: 'FJ & LA Poole and Son', organisationId, address: 'Farm two, paddy field, house martin, AB12 5GH' },
+         { sbi: 106505265, name: 'FRIEND FARMS LTD', organisationId, address: 'Farm one, the field, long lane, AB12 4EF' },       
          { sbi: 113377765, name: 'Farm & Woodland Services', organisationId, address: 'Farm three, paddy field, house martin, AB12 5GH' },            
-         { sbi: 107700399, name: 'Test user', organisationId, address: 'A farm, Somewhere near, Somewhere far, AB12 3CD' } 
-  
+         //{ sbi: 107700399, name: 'Test user', organisationId, address: 'A farm, Somewhere near, Somewhere far, AB12 3CD' } 
+         { sbi: 120950220, name: 'Fraser Sheader', organisationId, address: 'Farm one, the field, long lane, AB12 4EF' },
+         { sbi: 106980125, name: 'Friend Farm Produce', organisationId, address: 'Farm two, paddy field, house martin, AB12 5GH' },
+         { sbi: 106929871, name: 'G M PRICHARD & SON', organisationId, address: 'Farm three, paddy field, house martin, AB12 5GH' },        
+         { sbi: 111766409, name: 'Glynis Nicholls', organisationId, address: 'Farm one, the field, long lane, AB12 4EF' },
+         { sbi: 107114300, name: 'Graham Dare', organisationId, address: 'Farm two, paddy field, house martin, AB12 5GH' },
+         { sbi: 122327923, name: 'Helen Harrison', organisationId, address: 'Farm three, paddy field, house martin, AB12 5GH' }          
         ] },
     source: 'ffc-sfi-agreement-calculator',
     type: 'uk.gov.sfi.agreement.eligibility.request.response'
