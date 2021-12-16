@@ -3,6 +3,9 @@
 {% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
 
 {% from "macros/search-box.njk" import searchBox %}
+{% from "./macros/pagination.njk" import pager %}
+
+{% from "macros/search-box.njk" import searchBox %}
 
 {% block content %}
   <div class="govuk-grid-row">
@@ -55,6 +58,9 @@
             {% endfor %}
           </tbody>
         </table>
+        {% if pagination === true %}
+          {{ pager(page, totalPages, limit, total, url, hasNext, hasPrevious, showNextEllipsis, showPreviousEllipsis) }}
+        {% endif %}
       </div>
     </div>
   {% endif %}
