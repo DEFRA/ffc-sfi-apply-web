@@ -33,6 +33,34 @@ class eligibleOrganisation extends Page {
     super.open('')
     browser.pause(3000)
   }
+  
+  async verifySbiNumber() {
+    console.log(await (await this.sbiNum).getText());
+    const sbiNumber = await (await this.sbiNum).getText();
+    chai.expect(sbiNumber).to.not.be.empty;
+    console.log(sbiNumber);
+    return sbiNumber;  
+  }
+ 
+  async verifySbiErrorMessage() {
+    console.log(await (await this.sbiError).getText());
+    const sbiErrorText = await (await this.sbiError).getText();
+    chai.expect(sbiErrorText).to.not.be.empty;
+    console.log(sbiErrorText);
+    return sbiErrorText;   
+  }
+  
+  async enterSbiNumber(sbiNumber) {
+    await (await this.sbiNumberField).setValue(sbiNumber);
+  }
+
+  async enterSbiNumber(sbiNumber) {
+    await (await this.sbiNumberField).setValue(sbiNumber);
+  }
+
+  async clearSbiNumber() {
+    await (await this.sbiNumberField).clearValue()
+  }
 
   async verifySbiNumber() {
     console.log(await (await this.sbiNum).getText());

@@ -33,7 +33,6 @@ import mockResponse from '../support/mock-utils/mockResponse'
 import eligibleOrganisation from '../page-objects/eligible-organisation'
 import 'chai/register-should'
 
-
 const { Then } = require('cucumber')
 
 Then(

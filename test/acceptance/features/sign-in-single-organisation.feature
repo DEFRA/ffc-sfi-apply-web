@@ -15,7 +15,6 @@ Feature: Sign-in for Single Organisation details page
     Then I expect that the url contains "/start-application"
     Then I expect that element "h1" contains the text "Sustainable farming funding applications for this organisation"
 
-
   Scenario: User cannot successfully signin with invalid details
     Given I open the url "/sign-in"
     Then I expect that element "h1" contains the text "Sign in"
