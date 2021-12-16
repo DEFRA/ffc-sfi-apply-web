@@ -19,6 +19,7 @@ import setPromptText from '../support/action/setPromptText'
 import signIn from '../page-objects/sign-in'
 import whatFund from '../page-objects/what-fund'
 
+
 const { When } = require('cucumber')
 
 When(
@@ -218,4 +219,8 @@ When(/^I enter callerId number (.*)$/, async (callerId) => {
 
 When(/^I enter password (.*)$/, async (passwordNumber) => {
   signIn.enterPassword(passwordNumber)
+})
+
+When(/^I search sbi number (.*)$/, async (sbiNumber) => {
+  eligibleOrganisation.enterSbiNumber(sbiNumber)
 })

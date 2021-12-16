@@ -1,6 +1,9 @@
+import chai from 'chai'
+import { expect } from 'chai'
 import Page from './page'
 
 class eligibleOrganisation extends Page {
+  //sbi number
   get sbi1 () { return $('//tr[1]/td[4]/a') }
   get sbi2 () { return $('//tr[2]/td[4]/a') }
   get sbi3 () { return $('//tr[3]/td[4]/a') }
@@ -21,11 +24,69 @@ class eligibleOrganisation extends Page {
   get sbi18 () { return $('//tr[18]/td[4]/a') }
   get sbi19 () { return $('//tr[19]/td[4]/a') }
 
+  //searh sbi number element
+  get sbiNumberField () { return $('#user-search') }
+  get sbiNum () { return $('//td[2]') }   
+  get sbiError () { return $('#error-message')}
+   
   open () {
     super.open('')
     browser.pause(3000)
   }
+  
+  async verifySbiNumber() {
+    console.log(await (await this.sbiNum).getText());
+    const sbiNumber = await (await this.sbiNum).getText();
+    chai.expect(sbiNumber).to.not.be.empty;
+    console.log(sbiNumber);
+    return sbiNumber;  
+  }
+ 
+  async verifySbiErrorMessage() {
+    console.log(await (await this.sbiError).getText());
+    const sbiErrorText = await (await this.sbiError).getText();
+    chai.expect(sbiErrorText).to.not.be.empty;
+    console.log(sbiErrorText);
+    return sbiErrorText;   
+  }
+  
+  async enterSbiNumber(sbiNumber) {
+    await (await this.sbiNumberField).setValue(sbiNumber);
+  }
 
+  async enterSbiNumber(sbiNumber) {
+    await (await this.sbiNumberField).setValue(sbiNumber);
+  }
+
+  async clearSbiNumber() {
+    await (await this.sbiNumberField).clearValue()
+  }
+
+  async verifySbiNumber() {
+    console.log(await (await this.sbiNum).getText());
+    const sbiNumber = await (await this.sbiNum).getText();
+    chai.expect(sbiNumber).to.not.be.empty;
+    console.log(sbiNumber);
+    return sbiNumber;  
+  }
+
+  async verifySbiErrorMessage() {
+    console.log(await (await this.sbiError).getText());
+    const sbiErrorText = await (await this.sbiError).getText();
+    chai.expect(sbiErrorText).to.not.be.empty;
+    console.log(sbiErrorText);
+    return sbiErrorText;   
+  }
+
+  async enterSbiNumber(sbiNumber) {
+    await (await this.sbiNumberField).setValue(sbiNumber);
+  }
+  async enterSbiNumber(sbiNumber) {
+    await (await this.sbiNumberField).setValue(sbiNumber);
+  }
+  async clearSbiNumber() {
+    await (await this.sbiNumberField).clearValue()
+  }
   async clickOnsbi1 () {
     await (await this.sbi1).click()
   }

@@ -2,7 +2,7 @@
     <div class="govuk-form-group {% if model.errorMessage %}govuk-form-group--error{% endif %}">
         <label class="govuk-label {{model.label.classes}}" for="{{model.name}}">{{model.label.text}}</label>
         {% if model.errorMessage %}
-            <span class="govuk-error-message">{{model.errorMessage.text}}</span>
+            <span id="error-message" class="govuk-error-message">{{model.errorMessage.text}}</span>
         {% endif %}
         <input class="govuk-input {{model.input.classes}}"
             id="{{model.id}}"

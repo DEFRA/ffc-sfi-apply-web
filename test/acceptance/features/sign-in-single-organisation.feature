@@ -11,11 +11,7 @@ Feature: Sign-in for Single Organisation details page
     And I add "kdaihsra" to the inputfield "#password"
     And I click on the continue button
     Then I mock the response for "which-business"
-    When I pause for 700ms
-    Then I expect that the url contains "/start-application?sbi"
-                                         
     
-
   Scenario: User cannot successfully signin with invalid details
     Given I open the url "/sign-in"
     Then I expect that element "h1" contains the text "Sign in"
