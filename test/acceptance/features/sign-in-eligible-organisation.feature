@@ -97,7 +97,6 @@
     Then I expect that element "//td[2]" contains the text "<SBI number>" 
     Examples:
     |SBI number|
-    |107103820 |
     |106889602 |
     |106940295 |
 
