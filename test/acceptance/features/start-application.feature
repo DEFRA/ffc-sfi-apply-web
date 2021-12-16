@@ -10,4 +10,10 @@
         And I add "kdaihsra" to the inputfield "#password"
         And I click on the element "#submit"
         Then I mock the response for "which-business"
+        When I pause for 700ms
+        Then I expect that the url contains "/start-application"
+        And I click on the element "#start-application"
+        Then I expect that the url contains "/application-task-list"
+        And I expect that element "h1" contains the text "Apply for sustainable farming funding"
+
         

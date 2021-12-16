@@ -72,7 +72,7 @@ async function mockWhatPaymentLevel () {
   await mockResponseMessage(baseResponseMessage, process.env.CALCULATERESPONSE_QUEUE_ADDRESS, receiverConfig)
 }
 
-async function mockWhichBusiness () {
+async function mockStartApplication () {
   const receiverConfig = {
     ...subscriptionConfig,
     address: process.env.ELIGIBILITY_SUBSCRIPTION_ADDRESS,
@@ -105,8 +105,9 @@ async function mockEligibleOrganisations () {
          { sbi: 107082108, name: 'Mr J G Romeril', organisationId, address: 'Farm three, paddy field, house martin, AB12 5GH' },        
          { sbi: 106940295, name: 'FALLON, S', organisationId, address: 'Farm one, the field, long lane, AB12 4EF' },
          { sbi: 200156320, name: 'FJ & LA Poole and Son', organisationId, address: 'Farm two, paddy field, house martin, AB12 5GH' },
-         { sbi: 113377765, name: 'Farm & Woodland Services', organisationId, address: 'Farm three, paddy field, house martin, AB12 5GH' }            
-        
+         { sbi: 113377765, name: 'Farm & Woodland Services', organisationId, address: 'Farm three, paddy field, house martin, AB12 5GH' },            
+         { sbi: 107700399, name: 'Test user', organisationId, address: 'A farm, Somewhere near, Somewhere far, AB12 3CD' } 
+  
         ] },
     source: 'ffc-sfi-agreement-calculator',
     type: 'uk.gov.sfi.agreement.eligibility.request.response'
@@ -137,8 +138,8 @@ export default async responseType => {
       case 'what-payment-level':
         await mockWhatPaymentLevel()
         break
-      case 'which-business':
-        await mockWhichBusiness()
+      case 'start-application':
+        await mockStartApplication()
         break
       case 'eligible-organisations':
         await mockEligibleOrganisations()
