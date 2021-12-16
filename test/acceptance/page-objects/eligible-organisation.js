@@ -28,14 +28,12 @@ class eligibleOrganisation extends Page {
   get sbiNumberField () { return $('#user-search') }
   get sbiNum () { return $('//td[2]') }   
   get sbiError () { return $('#error-message')}
-  
-  
+   
   open () {
     super.open('')
     browser.pause(3000)
   }
 
-  
   async verifySbiNumber() {
     console.log(await (await this.sbiNum).getText());
     const sbiNumber = await (await this.sbiNum).getText();
@@ -44,7 +42,6 @@ class eligibleOrganisation extends Page {
     return sbiNumber;  
   }
 
- 
   async verifySbiErrorMessage() {
     console.log(await (await this.sbiError).getText());
     const sbiErrorText = await (await this.sbiError).getText();
@@ -53,20 +50,15 @@ class eligibleOrganisation extends Page {
     return sbiErrorText;   
   }
 
-  
   async enterSbiNumber(sbiNumber) {
     await (await this.sbiNumberField).setValue(sbiNumber);
   }
-
   async enterSbiNumber(sbiNumber) {
     await (await this.sbiNumberField).setValue(sbiNumber);
   }
-
   async clearSbiNumber() {
     await (await this.sbiNumberField).clearValue()
   }
-
-
   async clickOnsbi1 () {
     await (await this.sbi1).click()
   }

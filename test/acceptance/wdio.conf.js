@@ -25,9 +25,6 @@ exports.config = {
       'browserstack.local': true,
       'browserstack.networkLogs': true,
       'browserstack.acceptSslCerts': true,
-      // 'goog:chromeOptions': {
-      // //  args: chromeArgs
-      // }
     }
 
     // {
