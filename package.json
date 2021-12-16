@@ -1,6 +1,6 @@
 {
   "name": "ffc-sfi-apply-web",
-  "version": "1.36.8",
+  "version": "1.36.9",
   "description": "FFC apply for SFI web front end",
   "homepage": "https://github.com/DEFRA/ffc-sfi-apply-web",
   "main": "app/index.js",
