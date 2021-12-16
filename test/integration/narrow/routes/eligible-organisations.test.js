@@ -107,20 +107,6 @@ describe('eligible-organisations route', () => {
     expect(result.request.response.source.template).toBe('eligible-organisations')
   })
 
-  test('GET /eligible-organisations with page query returns eligible-organisations view', async () => {
-    const options = {
-      method: 'GET',
-      url: '/eligible-organisations?page=4',
-      auth
-    }
-
-    getEligibleOrganisations.mockResolvedValue(organisationsLarge)
-
-    const result = await server.inject(options)
-    expect(result.request.response.variety).toBe('view')
-    expect(result.request.response.source.template).toBe('eligible-organisations')
-  })
-
   test('GET /eligible-organisations returns no-businesses view when no organisations returned', async () => {
     const options = {
       method: 'GET',
@@ -187,19 +173,6 @@ describe('eligible-organisations route', () => {
     const result = await server.inject(options)
     expect(result.request.response.variety).toBe('view')
     expect(result.request.response.source.template).toBe('eligible-organisations')
-  })
-
-  test('GET /eligible-organisations with over 10 organisations and no page query returns page defaults to 1', async () => {
-    const options = {
-      method: 'GET',
-      url: '/eligible-organisations',
-      auth
-    }
-
-    getEligibleOrganisations.mockResolvedValue(organisationsLarge)
-
-    const result = await server.inject(options)
-    expect(result.request.query.page).toBe(1)
   })
 
   test('GET /eligible-organisations with over 10 organisations and page query set to valid value returns eligible-organisations view on that page', async () => {
