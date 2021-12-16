@@ -79,7 +79,7 @@ Feature: Sign-in for Multiple Organisation details page
     And I pause for 700ms
     Then I expect that the url contains "/start-application?sbi"
     When I click on the element "#start-application"
-    Then I expect that the url contains "/application-task-list"
+    Then I expect that the url contains "/task-list"
 
     
     
