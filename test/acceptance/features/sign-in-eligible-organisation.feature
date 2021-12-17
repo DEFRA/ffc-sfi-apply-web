@@ -80,7 +80,8 @@
     Then I expect that the url contains "/task-list"
 
     Scenario Outline: User can search for sbi number 
-    Given I open the url "/sign-in"
+    Given I open the url "/logout"
+    When I open the url "/login"
     When I clear the inputfield "#crn"
     And I enter crn number 9867012345
     And I clear the inputfield "#callerId"
@@ -105,7 +106,8 @@
 
 
     Scenario Outline: User cannot search for sbi number with invalid sbi
-    Given I open the url "/sign-in"
+    Given I open the url "/logout"
+    When I open the url "/login"
     When I clear the inputfield "#crn"
     And I enter crn number 9867012345
     And I clear the inputfield "#callerId"
@@ -122,7 +124,7 @@
     And I click on the element "//main[@id='main-content']/div[2]/form/div/button"
     And I pause for 400ms
     Then I expect that the url contains "/eligible-organisations"
-    Then I expect that element "#error-message" contains the text "<errorMessage>"                        
+    Then I expect that element "#error-message" contains the text "<errorMessage>"
     Examples:
     |SBI number|errorMessage             |
     |1068990544|The SBI is too long.     |
