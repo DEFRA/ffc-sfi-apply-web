@@ -31,7 +31,7 @@
     And I expect that element "ul.govuk-list" contains the text "107365827"
 
   
-  Scenario Outline: User can clicks on all organisations on eligible page
+  Scenario Outline: User can click on all organisations on eligible page
     Given I open the url "/logout"
     When I open the url "/login"
     When I clear the inputfield "#crn"
