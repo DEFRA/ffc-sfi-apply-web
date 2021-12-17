@@ -25,10 +25,17 @@ exports.config = {
       'browserstack.local': true,
       'browserstack.networkLogs': true,
       'browserstack.acceptSslCerts': true,
-      // 'goog:chromeOptions': {
-      // //  args: chromeArgs
-      // }
     }
+
+    // {
+    //   os: 'Windows',
+    //   osVersion: '10',
+    //   browserName: 'Firefox',
+    //   browserVersion: 'latest',
+    //   'browserstack.local': true,
+    //   acceptInsecureCerts: true,
+    //   acceptSslCerts: true
+    // }
   ],
   // ===================
   // Test Configurations
