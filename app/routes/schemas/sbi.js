@@ -1,7 +1,7 @@
-const joi = require('joi')
+const Joi = require('joi')
 
-module.exports = joi.object({
-  sbi: joi.number().integer().greater(105000000).less(1000000000).required()
+module.exports = Joi.object({
+  sbi: Joi.number().integer().greater(105000000).less(1000000000).required()
 }).error(errors => {
   errors.forEach(err => {
     switch (err.code) {

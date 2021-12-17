@@ -1,6 +1,6 @@
-const joi = require('joi')
+const Joi = require('joi')
+const getEligibleOrganisations = require('../eligibility')
 const cache = require('../cache')
-const getEligibility = require('../eligibility')
 const ViewModel = require('./models/search')
 const schema = require('./schemas/sbi')
 const { LIMIT, getTotalPages, getPagination, getPagingData } = require('../pagination')
@@ -10,8 +10,8 @@ module.exports = [{
   path: '/eligible-organisations',
   options: {
     validate: {
-      query: joi.object({
-        page: joi.number().integer().greater(0).default(1)
+      query: Joi.object({
+        page: Joi.number().integer().greater(0).default(1)
       }),
       failAction: async (request, h, error) => {
         const eligibility = (await cache.get('agreement', request.yar.id)).application.eligibleOrganisations
@@ -19,33 +19,33 @@ module.exports = [{
       }
     },
     handler: async (request, h) => {
-      let { eligibility } = await getEligibility(request)
+      let eligibleOrganisations = await getEligibleOrganisations(request)
 
-      if (!eligibility) {
+      if (!eligibleOrganisations) {
         return h.view('no-response')
       }
 
-      if (!eligibility.length) {
+      if (!eligibleOrganisations.length) {
         return h.view('no-businesses')
       }
 
-      if (eligibility.length === 1) {
-        return h.redirect(`/start-application?sbi=${eligibility[0].sbi}`)
+      if (eligibleOrganisations.length === 1) {
+        return h.redirect(`/start-application?sbi=${eligibleOrganisations[0].sbi}`)
       }
 
-      if (eligibility.length > 10) {
-        const total = eligibility.length
+      if (eligibleOrganisations.length > 10) {
+        const total = eligibleOrganisations.length
         const page = request.query.page <= getTotalPages(total) ? request.query.page : getTotalPages(total)
 
         const offset = getPagination(page)
         const pagingData = getPagingData(total, page, request.headers.path)
 
-        eligibility = eligibility.slice(offset, page * LIMIT)
+        eligibleOrganisations = eligibleOrganisations.slice(offset, page * LIMIT)
 
-        return h.view('eligible-organisations', { organisations: eligibility, ...new ViewModel(), pagination: true, ...pagingData })
+        return h.view('eligible-organisations', { organisations: eligibleOrganisations, ...new ViewModel(), pagination: true, ...pagingData })
       }
 
-      return h.view('eligible-organisations', { organisations: eligibility, ...new ViewModel() })
+      return h.view('eligible-organisations', { organisations: eligibleOrganisations, ...new ViewModel() })
     }
   }
 },
@@ -61,9 +61,9 @@ module.exports = [{
     },
     handler: async (request, h) => {
       const sbi = request.payload.sbi
-      const agreement = await cache.get('agreement', request.yar.id)
-      const organisations = agreement.application.eligibleOrganisations
-      const organisation = organisations.filter(organisation => organisation.sbi === sbi)
+      const { data } = await cache.get(request)
+      const organisations = data.eligibleOrganisations
+      const organisation = organisations.filter(x => x.sbi === sbi)
 
       if (organisation.length) {
         return h.view('eligible-organisations', { organisations: organisation, ...new ViewModel(sbi) })

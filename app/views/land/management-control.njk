@@ -1,0 +1,67 @@
+{% extends '_layout.njk' %}
+{% set mainClasses = "govuk-main-wrapper--auto-spacing" %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+
+{% block beforeContent %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-one-half">
+      {{ govukBackLink({
+        text: "Back",
+        href: "/confirm-details",
+        attributes: {
+          id: "back"
+        }
+        }) 
+      }}
+    </div>
+    <div class="govuk-grid-column-one-half">
+      {% include "save/save.njk" %}
+    </div>
+  </div>
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <form method="POST" action="/management-control" novalidate>
+        <input type="hidden" name="crumb" value="{{crumb}}"/>
+        {{ govukRadios({
+          classes: "govuk-radios",
+          idPrefix: "hasManagementControl",
+          name: "hasManagementControl",
+          fieldset: {
+            legend: {
+              text: "Do you have management control of this land?",
+              isPageHeading: true,
+              classes: "govuk-fieldset__legend--l"
+            }
+          },
+          hint: {
+            text: "You must have a land management control agreement to apply for the scheme."
+          },
+          items: [
+            {
+              value: true,
+              text: "Yes"
+            },
+            {
+              value: false,
+              text: "No"
+            }
+          ]
+        }) }}
+
+        {{ govukButton({
+        text: "Continue",
+        attributes: {
+          id: "submit"
+        }
+      }) }}
+
+      </form>
+    </div>
+  </div>
+{% endblock %}

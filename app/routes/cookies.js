@@ -1,6 +1,6 @@
 const ViewModel = require('./models/cookies-policy')
 const { updatePolicy } = require('../cookies')
-const joi = require('joi')
+const Joi = require('joi')
 
 module.exports = [{
   method: 'GET',
@@ -20,9 +20,9 @@ module.exports = [{
       crumb: false
     },
     validate: {
-      payload: joi.object({
-        analytics: joi.boolean(),
-        async: joi.boolean().default(false)
+      payload: Joi.object({
+        analytics: Joi.boolean(),
+        async: Joi.boolean().default(false)
       })
     },
     handler: (request, h) => {

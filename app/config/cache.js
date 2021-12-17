@@ -1,16 +1,8 @@
-const defaultExpiresIn = 3600 * 1000 // 1 hour
+const expiresIn = 3600 * 1000 * 24 * 3 // 12 hours
 
 module.exports = {
-  defaultExpiresIn,
-  agreementSegment: {
-    name: 'agreement',
-    expiresIn: defaultExpiresIn
-  },
-  progressSegment: {
-    name: 'progress',
-    expiresIn: defaultExpiresIn
-  },
-  redisCatboxOptions: {
+  expiresIn,
+  options: {
     host: process.env.REDIS_HOSTNAME,
     port: process.env.REDIS_PORT,
     password: process.env.REDIS_PASSWORD,

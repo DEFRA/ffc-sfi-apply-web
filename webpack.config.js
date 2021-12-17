@@ -81,26 +81,14 @@ module.exports = {
     }),
     new HtmlWebpackPlugin({
       inject: false,
-      filename: '../views/map/map.njk',
-      template: 'app/views/map/map.template.njk',
+      filename: '../views/land/confirm-details.njk',
+      template: 'app/views/land/confirm-details.template.njk',
       chunks: ['map']
     }),
     new HtmlWebpackPlugin({
       inject: false,
-      filename: '../views/land-business-details/confirm-details.njk',
-      template: 'app/views/land-business-details/confirm-details.template.njk',
-      chunks: ['map']
-    }),
-    new HtmlWebpackPlugin({
-      inject: false,
-      filename: '../views/funding-options/how-much.njk',
-      template: 'app/views/funding-options/how-much.template.njk',
-      chunks: ['map']
-    }),
-    new HtmlWebpackPlugin({
-      inject: false,
-      filename: '../views/map/parcel.njk',
-      template: 'app/views/map/parcel.template.njk',
+      filename: '../views/funding/how-much.njk',
+      template: 'app/views/funding/how-much.template.njk',
       chunks: ['map']
     }),
     new MiniCssExtractPlugin({

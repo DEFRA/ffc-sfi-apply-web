@@ -1,6 +1,7 @@
 Feature: Sign-in for Single Organisation details page
   Scenario: User can successfully signin on single organisation page
-    Given I open the url "/sign-in"
+    Given I open the url "/logout"
+    When I open the url "/login"
     Then I expect that element "h1" contains the text "Sign in"
     When I clear the inputfield "#crn"
     And I enter crn number 9867012345
@@ -11,9 +12,12 @@ Feature: Sign-in for Single Organisation details page
     And I add "kdaihsra" to the inputfield "#password"
     And I click on the continue button
     Then I mock the response for "which-business"
-    
+    When I pause for 700ms
+    Then I expect that the url contains "/start-application?sbi"
+
   Scenario: User cannot successfully signin with invalid details
-    Given I open the url "/sign-in"
+    Given I open the url "/logout"
+    When I open the url "/login"
     Then I expect that element "h1" contains the text "Sign in"
     When I clear the inputfield "#crn"
     And I enter crn number 986701234599
@@ -24,6 +28,6 @@ Feature: Sign-in for Single Organisation details page
     And I add "kdaihsra" to the inputfield "#password"
     And I click on the continue button
     And I pause for 700ms
-    Then I expect that the url contains "/sign-in"
+    Then I expect that the url contains "/login"
     Then I expect that element "div.govuk-error-summary__body" contains the text "length must be 10 characters long"
     Then I expect that element "div.govuk-error-summary__body" contains the text "length must be 7 characters long"

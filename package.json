@@ -1,6 +1,6 @@
 {
   "name": "ffc-sfi-apply-web",
-  "version": "1.36.6",
+  "version": "1.37.0",
   "description": "FFC apply for SFI web front end",
   "homepage": "https://github.com/DEFRA/ffc-sfi-apply-web",
   "main": "app/index.js",
@@ -24,7 +24,9 @@
     "Fareed Mohammed fareed.mohammed@defra.gov.uk",
     "Kaz Iyiola kaz.iyiola@defra.gov.uk",
     "Praveen Reddy praveenr@kainos.com",
-    "Steve Hunt steven.hunt@defra.gov.uk"
+    "Steve Hunt steven.hunt@defra.gov.uk",
+    "Dave Stone dave.stone@defra.gov.uk",
+    "Paul Andrews paul.andrews@defra.gov.uk"
   ],
   "license": "OGL-UK-3.0",
   "dependencies": {
@@ -32,25 +34,21 @@
     "@azure/storage-blob": "^12.8.0",
     "@hapi/boom": "^9.1.1",
     "@hapi/catbox-redis": "^6.0.2",
+    "@hapi/cookie": "^11.0.2",
     "@hapi/crumb": "^8.0.1",
     "@hapi/hapi": "^20.1.0",
     "@hapi/inert": "^6.0.3",
-    "hapi-auth-jwt2": "^10.2.0",
     "@hapi/vision": "^6.1.0",
     "@hapi/wreck": "^17.1.0",
     "@pact-foundation/pact": "^9.16.4",
-    "@hapi/yar": "^10.1.1",
     "@turf/turf": "^6.3.0",
     "applicationinsights": "^1.8.10",
     "ffc-messaging": "^2.3.1",
-    "govuk-frontend": "^3.11.0",
+    "govuk-frontend": "^3.14.0",
     "hapi-pino": "^8.3.0",
     "joi": "^17.4.0",
-    "jsonwebtoken": "^8.5.1",
     "nunjucks": "^3.2.3",
     "ol": "^6.5.0",
-    "pg": "^8.6.0",
-    "pg-hstore": "^2.3.3",
     "uuid": "^8.3.2"
   },
   "devDependencies": {
