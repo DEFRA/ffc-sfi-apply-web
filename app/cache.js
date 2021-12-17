@@ -30,6 +30,9 @@ const update = async (request, object) => {
 
 const reset = async (request) => {
   const existing = await get(request)
+  if (existing.agreement) {
+    delete existing.agreement
+  }
   if (existing.data) {
     delete existing.data.land
     delete existing.data.eligibleStandards
