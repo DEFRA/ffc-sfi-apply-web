@@ -127,7 +127,7 @@
     Then I expect that element "#error-message" contains the text "<errorMessage>"
     Examples:
     |SBI number|errorMessage             |
-    |1068990544|The SBI is too long.     |
+    |1000000000|The SBI is too long.     |
     |10688960  |The SBI is too short.    |
     |10688dssa |The SBI must be a number.|
   
