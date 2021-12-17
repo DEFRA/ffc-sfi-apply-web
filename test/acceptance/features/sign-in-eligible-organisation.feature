@@ -54,7 +54,7 @@
     |Chris Hall              |106899089 |
     |Christine Gillott       |106889602 |
     |Donald Crofts           |200656757 |
-    |E THOMPSON & SON        |107008163 |   
+    |E THOMPSON & SON        |107008163 |
     |FALLON, S               |106940295 |
     |Edgar Zoo               |122200885 |
     
@@ -98,7 +98,7 @@
     And I click on the element "//main[@id='main-content']/div[2]/form/div/button"
     And I pause for 700ms
     Then I expect that the url contains "/eligible-organisations"
-    Then I expect that element "//td[2]" contains the text "<SBI number>" 
+    Then I expect that element "//tr[1]/td[2]" contains the text "<SBI number>" 
     Examples:
     |SBI number|
     |106889602 |
