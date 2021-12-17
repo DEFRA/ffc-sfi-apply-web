@@ -1,4 +1,4 @@
-const sections = require('./sections')
+const defaultSections = require('./sections')
 
 const NOT_STARTED_YET = 'NOT STARTED YET'
 const COMPLETED = 'COMPLETED'
@@ -29,6 +29,7 @@ const filterSections = (cachedData) => {
 }
 
 const updateSections = (agreement) => {
+  const sections = JSON.parse(JSON.stringify(defaultSections))
   const { land, funding, action, confirmed, submitted } = agreement
 
   // land section not started, return initial task list
