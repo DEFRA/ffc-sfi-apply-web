@@ -112,7 +112,8 @@ async function mockEligibleOrganisations () {
          { sbi: 106929871, name: 'sixteenOrganisation', organisationId, address: 'Farm three, paddy field, house martin, AB12 5GH' },        
          { sbi: 111766409, name: 'seventeenOrganisation', organisationId, address: 'Farm one, the field, long lane, AB12 4EF' },
          { sbi: 107114300, name: 'eighteenOrganisation', organisationId, address: 'Farm two, paddy field, house martin, AB12 5GH' },
-         { sbi: 122327923, name: 'nineteenOrganisation', organisationId, address: 'Farm three, paddy field, house martin, AB12 5GH' }          
+         { sbi: 122327923, name: 'nineteenOrganisation', organisationId, address: 'Farm three, paddy field, house martin, AB12 5GH' },         
+         { sbi: 107700399, name: 'Test user', organisationId, address: 'A farm, Somewhere near, Somewhere far, AB12 3CD' } 
         ] },
     source: 'ffc-sfi-agreement-calculator',
     type: 'uk.gov.sfi.agreement.eligibility.request.response'
@@ -142,7 +143,7 @@ export default async responseType => {
       case 'what-payment-level':
         await mockWhatPaymentLevel()
         break
-      case 'start-application':
+      case 'start-application?sbi=107700399':
         await mockStartApplication()
         break
       case 'eligible-organisations':

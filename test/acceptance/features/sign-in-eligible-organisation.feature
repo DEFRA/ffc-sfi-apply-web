@@ -96,7 +96,7 @@
     When I clear the inputfield "#user-search"
     And I search sbi number <SBI number>
     And I click on the element "//main[@id='main-content']/div[2]/form/div/button"
-    And I pause for 700ms
+    And I pause for 800ms
     Then I expect that the url contains "/eligible-organisations"
     Then I expect that element "//td[2]" contains the text "<SBI number>" 
     Examples:
@@ -120,7 +120,7 @@
     When I clear the inputfield "#user-search"
     And I search sbi number <SBI number>
     And I click on the element "//main[@id='main-content']/div[2]/form/div/button"
-    And I pause for 400ms
+    And I pause for 700ms
     Then I expect that the url contains "/eligible-organisations"
     Then I expect that element "div.govuk-form-group.govuk-form-group--error" contains the text "<errorMessage>"                        
     Examples:
