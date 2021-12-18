@@ -130,78 +130,56 @@ When(/^I click on the application for the "(.*)" organisation$/, async (orgNumbe
     case 'third':
       eligibleOrganisation.clickOnsbi3()
       break
-    case 'Chris Hall':
+    case 'forthOrganisation':
       eligibleOrganisation.clickOnsbi4()
       break
-    case 'Christine Gillott':
+    case 'fifthOrganisation':
       eligibleOrganisation.clickOnsbi5()
       break
-    case 'Donald Crofts':
+    case 'sixthOrganisation':
       eligibleOrganisation.clickOnsbi6()
       break
-    case 'E THOMPSON & SON':
+    case 'seventhOrganisation':
       eligibleOrganisation.clickOnsbi7()
       break
-    case 'Edgar Zoo':
+    case 'eighthOrganisation':
       eligibleOrganisation.clickOnsbi8()
       break
-    case 'Mr J G Romeril':
+    case 'ninethOrganisation':
       eligibleOrganisation.clickOnsbi9()
       break
-    case 'FALLON, S':
+    case 'tenthOrganisation':
       eligibleOrganisation.clickOnsbi10()
       break
-    case 'FJ & LA Poole and Son':
+    case 'elevenOrganisation':
       eligibleOrganisation.clickOnsbi11()
       break
-    case 'Farm & Woodland Services':
+    case 'TwelveOrganisation':
       eligibleOrganisation.clickOnsbi12()
       break
+    case 'ThirteehOrganisation':
+        eligibleOrganisation.clickOnsbi3()
+      break
+    case 'FourteenOrganisation':
+        eligibleOrganisation.clickOnsbi4()
+      break
+    case 'FifteenOrganisation':
+        eligibleOrganisation.clickOnsbi5()
+      break
+    case 'SixteenOrganisation':
+        eligibleOrganisation.clickOnsbi6()
+      break
+    case 'seventeenOrganisation':
+        eligibleOrganisation.clickOnsbi7()
+      break
+    case 'eighteenOrganisation':
+        eligibleOrganisation.clickOnsbi8()
+      break
+    case 'nineteenOrganisation':
+        eligibleOrganisation.clickOnsbi9()
+      break  
     default:
       console.error("Unknown org number. Expected 'first' or 'second' or 'third'.")
-  }
-})
-
-When(/^I click on organisation "([^"]*)?"$/, async (startApplication) => {
-  if (startApplication === 'A G COLLIS') {
-    eligibleOrganisation.clickOnsbi1()
-    console.log(eligibleOrganisation)
-  } else if (startApplication === 'AISLA JONES') {
-    eligibleOrganisation.clickOnsbi2()
-  } else if (startApplication === 'Browsholme Hall') {
-    eligibleOrganisation.clickOnsbi3()
-  } else if (startApplication === 'Chris Hall') {
-    eligibleOrganisation.clickOnsbi4()
-  } else if (startApplication === 'Christine Gillott') {
-    eligibleOrganisation.clickOnsbi5()
-  } else if (startApplication === 'Donald Crofts') {
-    eligibleOrganisation.clickOnsbi6()
-  } else if (startApplication === 'E THOMPSON & SON') {
-    eligibleOrganisation.clickOnsbi7()
-  } else if (startApplication === 'Edgar Zoo') {
-    eligibleOrganisation.clickOnsbi8()
-  } else if (startApplication === 'Mr J G Romeril') {
-    eligibleOrganisation.clickOnsbi9()
-  } else if (startApplication === 'FALLON, S') {
-    eligibleOrganisation.clickOnsbi10()
-  } else if (startApplication === 'FJ & LA Poole and Son') {
-    eligibleOrganisation.clickOnsbi11()
-  } else if (startApplication === 'FRIEND FARMS LTD') {
-    eligibleOrganisation.clickOnsbi12()
-  } else if (startApplication === 'Farm & Woodland Services') {
-    eligibleOrganisation.clickOnsbi13()
-  } else if (startApplication === 'Fraser Sheader') {
-    eligibleOrganisation.clickOnsbi14()
-  } else if (startApplication === 'Friend Farm Produce') {
-    eligibleOrganisation.clickOnsbi15()
-  } else if (startApplication === 'G M PRICHARD & SON') {
-    eligibleOrganisation.clickOnsbi16()
-  } else if (startApplication === 'Glynis Nicholls') {
-    eligibleOrganisation.clickOnsbi17()
-  } else if (startApplication === 'Graham Dare') {
-    eligibleOrganisation.clickOnsbi18()
-  } else if (startApplication === 'Helen Harrison') {
-    eligibleOrganisation.clickOnsbi9()
   }
 })
 

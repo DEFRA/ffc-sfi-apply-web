@@ -1,4 +1,4 @@
-  Feature: Apply for sustainable farming funding
+   Feature: Apply for sustainable farming funding
         Scenario: User successfully start new application
         Given I open the url "/sign-in"
         And I pause for 500ms
