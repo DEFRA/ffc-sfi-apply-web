@@ -218,7 +218,7 @@ Then(
         
 Then(
   /^eligible organsations and sbi should present in the pagination$/, function () {
-    console.log(eligibleOrganisation.verifyOrgsListText())
+    console.log(eligibleOrganisation.verifyOrgsListText());
     const organisationList = eligibleOrganisation.verifyOrgsListText()
     chaiExpect(organisationList).to.not.be.empty;
     chaiExpect(organisationList).to.be.contains.members([

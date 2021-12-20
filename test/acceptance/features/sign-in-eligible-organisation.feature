@@ -1,4 +1,4 @@
-  Feature: Sign-in for Multiple Organisation details page
+Feature: Sign-in for Multiple Organisation details page
   Scenario: User can successfully signin on multiple organisation page
     Given I open the url "/sign-in"
     And I pause for 500ms
@@ -42,10 +42,10 @@
     And I add "kdaihsra" to the inputfield "#password"
     And I click on the continue button
     Then I mock the response for "eligible-organisations"
-    And I pause for 700ms
+    And I pause for 800ms
     And I expect that the url contains "/eligible-organisations"
     When I click on the application for the "<startApplication>" organisation
-    And I pause for 700ms
+    And I pause for 800ms
     Then I expect that the url contains "/start-application?sbi"
     Then I expect that element "ul.govuk-list" contains the text "<SBI number>" 
     Examples:
@@ -122,7 +122,8 @@
     And I click on the element "//main[@id='main-content']/div[2]/form/div/button"
     And I pause for 700ms
     Then I expect that the url contains "/eligible-organisations"
-    Then I expect that element "div.govuk-form-group.govuk-form-group--error" contains the text "<errorMessage>"                        
+    Then I expect that element "#error-message" contains the text "<errorMessage>"                        
+    #div.govuk-form-group.govuk-form-group--error
     Examples:
     |SBI number|errorMessage             |
     |1068990544|The SBI is too long.     |
@@ -170,7 +171,7 @@
     And I add "kdaihsra" to the inputfield "#password"
     And I click on the continue button
     Then I mock the response for "eligible-organisations"
-    And I pause for 400ms
+    And I pause for 700ms
     Then I expect that the url contains "/eligible-organisations"
     Then eligible organsations and sbi should present in the pagination
     

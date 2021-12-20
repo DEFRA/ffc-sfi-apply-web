@@ -46,7 +46,7 @@ class eligibleOrganisation extends Page {
   async verifySbiNumber() {
     console.log(await (await this.sbiNum).getText());
     const sbiNumber = await (await this.sbiNum).getText();
-    await chai.expect(sbiNumber).to.not.be.empty;
+    await (await chai).expect(sbiNumber).to.not.be.empty;
     console.log(sbiNumber);
     return sbiNumber;  
   }
