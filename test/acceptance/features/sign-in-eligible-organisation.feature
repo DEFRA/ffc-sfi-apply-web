@@ -146,12 +146,12 @@ Feature: Sign-in for Multiple Organisation details page
     Then I expect that the url contains "/eligible-organisations" 
     When I click on the link "2"
     And I pause for 800ms
-    Then I expect that element "div.govuk-grid-column-one-third.text-align-right" contains the text "Showing 11 - 19 of 19 organisations"
-    And I expect that the url contains "/eligible-organisations?page=2"
+    #Then I expect that element "div.govuk-grid-column-one-third.text-align-right" contains the text "Showing 11 - 19 of 19 organisations"
+    Then I expect that the url contains "/eligible-organisations?page=2"
     When I click on the link "1"
     And I pause for 600ms
+    Then I expect that the url contains "/eligible-organisations?page=1"
     Then I expect that element "div.govuk-grid-column-one-third.text-align-right" contains the text "Showing 1 - 10 of 19 organisations"
-     Then I expect that the url contains "/eligible-organisations?page=1"
     When I click on the link "Next »"
     And I pause for 500ms
     Then I expect that element "div.govuk-grid-column-one-third.text-align-right" contains the text "Showing 11 - 19 of 19 organisations"
