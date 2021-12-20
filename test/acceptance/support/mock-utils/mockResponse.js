@@ -143,7 +143,7 @@ export default async responseType => {
       case 'what-payment-level':
         await mockWhatPaymentLevel()
         break
-      case 'start-application?sbi=107700399':
+      case 'start-application':
         await mockStartApplication()
         break
       case 'eligible-organisations':

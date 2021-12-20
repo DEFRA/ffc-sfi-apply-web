@@ -10,7 +10,7 @@
         And I clear the inputfield "#password"
         And I add "kdaihsra" to the inputfield "#password"
         And I click on the element "#submit"
-        Then I mock the response for "/start-application"
+        Then I mock the response for "start-application"
         When I pause for 800ms
         Then I expect that the url contains "/start-application?sbi=107700399"
         And I click on the element "#start-application"
