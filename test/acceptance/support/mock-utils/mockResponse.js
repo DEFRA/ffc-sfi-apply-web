@@ -72,7 +72,7 @@ async function mockWhatPaymentLevel () {
   await mockResponseMessage(baseResponseMessage, process.env.CALCULATERESPONSE_QUEUE_ADDRESS, receiverConfig)
 }
 
-async function mockStartApplication () {
+async function mockSignIn () {
   const receiverConfig = {
     ...subscriptionConfig,
     address: process.env.ELIGIBILITY_SUBSCRIPTION_ADDRESS,
@@ -143,8 +143,8 @@ export default async responseType => {
       case 'what-payment-level':
         await mockWhatPaymentLevel()
         break
-      case 'start-application':
-        await mockStartApplication()
+      case 'sign-in':
+        await mockSignIn()
         break
       case 'eligible-organisations':
         await mockEligibleOrganisations()

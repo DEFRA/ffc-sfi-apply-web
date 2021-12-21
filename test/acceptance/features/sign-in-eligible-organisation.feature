@@ -102,7 +102,7 @@ Feature: Sign-in for Multiple Organisation details page
     Examples:
     |SBI number|
     |106889602 |
-    |106940295 |
+    
 
     Scenario Outline: User cannot search for sbi number with invalid sbi
     Given I open the url "/sign-in"
@@ -123,7 +123,6 @@ Feature: Sign-in for Multiple Organisation details page
     And I pause for 800ms
     Then I expect that the url contains "/eligible-organisations"
     Then I expect that element "#error-message" contains the text "<errorMessage>"                        
-    #div.govuk-form-group.govuk-form-group--error
     Examples:
     |SBI number|errorMessage             |
     |1068990544|The SBI is too long.     |
@@ -146,21 +145,17 @@ Feature: Sign-in for Multiple Organisation details page
     Then I expect that the url contains "/eligible-organisations" 
     When I click on the link "2"
     And I pause for 800ms
-    #Then I expect that element "div.govuk-grid-column-one-third.text-align-right" contains the text "Showing 11 - 19 of 19 organisations"
     Then I expect that the url contains "/eligible-organisations?page=2"
     When I click on the link "1"
     And I pause for 600ms
     Then I expect that the url contains "/eligible-organisations?page=1"
-    #Then I expect that element "div.govuk-grid-column-one-third.text-align-right" contains the text "Showing 1 - 10 of 19 organisations"
     When I click on the link "Next »"
     And I pause for 500ms
     Then I expect that the url contains "/eligible-organisations?page=2"
-    #Then I expect that element "div.govuk-grid-column-one-third.text-align-right" contains the text "Showing 11 - 19 of 19 organisations"
     When I click on the link "« Previous"
     And I pause for 400ms
     Then I expect that the url contains "/eligible-organisations?page=1"
-    #Then I expect that element "div.govuk-grid-column-one-third.text-align-right" contains the text "Showing 1 - 10 of 19 organisations"
-
+    
     Scenario: Verify count of eligible organisation in pagination
     Given I open the url "/sign-in"
     And I pause for 500ms
