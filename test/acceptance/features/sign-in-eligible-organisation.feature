@@ -51,7 +51,7 @@ Feature: Sign-in for Multiple Organisation details page
     Then I expect that element "ul.govuk-list" contains the text "<SBI number>" 
     Examples:
     |startApplication   |SBI number|
-    |forthOrganisation  |106899089 |
+    #|forthOrganisation  |106899089 |
     |fifthOrganisation  |106889602 |
     |sixthOrganisation  |200656757 |
     |seventhOrganisation|107008163 |   
