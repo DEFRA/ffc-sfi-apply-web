@@ -11,7 +11,7 @@
         And I add "kdaihsra" to the inputfield "#password"
         And I click on the element "#submit"
         Then I mock the response for "sign-in"
-        When I pause for 800ms
+        When I pause for 1000ms
         Then I expect that the url contains "/start-application?sbi=107700399"
         And I click on the element "#start-application"
         Then I expect that the url contains "/application-task-list"

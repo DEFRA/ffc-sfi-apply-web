@@ -43,10 +43,10 @@ Feature: Sign-in for Multiple Organisation details page
     And I add "kdaihsra" to the inputfield "#password"
     And I click on the continue button
     Then I mock the response for "eligible-organisations"
-    And I pause for 800ms
+    And I pause for 1000ms
     And I expect that the url contains "/eligible-organisations"
     When I click on the application for the "<startApplication>" organisation
-    And I pause for 800ms
+    And I pause for 1000ms
     Then I expect that the url contains "/start-application?sbi"
     Then I expect that element "ul.govuk-list" contains the text "<SBI number>" 
     Examples:
@@ -72,15 +72,15 @@ Feature: Sign-in for Multiple Organisation details page
     And I add "kdaihsra" to the inputfield "#password"
     And I click on the continue button
     Then I mock the response for "eligible-organisations"
-    And I pause for 800ms
+    And I pause for 1000ms
     Then I expect that the url contains "/eligible-organisations"
-    When I click on the element "//tr[1]/td[4]/a"
-    And I pause for 800ms
+    #When I click on the element "//tr[1]/td[4]/a"   
+    When I click on the element "tbody>tr:nth-child(1)>td:nth-child(4)>a" 
+    And I pause for 1000ms
     Then I expect that the url contains "/start-application?sbi"
     When I click on the element "#start-application"
     Then I expect that the url contains "/application-task-list"
-
-    
+   
     Scenario Outline: User can search for sbi number 
     Given I open the url "/sign-in"
     And I pause for 500ms
@@ -93,12 +93,12 @@ Feature: Sign-in for Multiple Organisation details page
     And I add "kdaihsra" to the inputfield "#password"
     And I click on the continue button
     Then I mock the response for "eligible-organisations"
-    And I pause for 800ms
+    And I pause for 1000ms
     Then I expect that the url contains "/eligible-organisations"
     When I clear the inputfield "#user-search"
     And I search sbi number <SBI number>
     And I click on the element "//main[@id='main-content']/div[2]/form/div/button"
-    And I pause for 800ms
+    And I pause for 1000ms
     Then I expect that the url contains "/eligible-organisations"
     Then I expect that element "table>tbody>tr>td:nth-child(2)" contains the text "<SBI number>" 
     Examples:
@@ -117,12 +117,12 @@ Feature: Sign-in for Multiple Organisation details page
     And I add "kdaihsra" to the inputfield "#password"
     And I click on the continue button
     Then I mock the response for "eligible-organisations"
-    And I pause for 800ms
+    And I pause for 1000ms
     Then I expect that the url contains "/eligible-organisations"
     When I clear the inputfield "#user-search"
     And I search sbi number <SBI number>
     And I click on the element "//main[@id='main-content']/div[2]/form/div/button"
-    And I pause for 800ms
+    And I pause for 1000ms
     Then I expect that the url contains "/eligible-organisations"
     Then I expect that element "#error-message" contains the text "<errorMessage>"                        
     Examples:
@@ -170,7 +170,7 @@ Feature: Sign-in for Multiple Organisation details page
     And I add "kdaihsra" to the inputfield "#password"
     And I click on the continue button
     Then I mock the response for "eligible-organisations"
-    And I pause for 800ms
+    And I pause for 1000ms
     Then I expect that the url contains "/eligible-organisations"
     Then eligible organsations and sbi should present in the pagination
     
