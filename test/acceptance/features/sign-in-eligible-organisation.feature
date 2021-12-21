@@ -102,7 +102,7 @@ Feature: Sign-in for Multiple Organisation details page
     Examples:
     |SBI number|
     |106889602 |
-    
+   
 
     Scenario Outline: User cannot search for sbi number with invalid sbi
     Given I open the url "/sign-in"
