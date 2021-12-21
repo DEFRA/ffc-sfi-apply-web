@@ -80,6 +80,7 @@ Feature: Sign-in for Multiple Organisation details page
     When I click on the element "#start-application"
     Then I expect that the url contains "/application-task-list"
 
+    @WIP
     Scenario Outline: User can search for sbi number 
     Given I open the url "/sign-in"
     And I pause for 500ms
@@ -99,7 +100,7 @@ Feature: Sign-in for Multiple Organisation details page
     And I click on the element "//main[@id='main-content']/div[2]/form/div/button"
     And I pause for 800ms
     Then I expect that the url contains "/eligible-organisations"
-    Then I expect that element "//td[2]" contains the text "<SBI number>" 
+    Then I expect that element "table>tbody>tr>td:nth-child(2)" contains the text "<SBI number>" 
     Examples:
     |SBI number|
     |106889602 |
@@ -142,19 +143,19 @@ Feature: Sign-in for Multiple Organisation details page
     And I add "kdaihsra" to the inputfield "#password"
     And I click on the continue button
     Then I mock the response for "eligible-organisations"
-    And I pause for 800ms
+    And I pause for 1000ms
     Then I expect that the url contains "/eligible-organisations" 
     When I click on the link "2"
-    And I pause for 800ms
+    And I pause for 1000ms
     Then I expect that the url contains "/eligible-organisations?page=2"
     When I click on the link "1"
-    And I pause for 600ms
+    And I pause for 1000ms
     Then I expect that the url contains "/eligible-organisations?page=1"
     When I click on the link "Next »"
-    And I pause for 500ms
+    And I pause for 1000ms
     Then I expect that the url contains "/eligible-organisations?page=2"
     When I click on the link "« Previous"
-    And I pause for 400ms
+    And I pause for 1000ms
     Then I expect that the url contains "/eligible-organisations?page=1"
     
     Scenario: Verify count of eligible organisation in pagination
