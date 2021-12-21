@@ -15,7 +15,7 @@
     "selenium"
   ],
   "scripts": {
-    "test": "wdio wdio.conf.js --cucumberOpts.tagExpression='@WIP'",
+    "test": "wdio wdio.conf.js",
     "test:debug": "node --inspect-brk=0.0.0.0 ./node_modules/@wdio/cli/bin/wdio.js wdio.conf.js"
   },
   "dependencies": {

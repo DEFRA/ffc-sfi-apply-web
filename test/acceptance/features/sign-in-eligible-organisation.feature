@@ -80,7 +80,7 @@ Feature: Sign-in for Multiple Organisation details page
     When I click on the element "#start-application"
     Then I expect that the url contains "/application-task-list"
 
-    @WIP
+    
     Scenario Outline: User can search for sbi number 
     Given I open the url "/sign-in"
     And I pause for 500ms
