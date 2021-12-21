@@ -1,4 +1,5 @@
 Feature: Sign-in for Multiple Organisation details page
+
   Scenario: User can successfully signin on multiple organisation page
     Given I open the url "/sign-in"
     And I pause for 500ms
@@ -11,22 +12,22 @@ Feature: Sign-in for Multiple Organisation details page
     And I add "kdaihsra" to the inputfield "#password"
     And I click on the continue button
     Then I mock the response for "eligible-organisations"
-    And I pause for 700ms
+    And I pause for 1000ms
     And I expect that the url contains "/eligible-organisations"
     When I click on the application for the "first" organisation
-    And I pause for 700ms
+    And I pause for 1000ms
     Then I expect that the url contains "/start-application?sbi"
     And I expect that element "ul.govuk-list" contains the text "07103820"
     When I click the back button
     Then I expect that the url contains "/eligible-organisations"
     When I click on the application for the "second" organisation
-    And I pause for 700ms
+    And I pause for 1000ms
     Then I expect that the url contains "/start-application?sbi"
     And I expect that element "ul.govuk-list" contains the text "106982014"
     When I click the back button
     Then I expect that the url contains "/eligible-organisations"
     When I click on the application for the "third" organisation
-    And I pause for 700ms
+    And I pause for 1000ms
     Then I expect that the url contains "/start-application?sbi"
     And I expect that element "ul.govuk-list" contains the text "107365827"
  
