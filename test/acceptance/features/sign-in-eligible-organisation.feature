@@ -61,8 +61,8 @@ Feature: Sign-in for Multiple Organisation details page
     |tenthOrganisation  |106940295 |
     
     Scenario: User can start new application after signing in
-    Given I open the url "/sign-in"
-    And I pause for 500ms
+    Given I open the url "/logout"
+    When I open the url "/login"
     Then I expect that element "h1" contains the text "Sign in"
     When I clear the inputfield "#crn"
     And I enter crn number 9867012345
