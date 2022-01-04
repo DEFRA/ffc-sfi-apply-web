@@ -28,7 +28,7 @@ Feature: Sign-in for Single Organisation details page
     And I enter password tyyteryyeru
     And I add "kdaihsra" to the inputfield "#password"
     And I click on the continue button
-    And I pause for 800ms
+    And I pause for 1000ms
     Then I expect that the url contains "/sign-in"
     Then I expect that element "div.govuk-error-summary__body" contains the text "length must be 10 characters long"
   
@@ -44,6 +44,6 @@ Scenario: User cannot successfully signin with invalid callerID
     And I enter password tyyteryyeru
     And I add "kdaihsra" to the inputfield "#password"
     And I click on the continue button
-    And I pause for 800ms
+    And I pause for 1000ms
     Then I expect that the url contains "/sign-in"
     Then I expect that element "div.govuk-error-summary__body" contains the text "length must be 7 characters long"

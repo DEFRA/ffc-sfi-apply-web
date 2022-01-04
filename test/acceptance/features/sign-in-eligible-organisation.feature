@@ -83,8 +83,8 @@ Feature: Sign-in for Multiple Organisation details page
     Then I expect that the url contains "/application-task-list"
    
     Scenario Outline: User can search for sbi number 
-    Given I open the url "/sign-in"
-    And I pause for 500ms
+    Given I open the url "/logout"
+    When I open the url "/login"
     When I clear the inputfield "#crn"
     And I enter crn number 9867012345
     And I clear the inputfield "#callerId"
@@ -132,8 +132,8 @@ Feature: Sign-in for Multiple Organisation details page
     |10688dssa |The SBI must be a number.|
 
     Scenario: User can click on the pagination link and navigate forward and backward pagination pages
-    Given I open the url "/sign-in"
-    And I pause for 500ms
+    Given I open the url "/logout"
+    When I open the url "/login"
     When I clear the inputfield "#crn"
     And I enter crn number 9867012345
     And I clear the inputfield "#callerId"
@@ -159,8 +159,8 @@ Feature: Sign-in for Multiple Organisation details page
     Then I expect that the url contains "/eligible-organisations?page=1"
     
     Scenario: Verify count of eligible organisation in pagination
-    Given I open the url "/sign-in"
-    And I pause for 500ms
+    Given I open the url "/logout"
+    When I open the url "/login"
     When I clear the inputfield "#crn"
     And I enter crn number 9867012345
     And I clear the inputfield "#callerId"
