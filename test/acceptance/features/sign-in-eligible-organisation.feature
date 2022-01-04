@@ -80,7 +80,7 @@ Feature: Sign-in for Multiple Organisation details page
     And I pause for 1000ms
     Then I expect that the url contains "/start-application?sbi"
     When I click on the element "#start-application"
-    Then I expect that the url contains "/application-task-list"
+    Then I expect that the url contains "/task-listt"
    
     Scenario Outline: User can search for sbi number 
     Given I open the url "/logout"
@@ -94,7 +94,7 @@ Feature: Sign-in for Multiple Organisation details page
     And I add "kdaihsra" to the inputfield "#password"
     And I click on the continue button
     Then I mock the response for "eligible-organisations"
-    And I pause for 1000ms
+    And I pause for 1200ms
     Then I expect that the url contains "/eligible-organisations"
     When I clear the inputfield "#user-search"
     And I search sbi number <SBI number>
@@ -119,7 +119,7 @@ Feature: Sign-in for Multiple Organisation details page
     And I add "kdaihsra" to the inputfield "#password"
     And I click on the continue button
     Then I mock the response for "eligible-organisations"
-    And I pause for 1000ms
+    And I pause for 1200ms
     Then I expect that the url contains "/eligible-organisations"
     When I clear the inputfield "#user-search"
     And I search sbi number <SBI number>
