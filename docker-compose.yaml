@@ -16,8 +16,6 @@ services:
       AZURE_STORAGE_USE_CONNECTION_STRING: "true"
       CH_API_GATEWAY: ${CH_API_GATEWAY}
       COOKIE_PASSWORD: cookiecookiecookiecookiecookiecookie
-      JWT_SECRET: secretsecretsecret
-      JWT_TTL: 2592000000
       OS_MAP_API_KEY: ${OS_MAP_API_KEY}
       MESSAGE_QUEUE_HOST: ${MESSAGE_QUEUE_HOST}
       MESSAGE_QUEUE_PASSWORD: ${MESSAGE_QUEUE_PASSWORD}

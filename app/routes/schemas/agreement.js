@@ -1,17 +1,17 @@
-const joi = require('joi')
+const Joi = require('joi')
 
-module.exports = joi.object({
-  sbi: joi.number().required(),
-  standards: joi.array().items().required().single().required(),
-  primaryActions: joi.array().required(),
-  paymentAmount: joi.number().required(),
-  soilAssessment: joi.string().required(),
-  soilProtection: joi.string().required(),
-  soilCover: joi.string().required(),
-  soilManagement: joi.string().required(),
-  tillage: joi.string().required(),
-  soilCompaction: joi.string().required(),
-  soilQuality: joi.string().required(),
-  paymentFrequency: joi.string().required(),
-  agreementNumber: joi.string().required()
+module.exports = Joi.object({
+  sbi: Joi.number().required(),
+  standards: Joi.array().items().required().single().required(),
+  primaryActions: Joi.array().required(),
+  paymentAmount: Joi.number().required(),
+  soilAssessment: Joi.string().required(),
+  soilProtection: Joi.string().required(),
+  soilCover: Joi.string().required(),
+  soilManagement: Joi.string().required(),
+  tillage: Joi.string().required(),
+  soilCompaction: Joi.string().required(),
+  soilQuality: Joi.string().required(),
+  paymentFrequency: Joi.string().required(),
+  agreementNumber: Joi.string().required()
 })

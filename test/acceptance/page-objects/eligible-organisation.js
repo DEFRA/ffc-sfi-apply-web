@@ -26,7 +26,7 @@ class eligibleOrganisation extends Page {
 
   //searh sbi number element
   get sbiNumberField () { return $('#user-search') }
-  get sbiNum () { return $('//td[2]') }   
+  get sbiNum () { return $('//tr[1]/td[2]') }   
   get sbiError () { return $('#error-message')}
   get orgsList () { return $$('div[class="govuk-grid-column-full"] tbody tr')}  
   get orgs () { return $('//*[@id="main-content"]/div[3]/div/table/tbody/tr[3]')}  

@@ -1,8 +1,8 @@
 Feature: Sign-in for Multiple Organisation details page
 
   Scenario: User can successfully signin on multiple organisation page
-    Given I open the url "/sign-in"
-    And I pause for 500ms
+    Given I open the url "/logout"
+    When I open the url "/login"
     When I clear the inputfield "#crn"
     And I enter crn number 9867012345
     And I clear the inputfield "#callerId"
@@ -30,10 +30,11 @@ Feature: Sign-in for Multiple Organisation details page
     And I pause for 1000ms
     Then I expect that the url contains "/start-application?sbi"
     And I expect that element "ul.govuk-list" contains the text "107365827"
- 
-  Scenario Outline: User can clicks on all organisations on eligible page
-    Given I open the url "/sign-in"
-    And I pause for 500ms
+
+  
+  Scenario Outline: User can click on all organisations on eligible page
+    Given I open the url "/logout"
+    When I open the url "/login"
     When I clear the inputfield "#crn"
     And I enter crn number 9867012345
     And I clear the inputfield "#callerId"
@@ -107,7 +108,8 @@ Feature: Sign-in for Multiple Organisation details page
    
 
     Scenario Outline: User cannot search for sbi number with invalid sbi
-    Given I open the url "/sign-in"
+    Given I open the url "/logout"
+    When I open the url "/login"
     When I clear the inputfield "#crn"
     And I enter crn number 9867012345
     And I clear the inputfield "#callerId"
@@ -124,7 +126,7 @@ Feature: Sign-in for Multiple Organisation details page
     And I click on the element "//main[@id='main-content']/div[2]/form/div/button"
     And I pause for 1000ms
     Then I expect that the url contains "/eligible-organisations"
-    Then I expect that element "#error-message" contains the text "<errorMessage>"                        
+    Then I expect that element "#error-message" contains the text "<errorMessage>"
     Examples:
     |SBI number|errorMessage             |
     |10688dssa |The SBI must be a number.|

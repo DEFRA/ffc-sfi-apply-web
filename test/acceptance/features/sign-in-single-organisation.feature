@@ -1,7 +1,7 @@
 Feature: Sign-in for Single Organisation details page
   Scenario: User can successfully signin on single organisation page
-    Given I open the url "/sign-in"
-    And I pause for 500ms
+    Given I open the url "/logout"
+    When I open the url "/login"
     Then I expect that element "h1" contains the text "Sign in"
     When I clear the inputfield "#crn"
     And I enter crn number 9867012345

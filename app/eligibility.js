@@ -1,33 +1,34 @@
 const cache = require('./cache')
-const { sendEligibilityCheckMessage, receiveEligibilityResponseMessage } = require('./messaging')
+const config = require('./config')
+const { sendMessage, receiveMessage } = require('./messaging')
 const { v4: uuidv4 } = require('uuid')
+const util = require('util')
 
-const getEligibility = async (request, error) => {
-  const agreement = await cache.get('agreement', request.yar.id)
-  const application = agreement?.application
-  let eligibility = application.eligibility
-  if (error && eligibility) {
-    return { application, eligibility }
-  } else {
-    eligibility = await sendEligibilityRequest(application, request, eligibility)
-    await cache.update('agreement', request.yar.id, { application: { eligibleOrganisations: eligibility } })
+const getEligibleOrganisations = async (request) => {
+  const { crn, callerId, data } = await cache.get(request)
+  let eligibleOrganisations = data?.eligibleOrganisations
+
+  if (eligibleOrganisations) {
+    return eligibleOrganisations
   }
 
-  return { agreement, eligibility }
+  eligibleOrganisations = await requestEligibleOrganisations(crn, callerId, request.state.ffc_sfi_identity.sid)
+  await cache.update(request, { data: { eligibleOrganisations } })
+  return eligibleOrganisations
 }
 
-const sendEligibilityRequest = async (agreement, request, eligibility) => {
+const requestEligibleOrganisations = async (crn, callerId, correlationId, eligibility) => {
   const messageId = uuidv4()
-  await sendEligibilityCheckMessage({ crn: agreement.crn, callerId: agreement.callerId }, request.yar.id, messageId)
+  const body = { crn, callerId }
+  await sendMessage(body, 'uk.gov.sfi.eligibility.check', config.eligibilityTopic, { correlationId, messageId })
+  console.log('Eligibility request sent:', util.inspect(body, false, null, true))
 
-  const response = await receiveEligibilityResponseMessage(messageId)
+  const response = await receiveMessage(messageId, config.responseEligibilityQueue)
 
   if (response) {
-    console.info('Eligibility request received', response)
-    eligibility = response.eligibility
+    console.info('Eligibility response received:', util.inspect(response, false, null, true))
+    return response.eligibility
   }
-
-  return eligibility
 }
 
-module.exports = getEligibility
+module.exports = getEligibleOrganisations

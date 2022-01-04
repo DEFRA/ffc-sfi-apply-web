@@ -1,33 +1,27 @@
-const JWT = require('jsonwebtoken')
-const config = require('../../../../app/config')
-
 describe('confirm details route', () => {
   jest.mock('ffc-messaging')
   jest.mock('../../../../app/plugins/crumb')
-  jest.mock('../../../../app/map')
-  const getMapParcels = require('../../../../app/map')
+  jest.mock('../../../../app/land/land')
+  const mockGetLand = require('../../../../app/land/land')
   const createServer = require('../../../../app/server')
   jest.mock('../../../../app/cache')
   const mockCache = require('../../../../app/cache')
   let server
-  let token
+  let auth
   const callerId = 123456789
 
   beforeEach(async () => {
-    token = JWT.sign({ callerId }, config.jwtConfig.secret)
+    auth = { strategy: 'session', credentials: { name: 'A Farmer' } }
 
-    getMapParcels.mockResolvedValue(
+    mockGetLand.mockResolvedValue(
       {
         parcels: []
       }
     )
 
-    mockCache.get.mockResolvedValue(
-      {
-        application: {
-          callerId
-        }
-      })
+    mockCache.get.mockResolvedValue({
+      callerId
+    })
 
     server = await createServer()
     await server.initialize()
@@ -42,22 +36,22 @@ describe('confirm details route', () => {
     const options = {
       method: 'GET',
       url: '/confirm-details',
-      headers: { authorization: token }
+      auth
     }
 
     const result = await server.inject(options)
     expect(result.statusCode).toBe(200)
   })
 
-  test('GET /confirm-details with auth returns view land-business-details/confirm-details', async () => {
+  test('GET /confirm-details with auth returns view land/confirm-details', async () => {
     const options = {
       method: 'GET',
       url: '/confirm-details',
-      headers: { authorization: token }
+      auth
     }
 
     const result = await server.inject(options)
-    expect(result.request.response.source.template).toBe('land-business-details/confirm-details')
+    expect(result.request.response.source.template).toBe('land/confirm-details')
   })
 
   test('GET /confirm-details without auth returns 302', async () => {
@@ -68,17 +62,17 @@ describe('confirm details route', () => {
 
     const result = await server.inject(options)
     expect(result.statusCode).toBe(302)
-    expect(result.headers.location).toBe('/')
+    expect(result.headers.location).toBe('/login')
   })
 
   test('GET /confirm-details with auth no parcels returns /no-response view ', async () => {
     const options = {
       method: 'GET',
       url: '/confirm-details',
-      headers: { authorization: token }
+      auth
     }
 
-    getMapParcels.mockResolvedValue({})
+    mockGetLand.mockResolvedValue({})
 
     const result = await server.inject(options)
     expect(result.statusCode).toBe(200)
@@ -93,14 +87,14 @@ describe('confirm details route', () => {
 
     const result = await server.inject(options)
     expect(result.statusCode).toBe(302)
-    expect(result.headers.location).toBe('/')
+    expect(result.headers.location).toBe('/login')
   })
 
   test('POST /confirm-details with auth redirects to /management-control', async () => {
     const options = {
       method: 'POST',
       url: '/confirm-details',
-      headers: { authorization: token },
+      auth,
       payload: {
         isLandCorrect: true,
         'layer-select': 'road'
@@ -116,7 +110,7 @@ describe('confirm details route', () => {
     const options = {
       method: 'POST',
       url: '/confirm-details',
-      headers: { authorization: token },
+      auth,
       payload: {
         isLandCorrect: false,
         'layer-select': 'road'
@@ -128,24 +122,24 @@ describe('confirm details route', () => {
     expect(result.headers.location).toBe('/change-land-details')
   })
 
-  test('POST /confirm-details with auth and no payload returns land-business-details/confirm-details view', async () => {
+  test('POST /confirm-details with auth and no payload returns land/confirm-details view', async () => {
     const options = {
       method: 'POST',
       url: '/confirm-details',
-      headers: { authorization: token },
+      auth,
       payload: {}
     }
 
     const result = await server.inject(options)
     expect(result.statusCode).toBe(400)
-    expect(result.request.response.source.template).toBe('land-business-details/confirm-details')
+    expect(result.request.response.source.template).toBe('land/confirm-details')
   })
 
-  test('POST /confirm-details with auth and no landControlCheck returns land-business-details/confirm-details view', async () => {
+  test('POST /confirm-details with auth and no landControlCheck returns land/confirm-details view', async () => {
     const options = {
       method: 'POST',
       url: '/confirm-details',
-      headers: { authorization: token },
+      auth,
       payload: {
         'layer-select': 'road'
       }
@@ -153,6 +147,6 @@ describe('confirm details route', () => {
 
     const result = await server.inject(options)
     expect(result.statusCode).toBe(400)
-    expect(result.request.response.source.template).toBe('land-business-details/confirm-details')
+    expect(result.request.response.source.template).toBe('land/confirm-details')
   })
 })

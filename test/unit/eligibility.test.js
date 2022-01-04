@@ -1,5 +1,3 @@
-const cache = require('../../app/cache')
-
 const callerId = 123456
 const crn = 1234567890
 const organisationId = 1234567
@@ -42,8 +40,14 @@ const getEligibility = require('../../app/eligibility')
 
 describe('process eligibility message', () => {
   const request = {
-    yar: {
-      id: '1234567890'
+    state: { ffc_sfi_identity: { sid: '1234567890' } },
+    server: {
+      app: {
+        cache: {
+          get: () => ({ crn, callerId }),
+          set: () => jest.fn()
+        }
+      }
     }
   }
 
@@ -55,16 +59,11 @@ describe('process eligibility message', () => {
     await server.initialize()
   })
 
-  beforeEach(async () => {
-    await cache.update('agreement', request.yar.id, { application: { crn, callerId } })
-  })
-
   afterEach(async () => {
     jest.resetAllMocks()
   })
 
   afterAll(async () => {
-    await cache.clear('agreement', request.yar.id)
     await server.stop()
   })
 

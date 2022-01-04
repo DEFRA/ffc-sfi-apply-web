@@ -1,22 +1,21 @@
+const { create } = require('../agreement')
 const cache = require('../cache')
-const Joi = require('joi')
+const schema = require('./schemas/sbi')
 
 module.exports = [{
   method: 'GET',
   path: '/start-application',
   options: {
-    validate: {
-      query: Joi.object({
-        sbi: Joi.number().required()
-      }),
-      failAction: async (request, h, error) => {
-        return h.view('/404').takeover()
-      }
-    },
     handler: async (request, h) => {
-      const agreement = await cache.get('agreement', request.yar.id)
-      const organisation = agreement.application.eligibleOrganisations.find(x => x.sbi === request.query.sbi)
-      return h.view('start-application', { organisation })
+      const { agreement, data } = await cache.get(request)
+
+      // if SBI not provided as query parameter, then use previously selected organisation from cache if exists.
+      const sbi = request.query?.sbi ?? agreement?.organisation?.sbi
+      if (sbi) {
+        const organisation = data.eligibleOrganisations.find(x => x.sbi === parseInt(sbi))
+        return h.view('start-application', { organisation })
+      }
+      return h.view('404')
     }
   }
 }, {
@@ -24,19 +23,28 @@ module.exports = [{
   path: '/start-application',
   options: {
     validate: {
-      payload: Joi.object({
-        sbi: Joi.number().required()
-      })
+      payload: schema
     },
     handler: async (request, h) => {
-      const agreement = await cache.get('agreement', request.yar.id)
-      const selectedOrganisation = agreement.application.eligibleOrganisations.find(x => x.sbi === request.payload.sbi)
+      let { agreement, data, callerId } = await cache.get(request)
+
+      // if no existing agreement or SBI no longer matches cached agreement then start new agreement
+      if (!agreement || agreement?.organisation?.sbi !== request.payload.sbi) {
+        await cache.reset(request)
+        agreement = create()
+        // Need to include caller Id as part of agreement to support downstream services
+        // Expect to remove once Defra Identity integrated
+        agreement.callerId = callerId
+      }
+
+      const selectedOrganisation = data.eligibleOrganisations.find(x => x.sbi === request.payload.sbi)
 
       if (selectedOrganisation) {
-        await cache.update('agreement', request.yar.id, { application: { selectedOrganisation, submitted: false } })
-        return h.redirect('/application-task-list')
+        agreement.organisation = selectedOrganisation
+        await cache.update(request, { agreement })
+        return h.redirect('/task-list')
       }
-      return h.redirect('/select-organisation')
+      return h.redirect('/eligible-organisation')
     }
   }
 }]

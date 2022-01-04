@@ -1,4 +1,4 @@
-const config = require('./config').cookieOptions
+const config = require('./config').cookieConfig
 
 function getCurrentPolicy (request, h) {
   let cookiesPolicy = request.state.cookies_policy

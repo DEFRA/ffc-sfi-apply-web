@@ -1,9 +1,10 @@
-const cookieOptions = { ...require('../config').cookieOptions }
-delete cookieOptions.encoding
+const config = require('../config').cookieConfig
 
 module.exports = {
   plugin: require('@hapi/crumb'),
   options: {
-    cookieOptions
+    cookieOptions: {
+      isSecure: config.isSecure
+    }
   }
 }

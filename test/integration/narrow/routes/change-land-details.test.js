@@ -1,6 +1,3 @@
-const JWT = require('jsonwebtoken')
-const config = require('../../../../app/config')
-
 describe('change land details route', () => {
   jest.mock('ffc-messaging')
   jest.mock('../../../../app/plugins/crumb')
@@ -8,17 +5,14 @@ describe('change land details route', () => {
   jest.mock('../../../../app/cache')
   const mockCache = require('../../../../app/cache')
   let server
-  let token
+  let auth
   const callerId = 123456789
 
   beforeEach(async () => {
-    token = JWT.sign({ callerId }, config.jwtConfig.secret)
-    mockCache.get.mockResolvedValue(
-      {
-        application: {
-          callerId
-        }
-      })
+    auth = { strategy: 'session', credentials: { name: 'A Farmer' } }
+    mockCache.get.mockResolvedValue({
+      callerId
+    })
 
     server = await createServer()
     await server.initialize()
@@ -37,29 +31,29 @@ describe('change land details route', () => {
 
     const result = await server.inject(options)
     expect(result.statusCode).toBe(302)
-    expect(result.headers.location).toBe('/')
+    expect(result.headers.location).toBe('/login')
   })
 
   test('GET /change-land-details with auth returns 200', async () => {
     const options = {
       method: 'GET',
       url: '/change-land-details',
-      headers: { authorization: token }
+      auth
     }
 
     const result = await server.inject(options)
     expect(result.statusCode).toBe(200)
   })
 
-  test('GET /change-land-details with auth returns land-business-details/change-land-details view', async () => {
+  test('GET /change-land-details with auth returns land/change-land-details view', async () => {
     const options = {
       method: 'GET',
       url: '/change-land-details',
-      headers: { authorization: token }
+      auth
     }
 
     const result = await server.inject(options)
     expect(result.request.response.variety).toBe('view')
-    expect(result.request.response.source.template).toBe('land-business-details/change-land-details')
+    expect(result.request.response.source.template).toBe('land/change-land-details')
   })
 })

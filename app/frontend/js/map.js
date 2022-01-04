@@ -192,7 +192,7 @@ const selectMapStyle = (layers) => {
   onChange()
 }
 
-export function displayMap (apiKey, sbi, parcels, coordinates, selectedParcels = [], allowSelect = false) {
+export function displayMap (apiKey, parcels, coordinates, selectedParcels = [], allowSelect = false) {
   const features = new GeoJSON().readFeatures(parcels)
   const parcelSource = new VectorSource({ features })
   const layers = buildMapLayers(parcelSource, apiKey)
