@@ -444,7 +444,7 @@ describe('what-funding route', () => {
       auth
     }
 
-    await server.inject(options)
+    const result = await server.inject(options)
 
     expect(result.statusCode).toBe(400)
     expect(result.request.response.variety).toBe('view')
