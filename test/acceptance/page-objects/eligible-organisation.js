@@ -14,30 +14,39 @@ class eligibleOrganisation extends Page {
   get sbi8 () { return $('//tr[8]/td[4]/a') }
   get sbi9 () { return $('//tr[9]/td[4]/a') }
   get sbi10 () { return $('//tr[10]/td[4]/a') }
-  get sbi11 () { return $('//tr[11]/td[4]/a') }
-  get sbi12 () { return $('//tr[12]/td[4]/a') }
-  get sbi13 () { return $('//tr[13]/td[4]/a') }
-  get sbi14 () { return $('//tr[14]/td[4]/a') }
-  get sbi15 () { return $('//tr[15]/td[4]/a') }
-  get sbi16 () { return $('//tr[16]/td[4]/a') }
-  get sbi17 () { return $('//tr[17]/td[4]/a') }
-  get sbi18 () { return $('//tr[18]/td[4]/a') }
-  get sbi19 () { return $('//tr[19]/td[4]/a') }
+  get sbi11 () { return $('//tr[1]/td[4]/a') }
+  get sbi12 () { return $('//tr[2]/td[4]/a') }
+  get sbi13 () { return $('//tr[3]/td[4]/a') }
+  get sbi14 () { return $('//tr[4]/td[4]/a') }
+  get sbi15 () { return $('//tr[5]/td[4]/a') }
+  get sbi16 () { return $('//tr[6]/td[4]/a') }
+  get sbi17 () { return $('//tr[7]/td[4]/a') }
+  get sbi18 () { return $('//tr[8]/td[4]/a') }
+  get sbi19 () { return $('//tr[9]/td[4]/a') }
 
   //searh sbi number element
   get sbiNumberField () { return $('#user-search') }
   get sbiNum () { return $('//tr[1]/td[2]') }   
   get sbiError () { return $('#error-message')}
-   
+  get orgsList () { return $$('div[class="govuk-grid-column-full"] tbody tr')}  
+  get orgs () { return $('//*[@id="main-content"]/div[3]/div/table/tbody/tr[3]')}  
+ 
   open () {
     super.open('')
     browser.pause(3000)
   }
   
+  // step2
+  verifyOrgsListText() {  
+    const orgsListText = [];
+    this.orgsList.map(element => orgsListText.push(element.getText()));
+    return orgsListText;
+  }
+
   async verifySbiNumber() {
     console.log(await (await this.sbiNum).getText());
     const sbiNumber = await (await this.sbiNum).getText();
-    chai.expect(sbiNumber).to.not.be.empty;
+    await (await chai).expect(sbiNumber).to.not.be.empty;
     console.log(sbiNumber);
     return sbiNumber;  
   }
@@ -54,39 +63,10 @@ class eligibleOrganisation extends Page {
     await (await this.sbiNumberField).setValue(sbiNumber);
   }
 
-  async enterSbiNumber(sbiNumber) {
-    await (await this.sbiNumberField).setValue(sbiNumber);
-  }
-
   async clearSbiNumber() {
     await (await this.sbiNumberField).clearValue()
   }
 
-  async verifySbiNumber() {
-    console.log(await (await this.sbiNum).getText());
-    const sbiNumber = await (await this.sbiNum).getText();
-    chai.expect(sbiNumber).to.not.be.empty;
-    console.log(sbiNumber);
-    return sbiNumber;  
-  }
-
-  async verifySbiErrorMessage() {
-    console.log(await (await this.sbiError).getText());
-    const sbiErrorText = await (await this.sbiError).getText();
-    chai.expect(sbiErrorText).to.not.be.empty;
-    console.log(sbiErrorText);
-    return sbiErrorText;   
-  }
-
-  async enterSbiNumber(sbiNumber) {
-    await (await this.sbiNumberField).setValue(sbiNumber);
-  }
-  async enterSbiNumber(sbiNumber) {
-    await (await this.sbiNumberField).setValue(sbiNumber);
-  }
-  async clearSbiNumber() {
-    await (await this.sbiNumberField).clearValue()
-  }
   async clickOnsbi1 () {
     await (await this.sbi1).click()
   }

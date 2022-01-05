@@ -39,7 +39,7 @@ export default (elementType, selector, falseCase, expectedText) => {
   const elem = $(selector)
   elem.waitForDisplayed()
   const text = elem[command]()
-
+  
   if (typeof expectedText === 'undefined') {
     stringExpectedText = falseCase
     boolFalseCase = false
