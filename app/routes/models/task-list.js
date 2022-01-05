@@ -33,7 +33,7 @@ const updateSections = (agreement) => {
   const { land, funding, action, confirmed, submitted } = agreement
 
   // land section not started, return initial task list
-  if (land.isLandCorrect == null) {
+  if (!land.landComplete) {
     return sections
   }
 
@@ -42,17 +42,19 @@ const updateSections = (agreement) => {
   const fundingSection = sections.find(x => x.name === 'Choose your funding')
   const fundingTask = fundingSection.tasks.find(x => x.name === 'Choose funding option')
 
-  // land section complete but funding not set yet
-  if (land.isLandCorrect != null && land.hasManagementControl != null && !funding.length) {
+  // land section complete
+  if (land.landComplete) {
     landSection.completed = true
     landCoverTask.status = COMPLETED
+  }
+
+  // if funding not started
+  if (!funding.length) {
     fundingSection.status = NOT_STARTED_YET
     fundingTask.status = NOT_STARTED_YET
     return sections
-  }
-
-  // funding selected, need to hide placeholder actions and determine which actions to show
-  if (funding.length) {
+  } else {
+    // funding selected, need to hide placeholder actions and determine which actions to show
     const actionSection = sections.find(x => x.name === 'Choose your actions')
     const arableSoilSection = sections.find(x => x.name === 'Arable and horticultural soil actions')
     const improvedGrasslandSection = sections.find(x => x.name === 'Improved grassland soil actions')
@@ -60,6 +62,7 @@ const updateSections = (agreement) => {
 
     actionSection.active = false
     fundingTask.status = COMPLETED
+    fundingSection.completed = true
 
     if (funding.includes('sfi-arable-soil')) {
       arableSoilSection.active = true
@@ -139,7 +142,7 @@ const updateSections = (agreement) => {
         (!funding.includes('sfi-arable-soil') || arableSoilSection.completed) &&
         (!funding.includes('sfi-improved-grassland') || improvedGrasslandSection.completed) &&
         (!funding.includes('sfi-moorland') || moorlandSection.completed)) {
-      const checkTask = checkSection.find(x => x.name === 'Check your answers')
+      const checkTask = checkSection.tasks.find(x => x.name === 'Check your answers')
 
       // if answers not confirmed then update status
       if (!confirmed) {
