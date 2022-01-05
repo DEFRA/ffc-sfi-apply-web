@@ -91,7 +91,7 @@ const updateSections = (agreement) => {
 
     if (funding.includes('sfi-improved-grassland')) {
       improvedGrasslandSection.active = true
-      const improvedGrasslandActionTask = improvedGrasslandSection.tasks.find(x => x.name === 'Select improved grassland soil actions')
+      const improvedGrasslandActionTask = improvedGrasslandSection.tasks.find(x => x.name === 'Improved grassland soil actions')
       const improvedGrasslandParcelTask = improvedGrasslandSection.tasks.find(x => x.name === 'Select improved grassland soil parcels')
       const improvedGrasslandOptionalTask = improvedGrasslandSection.tasks.find(x => x.name === 'Optional improved grassland soil actions')
 
