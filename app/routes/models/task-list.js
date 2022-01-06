@@ -154,7 +154,7 @@ const updateSections = (agreement) => {
       checkTask.status = COMPLETED
 
       const submitSection = sections.find(x => x.name === 'Submit your application')
-      const submitTask = sections.find(x => x.name === 'Submit your application')
+      const submitTask = submitSection.tasks.find(x => x.name === 'Submit your application')
       // if confirmed but not submitted then update status
       if (!submitted) {
         submitTask.status = NOT_STARTED_YET
