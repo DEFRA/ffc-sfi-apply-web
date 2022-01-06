@@ -51,13 +51,12 @@ module.exports = [{
 
       for (const option in agreement.action) {
         agreement.action[option].active = eligibleFunding.some(x => x.code === option)
-        agreement.action[option].actionsComplete = true
       }
       agreement.funding = eligibleFunding.map(x => x.code)
 
       cache.update(request, { agreement })
 
-      return h.redirect('/what-funding')
+      return h.redirect('/how-much')
     }
   }
 }]
