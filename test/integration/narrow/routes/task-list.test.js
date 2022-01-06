@@ -1684,4 +1684,432 @@ describe('change land details route', () => {
     expect(result.request.response.source.context.model.sections[5].tasks[0].status).toBe('CANNOT START YET')
     expect(result.request.response.source.context.model.sections[6].tasks[0].status).toBe('CANNOT START YET')
   })
+
+    test('GET /task-list includes correct number of sections if multiple funding options and first completed', async () => {
+    cachedData.agreement.land = {
+      landComplete: true
+    }
+    cachedData.agreement.funding = ['sfi-arable-soil', 'sfi-moorland']
+    cachedData.agreement.action['sfi-arable-soil'].active = true
+    cachedData.agreement.action['sfi-moorland'].active = true
+    cachedData.agreement.action['sfi-arable-soil'].actionsComplete = true
+    cachedData.agreement.action['sfi-arable-soil'].optionalActionsComplete = true
+    const options = {
+      method: 'GET',
+      url: '/task-list',
+      auth
+    }
+
+    const result = await server.inject(options)
+    expect(result.request.response.source.context.model.sections.length).toBe(6)
+  })
+
+  test('GET /task-list shows correct total of sections if multiple funding options and first completed', async () => {
+    cachedData.agreement.land = {
+      landComplete: true
+    }
+    cachedData.agreement.funding = ['sfi-arable-soil', 'sfi-moorland']
+    cachedData.agreement.action['sfi-arable-soil'].active = true
+    cachedData.agreement.action['sfi-moorland'].active = true
+    cachedData.agreement.action['sfi-arable-soil'].actionsComplete = true
+    cachedData.agreement.action['sfi-arable-soil'].optionalActionsComplete = true
+    const options = {
+      method: 'GET',
+      url: '/task-list',
+      auth
+    }
+
+    const result = await server.inject(options)
+    expect(result.request.response.source.context.model.totalSections).toBe(6)
+  })
+
+  test('GET /task-list shows correct total completed sections if multiple funding options and first completed', async () => {
+    cachedData.agreement.land = {
+      landComplete: true
+    }
+    cachedData.agreement.funding = ['sfi-arable-soil', 'sfi-moorland']
+    cachedData.agreement.action['sfi-arable-soil'].active = true
+    cachedData.agreement.action['sfi-moorland'].active = true
+    cachedData.agreement.action['sfi-arable-soil'].actionsComplete = true
+    cachedData.agreement.action['sfi-arable-soil'].optionalActionsComplete = true
+    const options = {
+      method: 'GET',
+      url: '/task-list',
+      auth
+    }
+
+    const result = await server.inject(options)
+    expect(result.request.response.source.context.model.completedSections).toBe(3)
+  })
+
+  test('GET /task-list shows correct section headings if multiple funding options and first completed', async () => {
+    cachedData.agreement.land = {
+      landComplete: true
+    }
+    cachedData.agreement.funding = ['sfi-arable-soil', 'sfi-moorland']
+    cachedData.agreement.action['sfi-arable-soil'].active = true
+    cachedData.agreement.action['sfi-moorland'].active = true
+    cachedData.agreement.action['sfi-arable-soil'].actionsComplete = true
+    cachedData.agreement.action['sfi-arable-soil'].optionalActionsComplete = true
+    const options = {
+      method: 'GET',
+      url: '/task-list',
+      auth
+    }
+
+    const result = await server.inject(options)
+    expect(result.request.response.source.context.model.sections[0].name).toBe('Your land')
+    expect(result.request.response.source.context.model.sections[1].name).toBe('Choose your funding')
+    expect(result.request.response.source.context.model.sections[2].name).toBe('Arable and horticultural soil actions')
+    expect(result.request.response.source.context.model.sections[3].name).toBe('Moorlands and rough grazing actions')
+    expect(result.request.response.source.context.model.sections[4].name).toBe('Check your answers')
+    expect(result.request.response.source.context.model.sections[5].name).toBe('Submit your application')
+  })
+
+  test('GET /task-list shows correct tasks if multiple funding options and first completed', async () => {
+    cachedData.agreement.land = {
+      landComplete: true
+    }
+    cachedData.agreement.funding = ['sfi-arable-soil', 'sfi-moorland']
+    cachedData.agreement.action['sfi-arable-soil'].active = true
+    cachedData.agreement.action['sfi-moorland'].active = true
+    cachedData.agreement.action['sfi-arable-soil'].actionsComplete = true
+    cachedData.agreement.action['sfi-arable-soil'].optionalActionsComplete = true
+    const options = {
+      method: 'GET',
+      url: '/task-list',
+      auth
+    }
+
+    const result = await server.inject(options)
+    expect(result.request.response.source.context.model.sections[0].tasks[0].name).toBe('Confirm your land cover details')
+    expect(result.request.response.source.context.model.sections[1].tasks[0].name).toBe('Choose funding option')
+    expect(result.request.response.source.context.model.sections[2].tasks[0].name).toBe('Arable and horticultural soil actions')
+    expect(result.request.response.source.context.model.sections[3].tasks[0].name).toBe('Moorlands and rough grazing actions')
+    expect(result.request.response.source.context.model.sections[4].tasks[0].name).toBe('Check your answers')
+    expect(result.request.response.source.context.model.sections[5].tasks[0].name).toBe('Submit your application')
+  })
+
+  test('GET /task-list shows correct task status if multiple funding options and first completed', async () => {
+    cachedData.agreement.land = {
+      landComplete: true
+    }
+    cachedData.agreement.funding = ['sfi-arable-soil', 'sfi-moorland']
+    cachedData.agreement.action['sfi-arable-soil'].active = true
+    cachedData.agreement.action['sfi-moorland'].active = true
+    cachedData.agreement.action['sfi-arable-soil'].actionsComplete = true
+    cachedData.agreement.action['sfi-arable-soil'].optionalActionsComplete = true
+    const options = {
+      method: 'GET',
+      url: '/task-list',
+      auth
+    }
+
+    const result = await server.inject(options)
+    expect(result.request.response.source.context.model.sections[0].tasks[0].status).toBe('COMPLETED')
+    expect(result.request.response.source.context.model.sections[1].tasks[0].status).toBe('COMPLETED')
+    expect(result.request.response.source.context.model.sections[2].tasks[0].status).toBe('COMPLETED')
+    expect(result.request.response.source.context.model.sections[3].tasks[0].status).toBe('NOT STARTED YET')
+    expect(result.request.response.source.context.model.sections[4].tasks[0].status).toBe('CANNOT START YET')
+  })
+
+    test('GET /task-list includes correct number of sections if multiple actions and confirmed', async () => {
+    cachedData.agreement.land = {
+      landComplete: true
+    }
+    cachedData.agreement.funding = ['sfi-arable-soil', 'sfi-moorland']
+    cachedData.agreement.action['sfi-arable-soil'].active = true
+    cachedData.agreement.action['sfi-moorland'].active = true
+    cachedData.agreement.action['sfi-arable-soil'].actionsComplete = true
+    cachedData.agreement.action['sfi-arable-soil'].optionalActionsComplete = true
+    cachedData.agreement.action['sfi-moorland'].actionsComplete = true
+    cachedData.agreement.action['sfi-moorland'].optionalActionsComplete = true
+    cachedData.agreement.confirmed = true
+    const options = {
+      method: 'GET',
+      url: '/task-list',
+      auth
+    }
+
+    const result = await server.inject(options)
+    expect(result.request.response.source.context.model.sections.length).toBe(6)
+  })
+
+  test('GET /task-list shows correct total of sections if multiple actions and confirmed', async () => {
+    cachedData.agreement.land = {
+      landComplete: true
+    }
+    cachedData.agreement.funding = ['sfi-arable-soil', 'sfi-moorland']
+    cachedData.agreement.action['sfi-arable-soil'].active = true
+    cachedData.agreement.action['sfi-moorland'].active = true
+    cachedData.agreement.action['sfi-arable-soil'].actionsComplete = true
+    cachedData.agreement.action['sfi-arable-soil'].optionalActionsComplete = true
+    cachedData.agreement.action['sfi-moorland'].actionsComplete = true
+    cachedData.agreement.action['sfi-moorland'].optionalActionsComplete = true
+    cachedData.agreement.confirmed = true
+    const options = {
+      method: 'GET',
+      url: '/task-list',
+      auth
+    }
+
+    const result = await server.inject(options)
+    expect(result.request.response.source.context.model.totalSections).toBe(6)
+  })
+
+  test('GET /task-list shows correct total completed sections if multiple actions and confirmed', async () => {
+    cachedData.agreement.land = {
+      landComplete: true
+    }
+    cachedData.agreement.funding = ['sfi-arable-soil', 'sfi-moorland']
+    cachedData.agreement.action['sfi-arable-soil'].active = true
+    cachedData.agreement.action['sfi-moorland'].active = true
+    cachedData.agreement.action['sfi-arable-soil'].actionsComplete = true
+    cachedData.agreement.action['sfi-arable-soil'].optionalActionsComplete = true
+    cachedData.agreement.action['sfi-moorland'].actionsComplete = true
+    cachedData.agreement.action['sfi-moorland'].optionalActionsComplete = true
+    cachedData.agreement.confirmed = true
+    const options = {
+      method: 'GET',
+      url: '/task-list',
+      auth
+    }
+
+    const result = await server.inject(options)
+    expect(result.request.response.source.context.model.completedSections).toBe(5)
+  })
+
+  test('GET /task-list shows correct section headings if multiple actions and confirmed', async () => {
+    cachedData.agreement.land = {
+      landComplete: true
+    }
+    cachedData.agreement.funding = ['sfi-arable-soil', 'sfi-moorland']
+    cachedData.agreement.action['sfi-arable-soil'].active = true
+    cachedData.agreement.action['sfi-moorland'].active = true
+    cachedData.agreement.action['sfi-arable-soil'].actionsComplete = true
+    cachedData.agreement.action['sfi-arable-soil'].optionalActionsComplete = true
+    cachedData.agreement.action['sfi-moorland'].actionsComplete = true
+    cachedData.agreement.action['sfi-moorland'].optionalActionsComplete = true
+    cachedData.agreement.confirmed = true
+    const options = {
+      method: 'GET',
+      url: '/task-list',
+      auth
+    }
+
+    const result = await server.inject(options)
+    expect(result.request.response.source.context.model.sections[0].name).toBe('Your land')
+    expect(result.request.response.source.context.model.sections[1].name).toBe('Choose your funding')
+    expect(result.request.response.source.context.model.sections[2].name).toBe('Arable and horticultural soil actions')
+    expect(result.request.response.source.context.model.sections[3].name).toBe('Moorlands and rough grazing actions')
+    expect(result.request.response.source.context.model.sections[4].name).toBe('Check your answers')
+    expect(result.request.response.source.context.model.sections[5].name).toBe('Submit your application')
+  })
+
+  test('GET /task-list shows correct tasks if multiple actions and confirmed', async () => {
+    cachedData.agreement.land = {
+      landComplete: true
+    }
+    cachedData.agreement.funding = ['sfi-arable-soil', 'sfi-moorland']
+    cachedData.agreement.action['sfi-arable-soil'].active = true
+    cachedData.agreement.action['sfi-moorland'].active = true
+    cachedData.agreement.action['sfi-arable-soil'].actionsComplete = true
+    cachedData.agreement.action['sfi-arable-soil'].optionalActionsComplete = true
+    cachedData.agreement.action['sfi-moorland'].actionsComplete = true
+    cachedData.agreement.action['sfi-moorland'].optionalActionsComplete = true
+    cachedData.agreement.confirmed = true
+    const options = {
+      method: 'GET',
+      url: '/task-list',
+      auth
+    }
+
+    const result = await server.inject(options)
+    expect(result.request.response.source.context.model.sections[0].tasks[0].name).toBe('Confirm your land cover details')
+    expect(result.request.response.source.context.model.sections[1].tasks[0].name).toBe('Choose funding option')
+    expect(result.request.response.source.context.model.sections[2].tasks[0].name).toBe('Arable and horticultural soil actions')
+    expect(result.request.response.source.context.model.sections[3].tasks[0].name).toBe('Moorlands and rough grazing actions')
+    expect(result.request.response.source.context.model.sections[4].tasks[0].name).toBe('Check your answers')
+    expect(result.request.response.source.context.model.sections[5].tasks[0].name).toBe('Submit your application')
+  })
+
+  test('GET /task-list shows correct task status if multiple actions and confirmed', async () => {
+    cachedData.agreement.land = {
+      landComplete: true
+    }
+    cachedData.agreement.funding = ['sfi-arable-soil', 'sfi-moorland']
+    cachedData.agreement.action['sfi-arable-soil'].active = true
+    cachedData.agreement.action['sfi-moorland'].active = true
+    cachedData.agreement.action['sfi-arable-soil'].actionsComplete = true
+    cachedData.agreement.action['sfi-arable-soil'].optionalActionsComplete = true
+    cachedData.agreement.action['sfi-moorland'].actionsComplete = true
+    cachedData.agreement.action['sfi-moorland'].optionalActionsComplete = true
+    cachedData.agreement.confirmed = true
+    const options = {
+      method: 'GET',
+      url: '/task-list',
+      auth
+    }
+
+    const result = await server.inject(options)
+    expect(result.request.response.source.context.model.sections[0].tasks[0].status).toBe('COMPLETED')
+    expect(result.request.response.source.context.model.sections[1].tasks[0].status).toBe('COMPLETED')
+    expect(result.request.response.source.context.model.sections[2].tasks[0].status).toBe('COMPLETED')
+    expect(result.request.response.source.context.model.sections[3].tasks[0].status).toBe('COMPLETED')
+    expect(result.request.response.source.context.model.sections[4].tasks[0].status).toBe('COMPLETED')
+    expect(result.request.response.source.context.model.sections[5].tasks[0].status).toBe('NOT STARTED YET')
+  })
+
+  test('GET /task-list includes correct number of sections if multiple actions and submitted', async () => {
+    cachedData.agreement.land = {
+      landComplete: true
+    }
+    cachedData.agreement.funding = ['sfi-arable-soil', 'sfi-moorland']
+    cachedData.agreement.action['sfi-arable-soil'].active = true
+    cachedData.agreement.action['sfi-moorland'].active = true
+    cachedData.agreement.action['sfi-arable-soil'].actionsComplete = true
+    cachedData.agreement.action['sfi-arable-soil'].optionalActionsComplete = true
+    cachedData.agreement.action['sfi-moorland'].actionsComplete = true
+    cachedData.agreement.action['sfi-moorland'].optionalActionsComplete = true
+    cachedData.agreement.confirmed = true
+    cachedData.agreement.submitted = true
+    const options = {
+      method: 'GET',
+      url: '/task-list',
+      auth
+    }
+
+    const result = await server.inject(options)
+    expect(result.request.response.source.context.model.sections.length).toBe(6)
+  })
+
+  test('GET /task-list shows correct total of sections if multiple actions and submitted', async () => {
+    cachedData.agreement.land = {
+      landComplete: true
+    }
+    cachedData.agreement.funding = ['sfi-arable-soil', 'sfi-moorland']
+    cachedData.agreement.action['sfi-arable-soil'].active = true
+    cachedData.agreement.action['sfi-moorland'].active = true
+    cachedData.agreement.action['sfi-arable-soil'].actionsComplete = true
+    cachedData.agreement.action['sfi-arable-soil'].optionalActionsComplete = true
+    cachedData.agreement.action['sfi-moorland'].actionsComplete = true
+    cachedData.agreement.action['sfi-moorland'].optionalActionsComplete = true
+    cachedData.agreement.confirmed = true
+    cachedData.agreement.submitted = true
+    const options = {
+      method: 'GET',
+      url: '/task-list',
+      auth
+    }
+
+    const result = await server.inject(options)
+    expect(result.request.response.source.context.model.totalSections).toBe(6)
+  })
+
+  test('GET /task-list shows correct total completed sections if multiple actions and submitted', async () => {
+    cachedData.agreement.land = {
+      landComplete: true
+    }
+    cachedData.agreement.funding = ['sfi-arable-soil', 'sfi-moorland']
+    cachedData.agreement.action['sfi-arable-soil'].active = true
+    cachedData.agreement.action['sfi-moorland'].active = true
+    cachedData.agreement.action['sfi-arable-soil'].actionsComplete = true
+    cachedData.agreement.action['sfi-arable-soil'].optionalActionsComplete = true
+    cachedData.agreement.action['sfi-moorland'].actionsComplete = true
+    cachedData.agreement.action['sfi-moorland'].optionalActionsComplete = true
+    cachedData.agreement.confirmed = true
+    cachedData.agreement.submitted = true
+    const options = {
+      method: 'GET',
+      url: '/task-list',
+      auth
+    }
+
+    const result = await server.inject(options)
+    expect(result.request.response.source.context.model.completedSections).toBe(6)
+  })
+
+  test('GET /task-list shows correct section headings if multiple actions and submitted', async () => {
+    cachedData.agreement.land = {
+      landComplete: true
+    }
+    cachedData.agreement.funding = ['sfi-arable-soil', 'sfi-moorland']
+    cachedData.agreement.action['sfi-arable-soil'].active = true
+    cachedData.agreement.action['sfi-moorland'].active = true
+    cachedData.agreement.action['sfi-arable-soil'].actionsComplete = true
+    cachedData.agreement.action['sfi-arable-soil'].optionalActionsComplete = true
+    cachedData.agreement.action['sfi-moorland'].actionsComplete = true
+    cachedData.agreement.action['sfi-moorland'].optionalActionsComplete = true
+    cachedData.agreement.confirmed = true
+    cachedData.agreement.submitted = true
+    const options = {
+      method: 'GET',
+      url: '/task-list',
+      auth
+    }
+
+    const result = await server.inject(options)
+    expect(result.request.response.source.context.model.sections[0].name).toBe('Your land')
+    expect(result.request.response.source.context.model.sections[1].name).toBe('Choose your funding')
+    expect(result.request.response.source.context.model.sections[2].name).toBe('Arable and horticultural soil actions')
+    expect(result.request.response.source.context.model.sections[3].name).toBe('Moorlands and rough grazing actions')
+    expect(result.request.response.source.context.model.sections[4].name).toBe('Check your answers')
+    expect(result.request.response.source.context.model.sections[5].name).toBe('Submit your application')
+  })
+
+  test('GET /task-list shows correct tasks if multiple actions and submitted', async () => {
+    cachedData.agreement.land = {
+      landComplete: true
+    }
+    cachedData.agreement.funding = ['sfi-arable-soil', 'sfi-moorland']
+    cachedData.agreement.action['sfi-arable-soil'].active = true
+    cachedData.agreement.action['sfi-moorland'].active = true
+    cachedData.agreement.action['sfi-arable-soil'].actionsComplete = true
+    cachedData.agreement.action['sfi-arable-soil'].optionalActionsComplete = true
+    cachedData.agreement.action['sfi-moorland'].actionsComplete = true
+    cachedData.agreement.action['sfi-moorland'].optionalActionsComplete = true
+    cachedData.agreement.confirmed = true
+    cachedData.agreement.submitted = true
+    const options = {
+      method: 'GET',
+      url: '/task-list',
+      auth
+    }
+
+    const result = await server.inject(options)
+    expect(result.request.response.source.context.model.sections[0].tasks[0].name).toBe('Confirm your land cover details')
+    expect(result.request.response.source.context.model.sections[1].tasks[0].name).toBe('Choose funding option')
+    expect(result.request.response.source.context.model.sections[2].tasks[0].name).toBe('Arable and horticultural soil actions')
+    expect(result.request.response.source.context.model.sections[3].tasks[0].name).toBe('Moorlands and rough grazing actions')
+    expect(result.request.response.source.context.model.sections[4].tasks[0].name).toBe('Check your answers')
+    expect(result.request.response.source.context.model.sections[5].tasks[0].name).toBe('Submit your application')
+  })
+
+  test('GET /task-list shows correct task status if multiple actions and submitted', async () => {
+    cachedData.agreement.land = {
+      landComplete: true
+    }
+    cachedData.agreement.funding = ['sfi-arable-soil', 'sfi-moorland']
+    cachedData.agreement.action['sfi-arable-soil'].active = true
+    cachedData.agreement.action['sfi-moorland'].active = true
+    cachedData.agreement.action['sfi-arable-soil'].actionsComplete = true
+    cachedData.agreement.action['sfi-arable-soil'].optionalActionsComplete = true
+    cachedData.agreement.action['sfi-moorland'].actionsComplete = true
+    cachedData.agreement.action['sfi-moorland'].optionalActionsComplete = true
+    cachedData.agreement.confirmed = true
+    cachedData.agreement.submitted = true
+    const options = {
+      method: 'GET',
+      url: '/task-list',
+      auth
+    }
+
+    const result = await server.inject(options)
+    expect(result.request.response.source.context.model.sections[0].tasks[0].status).toBe('COMPLETED')
+    expect(result.request.response.source.context.model.sections[1].tasks[0].status).toBe('COMPLETED')
+    expect(result.request.response.source.context.model.sections[2].tasks[0].status).toBe('COMPLETED')
+    expect(result.request.response.source.context.model.sections[3].tasks[0].status).toBe('COMPLETED')
+    expect(result.request.response.source.context.model.sections[4].tasks[0].status).toBe('COMPLETED')
+    expect(result.request.response.source.context.model.sections[5].tasks[0].status).toBe('COMPLETED')
+  })
 })
