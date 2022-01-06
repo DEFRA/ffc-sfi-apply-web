@@ -1,0 +1,20 @@
+{% extends '_layout.njk' %}
+{% from "govuk/components/panel/macro.njk" import govukPanel %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <h1 class="govuk-heading-l">Application {{agreementNumber}} has been saved </h1>
+
+      <p class="govuk-body"> You can: </p>
+      <ul class="govuk-list govuk-list--bullet">
+        <li> <a href="{{referer}}">continue with your application</a> </li>
+        <li><a href="/logout">sign out</a></li>
+      </ul>
+
+      <p class="govuk-body"> If you sign out you can return to your application at any time.</p>
+      <p class="govuk-body"> You must submit your application before 1st August 2022. </p>
+     
+      </div>
+    {% endblock %}
