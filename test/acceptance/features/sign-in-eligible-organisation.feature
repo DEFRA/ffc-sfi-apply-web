@@ -57,7 +57,7 @@ Feature: Sign-in for Multiple Organisation details page
     |sixthOrganisation  |200656757 |
     |seventhOrganisation|107008163 |
     |eighthOrganisation |122200885 |
-    |ninethOrganisation |107082108 |
+    |ninthOrganisation |107082108 |
     |tenthOrganisation  |106940295 |
     
     Scenario: User can start new application after signing in
