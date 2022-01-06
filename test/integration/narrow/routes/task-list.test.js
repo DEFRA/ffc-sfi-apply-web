@@ -3,13 +3,13 @@ describe('change land details route', () => {
   const createServer = require('../../../../app/server')
   jest.mock('../../../../app/cache')
   const mockCache = require('../../../../app/cache')
-  const {create: createAgreement} = require('../../../../app/agreement')
+  const { create: createAgreement } = require('../../../../app/agreement')
   let server
   let auth
   let cachedData
 
   beforeEach(async () => {
-    auth = {strategy: 'session', credentials: {name: 'A Farmer'}}
+    auth = { strategy: 'session', credentials: { name: 'A Farmer' } }
     cachedData = {
       callerId: 1234567,
       agreement: createAgreement()
@@ -2161,7 +2161,7 @@ describe('change land details route', () => {
     expect(result.request.response.source.context.model.sections[5].tasks[0].status).toBe('COMPLETED')
   })
 
-    test('GET /task-list includes correct number of sections if only arable soil actions completed', async () => {
+  test('GET /task-list includes correct number of sections if only arable soil actions completed', async () => {
     cachedData.agreement.land = {
       landComplete: true
     }
@@ -2395,7 +2395,7 @@ describe('change land details route', () => {
     expect(result.request.response.source.context.model.sections[4].tasks[0].status).toBe('CANNOT START YET')
   })
 
-    test('GET /task-list includes correct number of sections if only arable soil parcels completed', async () => {
+  test('GET /task-list includes correct number of sections if only arable soil parcels completed', async () => {
     cachedData.agreement.land = {
       landComplete: true
     }
@@ -2641,4 +2641,3 @@ describe('change land details route', () => {
     expect(result.request.response.source.context.model.sections[4].tasks[0].status).toBe('CANNOT START YET')
   })
 })
-
