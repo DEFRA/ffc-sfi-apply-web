@@ -3,6 +3,7 @@ Feature: Sign-in for Multiple Organisation details page
   Scenario: User can successfully signin on multiple organisation page
     Given I open the url "/logout"
     When I open the url "/login"
+    And I pause for 500ms
     When I clear the inputfield "#crn"
     And I enter crn number 9867012345
     And I clear the inputfield "#callerId"
@@ -52,10 +53,9 @@ Feature: Sign-in for Multiple Organisation details page
     Then I expect that element "ul.govuk-list" contains the text "<SBI number>" 
     Examples:
     |startApplication   |SBI number|
-    #|forthOrganisation  |106899089 |
     |fifthOrganisation  |106889602 |
     |sixthOrganisation  |200656757 |
-    |seventhOrganisation|107008163 |   
+    |seventhOrganisation|107008163 |
     |eighthOrganisation |122200885 |
     |ninethOrganisation |107082108 |
     |tenthOrganisation  |106940295 |
@@ -75,7 +75,6 @@ Feature: Sign-in for Multiple Organisation details page
     Then I mock the response for "eligible-organisations"
     And I pause for 1200ms
     Then I expect that the url contains "/eligible-organisations"
-    #When I click on the element "//tr[1]/td[4]/a"   
     When I click on the element "tbody>tr:nth-child(1)>td:nth-child(4)>a" 
     And I pause for 1000ms
     Then I expect that the url contains "/start-application?sbi"
