@@ -1,4 +1,4 @@
-const standardItems = {
+const standardDetails = {
   'sfi-moorland': {
     text: 'Funding for moorland or rough grazing',
     value: 'sfi-moorland',
@@ -20,26 +20,25 @@ const standardItems = {
 }
 
 const mapStandards = (eligibleFunding, selected) => {
-  let standardObj = { ...standardItems }
-  for (const choosenStandard in selected) {
-    standardObj = getChecked(choosenStandard, standardObj)
-  }
-  return getEligible(eligibleFunding, standardObj)
+  let standardItems = JSON.parse(JSON.stringify(standardDetails))
+
+  selected.forEach(choosenStandard => {
+    standardItems = getChecked(choosenStandard, standardItems)
+  })
+  return getEligible(eligibleFunding, standardItems)
 }
 
-const getEligible = (eligibleFunding, standardObj) => {
+const getEligible = (eligibleFunding, standardItems) => {
   const eligibleCodes = eligibleFunding.filter(item => item.landCovers.length > 0)
     .map(standards => standards.code)
-  return eligibleCodes.map(code => standardObj[code]).filter(x => x !== undefined)
+  return eligibleCodes.map(code => standardItems[code]).filter(x => x !== undefined)
 }
 
-const getChecked = (selected, standardObj) => {
-  if (Object.keys(standardObj).includes(selected)) {
-    standardObj[selected].checked = true
+const getChecked = (selected, standardItems) => {
+  if (Object.keys(standardItems).includes(selected)) {
+    standardItems[selected].checked = true
   }
-  return standardObj
+  return standardItems
 }
 
-module.exports = [
-  mapStandards
-]
+module.exports = { getEligible, getChecked, mapStandards }
