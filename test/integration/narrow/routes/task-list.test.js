@@ -3,13 +3,13 @@ describe('change land details route', () => {
   const createServer = require('../../../../app/server')
   jest.mock('../../../../app/cache')
   const mockCache = require('../../../../app/cache')
-  const { create: createAgreement } = require('../../../../app/agreement')
+  const {create: createAgreement} = require('../../../../app/agreement')
   let server
   let auth
   let cachedData
 
   beforeEach(async () => {
-    auth = { strategy: 'session', credentials: { name: 'A Farmer' } }
+    auth = {strategy: 'session', credentials: {name: 'A Farmer'}}
     cachedData = {
       callerId: 1234567,
       agreement: createAgreement()
@@ -350,6 +350,8 @@ describe('change land details route', () => {
     expect(result.request.response.source.context.model.sections[0].tasks[0].name).toBe('Confirm your land cover details')
     expect(result.request.response.source.context.model.sections[1].tasks[0].name).toBe('Choose funding option')
     expect(result.request.response.source.context.model.sections[2].tasks[0].name).toBe('Arable and horticultural soil actions')
+    expect(result.request.response.source.context.model.sections[2].tasks[1].name).toBe('Select arable and horticultural soil land parcels')
+    expect(result.request.response.source.context.model.sections[2].tasks[2].name).toBe('Optional arable and horticultural soil actions')
     expect(result.request.response.source.context.model.sections[3].tasks[0].name).toBe('Check your answers')
     expect(result.request.response.source.context.model.sections[4].tasks[0].name).toBe('Submit your application')
   })
@@ -370,6 +372,8 @@ describe('change land details route', () => {
     expect(result.request.response.source.context.model.sections[0].tasks[0].status).toBe('COMPLETED')
     expect(result.request.response.source.context.model.sections[1].tasks[0].status).toBe('COMPLETED')
     expect(result.request.response.source.context.model.sections[2].tasks[0].status).toBe('NOT STARTED YET')
+    expect(result.request.response.source.context.model.sections[2].tasks[1].status).toBe('CANNOT START YET')
+    expect(result.request.response.source.context.model.sections[2].tasks[2].status).toBe('CANNOT START YET')
     expect(result.request.response.source.context.model.sections[3].tasks[0].status).toBe('CANNOT START YET')
     expect(result.request.response.source.context.model.sections[4].tasks[0].status).toBe('CANNOT START YET')
   })
@@ -458,6 +462,8 @@ describe('change land details route', () => {
     expect(result.request.response.source.context.model.sections[0].tasks[0].name).toBe('Confirm your land cover details')
     expect(result.request.response.source.context.model.sections[1].tasks[0].name).toBe('Choose funding option')
     expect(result.request.response.source.context.model.sections[2].tasks[0].name).toBe('Improved grassland soil actions')
+    expect(result.request.response.source.context.model.sections[2].tasks[1].name).toBe('Select improved grassland soil parcels')
+    expect(result.request.response.source.context.model.sections[2].tasks[2].name).toBe('Optional improved grassland soil actions')
     expect(result.request.response.source.context.model.sections[3].tasks[0].name).toBe('Check your answers')
     expect(result.request.response.source.context.model.sections[4].tasks[0].name).toBe('Submit your application')
   })
@@ -478,6 +484,8 @@ describe('change land details route', () => {
     expect(result.request.response.source.context.model.sections[0].tasks[0].status).toBe('COMPLETED')
     expect(result.request.response.source.context.model.sections[1].tasks[0].status).toBe('COMPLETED')
     expect(result.request.response.source.context.model.sections[2].tasks[0].status).toBe('NOT STARTED YET')
+    expect(result.request.response.source.context.model.sections[2].tasks[1].status).toBe('CANNOT START YET')
+    expect(result.request.response.source.context.model.sections[2].tasks[2].status).toBe('CANNOT START YET')
     expect(result.request.response.source.context.model.sections[3].tasks[0].status).toBe('CANNOT START YET')
     expect(result.request.response.source.context.model.sections[4].tasks[0].status).toBe('CANNOT START YET')
   })
@@ -597,6 +605,7 @@ describe('change land details route', () => {
     cachedData.agreement.funding = ['sfi-arable-soil']
     cachedData.agreement.action['sfi-arable-soil'].active = true
     cachedData.agreement.action['sfi-arable-soil'].actionsComplete = true
+    cachedData.agreement.action['sfi-arable-soil'].landCovers = [{ parcelId: 'AB12345678' }]
     cachedData.agreement.action['sfi-arable-soil'].optionalActionsComplete = true
     const options = {
       method: 'GET',
@@ -615,6 +624,7 @@ describe('change land details route', () => {
     cachedData.agreement.funding = ['sfi-arable-soil']
     cachedData.agreement.action['sfi-arable-soil'].active = true
     cachedData.agreement.action['sfi-arable-soil'].actionsComplete = true
+    cachedData.agreement.action['sfi-arable-soil'].landCovers = [{ parcelId: 'AB12345678' }]
     cachedData.agreement.action['sfi-arable-soil'].optionalActionsComplete = true
     const options = {
       method: 'GET',
@@ -633,6 +643,7 @@ describe('change land details route', () => {
     cachedData.agreement.funding = ['sfi-arable-soil']
     cachedData.agreement.action['sfi-arable-soil'].active = true
     cachedData.agreement.action['sfi-arable-soil'].actionsComplete = true
+    cachedData.agreement.action['sfi-arable-soil'].landCovers = [{ parcelId: 'AB12345678' }]
     cachedData.agreement.action['sfi-arable-soil'].optionalActionsComplete = true
     const options = {
       method: 'GET',
@@ -651,6 +662,7 @@ describe('change land details route', () => {
     cachedData.agreement.funding = ['sfi-arable-soil']
     cachedData.agreement.action['sfi-arable-soil'].active = true
     cachedData.agreement.action['sfi-arable-soil'].actionsComplete = true
+    cachedData.agreement.action['sfi-arable-soil'].landCovers = [{ parcelId: 'AB12345678' }]
     cachedData.agreement.action['sfi-arable-soil'].optionalActionsComplete = true
     const options = {
       method: 'GET',
@@ -673,6 +685,7 @@ describe('change land details route', () => {
     cachedData.agreement.funding = ['sfi-arable-soil']
     cachedData.agreement.action['sfi-arable-soil'].active = true
     cachedData.agreement.action['sfi-arable-soil'].actionsComplete = true
+    cachedData.agreement.action['sfi-arable-soil'].landCovers = [{ parcelId: 'AB12345678' }]
     cachedData.agreement.action['sfi-arable-soil'].optionalActionsComplete = true
     const options = {
       method: 'GET',
@@ -684,6 +697,8 @@ describe('change land details route', () => {
     expect(result.request.response.source.context.model.sections[0].tasks[0].name).toBe('Confirm your land cover details')
     expect(result.request.response.source.context.model.sections[1].tasks[0].name).toBe('Choose funding option')
     expect(result.request.response.source.context.model.sections[2].tasks[0].name).toBe('Arable and horticultural soil actions')
+    expect(result.request.response.source.context.model.sections[2].tasks[1].name).toBe('Select arable and horticultural soil land parcels')
+    expect(result.request.response.source.context.model.sections[2].tasks[2].name).toBe('Optional arable and horticultural soil actions')
     expect(result.request.response.source.context.model.sections[3].tasks[0].name).toBe('Check your answers')
     expect(result.request.response.source.context.model.sections[4].tasks[0].name).toBe('Submit your application')
   })
@@ -695,6 +710,7 @@ describe('change land details route', () => {
     cachedData.agreement.funding = ['sfi-arable-soil']
     cachedData.agreement.action['sfi-arable-soil'].active = true
     cachedData.agreement.action['sfi-arable-soil'].actionsComplete = true
+    cachedData.agreement.action['sfi-arable-soil'].landCovers = [{ parcelId: 'AB12345678' }]
     cachedData.agreement.action['sfi-arable-soil'].optionalActionsComplete = true
     const options = {
       method: 'GET',
@@ -706,6 +722,8 @@ describe('change land details route', () => {
     expect(result.request.response.source.context.model.sections[0].tasks[0].status).toBe('COMPLETED')
     expect(result.request.response.source.context.model.sections[1].tasks[0].status).toBe('COMPLETED')
     expect(result.request.response.source.context.model.sections[2].tasks[0].status).toBe('COMPLETED')
+    expect(result.request.response.source.context.model.sections[2].tasks[1].status).toBe('COMPLETED')
+    expect(result.request.response.source.context.model.sections[2].tasks[2].status).toBe('COMPLETED')
     expect(result.request.response.source.context.model.sections[3].tasks[0].status).toBe('NOT STARTED YET')
     expect(result.request.response.source.context.model.sections[4].tasks[0].status).toBe('CANNOT START YET')
   })
@@ -717,6 +735,7 @@ describe('change land details route', () => {
     cachedData.agreement.funding = ['sfi-improved-grassland']
     cachedData.agreement.action['sfi-improved-grassland'].active = true
     cachedData.agreement.action['sfi-improved-grassland'].actionsComplete = true
+    cachedData.agreement.action['sfi-improved-grassland'].landCovers = [{ parcelId: 'AB12345678' }]
     cachedData.agreement.action['sfi-improved-grassland'].optionalActionsComplete = true
     const options = {
       method: 'GET',
@@ -735,6 +754,7 @@ describe('change land details route', () => {
     cachedData.agreement.funding = ['sfi-improved-grassland']
     cachedData.agreement.action['sfi-improved-grassland'].active = true
     cachedData.agreement.action['sfi-improved-grassland'].actionsComplete = true
+    cachedData.agreement.action['sfi-improved-grassland'].landCovers = [{ parcelId: 'AB12345678' }]
     cachedData.agreement.action['sfi-improved-grassland'].optionalActionsComplete = true
     const options = {
       method: 'GET',
@@ -753,6 +773,7 @@ describe('change land details route', () => {
     cachedData.agreement.funding = ['sfi-improved-grassland']
     cachedData.agreement.action['sfi-improved-grassland'].active = true
     cachedData.agreement.action['sfi-improved-grassland'].actionsComplete = true
+    cachedData.agreement.action['sfi-improved-grassland'].landCovers = [{ parcelId: 'AB12345678' }]
     cachedData.agreement.action['sfi-improved-grassland'].optionalActionsComplete = true
     const options = {
       method: 'GET',
@@ -771,6 +792,7 @@ describe('change land details route', () => {
     cachedData.agreement.funding = ['sfi-improved-grassland']
     cachedData.agreement.action['sfi-improved-grassland'].active = true
     cachedData.agreement.action['sfi-improved-grassland'].actionsComplete = true
+    cachedData.agreement.action['sfi-improved-grassland'].landCovers = [{ parcelId: 'AB12345678' }]
     cachedData.agreement.action['sfi-improved-grassland'].optionalActionsComplete = true
     const options = {
       method: 'GET',
@@ -793,6 +815,7 @@ describe('change land details route', () => {
     cachedData.agreement.funding = ['sfi-improved-grassland']
     cachedData.agreement.action['sfi-improved-grassland'].active = true
     cachedData.agreement.action['sfi-improved-grassland'].actionsComplete = true
+    cachedData.agreement.action['sfi-improved-grassland'].landCovers = [{ parcelId: 'AB12345678' }]
     cachedData.agreement.action['sfi-improved-grassland'].optionalActionsComplete = true
     const options = {
       method: 'GET',
@@ -815,6 +838,7 @@ describe('change land details route', () => {
     cachedData.agreement.funding = ['sfi-improved-grassland']
     cachedData.agreement.action['sfi-improved-grassland'].active = true
     cachedData.agreement.action['sfi-improved-grassland'].actionsComplete = true
+    cachedData.agreement.action['sfi-improved-grassland'].landCovers = [{ parcelId: 'AB12345678' }]
     cachedData.agreement.action['sfi-improved-grassland'].optionalActionsComplete = true
     const options = {
       method: 'GET',
@@ -826,6 +850,8 @@ describe('change land details route', () => {
     expect(result.request.response.source.context.model.sections[0].tasks[0].status).toBe('COMPLETED')
     expect(result.request.response.source.context.model.sections[1].tasks[0].status).toBe('COMPLETED')
     expect(result.request.response.source.context.model.sections[2].tasks[0].status).toBe('COMPLETED')
+    expect(result.request.response.source.context.model.sections[2].tasks[1].status).toBe('COMPLETED')
+    expect(result.request.response.source.context.model.sections[2].tasks[2].status).toBe('COMPLETED')
     expect(result.request.response.source.context.model.sections[3].tasks[0].status).toBe('NOT STARTED YET')
     expect(result.request.response.source.context.model.sections[4].tasks[0].status).toBe('CANNOT START YET')
   })
@@ -837,7 +863,6 @@ describe('change land details route', () => {
     cachedData.agreement.funding = ['sfi-moorland']
     cachedData.agreement.action['sfi-moorland'].active = true
     cachedData.agreement.action['sfi-moorland'].actionsComplete = true
-    cachedData.agreement.action['sfi-moorland'].optionalActionsComplete = true
     const options = {
       method: 'GET',
       url: '/task-list',
@@ -855,7 +880,6 @@ describe('change land details route', () => {
     cachedData.agreement.funding = ['sfi-moorland']
     cachedData.agreement.action['sfi-moorland'].active = true
     cachedData.agreement.action['sfi-moorland'].actionsComplete = true
-    cachedData.agreement.action['sfi-moorland'].optionalActionsComplete = true
     const options = {
       method: 'GET',
       url: '/task-list',
@@ -873,7 +897,6 @@ describe('change land details route', () => {
     cachedData.agreement.funding = ['sfi-moorland']
     cachedData.agreement.action['sfi-moorland'].active = true
     cachedData.agreement.action['sfi-moorland'].actionsComplete = true
-    cachedData.agreement.action['sfi-moorland'].optionalActionsComplete = true
     const options = {
       method: 'GET',
       url: '/task-list',
@@ -891,7 +914,6 @@ describe('change land details route', () => {
     cachedData.agreement.funding = ['sfi-moorland']
     cachedData.agreement.action['sfi-moorland'].active = true
     cachedData.agreement.action['sfi-moorland'].actionsComplete = true
-    cachedData.agreement.action['sfi-moorland'].optionalActionsComplete = true
     const options = {
       method: 'GET',
       url: '/task-list',
@@ -913,7 +935,6 @@ describe('change land details route', () => {
     cachedData.agreement.funding = ['sfi-moorland']
     cachedData.agreement.action['sfi-moorland'].active = true
     cachedData.agreement.action['sfi-moorland'].actionsComplete = true
-    cachedData.agreement.action['sfi-moorland'].optionalActionsComplete = true
     const options = {
       method: 'GET',
       url: '/task-list',
@@ -935,7 +956,6 @@ describe('change land details route', () => {
     cachedData.agreement.funding = ['sfi-moorland']
     cachedData.agreement.action['sfi-moorland'].active = true
     cachedData.agreement.action['sfi-moorland'].actionsComplete = true
-    cachedData.agreement.action['sfi-moorland'].optionalActionsComplete = true
     const options = {
       method: 'GET',
       url: '/task-list',
@@ -957,7 +977,6 @@ describe('change land details route', () => {
     cachedData.agreement.funding = ['sfi-moorland']
     cachedData.agreement.action['sfi-moorland'].active = true
     cachedData.agreement.action['sfi-moorland'].actionsComplete = true
-    cachedData.agreement.action['sfi-moorland'].optionalActionsComplete = true
     cachedData.agreement.confirmed = true
     const options = {
       method: 'GET',
@@ -976,7 +995,6 @@ describe('change land details route', () => {
     cachedData.agreement.funding = ['sfi-moorland']
     cachedData.agreement.action['sfi-moorland'].active = true
     cachedData.agreement.action['sfi-moorland'].actionsComplete = true
-    cachedData.agreement.action['sfi-moorland'].optionalActionsComplete = true
     cachedData.agreement.confirmed = true
     const options = {
       method: 'GET',
@@ -995,7 +1013,6 @@ describe('change land details route', () => {
     cachedData.agreement.funding = ['sfi-moorland']
     cachedData.agreement.action['sfi-moorland'].active = true
     cachedData.agreement.action['sfi-moorland'].actionsComplete = true
-    cachedData.agreement.action['sfi-moorland'].optionalActionsComplete = true
     cachedData.agreement.confirmed = true
     const options = {
       method: 'GET',
@@ -1014,7 +1031,6 @@ describe('change land details route', () => {
     cachedData.agreement.funding = ['sfi-moorland']
     cachedData.agreement.action['sfi-moorland'].active = true
     cachedData.agreement.action['sfi-moorland'].actionsComplete = true
-    cachedData.agreement.action['sfi-moorland'].optionalActionsComplete = true
     cachedData.agreement.confirmed = true
     const options = {
       method: 'GET',
@@ -1037,7 +1053,6 @@ describe('change land details route', () => {
     cachedData.agreement.funding = ['sfi-moorland']
     cachedData.agreement.action['sfi-moorland'].active = true
     cachedData.agreement.action['sfi-moorland'].actionsComplete = true
-    cachedData.agreement.action['sfi-moorland'].optionalActionsComplete = true
     cachedData.agreement.confirmed = true
     const options = {
       method: 'GET',
@@ -1060,7 +1075,6 @@ describe('change land details route', () => {
     cachedData.agreement.funding = ['sfi-moorland']
     cachedData.agreement.action['sfi-moorland'].active = true
     cachedData.agreement.action['sfi-moorland'].actionsComplete = true
-    cachedData.agreement.action['sfi-moorland'].optionalActionsComplete = true
     cachedData.agreement.confirmed = true
     const options = {
       method: 'GET',
@@ -1083,7 +1097,6 @@ describe('change land details route', () => {
     cachedData.agreement.funding = ['sfi-moorland']
     cachedData.agreement.action['sfi-moorland'].active = true
     cachedData.agreement.action['sfi-moorland'].actionsComplete = true
-    cachedData.agreement.action['sfi-moorland'].optionalActionsComplete = true
     cachedData.agreement.confirmed = true
     cachedData.agreement.submitted = true
     const options = {
@@ -1103,7 +1116,6 @@ describe('change land details route', () => {
     cachedData.agreement.funding = ['sfi-moorland']
     cachedData.agreement.action['sfi-moorland'].active = true
     cachedData.agreement.action['sfi-moorland'].actionsComplete = true
-    cachedData.agreement.action['sfi-moorland'].optionalActionsComplete = true
     cachedData.agreement.confirmed = true
     cachedData.agreement.submitted = true
     const options = {
@@ -1123,7 +1135,6 @@ describe('change land details route', () => {
     cachedData.agreement.funding = ['sfi-moorland']
     cachedData.agreement.action['sfi-moorland'].active = true
     cachedData.agreement.action['sfi-moorland'].actionsComplete = true
-    cachedData.agreement.action['sfi-moorland'].optionalActionsComplete = true
     cachedData.agreement.confirmed = true
     cachedData.agreement.submitted = true
     const options = {
@@ -1143,7 +1154,6 @@ describe('change land details route', () => {
     cachedData.agreement.funding = ['sfi-moorland']
     cachedData.agreement.action['sfi-moorland'].active = true
     cachedData.agreement.action['sfi-moorland'].actionsComplete = true
-    cachedData.agreement.action['sfi-moorland'].optionalActionsComplete = true
     cachedData.agreement.confirmed = true
     cachedData.agreement.submitted = true
     const options = {
@@ -1167,7 +1177,6 @@ describe('change land details route', () => {
     cachedData.agreement.funding = ['sfi-moorland']
     cachedData.agreement.action['sfi-moorland'].active = true
     cachedData.agreement.action['sfi-moorland'].actionsComplete = true
-    cachedData.agreement.action['sfi-moorland'].optionalActionsComplete = true
     cachedData.agreement.confirmed = true
     cachedData.agreement.submitted = true
     const options = {
@@ -1191,7 +1200,6 @@ describe('change land details route', () => {
     cachedData.agreement.funding = ['sfi-moorland']
     cachedData.agreement.action['sfi-moorland'].active = true
     cachedData.agreement.action['sfi-moorland'].actionsComplete = true
-    cachedData.agreement.action['sfi-moorland'].optionalActionsComplete = true
     cachedData.agreement.confirmed = true
     cachedData.agreement.submitted = true
     const options = {
@@ -1298,7 +1306,11 @@ describe('change land details route', () => {
     expect(result.request.response.source.context.model.sections[0].tasks[0].name).toBe('Confirm your land cover details')
     expect(result.request.response.source.context.model.sections[1].tasks[0].name).toBe('Choose funding option')
     expect(result.request.response.source.context.model.sections[2].tasks[0].name).toBe('Arable and horticultural soil actions')
+    expect(result.request.response.source.context.model.sections[2].tasks[1].name).toBe('Select arable and horticultural soil land parcels')
+    expect(result.request.response.source.context.model.sections[2].tasks[2].name).toBe('Optional arable and horticultural soil actions')
     expect(result.request.response.source.context.model.sections[3].tasks[0].name).toBe('Improved grassland soil actions')
+    expect(result.request.response.source.context.model.sections[3].tasks[1].name).toBe('Select improved grassland soil parcels')
+    expect(result.request.response.source.context.model.sections[3].tasks[2].name).toBe('Optional improved grassland soil actions')
     expect(result.request.response.source.context.model.sections[4].tasks[0].name).toBe('Check your answers')
     expect(result.request.response.source.context.model.sections[5].tasks[0].name).toBe('Submit your application')
   })
@@ -1320,7 +1332,11 @@ describe('change land details route', () => {
     expect(result.request.response.source.context.model.sections[0].tasks[0].status).toBe('COMPLETED')
     expect(result.request.response.source.context.model.sections[1].tasks[0].status).toBe('COMPLETED')
     expect(result.request.response.source.context.model.sections[2].tasks[0].status).toBe('NOT STARTED YET')
+    expect(result.request.response.source.context.model.sections[2].tasks[1].status).toBe('CANNOT START YET')
+    expect(result.request.response.source.context.model.sections[2].tasks[2].status).toBe('CANNOT START YET')
     expect(result.request.response.source.context.model.sections[3].tasks[0].status).toBe('CANNOT START YET')
+    expect(result.request.response.source.context.model.sections[3].tasks[1].status).toBe('CANNOT START YET')
+    expect(result.request.response.source.context.model.sections[3].tasks[2].status).toBe('CANNOT START YET')
     expect(result.request.response.source.context.model.sections[4].tasks[0].status).toBe('CANNOT START YET')
     expect(result.request.response.source.context.model.sections[5].tasks[0].status).toBe('CANNOT START YET')
   })
@@ -1415,6 +1431,8 @@ describe('change land details route', () => {
     expect(result.request.response.source.context.model.sections[0].tasks[0].name).toBe('Confirm your land cover details')
     expect(result.request.response.source.context.model.sections[1].tasks[0].name).toBe('Choose funding option')
     expect(result.request.response.source.context.model.sections[2].tasks[0].name).toBe('Arable and horticultural soil actions')
+    expect(result.request.response.source.context.model.sections[2].tasks[1].name).toBe('Select arable and horticultural soil land parcels')
+    expect(result.request.response.source.context.model.sections[2].tasks[2].name).toBe('Optional arable and horticultural soil actions')
     expect(result.request.response.source.context.model.sections[3].tasks[0].name).toBe('Moorlands and rough grazing actions')
     expect(result.request.response.source.context.model.sections[4].tasks[0].name).toBe('Check your answers')
     expect(result.request.response.source.context.model.sections[5].tasks[0].name).toBe('Submit your application')
@@ -1437,6 +1455,8 @@ describe('change land details route', () => {
     expect(result.request.response.source.context.model.sections[0].tasks[0].status).toBe('COMPLETED')
     expect(result.request.response.source.context.model.sections[1].tasks[0].status).toBe('COMPLETED')
     expect(result.request.response.source.context.model.sections[2].tasks[0].status).toBe('NOT STARTED YET')
+    expect(result.request.response.source.context.model.sections[2].tasks[1].status).toBe('CANNOT START YET')
+    expect(result.request.response.source.context.model.sections[2].tasks[2].status).toBe('CANNOT START YET')
     expect(result.request.response.source.context.model.sections[3].tasks[0].status).toBe('CANNOT START YET')
     expect(result.request.response.source.context.model.sections[4].tasks[0].status).toBe('CANNOT START YET')
     expect(result.request.response.source.context.model.sections[5].tasks[0].status).toBe('CANNOT START YET')
@@ -1532,6 +1552,8 @@ describe('change land details route', () => {
     expect(result.request.response.source.context.model.sections[0].tasks[0].name).toBe('Confirm your land cover details')
     expect(result.request.response.source.context.model.sections[1].tasks[0].name).toBe('Choose funding option')
     expect(result.request.response.source.context.model.sections[2].tasks[0].name).toBe('Improved grassland soil actions')
+    expect(result.request.response.source.context.model.sections[2].tasks[1].name).toBe('Select improved grassland soil parcels')
+    expect(result.request.response.source.context.model.sections[2].tasks[2].name).toBe('Optional improved grassland soil actions')
     expect(result.request.response.source.context.model.sections[3].tasks[0].name).toBe('Moorlands and rough grazing actions')
     expect(result.request.response.source.context.model.sections[4].tasks[0].name).toBe('Check your answers')
     expect(result.request.response.source.context.model.sections[5].tasks[0].name).toBe('Submit your application')
@@ -1554,6 +1576,8 @@ describe('change land details route', () => {
     expect(result.request.response.source.context.model.sections[0].tasks[0].status).toBe('COMPLETED')
     expect(result.request.response.source.context.model.sections[1].tasks[0].status).toBe('COMPLETED')
     expect(result.request.response.source.context.model.sections[2].tasks[0].status).toBe('NOT STARTED YET')
+    expect(result.request.response.source.context.model.sections[2].tasks[1].status).toBe('CANNOT START YET')
+    expect(result.request.response.source.context.model.sections[2].tasks[2].status).toBe('CANNOT START YET')
     expect(result.request.response.source.context.model.sections[3].tasks[0].status).toBe('CANNOT START YET')
     expect(result.request.response.source.context.model.sections[4].tasks[0].status).toBe('CANNOT START YET')
     expect(result.request.response.source.context.model.sections[5].tasks[0].status).toBe('CANNOT START YET')
@@ -1655,7 +1679,11 @@ describe('change land details route', () => {
     expect(result.request.response.source.context.model.sections[0].tasks[0].name).toBe('Confirm your land cover details')
     expect(result.request.response.source.context.model.sections[1].tasks[0].name).toBe('Choose funding option')
     expect(result.request.response.source.context.model.sections[2].tasks[0].name).toBe('Arable and horticultural soil actions')
+    expect(result.request.response.source.context.model.sections[2].tasks[1].name).toBe('Select arable and horticultural soil land parcels')
+    expect(result.request.response.source.context.model.sections[2].tasks[2].name).toBe('Optional arable and horticultural soil actions')
     expect(result.request.response.source.context.model.sections[3].tasks[0].name).toBe('Improved grassland soil actions')
+    expect(result.request.response.source.context.model.sections[3].tasks[1].name).toBe('Select improved grassland soil parcels')
+    expect(result.request.response.source.context.model.sections[3].tasks[2].name).toBe('Optional improved grassland soil actions')
     expect(result.request.response.source.context.model.sections[4].tasks[0].name).toBe('Moorlands and rough grazing actions')
     expect(result.request.response.source.context.model.sections[5].tasks[0].name).toBe('Check your answers')
     expect(result.request.response.source.context.model.sections[6].tasks[0].name).toBe('Submit your application')
@@ -1679,13 +1707,17 @@ describe('change land details route', () => {
     expect(result.request.response.source.context.model.sections[0].tasks[0].status).toBe('COMPLETED')
     expect(result.request.response.source.context.model.sections[1].tasks[0].status).toBe('COMPLETED')
     expect(result.request.response.source.context.model.sections[2].tasks[0].status).toBe('NOT STARTED YET')
+    expect(result.request.response.source.context.model.sections[2].tasks[1].status).toBe('CANNOT START YET')
+    expect(result.request.response.source.context.model.sections[2].tasks[2].status).toBe('CANNOT START YET')
     expect(result.request.response.source.context.model.sections[3].tasks[0].status).toBe('CANNOT START YET')
+    expect(result.request.response.source.context.model.sections[3].tasks[1].status).toBe('CANNOT START YET')
+    expect(result.request.response.source.context.model.sections[3].tasks[2].status).toBe('CANNOT START YET')
     expect(result.request.response.source.context.model.sections[4].tasks[0].status).toBe('CANNOT START YET')
     expect(result.request.response.source.context.model.sections[5].tasks[0].status).toBe('CANNOT START YET')
     expect(result.request.response.source.context.model.sections[6].tasks[0].status).toBe('CANNOT START YET')
   })
 
-    test('GET /task-list includes correct number of sections if multiple funding options and first completed', async () => {
+  test('GET /task-list includes correct number of sections if multiple funding options and first completed', async () => {
     cachedData.agreement.land = {
       landComplete: true
     }
@@ -1693,6 +1725,7 @@ describe('change land details route', () => {
     cachedData.agreement.action['sfi-arable-soil'].active = true
     cachedData.agreement.action['sfi-moorland'].active = true
     cachedData.agreement.action['sfi-arable-soil'].actionsComplete = true
+    cachedData.agreement.action['sfi-arable-soil'].landCovers = [{ parcelId: 'AB12345678' }]
     cachedData.agreement.action['sfi-arable-soil'].optionalActionsComplete = true
     const options = {
       method: 'GET',
@@ -1712,6 +1745,7 @@ describe('change land details route', () => {
     cachedData.agreement.action['sfi-arable-soil'].active = true
     cachedData.agreement.action['sfi-moorland'].active = true
     cachedData.agreement.action['sfi-arable-soil'].actionsComplete = true
+    cachedData.agreement.action['sfi-arable-soil'].landCovers = [{ parcelId: 'AB12345678' }]
     cachedData.agreement.action['sfi-arable-soil'].optionalActionsComplete = true
     const options = {
       method: 'GET',
@@ -1731,6 +1765,7 @@ describe('change land details route', () => {
     cachedData.agreement.action['sfi-arable-soil'].active = true
     cachedData.agreement.action['sfi-moorland'].active = true
     cachedData.agreement.action['sfi-arable-soil'].actionsComplete = true
+    cachedData.agreement.action['sfi-arable-soil'].landCovers = [{ parcelId: 'AB12345678' }]
     cachedData.agreement.action['sfi-arable-soil'].optionalActionsComplete = true
     const options = {
       method: 'GET',
@@ -1750,6 +1785,7 @@ describe('change land details route', () => {
     cachedData.agreement.action['sfi-arable-soil'].active = true
     cachedData.agreement.action['sfi-moorland'].active = true
     cachedData.agreement.action['sfi-arable-soil'].actionsComplete = true
+    cachedData.agreement.action['sfi-arable-soil'].landCovers = [{ parcelId: 'AB12345678' }]
     cachedData.agreement.action['sfi-arable-soil'].optionalActionsComplete = true
     const options = {
       method: 'GET',
@@ -1773,6 +1809,7 @@ describe('change land details route', () => {
     cachedData.agreement.funding = ['sfi-arable-soil', 'sfi-moorland']
     cachedData.agreement.action['sfi-arable-soil'].active = true
     cachedData.agreement.action['sfi-moorland'].active = true
+    cachedData.agreement.action['sfi-arable-soil'].landCovers = [{ parcelId: 'AB12345678' }]
     cachedData.agreement.action['sfi-arable-soil'].actionsComplete = true
     cachedData.agreement.action['sfi-arable-soil'].optionalActionsComplete = true
     const options = {
@@ -1785,6 +1822,8 @@ describe('change land details route', () => {
     expect(result.request.response.source.context.model.sections[0].tasks[0].name).toBe('Confirm your land cover details')
     expect(result.request.response.source.context.model.sections[1].tasks[0].name).toBe('Choose funding option')
     expect(result.request.response.source.context.model.sections[2].tasks[0].name).toBe('Arable and horticultural soil actions')
+    expect(result.request.response.source.context.model.sections[2].tasks[1].name).toBe('Select arable and horticultural soil land parcels')
+    expect(result.request.response.source.context.model.sections[2].tasks[2].name).toBe('Optional arable and horticultural soil actions')
     expect(result.request.response.source.context.model.sections[3].tasks[0].name).toBe('Moorlands and rough grazing actions')
     expect(result.request.response.source.context.model.sections[4].tasks[0].name).toBe('Check your answers')
     expect(result.request.response.source.context.model.sections[5].tasks[0].name).toBe('Submit your application')
@@ -1797,6 +1836,7 @@ describe('change land details route', () => {
     cachedData.agreement.funding = ['sfi-arable-soil', 'sfi-moorland']
     cachedData.agreement.action['sfi-arable-soil'].active = true
     cachedData.agreement.action['sfi-moorland'].active = true
+    cachedData.agreement.action['sfi-arable-soil'].landCovers = [{ parcelId: 'AB12345678' }]
     cachedData.agreement.action['sfi-arable-soil'].actionsComplete = true
     cachedData.agreement.action['sfi-arable-soil'].optionalActionsComplete = true
     const options = {
@@ -1809,11 +1849,13 @@ describe('change land details route', () => {
     expect(result.request.response.source.context.model.sections[0].tasks[0].status).toBe('COMPLETED')
     expect(result.request.response.source.context.model.sections[1].tasks[0].status).toBe('COMPLETED')
     expect(result.request.response.source.context.model.sections[2].tasks[0].status).toBe('COMPLETED')
+    expect(result.request.response.source.context.model.sections[2].tasks[1].status).toBe('COMPLETED')
+    expect(result.request.response.source.context.model.sections[2].tasks[2].status).toBe('COMPLETED')
     expect(result.request.response.source.context.model.sections[3].tasks[0].status).toBe('NOT STARTED YET')
     expect(result.request.response.source.context.model.sections[4].tasks[0].status).toBe('CANNOT START YET')
   })
 
-    test('GET /task-list includes correct number of sections if multiple actions and confirmed', async () => {
+  test('GET /task-list includes correct number of sections if multiple actions and confirmed', async () => {
     cachedData.agreement.land = {
       landComplete: true
     }
@@ -1821,9 +1863,9 @@ describe('change land details route', () => {
     cachedData.agreement.action['sfi-arable-soil'].active = true
     cachedData.agreement.action['sfi-moorland'].active = true
     cachedData.agreement.action['sfi-arable-soil'].actionsComplete = true
+    cachedData.agreement.action['sfi-arable-soil'].landCovers = [{ parcelId: 'AB12345678' }]
     cachedData.agreement.action['sfi-arable-soil'].optionalActionsComplete = true
     cachedData.agreement.action['sfi-moorland'].actionsComplete = true
-    cachedData.agreement.action['sfi-moorland'].optionalActionsComplete = true
     cachedData.agreement.confirmed = true
     const options = {
       method: 'GET',
@@ -1843,9 +1885,9 @@ describe('change land details route', () => {
     cachedData.agreement.action['sfi-arable-soil'].active = true
     cachedData.agreement.action['sfi-moorland'].active = true
     cachedData.agreement.action['sfi-arable-soil'].actionsComplete = true
+    cachedData.agreement.action['sfi-arable-soil'].landCovers = [{ parcelId: 'AB12345678' }]
     cachedData.agreement.action['sfi-arable-soil'].optionalActionsComplete = true
     cachedData.agreement.action['sfi-moorland'].actionsComplete = true
-    cachedData.agreement.action['sfi-moorland'].optionalActionsComplete = true
     cachedData.agreement.confirmed = true
     const options = {
       method: 'GET',
@@ -1865,9 +1907,9 @@ describe('change land details route', () => {
     cachedData.agreement.action['sfi-arable-soil'].active = true
     cachedData.agreement.action['sfi-moorland'].active = true
     cachedData.agreement.action['sfi-arable-soil'].actionsComplete = true
+    cachedData.agreement.action['sfi-arable-soil'].landCovers = [{ parcelId: 'AB12345678' }]
     cachedData.agreement.action['sfi-arable-soil'].optionalActionsComplete = true
     cachedData.agreement.action['sfi-moorland'].actionsComplete = true
-    cachedData.agreement.action['sfi-moorland'].optionalActionsComplete = true
     cachedData.agreement.confirmed = true
     const options = {
       method: 'GET',
@@ -1887,9 +1929,9 @@ describe('change land details route', () => {
     cachedData.agreement.action['sfi-arable-soil'].active = true
     cachedData.agreement.action['sfi-moorland'].active = true
     cachedData.agreement.action['sfi-arable-soil'].actionsComplete = true
+    cachedData.agreement.action['sfi-arable-soil'].landCovers = [{ parcelId: 'AB12345678' }]
     cachedData.agreement.action['sfi-arable-soil'].optionalActionsComplete = true
     cachedData.agreement.action['sfi-moorland'].actionsComplete = true
-    cachedData.agreement.action['sfi-moorland'].optionalActionsComplete = true
     cachedData.agreement.confirmed = true
     const options = {
       method: 'GET',
@@ -1914,9 +1956,9 @@ describe('change land details route', () => {
     cachedData.agreement.action['sfi-arable-soil'].active = true
     cachedData.agreement.action['sfi-moorland'].active = true
     cachedData.agreement.action['sfi-arable-soil'].actionsComplete = true
+    cachedData.agreement.action['sfi-arable-soil'].landCovers = [{ parcelId: 'AB12345678' }]
     cachedData.agreement.action['sfi-arable-soil'].optionalActionsComplete = true
     cachedData.agreement.action['sfi-moorland'].actionsComplete = true
-    cachedData.agreement.action['sfi-moorland'].optionalActionsComplete = true
     cachedData.agreement.confirmed = true
     const options = {
       method: 'GET',
@@ -1928,6 +1970,8 @@ describe('change land details route', () => {
     expect(result.request.response.source.context.model.sections[0].tasks[0].name).toBe('Confirm your land cover details')
     expect(result.request.response.source.context.model.sections[1].tasks[0].name).toBe('Choose funding option')
     expect(result.request.response.source.context.model.sections[2].tasks[0].name).toBe('Arable and horticultural soil actions')
+    expect(result.request.response.source.context.model.sections[2].tasks[1].name).toBe('Select arable and horticultural soil land parcels')
+    expect(result.request.response.source.context.model.sections[2].tasks[2].name).toBe('Optional arable and horticultural soil actions')
     expect(result.request.response.source.context.model.sections[3].tasks[0].name).toBe('Moorlands and rough grazing actions')
     expect(result.request.response.source.context.model.sections[4].tasks[0].name).toBe('Check your answers')
     expect(result.request.response.source.context.model.sections[5].tasks[0].name).toBe('Submit your application')
@@ -1941,9 +1985,9 @@ describe('change land details route', () => {
     cachedData.agreement.action['sfi-arable-soil'].active = true
     cachedData.agreement.action['sfi-moorland'].active = true
     cachedData.agreement.action['sfi-arable-soil'].actionsComplete = true
+    cachedData.agreement.action['sfi-arable-soil'].landCovers = [{ parcelId: 'AB12345678' }]
     cachedData.agreement.action['sfi-arable-soil'].optionalActionsComplete = true
     cachedData.agreement.action['sfi-moorland'].actionsComplete = true
-    cachedData.agreement.action['sfi-moorland'].optionalActionsComplete = true
     cachedData.agreement.confirmed = true
     const options = {
       method: 'GET',
@@ -1968,9 +2012,9 @@ describe('change land details route', () => {
     cachedData.agreement.action['sfi-arable-soil'].active = true
     cachedData.agreement.action['sfi-moorland'].active = true
     cachedData.agreement.action['sfi-arable-soil'].actionsComplete = true
+    cachedData.agreement.action['sfi-arable-soil'].landCovers = [{ parcelId: 'AB12345678' }]
     cachedData.agreement.action['sfi-arable-soil'].optionalActionsComplete = true
     cachedData.agreement.action['sfi-moorland'].actionsComplete = true
-    cachedData.agreement.action['sfi-moorland'].optionalActionsComplete = true
     cachedData.agreement.confirmed = true
     cachedData.agreement.submitted = true
     const options = {
@@ -1991,9 +2035,9 @@ describe('change land details route', () => {
     cachedData.agreement.action['sfi-arable-soil'].active = true
     cachedData.agreement.action['sfi-moorland'].active = true
     cachedData.agreement.action['sfi-arable-soil'].actionsComplete = true
+    cachedData.agreement.action['sfi-arable-soil'].landCovers = [{ parcelId: 'AB12345678' }]
     cachedData.agreement.action['sfi-arable-soil'].optionalActionsComplete = true
     cachedData.agreement.action['sfi-moorland'].actionsComplete = true
-    cachedData.agreement.action['sfi-moorland'].optionalActionsComplete = true
     cachedData.agreement.confirmed = true
     cachedData.agreement.submitted = true
     const options = {
@@ -2014,9 +2058,9 @@ describe('change land details route', () => {
     cachedData.agreement.action['sfi-arable-soil'].active = true
     cachedData.agreement.action['sfi-moorland'].active = true
     cachedData.agreement.action['sfi-arable-soil'].actionsComplete = true
+    cachedData.agreement.action['sfi-arable-soil'].landCovers = [{ parcelId: 'AB12345678' }]
     cachedData.agreement.action['sfi-arable-soil'].optionalActionsComplete = true
     cachedData.agreement.action['sfi-moorland'].actionsComplete = true
-    cachedData.agreement.action['sfi-moorland'].optionalActionsComplete = true
     cachedData.agreement.confirmed = true
     cachedData.agreement.submitted = true
     const options = {
@@ -2037,9 +2081,9 @@ describe('change land details route', () => {
     cachedData.agreement.action['sfi-arable-soil'].active = true
     cachedData.agreement.action['sfi-moorland'].active = true
     cachedData.agreement.action['sfi-arable-soil'].actionsComplete = true
+    cachedData.agreement.action['sfi-arable-soil'].landCovers = [{ parcelId: 'AB12345678' }]
     cachedData.agreement.action['sfi-arable-soil'].optionalActionsComplete = true
     cachedData.agreement.action['sfi-moorland'].actionsComplete = true
-    cachedData.agreement.action['sfi-moorland'].optionalActionsComplete = true
     cachedData.agreement.confirmed = true
     cachedData.agreement.submitted = true
     const options = {
@@ -2065,9 +2109,9 @@ describe('change land details route', () => {
     cachedData.agreement.action['sfi-arable-soil'].active = true
     cachedData.agreement.action['sfi-moorland'].active = true
     cachedData.agreement.action['sfi-arable-soil'].actionsComplete = true
+    cachedData.agreement.action['sfi-arable-soil'].landCovers = [{ parcelId: 'AB12345678' }]
     cachedData.agreement.action['sfi-arable-soil'].optionalActionsComplete = true
     cachedData.agreement.action['sfi-moorland'].actionsComplete = true
-    cachedData.agreement.action['sfi-moorland'].optionalActionsComplete = true
     cachedData.agreement.confirmed = true
     cachedData.agreement.submitted = true
     const options = {
@@ -2080,6 +2124,8 @@ describe('change land details route', () => {
     expect(result.request.response.source.context.model.sections[0].tasks[0].name).toBe('Confirm your land cover details')
     expect(result.request.response.source.context.model.sections[1].tasks[0].name).toBe('Choose funding option')
     expect(result.request.response.source.context.model.sections[2].tasks[0].name).toBe('Arable and horticultural soil actions')
+    expect(result.request.response.source.context.model.sections[2].tasks[1].name).toBe('Select arable and horticultural soil land parcels')
+    expect(result.request.response.source.context.model.sections[2].tasks[2].name).toBe('Optional arable and horticultural soil actions')
     expect(result.request.response.source.context.model.sections[3].tasks[0].name).toBe('Moorlands and rough grazing actions')
     expect(result.request.response.source.context.model.sections[4].tasks[0].name).toBe('Check your answers')
     expect(result.request.response.source.context.model.sections[5].tasks[0].name).toBe('Submit your application')
@@ -2093,9 +2139,9 @@ describe('change land details route', () => {
     cachedData.agreement.action['sfi-arable-soil'].active = true
     cachedData.agreement.action['sfi-moorland'].active = true
     cachedData.agreement.action['sfi-arable-soil'].actionsComplete = true
+    cachedData.agreement.action['sfi-arable-soil'].landCovers = [{ parcelId: 'AB12345678' }]
     cachedData.agreement.action['sfi-arable-soil'].optionalActionsComplete = true
     cachedData.agreement.action['sfi-moorland'].actionsComplete = true
-    cachedData.agreement.action['sfi-moorland'].optionalActionsComplete = true
     cachedData.agreement.confirmed = true
     cachedData.agreement.submitted = true
     const options = {
@@ -2108,8 +2154,491 @@ describe('change land details route', () => {
     expect(result.request.response.source.context.model.sections[0].tasks[0].status).toBe('COMPLETED')
     expect(result.request.response.source.context.model.sections[1].tasks[0].status).toBe('COMPLETED')
     expect(result.request.response.source.context.model.sections[2].tasks[0].status).toBe('COMPLETED')
+    expect(result.request.response.source.context.model.sections[2].tasks[1].status).toBe('COMPLETED')
+    expect(result.request.response.source.context.model.sections[2].tasks[2].status).toBe('COMPLETED')
     expect(result.request.response.source.context.model.sections[3].tasks[0].status).toBe('COMPLETED')
     expect(result.request.response.source.context.model.sections[4].tasks[0].status).toBe('COMPLETED')
     expect(result.request.response.source.context.model.sections[5].tasks[0].status).toBe('COMPLETED')
   })
+
+    test('GET /task-list includes correct number of sections if only arable soil actions completed', async () => {
+    cachedData.agreement.land = {
+      landComplete: true
+    }
+    cachedData.agreement.funding = ['sfi-arable-soil']
+    cachedData.agreement.action['sfi-arable-soil'].active = true
+    cachedData.agreement.action['sfi-arable-soil'].actionsComplete = true
+    const options = {
+      method: 'GET',
+      url: '/task-list',
+      auth
+    }
+
+    const result = await server.inject(options)
+    expect(result.request.response.source.context.model.sections.length).toBe(5)
+  })
+
+  test('GET /task-list shows correct total of sections if only arable soil actions completed', async () => {
+    cachedData.agreement.land = {
+      landComplete: true
+    }
+    cachedData.agreement.funding = ['sfi-arable-soil']
+    cachedData.agreement.action['sfi-arable-soil'].active = true
+    cachedData.agreement.action['sfi-arable-soil'].actionsComplete = true
+    const options = {
+      method: 'GET',
+      url: '/task-list',
+      auth
+    }
+
+    const result = await server.inject(options)
+    expect(result.request.response.source.context.model.totalSections).toBe(5)
+  })
+
+  test('GET /task-list shows correct total completed sections if only arable soil actions completed', async () => {
+    cachedData.agreement.land = {
+      landComplete: true
+    }
+    cachedData.agreement.funding = ['sfi-arable-soil']
+    cachedData.agreement.action['sfi-arable-soil'].active = true
+    cachedData.agreement.action['sfi-arable-soil'].actionsComplete = true
+    const options = {
+      method: 'GET',
+      url: '/task-list',
+      auth
+    }
+
+    const result = await server.inject(options)
+    expect(result.request.response.source.context.model.completedSections).toBe(2)
+  })
+
+  test('GET /task-list shows correct section headings if only arable soil actions completed', async () => {
+    cachedData.agreement.land = {
+      landComplete: true
+    }
+    cachedData.agreement.funding = ['sfi-arable-soil']
+    cachedData.agreement.action['sfi-arable-soil'].active = true
+    cachedData.agreement.action['sfi-arable-soil'].actionsComplete = true
+    const options = {
+      method: 'GET',
+      url: '/task-list',
+      auth
+    }
+
+    const result = await server.inject(options)
+    expect(result.request.response.source.context.model.sections[0].name).toBe('Your land')
+    expect(result.request.response.source.context.model.sections[1].name).toBe('Choose your funding')
+    expect(result.request.response.source.context.model.sections[2].name).toBe('Arable and horticultural soil actions')
+    expect(result.request.response.source.context.model.sections[3].name).toBe('Check your answers')
+    expect(result.request.response.source.context.model.sections[4].name).toBe('Submit your application')
+  })
+
+  test('GET /task-list shows correct tasks if only arable soil actions completed', async () => {
+    cachedData.agreement.land = {
+      landComplete: true
+    }
+    cachedData.agreement.funding = ['sfi-arable-soil']
+    cachedData.agreement.action['sfi-arable-soil'].active = true
+    cachedData.agreement.action['sfi-arable-soil'].actionsComplete = true
+    const options = {
+      method: 'GET',
+      url: '/task-list',
+      auth
+    }
+
+    const result = await server.inject(options)
+    expect(result.request.response.source.context.model.sections[0].tasks[0].name).toBe('Confirm your land cover details')
+    expect(result.request.response.source.context.model.sections[1].tasks[0].name).toBe('Choose funding option')
+    expect(result.request.response.source.context.model.sections[2].tasks[0].name).toBe('Arable and horticultural soil actions')
+    expect(result.request.response.source.context.model.sections[2].tasks[1].name).toBe('Select arable and horticultural soil land parcels')
+    expect(result.request.response.source.context.model.sections[2].tasks[2].name).toBe('Optional arable and horticultural soil actions')
+    expect(result.request.response.source.context.model.sections[3].tasks[0].name).toBe('Check your answers')
+    expect(result.request.response.source.context.model.sections[4].tasks[0].name).toBe('Submit your application')
+  })
+
+  test('GET /task-list shows correct task status if only arable soil actions completed', async () => {
+    cachedData.agreement.land = {
+      landComplete: true
+    }
+    cachedData.agreement.funding = ['sfi-arable-soil']
+    cachedData.agreement.action['sfi-arable-soil'].active = true
+    cachedData.agreement.action['sfi-arable-soil'].actionsComplete = true
+    const options = {
+      method: 'GET',
+      url: '/task-list',
+      auth
+    }
+
+    const result = await server.inject(options)
+    expect(result.request.response.source.context.model.sections[0].tasks[0].status).toBe('COMPLETED')
+    expect(result.request.response.source.context.model.sections[1].tasks[0].status).toBe('COMPLETED')
+    expect(result.request.response.source.context.model.sections[2].tasks[0].status).toBe('COMPLETED')
+    expect(result.request.response.source.context.model.sections[2].tasks[1].status).toBe('NOT STARTED YET')
+    expect(result.request.response.source.context.model.sections[2].tasks[2].status).toBe('CANNOT START YET')
+    expect(result.request.response.source.context.model.sections[3].tasks[0].status).toBe('CANNOT START YET')
+    expect(result.request.response.source.context.model.sections[4].tasks[0].status).toBe('CANNOT START YET')
+  })
+
+  test('GET /task-list includes correct number of sections if only improved grassland actions completed', async () => {
+    cachedData.agreement.land = {
+      landComplete: true
+    }
+    cachedData.agreement.funding = ['sfi-improved-grassland']
+    cachedData.agreement.action['sfi-improved-grassland'].active = true
+    cachedData.agreement.action['sfi-improved-grassland'].actionsComplete = true
+    const options = {
+      method: 'GET',
+      url: '/task-list',
+      auth
+    }
+
+    const result = await server.inject(options)
+    expect(result.request.response.source.context.model.sections.length).toBe(5)
+  })
+
+  test('GET /task-list shows correct total of sections if only improved grassland actions completed', async () => {
+    cachedData.agreement.land = {
+      landComplete: true
+    }
+    cachedData.agreement.funding = ['sfi-improved-grassland']
+    cachedData.agreement.action['sfi-improved-grassland'].active = true
+    cachedData.agreement.action['sfi-improved-grassland'].actionsComplete = true
+    const options = {
+      method: 'GET',
+      url: '/task-list',
+      auth
+    }
+
+    const result = await server.inject(options)
+    expect(result.request.response.source.context.model.totalSections).toBe(5)
+  })
+
+  test('GET /task-list shows correct total completed sections if only improved grassland actions completed', async () => {
+    cachedData.agreement.land = {
+      landComplete: true
+    }
+    cachedData.agreement.funding = ['sfi-improved-grassland']
+    cachedData.agreement.action['sfi-improved-grassland'].active = true
+    cachedData.agreement.action['sfi-improved-grassland'].actionsComplete = true
+    const options = {
+      method: 'GET',
+      url: '/task-list',
+      auth
+    }
+
+    const result = await server.inject(options)
+    expect(result.request.response.source.context.model.completedSections).toBe(2)
+  })
+
+  test('GET /task-list shows correct section headings if only improved grassland actions completed', async () => {
+    cachedData.agreement.land = {
+      landComplete: true
+    }
+    cachedData.agreement.funding = ['sfi-improved-grassland']
+    cachedData.agreement.action['sfi-improved-grassland'].active = true
+    cachedData.agreement.action['sfi-improved-grassland'].actionsComplete = true
+    const options = {
+      method: 'GET',
+      url: '/task-list',
+      auth
+    }
+
+    const result = await server.inject(options)
+    expect(result.request.response.source.context.model.sections[0].name).toBe('Your land')
+    expect(result.request.response.source.context.model.sections[1].name).toBe('Choose your funding')
+    expect(result.request.response.source.context.model.sections[2].name).toBe('Improved grassland soil actions')
+    expect(result.request.response.source.context.model.sections[3].name).toBe('Check your answers')
+    expect(result.request.response.source.context.model.sections[4].name).toBe('Submit your application')
+  })
+
+  test('GET /task-list shows correct tasks if only improved grassland actions completed', async () => {
+    cachedData.agreement.land = {
+      landComplete: true
+    }
+    cachedData.agreement.funding = ['sfi-improved-grassland']
+    cachedData.agreement.action['sfi-improved-grassland'].active = true
+    cachedData.agreement.action['sfi-improved-grassland'].actionsComplete = true
+    const options = {
+      method: 'GET',
+      url: '/task-list',
+      auth
+    }
+
+    const result = await server.inject(options)
+    expect(result.request.response.source.context.model.sections[0].tasks[0].name).toBe('Confirm your land cover details')
+    expect(result.request.response.source.context.model.sections[1].tasks[0].name).toBe('Choose funding option')
+    expect(result.request.response.source.context.model.sections[2].tasks[0].name).toBe('Improved grassland soil actions')
+    expect(result.request.response.source.context.model.sections[3].tasks[0].name).toBe('Check your answers')
+    expect(result.request.response.source.context.model.sections[4].tasks[0].name).toBe('Submit your application')
+  })
+
+  test('GET /task-list shows correct task status if only improved grassland actions completed', async () => {
+    cachedData.agreement.land = {
+      landComplete: true
+    }
+    cachedData.agreement.funding = ['sfi-improved-grassland']
+    cachedData.agreement.action['sfi-improved-grassland'].active = true
+    cachedData.agreement.action['sfi-improved-grassland'].actionsComplete = true
+    const options = {
+      method: 'GET',
+      url: '/task-list',
+      auth
+    }
+
+    const result = await server.inject(options)
+    expect(result.request.response.source.context.model.sections[0].tasks[0].status).toBe('COMPLETED')
+    expect(result.request.response.source.context.model.sections[1].tasks[0].status).toBe('COMPLETED')
+    expect(result.request.response.source.context.model.sections[2].tasks[0].status).toBe('COMPLETED')
+    expect(result.request.response.source.context.model.sections[2].tasks[1].status).toBe('NOT STARTED YET')
+    expect(result.request.response.source.context.model.sections[2].tasks[2].status).toBe('CANNOT START YET')
+    expect(result.request.response.source.context.model.sections[3].tasks[0].status).toBe('CANNOT START YET')
+    expect(result.request.response.source.context.model.sections[4].tasks[0].status).toBe('CANNOT START YET')
+  })
+
+    test('GET /task-list includes correct number of sections if only arable soil parcels completed', async () => {
+    cachedData.agreement.land = {
+      landComplete: true
+    }
+    cachedData.agreement.funding = ['sfi-arable-soil']
+    cachedData.agreement.action['sfi-arable-soil'].active = true
+    cachedData.agreement.action['sfi-arable-soil'].actionsComplete = true
+    cachedData.agreement.action['sfi-arable-soil'].landCovers = [{ parcelId: 'AB12345678' }]
+    const options = {
+      method: 'GET',
+      url: '/task-list',
+      auth
+    }
+
+    const result = await server.inject(options)
+    expect(result.request.response.source.context.model.sections.length).toBe(5)
+  })
+
+  test('GET /task-list shows correct total of sections if only arable soil parcels completed', async () => {
+    cachedData.agreement.land = {
+      landComplete: true
+    }
+    cachedData.agreement.funding = ['sfi-arable-soil']
+    cachedData.agreement.action['sfi-arable-soil'].active = true
+    cachedData.agreement.action['sfi-arable-soil'].actionsComplete = true
+    cachedData.agreement.action['sfi-arable-soil'].landCovers = [{ parcelId: 'AB12345678' }]
+    const options = {
+      method: 'GET',
+      url: '/task-list',
+      auth
+    }
+
+    const result = await server.inject(options)
+    expect(result.request.response.source.context.model.totalSections).toBe(5)
+  })
+
+  test('GET /task-list shows correct total completed sections if only arable soil parcels completed', async () => {
+    cachedData.agreement.land = {
+      landComplete: true
+    }
+    cachedData.agreement.funding = ['sfi-arable-soil']
+    cachedData.agreement.action['sfi-arable-soil'].active = true
+    cachedData.agreement.action['sfi-arable-soil'].actionsComplete = true
+    cachedData.agreement.action['sfi-arable-soil'].landCovers = [{ parcelId: 'AB12345678' }]
+    const options = {
+      method: 'GET',
+      url: '/task-list',
+      auth
+    }
+
+    const result = await server.inject(options)
+    expect(result.request.response.source.context.model.completedSections).toBe(2)
+  })
+
+  test('GET /task-list shows correct section headings if only arable soil parcels completed', async () => {
+    cachedData.agreement.land = {
+      landComplete: true
+    }
+    cachedData.agreement.funding = ['sfi-arable-soil']
+    cachedData.agreement.action['sfi-arable-soil'].active = true
+    cachedData.agreement.action['sfi-arable-soil'].actionsComplete = true
+    cachedData.agreement.action['sfi-arable-soil'].landCovers = [{ parcelId: 'AB12345678' }]
+    const options = {
+      method: 'GET',
+      url: '/task-list',
+      auth
+    }
+
+    const result = await server.inject(options)
+    expect(result.request.response.source.context.model.sections[0].name).toBe('Your land')
+    expect(result.request.response.source.context.model.sections[1].name).toBe('Choose your funding')
+    expect(result.request.response.source.context.model.sections[2].name).toBe('Arable and horticultural soil actions')
+    expect(result.request.response.source.context.model.sections[3].name).toBe('Check your answers')
+    expect(result.request.response.source.context.model.sections[4].name).toBe('Submit your application')
+  })
+
+  test('GET /task-list shows correct tasks if only arable soil parcels completed', async () => {
+    cachedData.agreement.land = {
+      landComplete: true
+    }
+    cachedData.agreement.funding = ['sfi-arable-soil']
+    cachedData.agreement.action['sfi-arable-soil'].active = true
+    cachedData.agreement.action['sfi-arable-soil'].actionsComplete = true
+    cachedData.agreement.action['sfi-arable-soil'].landCovers = [{ parcelId: 'AB12345678' }]
+    const options = {
+      method: 'GET',
+      url: '/task-list',
+      auth
+    }
+
+    const result = await server.inject(options)
+    expect(result.request.response.source.context.model.sections[0].tasks[0].name).toBe('Confirm your land cover details')
+    expect(result.request.response.source.context.model.sections[1].tasks[0].name).toBe('Choose funding option')
+    expect(result.request.response.source.context.model.sections[2].tasks[0].name).toBe('Arable and horticultural soil actions')
+    expect(result.request.response.source.context.model.sections[2].tasks[1].name).toBe('Select arable and horticultural soil land parcels')
+    expect(result.request.response.source.context.model.sections[2].tasks[2].name).toBe('Optional arable and horticultural soil actions')
+    expect(result.request.response.source.context.model.sections[3].tasks[0].name).toBe('Check your answers')
+    expect(result.request.response.source.context.model.sections[4].tasks[0].name).toBe('Submit your application')
+  })
+
+  test('GET /task-list shows correct task status if only arable soil parcels completed', async () => {
+    cachedData.agreement.land = {
+      landComplete: true
+    }
+    cachedData.agreement.funding = ['sfi-arable-soil']
+    cachedData.agreement.action['sfi-arable-soil'].active = true
+    cachedData.agreement.action['sfi-arable-soil'].actionsComplete = true
+    cachedData.agreement.action['sfi-arable-soil'].landCovers = [{ parcelId: 'AB12345678' }]
+    const options = {
+      method: 'GET',
+      url: '/task-list',
+      auth
+    }
+
+    const result = await server.inject(options)
+    expect(result.request.response.source.context.model.sections[0].tasks[0].status).toBe('COMPLETED')
+    expect(result.request.response.source.context.model.sections[1].tasks[0].status).toBe('COMPLETED')
+    expect(result.request.response.source.context.model.sections[2].tasks[0].status).toBe('COMPLETED')
+    expect(result.request.response.source.context.model.sections[2].tasks[1].status).toBe('COMPLETED')
+    expect(result.request.response.source.context.model.sections[2].tasks[2].status).toBe('NOT STARTED YET')
+    expect(result.request.response.source.context.model.sections[3].tasks[0].status).toBe('CANNOT START YET')
+    expect(result.request.response.source.context.model.sections[4].tasks[0].status).toBe('CANNOT START YET')
+  })
+
+  test('GET /task-list includes correct number of sections if only improved grassland parcels completed', async () => {
+    cachedData.agreement.land = {
+      landComplete: true
+    }
+    cachedData.agreement.funding = ['sfi-improved-grassland']
+    cachedData.agreement.action['sfi-improved-grassland'].active = true
+    cachedData.agreement.action['sfi-improved-grassland'].actionsComplete = true
+    cachedData.agreement.action['sfi-improved-grassland'].landCovers = [{ parcelId: 'AB12345678' }]
+    const options = {
+      method: 'GET',
+      url: '/task-list',
+      auth
+    }
+
+    const result = await server.inject(options)
+    expect(result.request.response.source.context.model.sections.length).toBe(5)
+  })
+
+  test('GET /task-list shows correct total of sections if only improved grassland parcels completed', async () => {
+    cachedData.agreement.land = {
+      landComplete: true
+    }
+    cachedData.agreement.funding = ['sfi-improved-grassland']
+    cachedData.agreement.action['sfi-improved-grassland'].active = true
+    cachedData.agreement.action['sfi-improved-grassland'].actionsComplete = true
+    cachedData.agreement.action['sfi-improved-grassland'].landCovers = [{ parcelId: 'AB12345678' }]
+    const options = {
+      method: 'GET',
+      url: '/task-list',
+      auth
+    }
+
+    const result = await server.inject(options)
+    expect(result.request.response.source.context.model.totalSections).toBe(5)
+  })
+
+  test('GET /task-list shows correct total completed sections if only improved grassland parcels completed', async () => {
+    cachedData.agreement.land = {
+      landComplete: true
+    }
+    cachedData.agreement.funding = ['sfi-improved-grassland']
+    cachedData.agreement.action['sfi-improved-grassland'].active = true
+    cachedData.agreement.action['sfi-improved-grassland'].actionsComplete = true
+    cachedData.agreement.action['sfi-improved-grassland'].landCovers = [{ parcelId: 'AB12345678' }]
+    const options = {
+      method: 'GET',
+      url: '/task-list',
+      auth
+    }
+
+    const result = await server.inject(options)
+    expect(result.request.response.source.context.model.completedSections).toBe(2)
+  })
+
+  test('GET /task-list shows correct section headings if only improved grassland parcels completed', async () => {
+    cachedData.agreement.land = {
+      landComplete: true
+    }
+    cachedData.agreement.funding = ['sfi-improved-grassland']
+    cachedData.agreement.action['sfi-improved-grassland'].active = true
+    cachedData.agreement.action['sfi-improved-grassland'].actionsComplete = true
+    cachedData.agreement.action['sfi-improved-grassland'].landCovers = [{ parcelId: 'AB12345678' }]
+    const options = {
+      method: 'GET',
+      url: '/task-list',
+      auth
+    }
+
+    const result = await server.inject(options)
+    expect(result.request.response.source.context.model.sections[0].name).toBe('Your land')
+    expect(result.request.response.source.context.model.sections[1].name).toBe('Choose your funding')
+    expect(result.request.response.source.context.model.sections[2].name).toBe('Improved grassland soil actions')
+    expect(result.request.response.source.context.model.sections[3].name).toBe('Check your answers')
+    expect(result.request.response.source.context.model.sections[4].name).toBe('Submit your application')
+  })
+
+  test('GET /task-list shows correct tasks if only improved grassland parcels completed', async () => {
+    cachedData.agreement.land = {
+      landComplete: true
+    }
+    cachedData.agreement.funding = ['sfi-improved-grassland']
+    cachedData.agreement.action['sfi-improved-grassland'].active = true
+    cachedData.agreement.action['sfi-improved-grassland'].actionsComplete = true
+    cachedData.agreement.action['sfi-improved-grassland'].landCovers = [{ parcelId: 'AB12345678' }]
+    const options = {
+      method: 'GET',
+      url: '/task-list',
+      auth
+    }
+
+    const result = await server.inject(options)
+    expect(result.request.response.source.context.model.sections[0].tasks[0].name).toBe('Confirm your land cover details')
+    expect(result.request.response.source.context.model.sections[1].tasks[0].name).toBe('Choose funding option')
+    expect(result.request.response.source.context.model.sections[2].tasks[0].name).toBe('Improved grassland soil actions')
+    expect(result.request.response.source.context.model.sections[3].tasks[0].name).toBe('Check your answers')
+    expect(result.request.response.source.context.model.sections[4].tasks[0].name).toBe('Submit your application')
+  })
+
+  test('GET /task-list shows correct task status if only improved grassland parcels completed', async () => {
+    cachedData.agreement.land = {
+      landComplete: true
+    }
+    cachedData.agreement.funding = ['sfi-improved-grassland']
+    cachedData.agreement.action['sfi-improved-grassland'].active = true
+    cachedData.agreement.action['sfi-improved-grassland'].actionsComplete = true
+    cachedData.agreement.action['sfi-improved-grassland'].landCovers = [{ parcelId: 'AB12345678' }]
+    const options = {
+      method: 'GET',
+      url: '/task-list',
+      auth
+    }
+
+    const result = await server.inject(options)
+    expect(result.request.response.source.context.model.sections[0].tasks[0].status).toBe('COMPLETED')
+    expect(result.request.response.source.context.model.sections[1].tasks[0].status).toBe('COMPLETED')
+    expect(result.request.response.source.context.model.sections[2].tasks[0].status).toBe('COMPLETED')
+    expect(result.request.response.source.context.model.sections[2].tasks[1].status).toBe('COMPLETED')
+    expect(result.request.response.source.context.model.sections[2].tasks[2].status).toBe('NOT STARTED YET')
+    expect(result.request.response.source.context.model.sections[3].tasks[0].status).toBe('CANNOT START YET')
+    expect(result.request.response.source.context.model.sections[4].tasks[0].status).toBe('CANNOT START YET')
+  })
 })
+
