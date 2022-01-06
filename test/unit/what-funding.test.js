@@ -1,16 +1,7 @@
 describe('process standards message', () => {
   const mockSendMessage = jest.fn()
   const mockReceiveMessage = jest.fn(() => {
-    return [{
-      body: {
-        eligibility: [{
-          sbi,
-          name,
-          organisationId,
-          address: 'address1, address2, address3, postalCode'
-        }]
-      }
-    }]
+    return [{ body: mockEligibleStandards }]
   })
 
   jest.mock('ffc-messaging', () => {
@@ -41,28 +32,9 @@ describe('process standards message', () => {
   let server
   let request
 
-  const standardItems = {
-    'sfi-moorland': {
-      text: 'Funding for moorland or rough grazing',
-      value: 'sfi-moorland',
-      hint: { text: '£6.45 per hectare per year, plus a single payment of £148 per year.' },
-      checked: false
-    },
-    'sfi-arable-soil': {
-      text: 'Funding for arable and horticultural soil',
-      value: 'sfi-arable-soil',
-      hint: { text: '£22 to £40 per hectare per year based on what work you do.' },
-      checked: false
-    },
-    'sfi-improved-grassland': {
-      text: 'Funding for improved grassland soil',
-      value: 'sfi-improved-grassland',
-      hint: { text: '£28 to £58 per hectare per year based on what work you do.' },
-      checked: false
-    }
-  }
+  let standardDetails
 
-  const mockStandards = [{
+  const mockEligibleStandards = [{
     code: 'sfi-arable-soil',
     name: 'arable and horticultural soil',
     landCovers:
@@ -93,6 +65,29 @@ describe('process standards message', () => {
     await server.initialize()
   })
 
+  beforeEach(async () => {
+    standardDetails = {
+      'sfi-moorland': {
+        text: 'Funding for moorland or rough grazing',
+        value: 'sfi-moorland',
+        hint: { text: '£6.45 per hectare per year, plus a single payment of £148 per year.' },
+        checked: false
+      },
+      'sfi-arable-soil': {
+        text: 'Funding for arable and horticultural soil',
+        value: 'sfi-arable-soil',
+        hint: { text: '£22 to £40 per hectare per year based on what work you do.' },
+        checked: false
+      },
+      'sfi-improved-grassland': {
+        text: 'Funding for improved grassland soil',
+        value: 'sfi-improved-grassland',
+        hint: { text: '£28 to £58 per hectare per year based on what work you do.' },
+        checked: false
+      }
+    }
+  })
+
   afterEach(async () => {
     jest.resetAllMocks()
   })
@@ -101,79 +96,69 @@ describe('process standards message', () => {
     await server.stop()
   })
 
-  test('getEligible with 1 valid standard returns the 1 valid standard code as a string array', async () => {
-    const result = await getEligible(mockStandards[0], standardItems)
-    expect(result).toBe(['sfi-arable-soil'])
+  test('getEligible with 1 valid standard returns the 1 valid standard detail as an object array', async () => {
+    const result = await getEligible([mockEligibleStandards[0]], standardDetails)
+    expect(result).toStrictEqual([standardDetails['sfi-arable-soil']])
   })
 
-  test('getEligible with 2 valid standards returns the 2 valid standard codes as a string array', async () => {
-    const result = await getEligible(mockStandards, standardItems)
-    expect(result).toBe(['sfi-arable-soil', 'sfi-improved-grassland'])
+  test('getEligible with 2 valid standards returns the 2 valid standard detail as an object array', async () => {
+    const result = await getEligible(mockEligibleStandards, standardDetails)
+    expect(result).toStrictEqual(['sfi-arable-soil', 'sfi-improved-grassland'].map(x => standardDetails[x]))
   })
 
-  test('getEligible with an invalid standard returns an empty string array', async () => {
+  test('getEligible with an invalid standard returns an empty array', async () => {
     const result = await getEligible([{
       code: 'not-a-real-standard',
       name: 'does not exist',
       landCovers:
         [{ parcelId: 'AA12345678', code: '110', area: '5.10' }, { parcelId: 'BB12345678', code: '110', area: '8.21' }, { parcelId: 'CC12345678', code: '110', area: '1.09' }]
-    }], standardItems)
-    expect(result).toBe([])
+    }], standardDetails)
+    expect(result).toStrictEqual([])
   })
 
   test('getChecked with 1 valid standard set the checked flag for that standard to true', async () => {
-    const result = await getChecked(['sfi-arable-soil'], standardItems)
-    const changedStandards = { ...standardItems }
+    const result = await getChecked(['sfi-arable-soil'], standardDetails)
+    const changedStandards = { ...standardDetails }
     changedStandards['sfi-arable-soil'].checked = true
-    expect(result).toBe(changedStandards)
+    expect(result).toStrictEqual(changedStandards)
   })
 
   test('getChecked with 2 valid standards set the checked flags for those standards to true', async () => {
-    const result = await getChecked(['sfi-arable-soil', 'sfi-improved-grassland'], standardItems)
-    const changedStandards = { ...standardItems }
+    const result = await getChecked(['sfi-arable-soil', 'sfi-improved-grassland'], standardDetails)
+    const changedStandards = { ...standardDetails }
     changedStandards['sfi-arable-soil'].checked = true
     changedStandards['sfi-improved-grassland'].checked = true
-    expect(result).toBe(changedStandards)
+    expect(result).toStrictEqual(changedStandards)
   })
 
   test('getChecked with an invalid standard does not change the object', async () => {
-    const result = await getChecked(['not-a-real-standard'], standardItems)
-    expect(result).toBe(standardItems)
-  })
-
-  test('mapStandards calls getEligible', async () => {
-    await mapStandards(mockStandards, [])
-    expect(getEligible).toHaveBeenCalled()
-  })
-
-  test('mapStandards calls getChecked', async () => {
-    await mapStandards(mockStandards, [])
-    expect(getChecked).toHaveBeenCalled()
+    const result = await getChecked(['not-a-real-standard'], standardDetails)
+    expect(result).toStrictEqual(standardDetails)
   })
 
   test('mapStandards with no selected standards returns all provided eligible standards', async () => {
-    const result = await mapStandards(mockStandards, [])
-    expect(result).toBe([mockStandards.map(standard => standard.code)].map(code => standardItems[code]))
+    const result = await mapStandards(mockEligibleStandards, [])
+    expect(result).toStrictEqual(mockEligibleStandards.map(standard => standard.code).map(code => standardDetails[code]))
   })
 
   test('mapStandards with valid selected standard returns all provided eligible standards with the selected being checked', async () => {
-    const result = await mapStandards(mockStandards, 'sfi-arable-soil')
-    const changedStandards = [mockStandards.map(standard => standard.code)].map(code => standardItems[code])
-    changedStandards['sfi-arable-soil'].checked = true
-    expect(result).toBe(changedStandards)
+    const result = await mapStandards(mockEligibleStandards, ['sfi-arable-soil'])
+    standardDetails['sfi-arable-soil'].checked = true
+    const changedStandards = mockEligibleStandards.map(standard => standard.code).map(code => standardDetails[code])
+    expect(result).toStrictEqual(changedStandards)
   })
 
   test('mapStandards with 2 valid selected standards returns all provided eligible standards with the selected being checked', async () => {
-    const result = await mapStandards(mockStandards, ['sfi-arable-soil', 'sfi-improved-grassland'])
-    const changedStandards = [mockStandards.map(standard => standard.code)].map(code => standardItems[code])
-    changedStandards['sfi-arable-soil'].checked = true
-    changedStandards['sfi-improved-grassland'].checked = true
-    expect(result).toBe(changedStandards)
+    const result = await mapStandards(mockEligibleStandards, ['sfi-arable-soil', 'sfi-improved-grassland'])
+    standardDetails['sfi-arable-soil'].checked = true
+    standardDetails['sfi-improved-grassland'].checked = true
+    const changedStandards = mockEligibleStandards.map(standard => standard.code).map(code => standardDetails[code])
+    expect(result).toStrictEqual(changedStandards)
   })
 
   test('mapStandards with invalid selected standard returns all provided eligible standards', async () => {
-    const result = await mapStandards(mockStandards, 'not-a-real-standard')
-    const changedStandards = [mockStandards.map(standard => standard.code)].map(code => standardItems[code])
-    expect(result).toBe(changedStandards)
+    const result = await mapStandards(mockEligibleStandards, ['not-a-real-standard'])
+    const changedStandards = mockEligibleStandards.map(standard => standard.code).map(code => standardDetails[code])
+    expect(result).toStrictEqual(changedStandards)
   })
 })

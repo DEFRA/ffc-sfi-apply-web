@@ -1,9 +1,10 @@
 describe('what-funding route', () => {
   jest.mock('ffc-messaging')
   jest.mock('../../../../app/plugins/crumb')
-  const getFunding = require('../../../../app/funding/get-funding')
   jest.mock('../../../../app/cache')
   const mockCache = require('../../../../app/cache')
+  jest.mock('../../../../app/funding/get-funding')
+  const getFunding = require('../../../../app/funding/get-funding')
 
   let createServer
   let server
@@ -24,77 +25,21 @@ describe('what-funding route', () => {
         address: 'A Farm'
       },
       land: {
-        isLandCorrect: true,
-        hasManagementControl: true
+        isLandCorrect: undefined,
+        hasManagementControl: undefined
       },
-      // TODO: is this pop'd before?
-      action: {
-        'sfi-arable-soil': {
-          actionsComplete: true,
-          active: true,
-          canTestOrganicMatter: true,
-          canAssessSoil: true,
-          canProducePlan: true,
-          canHaveGreenCover: true,
-          canAddOrganicMatter: true,
-          canDiversifySpecies: true,
-          landCovers: [
-            {
-              parcelId: 'AB12345678',
-              code: '110',
-              area: 20.56,
-              rate: 'introductory',
-              paymentAmount: 100.20
-            },
-            {
-              parcelId: 'AB87654321',
-              code: '110',
-              area: 20.56,
-              rate: 'intermediate',
-              paymentAmount: 200.10
-            }
-          ],
-          paymentAmount: 300.30
-        },
-        'sfi-improved-grassland': {
-          actionsComplete: false,
-          active: true,
-          canTestOrganicMatter: true,
-          canAssessSoil: true,
-          canProducePlan: true,
-          canHaveGreenCover: true,
-          canEstablishHerbalLeys: true,
-          landCovers: [
-            {
-              parcelId: 'AB12345678',
-              code: '130',
-              area: 20.56,
-              rate: 'intermediate',
-              paymentAmount: 100.64
-            }
-          ],
-          paymentAmount: 100.64
-        },
-        'sfi-moorland': {
-          actionsComplete: false,
-          active: true,
-          paymentAmount: 420.00
-        },
-        paymentAmount: 820.94
-      },
-      // TODO: do these exist?
-      confirmed: true,
-      submitted: true
+      funding: [],
+      action: {}
     },
     data: {
-      // eligibleOrganisations: [
-      //   {
-      //     sbi: 123456789,
-      //     name: 'A Farmer',
-      //     organisationId: 1234567,
-      //     address: 'A Farm'
-      //   }
-      // ],
+      eligibleOrganisations: [
+        {
+          sbi: 123456789,
+          name: 'A Farmer',
+          organisationId: 1234567,
+          address: 'A Farm'
+        }
+      ],
       land: {
         filename: '1234567.json'
       },
@@ -143,71 +88,66 @@ describe('what-funding route', () => {
         improvedGrassland: {
           filename: '1234567-sfi-improved-grassland.json'
         }
-      }
-      // ,
-      // eligibileFunding: {
-      // //response.standards
-      // }
+      },
+      eligibleFunding: []
     }
   }
 
-  const populatedCache = {
-    ...initialCache,
-    // TODO: is this pop'd before?
-    action: {
-      'sfi-arable-soil': {
-        actionsComplete: true,
-        active: true,
-        canTestOrganicMatter: true,
-        canAssessSoil: true,
-        canProducePlan: true,
-        canHaveGreenCover: true,
-        canAddOrganicMatter: true,
-        canDiversifySpecies: true,
-        landCovers: [
-          {
-            parcelId: 'AB12345678',
-            code: '110',
-            area: 20.56,
-            rate: 'introductory',
-            paymentAmount: 100.20
-          },
-          {
-            parcelId: 'AB87654321',
-            code: '110',
-            area: 20.56,
-            rate: 'intermediate',
-            paymentAmount: 200.10
-          }
-        ],
-        paymentAmount: 300.30
-      },
-      'sfi-improved-grassland': {
-        actionsComplete: false,
-        active: true,
-        canTestOrganicMatter: true,
-        canAssessSoil: true,
-        canProducePlan: true,
-        canHaveGreenCover: true,
-        canEstablishHerbalLeys: true,
-        landCovers: [
-          {
-            parcelId: 'AB12345678',
-            code: '130',
-            area: 20.56,
-            rate: 'intermediate',
-            paymentAmount: 100.64
-          }
-        ],
-        paymentAmount: 100.64
-      },
-      'sfi-moorland': {
-        actionsComplete: false,
-        active: true,
-        paymentAmount: 420.00
-      },
-      paymentAmount: 820.94
-    }
+  const populatedCache = JSON.parse(JSON.stringify(initialCache))
+  populatedCache.agreement.funding = ['sfi-arable-soil', 'sfi-improved-grassland']
+  populatedCache.agreement.action = {
+    'sfi-arable-soil': {
+      actionsComplete: false,
+      active: true,
+      canTestOrganicMatter: undefined,
+      canAssessSoil: undefined,
+      canProducePlan: undefined,
+      canHaveGreenCover: undefined,
+      canAddOrganicMatter: undefined,
+      canDiversifySpecies: undefined,
+      landCovers: [
+        {
+          parcelId: 'AB12345678',
+          code: '110',
+          area: 20.56,
+          rate: 'introductory',
+          paymentAmount: 100.20
+        },
+        {
+          parcelId: 'AB87654321',
+          code: '110',
+          area: 20.56,
+          rate: 'intermediate',
+          paymentAmount: 200.10
+        }
+      ],
+      paymentAmount: 300.30
+    },
+    'sfi-improved-grassland': {
+      actionsComplete: false,
+      active: true,
+      canTestOrganicMatter: undefined,
+      canAssessSoil: undefined,
+      canProducePlan: undefined,
+      canHaveGreenCover: undefined,
+      canEstablishHerbalLeys: undefined,
+      landCovers: [
+        {
+          parcelId: 'AB12345678',
+          code: '130',
+          area: 20.56,
+          rate: 'intermediate',
+          paymentAmount: 100.64
+        }
+      ],
+      paymentAmount: 100.64
+    },
+    'sfi-moorland': {
+      actionsComplete: false,
+      active: false,
+      paymentAmount: 420.00
+    },
+    paymentAmount: 820.94
   }
 
   beforeEach(async () => {
@@ -240,7 +180,7 @@ describe('what-funding route', () => {
     await server.stop()
   })
 
-  test('GET /what-funding Auth mode "required" should require header', async () => {
+  test('GET /what-funding without auth returns 302', async () => {
     const options = {
       method: 'GET',
       url: '/what-funding'
@@ -250,7 +190,7 @@ describe('what-funding route', () => {
     expect(result.statusCode).toBe(302)
   })
 
-  test('GET /what-funding with no funding object within agreement cache returns empty array', async () => {
+  test('GET /what-funding with auth returns 200 and funding/what-funding view', async () => {
     const options = {
       method: 'GET',
       url: '/what-funding',
@@ -258,42 +198,45 @@ describe('what-funding route', () => {
     }
 
     const result = await server.inject(options)
-
     expect(result.statusCode).toBe(200)
     expect(result.request.response.variety).toBe('view')
     expect(result.request.response.source.template).toBe('funding/what-funding')
-
-    expect(result.request.response.source.context.model.selected).toEqual([])
   })
 
-  test('GET /what-funding with 1 funding option within agreement cache returns a string array', async () => {
+  test('GET /what-funding first time round returns an empty funding array within agreement cache', async () => {
     const options = {
       method: 'GET',
       url: '/what-funding',
       auth
     }
 
-    //  TODO: can I call the prev mockCache.get and append to it?
-    mockCache.get.mockResolvedValue(populatedCache)
-
-    const result = await server.inject(options)
-
-    expect(result.request.response.source.context.model.selected).toEqual(['sfi-arable-soil'])
+    await server.inject(options)
+    const { funding } = (await mockCache.get()).agreement
+    expect(funding).toStrictEqual([])
   })
 
-  test('GET /what-funding with 2 funding options within agreement cache returns a string array', async () => {
+  test('GET /what-funding first time round returns an empty action object within agreement cache', async () => {
     const options = {
       method: 'GET',
       url: '/what-funding',
       auth
     }
 
-    //  TODO: can I call the prev mockCache.get and append to it?
-    mockCache.get.mockResolvedValue(populatedCache)
+    await server.inject(options)
+    const { action } = (await mockCache.get()).agreement
+    expect(action).toStrictEqual({})
+  })
 
-    const result = await server.inject(options)
+  test('GET /what-funding first time round returns an empty eligibleFunding array within data cache', async () => {
+    const options = {
+      method: 'GET',
+      url: '/what-funding',
+      auth
+    }
 
-    expect(result.request.response.source.context.model.selected).toEqual(['sfi-arable-soil', 'sfi-improved-grassland'])
+    await server.inject(options)
+    const { eligibleFunding } = (await mockCache.get()).data
+    expect(eligibleFunding).toStrictEqual([])
   })
 
   test('GET /what-funding with no eligible funding options returns no-response view', async () => {
@@ -306,13 +249,12 @@ describe('what-funding route', () => {
     getFunding.mockResolvedValue(undefined)
 
     const result = await server.inject(options)
-    // TODO: is this 200?
     expect(result.statusCode).toBe(200)
     expect(result.request.response.variety).toBe('view')
     expect(result.request.response.source.template).toBe('no-response')
   })
 
-  test('GET /what-funding with 1 eligible funding option returns funding/what-funding view', async () => {
+  test('GET /what-funding with 2 eligible funding options returns funding/what-funding view', async () => {
     const options = {
       method: 'GET',
       url: '/what-funding',
@@ -325,34 +267,49 @@ describe('what-funding route', () => {
     expect(result.request.response.source.template).toBe('funding/what-funding')
   })
 
-  // TODO: what keys are mandatory? -- any other like this?
-  test('GET /what-funding with 1 eligible funding option returns an object with something in it', async () => {
+  test('GET /what-funding with 1 previously selected funding option returns this option as a string array within agreement cache', async () => {
     const options = {
       method: 'GET',
       url: '/what-funding',
       auth
     }
 
+    mockCache.get.mockResolvedValue(populatedCache)
+
+    await server.inject(options)
+
+    const { funding } = (await mockCache.get()).agreement
+    expect([funding[0]]).toStrictEqual(['sfi-arable-soil'])
+  })
+
+  test('GET /what-funding with 2 previously selected funding options returns those options as a string array within agreement cache', async () => {
+    const options = {
+      method: 'GET',
+      url: '/what-funding',
+      auth
+    }
+
+    mockCache.get.mockResolvedValue(populatedCache)
+
+    await server.inject(options)
+
+    const { funding } = (await mockCache.get()).agreement
+    expect(funding).toStrictEqual(['sfi-arable-soil', 'sfi-improved-grassland'])
+  })
+
+  test('POST /what-funding with valid standard redirects', async () => {
+    const options = {
+      method: 'POST',
+      url: '/what-funding',
+      payload: { standard: ['sfi-arable-soil'] },
+      auth
+    }
+
     const result = await server.inject(options)
-
-    expect(result.request.response.source.context.model.eligibleFunding).toEqual({ a: 1 })
+    expect(result.statusCode).toBe(302)
   })
 
-  test('POST /what-funding with valid standard returns funding/how-much view', async () => {
-    const options = {
-      method: 'POST',
-      url: '/what-funding',
-      payload: { standard: ['sfi-arable-soil'] },
-      auth
-    }
-
-    const result = await server.inject(options)
-    expect(result.statusCode).toBe(200)
-    expect(result.request.response.variety).toBe('view')
-    expect(result.request.response.source.template).toBe('funding/how-much')
-  })
-
-  test('POST /what-funding with valid standard stores this standard in the agreement funding cache', async () => {
+  test('POST /what-funding with 1 valid standard stores this standard in the agreement funding cache', async () => {
     const options = {
       method: 'POST',
       url: '/what-funding',
@@ -363,12 +320,12 @@ describe('what-funding route', () => {
     mockCache.get.mockResolvedValue(populatedCache)
 
     await server.inject(options)
-    // TODO: how to check funding is there
-    expect((mockCache.get).agreement?.funding).toBe(1) // not null
-    expect((mockCache.get).agreement?.funding).toEqual(['sfi-arable-soil'])
+
+    const { funding } = (await mockCache.get()).agreement
+    expect([funding[0]]).toStrictEqual(['sfi-arable-soil'])
   })
 
-  test('POST /what-funding with valid standard updates the standard as active in the agreement action cache', async () => {
+  test('POST /what-funding with 2 valid standards stores these standards in the agreement funding cache', async () => {
     const options = {
       method: 'POST',
       url: '/what-funding',
@@ -379,12 +336,12 @@ describe('what-funding route', () => {
     mockCache.get.mockResolvedValue(populatedCache)
 
     await server.inject(options)
-    // TODO: how to check funding is there
-    expect((mockCache.get).agreement?.action['sfi-arable-soil']).toBe(1) // not null
-    expect((mockCache.get).agreement?.action['sfi-arable-soil'].active).toEqual(true)
+
+    const { funding } = (await mockCache.get()).agreement
+    expect(funding).toStrictEqual(['sfi-arable-soil', 'sfi-improved-grassland'])
   })
 
-  test('POST /what-funding with valid standard updates the standard as actionsComplete in the agreement action cache', async () => {
+  test('POST /what-funding with 1 valid standard updates the standard as active in the agreement action cache', async () => {
     const options = {
       method: 'POST',
       url: '/what-funding',
@@ -392,15 +349,63 @@ describe('what-funding route', () => {
       auth
     }
 
+    const preAction = (await mockCache.get()).agreement.action
+
     mockCache.get.mockResolvedValue(populatedCache)
 
     await server.inject(options)
-    // TODO: how to check funding is there
-    expect((mockCache.get).agreement?.action['sfi-arable-soil']).toBe(1) // not null
-    expect((mockCache.get).agreement?.action['sfi-arable-soil'].actionsComplete).toEqual(true)
+
+    const postAction = (await mockCache.get()).agreement.action
+    expect(preAction).toStrictEqual({})
+    expect(postAction['sfi-arable-soil'].active).toBe(true)
   })
 
-  test('POST /what-funding with no eligible funding returns funding/what-funding view', async () => {
+  test('POST /what-funding with 2 valid standards updates those standard as active in the agreement action cache', async () => {
+    const options = {
+      method: 'POST',
+      url: '/what-funding',
+      payload: { standard: ['sfi-arable-soil', 'sfi-improved-grassland'] },
+      auth
+    }
+
+    const preAction = (await mockCache.get()).agreement.action
+
+    mockCache.get.mockResolvedValue(populatedCache)
+
+    await server.inject(options)
+
+    const postAction = (await mockCache.get()).agreement.action
+
+    expect(preAction).toStrictEqual({})
+    expect(postAction['sfi-arable-soil'].active).toBe(true)
+    expect(postAction['sfi-improved-grassland'].active).toBe(true)
+  })
+
+  test('POST /what-funding with 1 previously selected standard updates the standard as active in the agreement action cache', async () => {
+    const options = {
+      method: 'POST',
+      url: '/what-funding',
+      payload: { standard: ['sfi-arable-soil'] },
+      auth
+    }
+
+    let preAction = { ...populatedCache }
+    preAction.agreement.action['sfi-arable-soil'].active = false
+    preAction = preAction.agreement.action
+
+    mockCache.get.mockResolvedValue(populatedCache)
+
+    await server.inject(options)
+
+    const postAction = (await mockCache.get()).agreement.action
+
+    expect(preAction['sfi-arable-soil'].active).toBe(false)
+    expect(preAction['sfi-improved-grassland'].active).toBe(true)
+    expect(postAction['sfi-arable-soil'].active).toBe(true)
+    expect(preAction['sfi-improved-grassland'].active).toBe(false)
+  })
+
+  test('POST /what-funding with no eligible funding redirects', async () => {
     const options = {
       method: 'POST',
       url: '/what-funding',
@@ -413,12 +418,10 @@ describe('what-funding route', () => {
 
     const result = await server.inject(options)
 
-    expect(result.statusCode).toBe(200)
-    expect(result.request.response.variety).toBe('view')
-    expect(result.request.response.source.template).toBe('funding/what-funding')
+    expect(result.statusCode).toBe(302)
   })
 
-  test('POST /what-funding with invalid standard returns funding/what-funding view', async () => {
+  test('POST /what-funding with invalid standard redirects', async () => {
     const options = {
       method: 'POST',
       url: '/what-funding',
@@ -426,23 +429,35 @@ describe('what-funding route', () => {
       auth
     }
 
-    // TODO: change this
     mockCache.get.mockResolvedValue(populatedCache)
 
     const result = await server.inject(options)
 
-    expect(result.statusCode).toBe(200)
-    expect(result.request.response.variety).toBe('view')
-    expect(result.request.response.source.template).toBe('funding/what-funding')
+    expect(result.statusCode).toBe(302)
   })
 
-  test('POST /what-funding with no standard returns funding/what-funding view', async () => {
+  test('POST /what-funding with no standard and no eligibleFunding options redirects', async () => {
     const options = {
       method: 'POST',
       url: '/what-funding',
       payload: { standard: [] },
       auth
     }
+
+    const result = await server.inject(options)
+
+    expect(result.statusCode).toBe(302)
+  })
+
+  test('POST /what-funding with no standard and with valid eligibleFunding returns funding/what-funding view with an error message', async () => {
+    const options = {
+      method: 'POST',
+      url: '/what-funding',
+      payload: { standard: [] },
+      auth
+    }
+
+    mockCache.get.mockResolvedValue(populatedCache)
 
     const result = await server.inject(options)
 
