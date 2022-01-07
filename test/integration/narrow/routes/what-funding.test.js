@@ -1,17 +1,18 @@
 describe('what-funding route', () => {
   const mockCache = require('../../../../app/cache')
+  jest.mock('../../../../app/funding/get-funding')
   const getFunding = require('../../../../app/funding/get-funding')
   const { create: createAgreement } = require('../../../../app/agreement')
 
   jest.mock('ffc-messaging')
   jest.mock('../../../../app/plugins/crumb')
   jest.mock('../../../../app/cache')
-  jest.mock('../../../../app/funding/get-funding')
 
   let createServer
   let server
   let auth
 
+  // new session cache upto this page
   const initialCache = {
     crn: 123456789,
     callerId: 1234567,
@@ -80,25 +81,25 @@ describe('what-funding route', () => {
       eligibleFunding: []
     }
   }
-
-  // user selected arable and grassland
-  const populatedCache = JSON.parse(JSON.stringify(initialCache))
-  populatedCache.agreement.funding = ['sfi-arable-soil', 'sfi-improved-grassland']
-  populatedCache.agreement.action['sfi-arable-soil'].active = true
-  populatedCache.agreement.action['sfi-improved-grassland'].active = true
-
+  // user selects arable and grassland
+  let populatedCache
   // user returns, deselects grassland and only selects arable
-  const returnedCache = JSON.parse(JSON.stringify(populatedCache))
-  returnedCache.agreement.funding = ['sfi-arable-soil']
-  returnedCache.agreement.action['sfi-improved-grassland'].active = false
+  let returningCache
 
   beforeEach(async () => {
     auth = { strategy: 'session', credentials: { name: 'A Farmer' } }
 
     mockCache.get.mockResolvedValue(initialCache)
 
-    // TODO: what does this happy path return
-    // TODO: does jest handle this being async?
+    populatedCache = JSON.parse(JSON.stringify(initialCache))
+    populatedCache.agreement.funding = ['sfi-arable-soil', 'sfi-improved-grassland']
+    populatedCache.agreement.action['sfi-arable-soil'].active = true
+    populatedCache.agreement.action['sfi-improved-grassland'].active = true
+
+    returningCache = JSON.parse(JSON.stringify(populatedCache))
+    returningCache.agreement.funding = ['sfi-moorland']
+    returningCache.agreement.action['sfi-improved-grassland'].active = false
+
     getFunding.mockResolvedValue([{
       code: 'sfi-arable-soil',
       name: 'arable and horticultural soil',
@@ -111,6 +112,8 @@ describe('what-funding route', () => {
       [{ parcelId: 'ZZ98765432', code: '130', area: '14.00' }, { parcelId: 'YY98765432', code: '130', area: '1.72' }, { parcelId: 'XX98765432', code: '130', area: '5.22' }]
     }
     ])
+
+    // populatedCache.data.eligibleFunding = await getFunding()
 
     createServer = require('../../../../app/server')
     server = await createServer()
@@ -192,6 +195,20 @@ describe('what-funding route', () => {
     expect(eligibleFunding).toStrictEqual([])
   })
 
+  test('GET /what-funding with no eligible funding options returns 200', async () => {
+    const options = {
+      method: 'GET',
+      url: '/what-funding',
+      auth
+    }
+
+    getFunding.mockResolvedValue(undefined)
+
+    const result = await server.inject(options)
+
+    expect(result.statusCode).toBe(200)
+  })
+
   test('GET /what-funding with no eligible funding options returns no-response view', async () => {
     const options = {
       method: 'GET',
@@ -202,9 +219,21 @@ describe('what-funding route', () => {
     getFunding.mockResolvedValue(undefined)
 
     const result = await server.inject(options)
-    expect(result.statusCode).toBe(200)
+
     expect(result.request.response.variety).toBe('view')
     expect(result.request.response.source.template).toBe('no-response')
+  })
+
+  test('GET /what-funding with eligible funding options returns 200', async () => {
+    const options = {
+      method: 'GET',
+      url: '/what-funding',
+      auth
+    }
+
+    const result = await server.inject(options)
+
+    expect(result.statusCode).toBe(200)
   })
 
   test('GET /what-funding with eligible funding options returns funding/what-funding view', async () => {
@@ -215,7 +244,7 @@ describe('what-funding route', () => {
     }
 
     const result = await server.inject(options)
-    expect(result.statusCode).toBe(200)
+
     expect(result.request.response.variety).toBe('view')
     expect(result.request.response.source.template).toBe('funding/what-funding')
   })
@@ -297,24 +326,8 @@ describe('what-funding route', () => {
     }
 
     const result = await server.inject(options)
+
     expect(result.statusCode).toBe(302)
-  })
-
-  test('POST /what-funding with 1 valid standard and eligible funding options stores this standard in the agreement funding cache', async () => {
-    const options = {
-      method: 'POST',
-      url: '/what-funding',
-      payload: { standard: ['sfi-arable-soil'] },
-      auth
-    }
-
-    populatedCache.agreement.funding = ['sfi-arable-soil']
-    mockCache.get.mockResolvedValue(populatedCache)
-
-    await server.inject(options)
-
-    const { funding } = (await mockCache.get()).agreement
-    expect(funding).toStrictEqual(['sfi-arable-soil'])
   })
 
   test('POST /what-funding with 1 valid standard and eligible funding options stores this standard in the agreement funding cache', async () => {
@@ -341,49 +354,12 @@ describe('what-funding route', () => {
       payload: { standard: ['sfi-arable-soil', 'sfi-improved-grassland'] },
       auth
     }
-
     mockCache.get.mockResolvedValue(populatedCache)
-
-    const a = (await mockCache.get())
 
     await server.inject(options)
 
-    const b = (await mockCache.get())
-
     const { funding } = (await mockCache.get()).agreement
     expect(funding).toStrictEqual(['sfi-arable-soil', 'sfi-improved-grassland'])
-  })
-
-  test('POST /what-funding with 1 valid standard and no eligible funding options returns 302', async () => {
-    const options = {
-      method: 'POST',
-      url: '/what-funding',
-      payload: { standard: ['sfi-arable-soil'] },
-      auth
-    }
-
-    getFunding.mockResolvedValue(undefined)
-
-    const result = await server.inject(options)
-
-    expect(result.statusCode).toBe(302)
-    expect(result.headers.location).toBe('/what-funding')
-  })
-
-  test('POST /what-funding with 2 valid standards and no eligible funding options returns 302', async () => {
-    const options = {
-      method: 'POST',
-      url: '/what-funding',
-      payload: { standard: ['sfi-arable-soil'] },
-      auth
-    }
-
-    getFunding.mockResolvedValue(undefined)
-
-    const result = await server.inject(options)
-
-    expect(result.statusCode).toBe(302)
-    expect(result.headers.location).toBe('/what-funding')
   })
 
   test('POST /what-funding with 1 valid standard updates the standard as active in the agreement action cache', async () => {
@@ -432,7 +408,7 @@ describe('what-funding route', () => {
     const options = {
       method: 'POST',
       url: '/what-funding',
-      payload: { standard: ['sfi-arable-soil'] },
+      payload: { standard: ['sfi-arable-soil', 'sfi-imporved-grassland'] },
       auth
     }
 
@@ -467,21 +443,21 @@ describe('what-funding route', () => {
     expect(result.headers.location).toBe('/what-funding')
   })
 
-  // test('POST /what-funding with valid standard and no eligible funding options returns funding/what-funding view', async () => {
-  //   const options = {
-  //     method: 'POST',
-  //     url: '/what-funding',
-  //     payload: { standard: ['sfi-arable-soil'] },
-  //     auth
-  //   }
+  test('POST /what-funding with valid standard and no eligible funding options returns 302', async () => {
+    const options = {
+      method: 'POST',
+      url: '/what-funding',
+      payload: { standard: ['sfi-arable-soil'] },
+      auth
+    }
 
-  //   getFunding.mockResolvedValue(undefined)
+    getFunding.mockResolvedValue(undefined)
 
-  //   const result = await server.inject(options)
+    const result = await server.inject(options)
 
-  //   expect(result.request.response.variety).toBe('view')
-  //   expect(result.request.response.source.template).toBe('funding/what-funding')
-  // })
+    expect(result.statusCode).toBe(302)
+    expect(result.headers.location).toBe('/what-funding')
+  })
 
   test('POST /what-funding with invalid standard returns 302', async () => {
     const options = {
@@ -499,27 +475,11 @@ describe('what-funding route', () => {
     expect(result.headers.location).toBe('/what-funding')
   })
 
-  // test('POST /what-funding with invalid standard returns funding/what-funding view', async () => {
-  //   const options = {
-  //     method: 'POST',
-  //     url: '/what-funding',
-  //     payload: { standard: ['not-a-real-standard'] },
-  //     auth
-  //   }
-
-  //   mockCache.get.mockResolvedValue(populatedCache)
-
-  //   const result = await server.inject(options)
-
-  //   expect(result.request.response.variety).toBe('view')
-  //   expect(result.request.response.source.template).toBe('funding/what-funding')
-  // })
-
   test('POST /what-funding with no standard and eligible funding options returns 400', async () => {
     const options = {
       method: 'POST',
       url: '/what-funding',
-      payload: { standard: [] },
+      payload: {},
       auth
     }
 
@@ -530,27 +490,27 @@ describe('what-funding route', () => {
     expect(result.statusCode).toBe(400)
   })
 
-  // test('POST /what-funding with no standard and eligible funding options returns funding/what-funding view', async () => {
-  //   const options = {
-  //     method: 'POST',
-  //     url: '/what-funding',
-  //     payload: { standard: [] },
-  //     auth
-  //   }
+  test('POST /what-funding with no standard and eligible funding options returns funding/what-funding view', async () => {
+    const options = {
+      method: 'POST',
+      url: '/what-funding',
+      payload: {},
+      auth
+    }
 
-  //   mockCache.get.mockResolvedValue(populatedCache)
+    mockCache.get.mockResolvedValue(populatedCache)
 
-  //   const result = await server.inject(options)
+    const result = await server.inject(options)
 
-  //   expect(result.request.response.variety).toBe('view')
-  //   expect(result.request.response.source.template).toBe('funding/what-funding')
-  // })
+    expect(result.request.response.variety).toBe('view')
+    expect(result.request.response.source.template).toBe('funding/what-funding')
+  })
 
   test('POST /what-funding with no standard and eligible funding options returns an error message', async () => {
     const options = {
       method: 'POST',
       url: '/what-funding',
-      payload: { standard: [] },
+      payload: {},
       auth
     }
 
@@ -575,26 +535,41 @@ describe('what-funding route', () => {
       ]
     }]
 
-    mockCache.get.mockResolvedValue(populatedCache)
+    await mockCache.get.mockResolvedValue(populatedCache)
 
     const result = await server.inject(options)
 
-    expect(result.request.response.source.context.model.error.errorList.text).toEqual('Select an option')
+    expect(result.request.response.source.context.model.error.errorList[0].text).toBe('Select an option')
   })
 
-  // test('POST /what-funding with no standard and no eligible funding options returns no-response view', async () => {
-  //   const options = {
-  //     method: 'POST',
-  //     url: '/what-funding',
-  //     payload: { standard: [] },
-  //     auth
-  //   }
+  test('POST /what-funding with no standard and no eligible funding options returns 200', async () => {
+    const options = {
+      method: 'POST',
+      url: '/what-funding',
+      payload: {},
+      auth
+    }
 
-  //   getFunding.mockResolvedValue(undefined)
+    getFunding.mockResolvedValue(undefined)
 
-  //   const result = await server.inject(options)
+    const result = await server.inject(options)
 
-  //   expect(result.request.response.variety).toBe('view')
-  //   expect(result.request.response.source.template).toBe('no-response')
-  // })
+    expect(result.statusCode).toBe(200)
+  })
+
+  test('POST /what-funding with no standard and no eligible funding options returns no-response view', async () => {
+    const options = {
+      method: 'POST',
+      url: '/what-funding',
+      payload: {},
+      auth
+    }
+
+    getFunding.mockResolvedValue(undefined)
+
+    const result = await server.inject(options)
+
+    expect(result.request.response.variety).toBe('view')
+    expect(result.request.response.source.template).toBe('no-response')
+  })
 })
