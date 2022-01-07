@@ -145,7 +145,7 @@ When(/^I click on the application for the "(.*)" organisation$/, async (orgNumbe
     case 'eighthOrganisation':
       eligibleOrganisation.clickOnsbi8()
       break
-    case 'ninethOrganisation':
+    case 'ninthOrganisation':
       eligibleOrganisation.clickOnsbi9()
       break
     case 'tenthOrganisation':
