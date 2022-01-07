@@ -20,7 +20,7 @@ import whatFund from '../page-objects/what-fund'
 import signIn from '../page-objects/login'
 
 
-const { When } = require('cucumber')
+import { When } from '@wdio/cucumber-framework'
 
 When(
   /^I click the back button$/,
@@ -184,21 +184,21 @@ When(/^I click on the application for the "(.*)" organisation$/, async (orgNumbe
 })
 
 When(/^I enter crn number (.*)$/, async (crnNumber) => {
-  signIn.enterCrnNumber(crnNumber)
+  await signIn.enterCrnNumber(crnNumber)
 })
 
 When(/^I clear crn number $/, async () => {
-  signIn.clearCrnNumber()
+  await signIn.clearCrnNumber()
 })
 
 When(/^I enter callerId number (.*)$/, async (callerId) => {
-  signIn.enterCallerIDNumber(callerId)
+  await signIn.enterCallerIDNumber(callerId)
 })
 
 When(/^I enter password (.*)$/, async (passwordNumber) => {
-  signIn.enterPassword(passwordNumber)
+  await signIn.enterPassword(passwordNumber)
 })
 
 When(/^I search sbi number (.*)$/, async (sbiNumber) => {
-  eligibleOrganisation.enterSbiNumber(sbiNumber)
+  await eligibleOrganisation.enterSbiNumber(sbiNumber)
 })

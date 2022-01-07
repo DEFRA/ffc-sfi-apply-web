@@ -31,10 +31,8 @@ import checkIfElementExists from '../support/lib/checkIfElementExists'
 import checkURLContains from '../support/check/checkURLContains'
 import mockResponse from '../support/mock-utils/mockResponse'
 import eligibleOrganisation from '../page-objects/eligible-organisation'
-import 'chai/register-should'
-import {expect as chaiExpect} from 'chai';
 
-const { Then } = require('cucumber')
+import { Then } from '@wdio/cucumber-framework'
 
 Then(
   /^I expect that the title is( not)* "([^"]*)?"$/,
@@ -208,24 +206,10 @@ Then(
 
 Then(   
   /^I should see sbi error message (.*)$/, async (message) => {
-    eligibleOrganisation.verifySbiErrorMessage(message)
+    await eligibleOrganisation.verifySbiErrorMessage(message)
   });
 
 Then(
   /^I should see (.*)$/, async (message) => {
-   eligibleOrganisation.verifySbiNumber(message)
+   await eligibleOrganisation.verifySbiNumber(message)
   });
-        
-Then(
-  /^eligible organsations and sbi should present in the pagination$/, function () {
-    // console.log(eligibleOrganisation.verifyOrgsListText());
-    const organisationList = eligibleOrganisation.verifyOrgsListText()
-    chaiExpect(organisationList).to.not.be.empty;
-    // chaiExpect(organisationList).to.be.contains.members([
-    //   'Edgar Zoo 122200885 0 View or start applications', 
-    //  ])  
-  })
-
-
-  
-
