@@ -101,9 +101,9 @@ const updateSections = (agreement) => {
 
   if (funding.includes('sfi-improved-grassland')) {
     improvedGrasslandSection.active = true
-    const improvedGrasslandActionTask = improvedGrasslandSection.tasks.find(x => x.name === 'Improved grassland soil actions')
-    const improvedGrasslandParcelTask = improvedGrasslandSection.tasks.find(x => x.name === 'Select improved grassland soil parcels')
-    const improvedGrasslandOptionalTask = improvedGrasslandSection.tasks.find(x => x.name === 'Optional improved grassland soil actions')
+    const improvedGrasslandActionTask = getTask(improvedGrasslandSection, 'Improved grassland soil actions')
+    const improvedGrasslandParcelTask = getTask(improvedGrasslandSection, 'Select improved grassland soil parcels')
+    const improvedGrasslandOptionalTask = getTask(improvedGrasslandSection, 'Optional improved grassland soil actions')
 
     // can only start this section if either arable soil not selected or is complete
     if (!funding.includes('sfi-arable-soil') || arableSoilSection.completed) {
@@ -131,7 +131,7 @@ const updateSections = (agreement) => {
 
   if (funding.includes('sfi-moorland')) {
     moorlandSection.active = true
-    const moorlandActionTask = moorlandSection.tasks.find(x => x.name === 'Moorlands and rough grazing actions')
+    const moorlandActionTask = getTask(moorlandSection, 'Moorlands and rough grazing actions')
 
     // can only start this section if either no other options selected or all are complete
     if ((!funding.includes('sfi-arable-soil') || arableSoilSection.completed) &&
@@ -152,7 +152,7 @@ const updateSections = (agreement) => {
         (!funding.includes('sfi-arable-soil') || arableSoilSection.completed) &&
         (!funding.includes('sfi-improved-grassland') || improvedGrasslandSection.completed) &&
         (!funding.includes('sfi-moorland') || moorlandSection.completed)) {
-    const checkTask = checkSection.tasks.find(x => x.name === 'Check your answers')
+    const checkTask = getTask(checkSection, 'Check your answers')
 
     // if answers not confirmed then update status
     if (!confirmed) {
@@ -164,7 +164,7 @@ const updateSections = (agreement) => {
     checkTask.status = COMPLETED
 
     const submitSection = getSection(sections, 'Submit your application')
-    const submitTask = submitSection.tasks.find(x => x.name === 'Submit your application')
+    const submitTask = getTask(submitSection, 'Submit your application')
     // if confirmed but not submitted then update status
     if (!submitted) {
       submitTask.status = NOT_STARTED_YET
