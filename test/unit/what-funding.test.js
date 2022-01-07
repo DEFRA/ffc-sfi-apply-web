@@ -48,18 +48,6 @@ describe('process standards message', () => {
   ]
 
   beforeAll(async () => {
-    request = {
-      state: { ffc_sfi_identity: { sid: '1234567890' } },
-      server: {
-        app: {
-          cache: {
-            get: () => ({ crn, callerId }),
-            set: () => jest.fn()
-          }
-        }
-      }
-    }
-
     createServer = require('../../app/server')
     server = await createServer()
     await server.initialize()
