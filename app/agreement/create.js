@@ -3,7 +3,7 @@ const generateNumber = require('./generate-number')
 // Undefined values added to make intended structure clear
 // TODO: set values back to 0 once calculation added
 const AGREEMENT = {
-  agreementNumber: generateNumber(),
+  agreementNumber: undefined,
   confirmed: false,
   submitted: false,
   organisation: {},
@@ -50,7 +50,8 @@ const AGREEMENT = {
 }
 
 const create = () => {
-  return JSON.parse(JSON.stringify(AGREEMENT))
+  const agreement = JSON.parse(JSON.stringify(AGREEMENT))
+  agreement.agreementNumber = generateNumber()
 }
 
 module.exports = create
