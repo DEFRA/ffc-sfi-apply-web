@@ -1,4 +1,3 @@
-const { required } = require('joi')
 const Joi = require('joi')
 const cache = require('../../cache')
 const getFunding = require('../../funding/get-funding')
@@ -34,8 +33,6 @@ module.exports = [{
         standard: Joi.required()
       }),
       failAction: async (request, h, error) => {
-        console.log(request.payload.standard)
-        return h.view('funding/what-funding', new ViewModel(1, 2, error)).code(400).takeover()
         const { agreement } = await cache.get(request)
         const { funding } = agreement
         const eligibleFunding = await getFunding(request) ?? undefined

@@ -25,12 +25,8 @@ describe('process standards message', () => {
 
   const { getEligible, getChecked, mapStandards } = require('../../app/what-funding')
 
-  const callerId = 123456
-  const crn = 1234567890
-
   let createServer
   let server
-  let request
 
   let standardDetails
 
