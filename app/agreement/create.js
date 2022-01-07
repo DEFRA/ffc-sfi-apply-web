@@ -9,7 +9,8 @@ const AGREEMENT = {
   organisation: {},
   land: {
     isLandCorrect: undefined,
-    hasManagementControl: undefined
+    hasManagementControl: undefined,
+    landComplete: false
   },
   funding: [],
   action: {

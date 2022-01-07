@@ -16,5 +16,3 @@
         And I click on the element "#start-application"
         Then I expect that the url contains "/task-list"
         And I expect that element "h1" contains the text "Apply for sustainable farming funding"
-
-        
