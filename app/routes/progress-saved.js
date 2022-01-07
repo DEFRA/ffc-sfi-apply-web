@@ -2,7 +2,7 @@ const cache = require('../cache')
 const { save } = require('../agreement')
 
 module.exports = {
-  method: 'GET',
+  method: 'POST',
   path: '/progress-saved',
   options: {
     handler: async (request, h) => {
