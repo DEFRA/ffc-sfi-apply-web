@@ -8,9 +8,6 @@ module.exports = [{
   path: '/what-funding',
   options: {
     handler: async (request, h) => {
-      const cacheMock = require('../../cache_mock')
-      cache.set(request, cacheMock[0]) // mimics the cache being built up before this page
-
       const { agreement } = await cache.get(request)
       const { funding } = agreement
 
