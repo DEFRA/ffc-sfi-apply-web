@@ -29,6 +29,14 @@ const filterSections = (cachedData) => {
   return updatedSections.filter(x => x.active)
 }
 
+const getSection = (sections, name) => {
+  return sections.find(x => x.name === name)
+}
+
+const getTask = (section, name) => {
+  return section.tasks.find(x => x.name === name)
+}
+
 const updateSections = (agreement) => {
   const sections = JSON.parse(JSON.stringify(defaultSections))
   const { land, funding, action, confirmed, submitted } = agreement
@@ -38,10 +46,10 @@ const updateSections = (agreement) => {
     return sections
   }
 
-  const landSection = sections.find(x => x.name === 'Your land')
-  const landCoverTask = landSection.tasks.find(x => x.name === 'Confirm your land cover details')
-  const fundingSection = sections.find(x => x.name === 'Choose your funding')
-  const fundingTask = fundingSection.tasks.find(x => x.name === 'Choose funding option')
+  const landSection = getSection(sections, 'Your land')
+  const landCoverTask = getTask(landSection, 'Confirm your land cover details')
+  const fundingSection = getSection(sections, 'Choose your funding')
+  const fundingTask = getTask(fundingSection, 'Choose funding option')
 
   // land section complete
   if (land.landComplete) {
@@ -55,11 +63,12 @@ const updateSections = (agreement) => {
     fundingTask.status = NOT_STARTED_YET
     return sections
   }
+
   // funding selected, need to hide placeholder actions and determine which actions to show
-  const actionSection = sections.find(x => x.name === 'Choose your actions')
-  const arableSoilSection = sections.find(x => x.name === 'Arable and horticultural soil actions')
-  const improvedGrasslandSection = sections.find(x => x.name === 'Improved grassland soil actions')
-  const moorlandSection = sections.find(x => x.name === 'Moorlands and rough grazing actions')
+  const actionSection = getSection(sections, 'Choose your actions')
+  const arableSoilSection = getSection(sections, 'Arable and horticultural soil actions')
+  const improvedGrasslandSection = getSection(sections, 'Improved grassland soil actions')
+  const moorlandSection = getSection(sections, 'Moorlands and rough grazing actions')
 
   actionSection.active = false
   fundingTask.status = COMPLETED
@@ -67,9 +76,9 @@ const updateSections = (agreement) => {
 
   if (funding.includes('sfi-arable-soil')) {
     arableSoilSection.active = true
-    const arableSoilActionTask = arableSoilSection.tasks.find(x => x.name === 'Arable and horticultural soil actions')
-    const arableSoilParcelTask = arableSoilSection.tasks.find(x => x.name === 'Select arable and horticultural soil land parcels')
-    const arableSoilOptionalTask = arableSoilSection.tasks.find(x => x.name === 'Optional arable and horticultural soil actions')
+    const arableSoilActionTask = getTask(arableSoilSection, 'Arable and horticultural soil actions')
+    const arableSoilParcelTask = getTask(arableSoilSection, 'Select arable and horticultural soil land parcels')
+    const arableSoilOptionalTask = getTask(arableSoilSection, 'Optional arable and horticultural soil actions')
 
     // if mandatory actions complete, update status
     if (action['sfi-arable-soil'].actionsComplete) {
@@ -136,7 +145,7 @@ const updateSections = (agreement) => {
     }
   }
 
-  const checkSection = sections.find(x => x.name === 'Check your answers')
+  const checkSection = getSection(sections, 'Check your answers')
 
   // if all actions complete then update status
   if (!actionSection.active &&
@@ -154,7 +163,7 @@ const updateSections = (agreement) => {
     checkSection.completed = true
     checkTask.status = COMPLETED
 
-    const submitSection = sections.find(x => x.name === 'Submit your application')
+    const submitSection = getSection(sections, 'Submit your application')
     const submitTask = submitSection.tasks.find(x => x.name === 'Submit your application')
     // if confirmed but not submitted then update status
     if (!submitted) {
