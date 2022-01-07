@@ -52,6 +52,7 @@ const AGREEMENT = {
 const create = () => {
   const agreement = JSON.parse(JSON.stringify(AGREEMENT))
   agreement.agreementNumber = generateNumber()
+  return agreement
 }
 
 module.exports = create
