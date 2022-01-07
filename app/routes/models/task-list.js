@@ -53,39 +53,39 @@ const updateSections = (agreement) => {
     fundingSection.status = NOT_STARTED_YET
     fundingTask.status = NOT_STARTED_YET
     return sections
-  } else {
-    // funding selected, need to hide placeholder actions and determine which actions to show
-    const actionSection = sections.find(x => x.name === 'Choose your actions')
-    const arableSoilSection = sections.find(x => x.name === 'Arable and horticultural soil actions')
-    const improvedGrasslandSection = sections.find(x => x.name === 'Improved grassland soil actions')
-    const moorlandSection = sections.find(x => x.name === 'Moorlands and rough grazing actions')
+  }
 
-    actionSection.active = false
-    fundingTask.status = COMPLETED
-    fundingSection.completed = true
+  // funding selected, need to hide placeholder actions and determine which actions to show
+  const actionSection = sections.find(x => x.name === 'Choose your actions')
+  const arableSoilSection = sections.find(x => x.name === 'Arable and horticultural soil actions')
+  const improvedGrasslandSection = sections.find(x => x.name === 'Improved grassland soil actions')
+  const moorlandSection = sections.find(x => x.name === 'Moorlands and rough grazing actions')
 
-    if (funding.includes('sfi-arable-soil')) {
-      arableSoilSection.active = true
-      const arableSoilActionTask = arableSoilSection.tasks.find(x => x.name === 'Arable and horticultural soil actions')
-      const arableSoilParcelTask = arableSoilSection.tasks.find(x => x.name === 'Select arable and horticultural soil land parcels')
-      const arableSoilOptionalTask = arableSoilSection.tasks.find(x => x.name === 'Optional arable and horticultural soil actions')
+  actionSection.active = false
+  fundingTask.status = COMPLETED
+  fundingSection.completed = true
 
-      // if mandatory actions complete, update status
-      if (action['sfi-arable-soil'].actionsComplete) {
-        arableSoilActionTask.status = COMPLETED
-        arableSoilParcelTask.status = NOT_STARTED_YET
+  if (funding.includes('sfi-arable-soil')) {
+    arableSoilSection.active = true
+    const arableSoilActionTask = arableSoilSection.tasks.find(x => x.name === 'Arable and horticultural soil actions')
+    const arableSoilParcelTask = arableSoilSection.tasks.find(x => x.name === 'Select arable and horticultural soil land parcels')
+    const arableSoilOptionalTask = arableSoilSection.tasks.find(x => x.name === 'Optional arable and horticultural soil actions')
 
-        // if land parcels selected, update status
-        if (action['sfi-arable-soil'].landCovers.length) {
-          arableSoilParcelTask.status = COMPLETED
-          arableSoilOptionalTask.status = NOT_STARTED_YET
-        }
+    // if mandatory actions complete, update status
+    if (action['sfi-arable-soil'].actionsComplete) {
+      arableSoilActionTask.status = COMPLETED
+      arableSoilParcelTask.status = NOT_STARTED_YET
 
-        // if optional actions complete then section complete
-        if (action['sfi-arable-soil'].optionalActionsComplete) {
-          arableSoilSection.completed = true
-          arableSoilOptionalTask.status = COMPLETED
-        }
+      // if land parcels selected, update status
+      if (action['sfi-arable-soil'].landCovers.length) {
+        arableSoilParcelTask.status = COMPLETED
+        arableSoilOptionalTask.status = NOT_STARTED_YET
+      }
+
+      // if optional actions complete then section complete
+      if (action['sfi-arable-soil'].optionalActionsComplete) {
+        arableSoilSection.completed = true
+        arableSoilOptionalTask.status = COMPLETED
       }
     }
 
