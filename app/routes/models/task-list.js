@@ -49,7 +49,6 @@ const updateSections = (agreement) => {
   }
 
   const landCoverTask = getTask(landSection, 'Confirm your land cover details')
-  const fundingTask = getTask(fundingSection, 'Choose funding option')
 
   // land section complete
   if (land.landComplete) {
@@ -57,6 +56,7 @@ const updateSections = (agreement) => {
     landCoverTask.status = COMPLETED
   }
 
+  const fundingTask = getTask(fundingSection, 'Choose funding option')
   // if funding not started
   if (!funding.length) {
     fundingSection.status = NOT_STARTED_YET
@@ -64,79 +64,20 @@ const updateSections = (agreement) => {
     return sections
   }
 
-  actionSection.active = false
   fundingTask.status = COMPLETED
   fundingSection.completed = true
+  actionSection.active = false
 
   if (funding.includes('sfi-arable-soil')) {
-    arableSoilSection.active = true
-    const arableSoilActionTask = getTask(arableSoilSection, 'Arable and horticultural soil actions')
-    const arableSoilParcelTask = getTask(arableSoilSection, 'Select arable and horticultural soil land parcels')
-    const arableSoilOptionalTask = getTask(arableSoilSection, 'Optional arable and horticultural soil actions')
-
-    // if mandatory actions complete, update status
-    if (action['sfi-arable-soil'].actionsComplete) {
-      arableSoilActionTask.status = COMPLETED
-      arableSoilParcelTask.status = NOT_STARTED_YET
-
-      // if land parcels selected, update status
-      if (action['sfi-arable-soil'].landCovers.length) {
-        arableSoilParcelTask.status = COMPLETED
-        arableSoilOptionalTask.status = NOT_STARTED_YET
-      }
-
-      // if optional actions complete then section complete
-      if (action['sfi-arable-soil'].optionalActionsComplete) {
-        arableSoilSection.completed = true
-        arableSoilOptionalTask.status = COMPLETED
-      }
-    }
+    updateArableSoilSection(arableSoilSection, action)
   }
 
   if (funding.includes('sfi-improved-grassland')) {
-    improvedGrasslandSection.active = true
-    const improvedGrasslandActionTask = getTask(improvedGrasslandSection, 'Improved grassland soil actions')
-    const improvedGrasslandParcelTask = getTask(improvedGrasslandSection, 'Select improved grassland soil parcels')
-    const improvedGrasslandOptionalTask = getTask(improvedGrasslandSection, 'Optional improved grassland soil actions')
-
-    // can only start this section if either arable soil not selected or is complete
-    if (!funding.includes('sfi-arable-soil') || arableSoilSection.completed) {
-      improvedGrasslandSection.tasks[0].status = NOT_STARTED_YET
-
-      // if mandatory actions complete, update status
-      if (action['sfi-improved-grassland'].actionsComplete) {
-        improvedGrasslandActionTask.status = COMPLETED
-        improvedGrasslandParcelTask.status = NOT_STARTED_YET
-
-        // if land parcels selected, update status
-        if (action['sfi-improved-grassland'].landCovers.length) {
-          improvedGrasslandParcelTask.status = COMPLETED
-          improvedGrasslandOptionalTask.status = NOT_STARTED_YET
-        }
-
-        // if optional actions complete then section complete
-        if (action['sfi-improved-grassland'].optionalActionsComplete) {
-          improvedGrasslandSection.completed = true
-          improvedGrasslandOptionalTask.status = COMPLETED
-        }
-      }
-    }
+    updateImprovedGrasslandSection(improvedGrasslandSection, funding, arableSoilSection, action)
   }
 
   if (funding.includes('sfi-moorland')) {
-    moorlandSection.active = true
-    const moorlandActionTask = getTask(moorlandSection, 'Moorlands and rough grazing actions')
-
-    // can only start this section if either no other options selected or all are complete
-    if ((!funding.includes('sfi-arable-soil') || arableSoilSection.completed) &&
-        (!funding.includes('sfi-improved-grassland') || improvedGrasslandSection.completed)) {
-      moorlandSection.tasks[0].status = NOT_STARTED_YET
-
-      if (action['sfi-moorland'].actionsComplete) {
-        moorlandSection.completed = true
-        moorlandActionTask.status = COMPLETED
-      }
-    }
+    updateMoorlandSection(moorlandSection, funding, arableSoilSection, improvedGrasslandSection, action)
   }
 
   // if all actions complete then update status
@@ -197,6 +138,77 @@ const getSection = (sections, name) => {
 
 const getTask = (section, name) => {
   return section.tasks.find(x => x.name === name)
+}
+
+const updateArableSoilSection = (arableSoilSection, action) => {
+  arableSoilSection.active = true
+  const arableSoilActionTask = getTask(arableSoilSection, 'Arable and horticultural soil actions')
+  const arableSoilParcelTask = getTask(arableSoilSection, 'Select arable and horticultural soil land parcels')
+  const arableSoilOptionalTask = getTask(arableSoilSection, 'Optional arable and horticultural soil actions')
+
+  // if mandatory actions complete, update status
+  if (action['sfi-arable-soil'].actionsComplete) {
+    arableSoilActionTask.status = COMPLETED
+    arableSoilParcelTask.status = NOT_STARTED_YET
+
+    // if land parcels selected, update status
+    if (action['sfi-arable-soil'].landCovers.length) {
+      arableSoilParcelTask.status = COMPLETED
+      arableSoilOptionalTask.status = NOT_STARTED_YET
+    }
+
+    // if optional actions complete then section complete
+    if (action['sfi-arable-soil'].optionalActionsComplete) {
+      arableSoilSection.completed = true
+      arableSoilOptionalTask.status = COMPLETED
+    }
+  }
+}
+
+const updateImprovedGrasslandSection = (improvedGrasslandSection, funding, arableSoilSection, action) => {
+  improvedGrasslandSection.active = true
+  const improvedGrasslandActionTask = getTask(improvedGrasslandSection, 'Improved grassland soil actions')
+  const improvedGrasslandParcelTask = getTask(improvedGrasslandSection, 'Select improved grassland soil parcels')
+  const improvedGrasslandOptionalTask = getTask(improvedGrasslandSection, 'Optional improved grassland soil actions')
+
+  // can only start this section if either arable soil not selected or is complete
+  if (!funding.includes('sfi-arable-soil') || arableSoilSection.completed) {
+    improvedGrasslandSection.tasks[0].status = NOT_STARTED_YET
+
+    // if mandatory actions complete, update status
+    if (action['sfi-improved-grassland'].actionsComplete) {
+      improvedGrasslandActionTask.status = COMPLETED
+      improvedGrasslandParcelTask.status = NOT_STARTED_YET
+
+      // if land parcels selected, update status
+      if (action['sfi-improved-grassland'].landCovers.length) {
+        improvedGrasslandParcelTask.status = COMPLETED
+        improvedGrasslandOptionalTask.status = NOT_STARTED_YET
+      }
+
+      // if optional actions complete then section complete
+      if (action['sfi-improved-grassland'].optionalActionsComplete) {
+        improvedGrasslandSection.completed = true
+        improvedGrasslandOptionalTask.status = COMPLETED
+      }
+    }
+  }
+}
+
+const updateMoorlandSection = (moorlandSection, funding, arableSoilSection, improvedGrasslandSection, action) => {
+  moorlandSection.active = true
+  const moorlandActionTask = getTask(moorlandSection, 'Moorlands and rough grazing actions')
+
+  // can only start this section if either no other options selected or all are complete
+  if ((!funding.includes('sfi-arable-soil') || arableSoilSection.completed) &&
+    (!funding.includes('sfi-improved-grassland') || improvedGrasslandSection.completed)) {
+    moorlandSection.tasks[0].status = NOT_STARTED_YET
+
+    if (action['sfi-moorland'].actionsComplete) {
+      moorlandSection.completed = true
+      moorlandActionTask.status = COMPLETED
+    }
+  }
 }
 
 module.exports = ViewModel
