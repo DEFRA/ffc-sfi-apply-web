@@ -52,7 +52,7 @@ module.exports = [{
       agreement.funding = funding.map(x => x.code)
 
       await cache.update(request, { agreement })
-      return h.redirect('/how-much')
+      return h.redirect('/task-list')
     }
   }
 }]
