@@ -115,23 +115,23 @@ exports.config = {
     console.log('Testing complete, binary closed')
   },
 
-  beforeSession: function () {
+  before: function () {
     const chai = require('chai')
     global.expect = chai.expect
     global.assert = chai.assert
     global.should = chai.should()
   },
 
-  afterStep: function (featureName, feature, result, ctx) {
+  afterStep: async (featureName, feature, result, ctx) => {
     if (result.passed) {
       return
     }
     const path = require('path')
     const moment = require('moment')
-    const screenshotFileName = ctx.uri.split('.feature')[0].split('/').slice(-1)[0]
+    const screenshotFileName = feature.uri.split('.feature')[0].split('/').slice(-1)[0]
     const timestamp = moment().format('YYYYMMDD-HHmmss.SSS')
     const filepath = path.join('./html-reports/screenshots/', screenshotFileName + '-' + timestamp + '.png')
-    browser.saveScreenshot(filepath)
+    await browser.saveScreenshot(filepath)
     process.emit('test:screenshot', filepath)
   }
 }
