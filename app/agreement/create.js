@@ -21,8 +21,8 @@ const AGREEMENT = {
       canTestOrganicMatter: undefined,
       canProducePlan: undefined,
       canHaveGreenCover: undefined,
-      canAssessSoil: undefined,
       canAddOrganicMatter: undefined,
+      canAssessSoil: undefined,
       canDiversifySpecies: undefined,
       landCovers: [],
       paymentAmount: 100

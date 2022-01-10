@@ -10,7 +10,7 @@ function ViewModel (canProducePlan, error) {
       }
     },
     hint: {
-      html: `<p class="govuk-body">The plan will help you to identify how you can reduce: </p>
+      html: `<p class="govuk-body">The plan will help you to identify how you can reduce:</p>
             <ul class='govuk-list govuk-list--bullet'>
               <li>runoff</li>
               <li>erosion</li>

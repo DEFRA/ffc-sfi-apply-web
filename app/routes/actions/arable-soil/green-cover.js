@@ -32,7 +32,7 @@ module.exports = [{
       const canHaveGreenCover = request.payload.canHaveGreenCover
       await cache.update(request, { agreement: { action: { 'sfi-arable-soil': { canHaveGreenCover } } } })
       await save(request)
-      return h.redirect('/arable/produce-plan')
+      return h.redirect('/arable/add-organic-matter')
     }
   }
 }]
