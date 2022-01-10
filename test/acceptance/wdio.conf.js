@@ -1,42 +1,18 @@
-const browserstack = require('browserstack-local')
 const { ReportAggregator, HtmlReporter } = require('@rpii/wdio-html-reporter')
 const log4js = require('@log4js-node/log4js-api')
+const path = require('path')
 const logger = log4js.getLogger('default')
 const envRoot = (process.env.TEST_ENVIRONMENT_ROOT_URL || 'http://host.docker.internal:3000')
 const chromeArgs = process.env.CHROME_ARGS ? process.env.CHROME_ARGS.split(' ') : []
 const maxInstances = process.env.MAX_INSTANCES ? Number(process.env.MAX_INSTANCES) : 1
-const user = process.env.BROWSERSTACK_USERNAME
-const key = process.env.BROWSERSTACK_ACCESS_KEY
 
 exports.config = {
-  hostname: 'hub-cloud.browserstack.com',
-  user,
-  key,
+  outputDir: path.resolve(__dirname, './logs'),
+  chromeArgs,
   specs: ['./features/**/*.feature'],
   exclude: ['./scratch/**'],
-
   maxInstances,
-  capabilities: [
-    {
-      maxInstances,
-      pageLoadStrategy: 'none',
-      acceptInsecureCerts: true,
-      browserName: 'chrome',
-      'browserstack.local': true,
-      'browserstack.networkLogs': true,
-      'browserstack.acceptSslCerts': true,
-    }
 
-    // {
-    //   os: 'Windows',
-    //   osVersion: '10',
-    //   browserName: 'Firefox',
-    //   browserVersion: 'latest',
-    //   'browserstack.local': true,
-    //   acceptInsecureCerts: true,
-    //   acceptSslCerts: true
-    // }
-  ],
   // ===================
   // Test Configurations
   // ===================
@@ -47,7 +23,6 @@ exports.config = {
   waitforTimeout: 10000,
   connectionRetryTimeout: 90000,
   connectionRetryCount: 1,
-  services: ['browserstack'],
   framework: 'cucumber',
   specFileRetries: 0,
   specFileRetriesDelay: 30,
@@ -91,28 +66,12 @@ exports.config = {
     })
     reportAggregator.clean()
     global.reportAggregator = reportAggregator
-    console.log('Connecting local')
-    return new Promise(function (resolve, reject) {
-      exports.bs_local = new browserstack.Local()
-      const bsLocalArgs = {
-        key,
-        verbose: 'true',
-        onlyAutomate: 'true'
-      }
-      exports.bs_local.start(bsLocalArgs, function (error) {
-        if (error) return reject(error)
-        console.log('Connected. Now testing...')
-        resolve()
-      })
-    })
   },
 
   onComplete: function (exitCode, config, capabilities, results) {
     (async () => {
       await global.reportAggregator.createReport()
     })()
-    exports.bs_local.stop()
-    console.log('Testing complete, binary closed')
   },
 
   before: function () {

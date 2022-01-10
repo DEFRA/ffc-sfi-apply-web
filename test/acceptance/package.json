@@ -2,10 +2,12 @@
   "author": "Kaz Iyiola <kaz.iyiola@defra.gov.uk>",
   "license": "OGL-UK-3.0",
   "name": "ffc-sfi-apply-web",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "FFC apply for SFI web front end",
   "homepage": "https://github.com/DEFRA/ffc-sfi-apply-web",
-  "contributors": [],
+  "contributors": [
+    "Edirin Atumah <edirina@kainos.com>"
+  ],
   "keywords": [
     "wdio",
     "webdriver",
@@ -15,11 +17,12 @@
     "selenium"
   ],
   "scripts": {
-    "test": "wdio wdio.conf.js",
+    "test": "wdio wdio.bs.conf.js",
+    "test:local": "wdio wdio.local.conf.js",
+    "test:browserstack": "wdio wdio.bs.conf.js",
     "test:debug": "node --inspect-brk=0.0.0.0 ./node_modules/@wdio/cli/bin/wdio.js wdio.conf.js"
   },
   "dependencies": {
-    "@babel/plugin-proposal-export-default-from": "^7.5.2",
     "@log4js-node/log4js-api": "^1.0.2",
     "@wdio/cli": "^7.2.3",
     "@wdio/local-runner": "^7.2.3",
@@ -28,11 +31,12 @@
   "devDependencies": {
     "@babel/cli": "^7.16.0",
     "@babel/core": "^7.16.5",
+    "@babel/plugin-proposal-export-default-from": "^7.16.7",
     "@babel/plugin-syntax-export-default-from": "^7.8.3",
     "@babel/preset-env": "^7.16.5",
     "@babel/register": "^7.16.5",
     "@rpii/wdio-html-reporter": "^6.0.6",
-    "@wdio/browserstack-service": "^7.16.12",
+    "@wdio/browserstack-service": "^7.16.13",
     "@wdio/config": "^7.16.11",
     "@wdio/cucumber-framework": "^7.16.12",
     "@wdio/spec-reporter": "^7.16.11",

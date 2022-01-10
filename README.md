@@ -114,9 +114,18 @@ arguments to the test script.
 
 Examples:
 
+
+### Run all tests
 ```
-# Run all tests
 scripts/test
+```
+
+### Run Acceptance tests
+```shell
+scripts/acceptance arg
+```
+- `debug` -- Build docker image and run acceptance test against browserstack
+- `local` -- Start the service locally, run test on your local machine. Note: You should have chrome browser installed
 
 # Run tests with file watch
 scripts/test -w
