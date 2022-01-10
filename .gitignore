@@ -1,6 +1,10 @@
 .config/
 .DS_Store
 .npm/
+test/acceptance/logs
+test/acceptance/*.log
+test/acceptance/reports
+test/acceptance/html-reports
 .standard-v12-cache/
 .vscode
 app/static/stylesheets/*.css*
@@ -11,7 +15,7 @@ test-output
 *.tgz
 helm/**/*.lock
 .env
-test/acceptance/html-reports
+.idea
 dist/
 # Generated views
 _layout.njk

@@ -171,6 +171,4 @@ Feature: Sign-in for Multiple Organisation details page
     Then I mock the response for "eligible-organisations"
     And I pause for 1000ms
     Then I expect that the url contains "/eligible-organisations"
-    Then eligible organsations and sbi should present in the pagination
-    
   
