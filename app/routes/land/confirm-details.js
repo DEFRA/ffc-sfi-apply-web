@@ -1,3 +1,4 @@
+const { save } = require('../../agreement')
 const cache = require('../../cache')
 const getLand = require('../../land/land')
 const Joi = require('joi')
@@ -41,6 +42,7 @@ module.exports = [{
       await cache.update(request, { agreement: { land: { isLandCorrect } } })
 
       if (isLandCorrect) {
+        await save(request)
         return h.redirect('/management-control')
       }
 

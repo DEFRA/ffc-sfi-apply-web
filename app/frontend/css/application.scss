@@ -129,3 +129,16 @@ $govuk-new-link-styles: true;
 .text-align-right {
   text-align: right;
 }
+
+.govuk-button-link {
+  background:none !important;
+  border: none;
+  padding: none;
+  text-decoration: underline;
+  cursor: pointer;
+  font-size: 16px;
+  font-family: "GDS Transport", arial, sans-serif !important; 
+  
+  
+  
+}

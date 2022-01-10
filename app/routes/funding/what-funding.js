@@ -1,3 +1,4 @@
+const { save } = require('../../agreement')
 const Joi = require('joi')
 const cache = require('../../cache')
 const getFunding = require('../../funding/get-funding')
@@ -58,6 +59,8 @@ module.exports = [{
 
       cache.update(request, { agreement })
 
+      await cache.update(request, { agreement })
+      await save(request)
       return h.redirect('/how-much')
     }
   }

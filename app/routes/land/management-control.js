@@ -1,3 +1,4 @@
+const { save } = require('../../agreement')
 const Joi = require('joi')
 const cache = require('../../cache')
 
@@ -27,6 +28,7 @@ module.exports = [{
       await cache.update(request, { agreement: { land: { hasManagementControl, landComplete: true } } })
 
       // TODO: Handle if no management control
+      await save(request)
       return h.redirect('/task-list')
     }
   }
