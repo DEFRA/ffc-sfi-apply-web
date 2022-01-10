@@ -1,4 +1,4 @@
-describe('arable soil organic matter route', () => {
+describe('arable soil green cover route', () => {
   jest.mock('ffc-messaging')
   jest.mock('../../../../../../app/plugins/crumb')
   jest.mock('../../../../../../app/agreement')
@@ -16,7 +16,7 @@ describe('arable soil organic matter route', () => {
       agreement: {
         action: {
           'sfi-arable-soil': {
-            canTestOrganicMatter: undefined
+            canHaveGreenCover: undefined
           }
         }
       }
@@ -32,10 +32,10 @@ describe('arable soil organic matter route', () => {
     await server.stop()
   })
 
-  test('GET /arable/organic-matter without auth returns 302', async () => {
+  test('GET /arable/green-cover without auth returns 302', async () => {
     const options = {
       method: 'GET',
-      url: '/arable/organic-matter'
+      url: '/arable/green-cover'
     }
 
     const result = await server.inject(options)
@@ -43,10 +43,10 @@ describe('arable soil organic matter route', () => {
     expect(result.headers.location).toBe('/login')
   })
 
-  test('GET /arable/organic-matter with auth returns 200', async () => {
+  test('GET /arable/green-cover with auth returns 200', async () => {
     const options = {
       method: 'GET',
-      url: '/arable/organic-matter',
+      url: '/arable/green-cover',
       auth
     }
 
@@ -54,35 +54,35 @@ describe('arable soil organic matter route', () => {
     expect(result.statusCode).toBe(200)
   })
 
-  test('GET /arable/organic-matter with auth returns arable/organic-matter view', async () => {
+  test('GET /arable/green-cover with auth returns arable/green-cover view', async () => {
     const options = {
       method: 'GET',
-      url: '/arable/organic-matter',
+      url: '/arable/green-cover',
       auth
     }
 
     const result = await server.inject(options)
     expect(result.request.response.variety).toBe('view')
-    expect(result.request.response.source.template).toBe('actions/arable-soil/organic-matter')
+    expect(result.request.response.source.template).toBe('actions/arable-soil/green-cover')
   })
 
-  test('GET /arable/organic-matter value is undefined if not in cache', async () => {
+  test('GET /arable/green-cover value is undefined if not in cache', async () => {
     const options = {
       method: 'GET',
-      url: '/arable/organic-matter',
+      url: '/arable/green-cover',
       auth
     }
 
     const result = await server.inject(options)
     expect(result.request.response.variety).toBe('view')
-    expect(result.request.response.source.context.model.canTestOrganicMatter).toBeUndefined()
+    expect(result.request.response.source.context.model.canHaveGreenCover).toBeUndefined()
   })
 
-  test('GET /arable/organic-matter value to be set if true in cache', async () => {
-    cachedData.agreement.action['sfi-arable-soil'].canTestOrganicMatter = true
+  test('GET /arable/green-cover value to be set if true in cache', async () => {
+    cachedData.agreement.action['sfi-arable-soil'].canHaveGreenCover = true
     const options = {
       method: 'GET',
-      url: '/arable/organic-matter',
+      url: '/arable/green-cover',
       auth
     }
 
@@ -91,11 +91,11 @@ describe('arable soil organic matter route', () => {
     expect(result.request.response.source.context.model.items[0].checked).toBeTruthy()
   })
 
-  test('GET /arable/organic-matter value to be set if false in cache', async () => {
-    cachedData.agreement.action['sfi-arable-soil'].canTestOrganicMatter = false
+  test('GET /arable/green-cover value to be set if false in cache', async () => {
+    cachedData.agreement.action['sfi-arable-soil'].canHaveGreenCover = false
     const options = {
       method: 'GET',
-      url: '/arable/organic-matter',
+      url: '/arable/green-cover',
       auth
     }
 
@@ -104,10 +104,10 @@ describe('arable soil organic matter route', () => {
     expect(result.request.response.source.context.model.items[1].checked).toBeTruthy()
   })
 
-  test('POST /arable/organic-matter with no value returns an error message', async () => {
+  test('POST /arable/green-cover with no value returns an error message', async () => {
     const options = {
       method: 'POST',
-      url: '/arable/organic-matter',
+      url: '/arable/green-cover',
       auth
     }
 
@@ -117,41 +117,41 @@ describe('arable soil organic matter route', () => {
     expect(result.request.response.source.context.model.errorMessage.text).toEqual('Select an option')
   })
 
-  test('POST /arable/organic-matter updates cache if true', async () => {
+  test('POST /arable/green-cover updates cache if true', async () => {
     const options = {
       method: 'POST',
-      url: '/arable/organic-matter',
+      url: '/arable/green-cover',
       auth,
       payload: {
-        canTestOrganicMatter: true
+        canHaveGreenCover: true
       }
     }
 
     await server.inject(options)
-    expect(mockCache.update.mock.calls[0][1]).toStrictEqual({ agreement: { action: { 'sfi-arable-soil': { canTestOrganicMatter: true } } } })
+    expect(mockCache.update.mock.calls[0][1]).toStrictEqual({ agreement: { action: { 'sfi-arable-soil': { canHaveGreenCover: true } } } })
   })
 
-  test('POST /arable/organic-matter updates cache if false', async () => {
+  test('POST /arable/green-cover updates cache if false', async () => {
     const options = {
       method: 'POST',
-      url: '/arable/organic-matter',
+      url: '/arable/green-cover',
       auth,
       payload: {
-        canTestOrganicMatter: false
+        canHaveGreenCover: false
       }
     }
 
     await server.inject(options)
-    expect(mockCache.update.mock.calls[0][1]).toStrictEqual({ agreement: { action: { 'sfi-arable-soil': { canTestOrganicMatter: false } } } })
+    expect(mockCache.update.mock.calls[0][1]).toStrictEqual({ agreement: { action: { 'sfi-arable-soil': { canHaveGreenCover: false } } } })
   })
 
-  test('POST /arable/organic-matter saves progress', async () => {
+  test('POST /arable/green-cover saves progress', async () => {
     const options = {
       method: 'POST',
-      url: '/arable/organic-matter',
+      url: '/arable/green-cover',
       auth,
       payload: {
-        canTestOrganicMatter: true
+        canHaveGreenCover: true
       }
     }
 
@@ -159,18 +159,18 @@ describe('arable soil organic matter route', () => {
     expect(agreement.save).toBeCalled()
   })
 
-  test('POST /arable/organic-matter redirects on post', async () => {
+  test('POST /arable/green-cover redirects on post', async () => {
     const options = {
       method: 'POST',
-      url: '/arable/organic-matter',
+      url: '/arable/green-cover',
       auth,
       payload: {
-        canTestOrganicMatter: true
+        canHaveGreenCover: true
       }
     }
 
     const result = await server.inject(options)
     expect(result.statusCode).toBe(302)
-    expect(result.headers.location).toBe('/arable/produce-plan')
+    expect(result.headers.location).toBe('/arable/add-organic-matter')
   })
 })
