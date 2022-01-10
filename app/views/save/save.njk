@@ -1,12 +1,8 @@
 {% from "govuk/components/button/macro.njk" import govukButton %}
 
-
-
 <div class="save-and-return">
-<form method="POST" action="/progress-saved" novalidate> 
+<form method="POST" action="/save" novalidate> 
   <input type="hidden" name="crumb" value="{{crumb}}"/>
-
-
   <p class="govuk-body">
     <button class="govuk-button-link" data-module="govuk-button">
       Save and return later

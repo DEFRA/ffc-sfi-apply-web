@@ -16,8 +16,7 @@ const routes = [].concat(
   require('../routes/funding/how-much'),
   require('../routes/save'),
   require('../routes/declaration'),
-  require('../routes/confirmation'),
-  require('../routes/progress-saved')
+  require('../routes/confirmation')
 )
 
 module.exports = {
