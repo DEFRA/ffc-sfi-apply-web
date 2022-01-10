@@ -30,7 +30,7 @@ module.exports = [{
     },
     handler: async (request, h) => {
       const canAddOrganicMatter = request.payload.canAddOrganicMatter
-      await cache.update(request, { agreement: { action: { 'sfi-arable-soil': { canAddOrganicMatter } } } })
+      await cache.update(request, { agreement: { action: { 'sfi-arable-soil': { canAddOrganicMatter, actionsComplete: true } } } })
       await save(request)
       return h.redirect('/task-list')
     }
