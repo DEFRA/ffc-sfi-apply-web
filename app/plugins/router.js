@@ -15,6 +15,7 @@ const routes = [].concat(
   require('../routes/funding/what-funding'),
   require('../routes/funding/how-much'),
   require('../routes/actions/arable-soil/organic-matter'),
+  require('../routes/actions/arable-soil/produce-plan'),
   require('../routes/save'),
   require('../routes/declaration'),
   require('../routes/confirmation')
