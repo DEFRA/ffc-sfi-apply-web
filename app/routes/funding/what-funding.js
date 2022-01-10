@@ -12,7 +12,6 @@ module.exports = [{
       const { funding } = agreement
 
       const eligibleFunding = await getFunding(request) ?? undefined
-      await cache.update(request, { data: { eligibleFunding: eligibleFunding } })
 
       if (!eligibleFunding) {
         return h.view('no-response')
@@ -44,7 +43,6 @@ module.exports = [{
       const { data, agreement } = await cache.get(request)
 
       const eligibleFunding = (data?.eligibleFunding ?? []).filter(fundingObj => standards.includes(fundingObj.code))
-
       if (!eligibleFunding.length) {
         return h.redirect('/what-funding')
       }
