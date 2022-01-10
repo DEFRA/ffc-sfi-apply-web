@@ -27,7 +27,7 @@ module.exports = [{
   options: {
     validate: {
       payload: Joi.object({
-        standard: Joi.required()
+        standard: Joi.array().items(Joi.string()).single().required()
       }),
       failAction: async (request, h, error) => {
         const { agreement } = await cache.get(request)
@@ -40,7 +40,7 @@ module.exports = [{
       }
     },
     handler: async (request, h) => {
-      const standards = typeof (request.payload.standard) === 'string' ? [request.payload.standard] : request.payload.standard
+      const standards = request.payload.standard
       const { data, agreement } = await cache.get(request)
 
       const eligibleFunding = (data?.eligibleFunding ?? []).filter(fundingObj => standards.includes(fundingObj.code))
