@@ -2,6 +2,7 @@ describe('confirm details route', () => {
   jest.mock('ffc-messaging')
   jest.mock('../../../../app/plugins/crumb')
   jest.mock('../../../../app/land/land')
+  jest.mock('../../../../app/agreement')
   const mockGetLand = require('../../../../app/land/land')
   const createServer = require('../../../../app/server')
   jest.mock('../../../../app/cache')
