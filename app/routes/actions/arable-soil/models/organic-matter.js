@@ -11,8 +11,8 @@ function ViewModel (canTestOrganicMatter, error) {
     },
     hint: {
       html: `<p class="govuk-body">You must test all selected land parcels for soil organic matter (SOM).</p>
-            <p class="govuk-body">If you have not tested your land parcels in the last 5 years, you need to get them tested within the first year of your agreement. </p>
-            <p class="govuk-body">If you have already tested any of the land parcels in the last 5 years you do not need to retest. </p>`
+            <p class="govuk-body">If you have not tested your land parcels in the last 5 years, you need to get them tested within the first year of your agreement.</p>
+            <p class="govuk-body">If you have already tested any of the land parcels in the last 5 years you do not need to retest.</p>`
     },
     items: [
       {

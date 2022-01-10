@@ -32,7 +32,7 @@ module.exports = [{
       const canProducePlan = request.payload.canProducePlan
       await cache.update(request, { agreement: { action: { 'sfi-arable-soil': { canProducePlan } } } })
       await save(request)
-      return h.redirect('/task-list')
+      return h.redirect('/arable/green-cover')
     }
   }
 }]
