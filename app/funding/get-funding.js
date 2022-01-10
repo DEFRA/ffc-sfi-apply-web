@@ -21,7 +21,6 @@ const requestEligibleFunding = async (organisation, callerId, correlationId) => 
   const { sbi, organisationId } = organisation
   const body = { sbi, callerId, organisationId }
 
-  console.log(`fund sbu: ${sbi} -- org ${organisationId} -- call ${callerId}`)
   await sendMessage(body, 'uk.gov.sfi.standard.request', config.standardsTopic, { correlationId, messageId })
   console.info('Standards request send:', util.inspect(body, false, null, true))
 
