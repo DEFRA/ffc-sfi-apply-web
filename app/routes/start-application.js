@@ -26,7 +26,7 @@ module.exports = [{
       payload: schema
     },
     handler: async (request, h) => {
-      let { agreement, data, callerId } = await cache.get(request)
+      let { agreement, data, callerId, crn } = await cache.get(request)
 
       // if no existing agreement or SBI no longer matches cached agreement then start new agreement
       if (!agreement || agreement?.organisation?.sbi !== request.payload.sbi) {
@@ -35,6 +35,7 @@ module.exports = [{
         // Need to include caller Id as part of agreement to support downstream services
         // Expect to remove once Defra Identity integrated
         agreement.callerId = callerId
+        agreement.crn = crn
       }
 
       const selectedOrganisation = data.eligibleOrganisations.find(x => x.sbi === request.payload.sbi)

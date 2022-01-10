@@ -1,3 +1,4 @@
+const { save } = require('../../agreement')
 const cache = require('../../cache')
 const Joi = require('joi')
 const ViewModel = require('./models/how-much')
@@ -67,7 +68,7 @@ module.exports = [{
       if (viewModel.model.error || viewModel.model.invalidValues) {
         return h.view('funding/how-much', viewModel).code(400).takeover()
       }
-
+      await save(request)
       return h.redirect('/task-list')
     }
   }

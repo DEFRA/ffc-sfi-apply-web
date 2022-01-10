@@ -1,3 +1,4 @@
+const { save } = require('../../agreement')
 const Joi = require('joi')
 const cache = require('../../cache')
 const getFunding = require('../../funding/get-funding')
@@ -52,6 +53,7 @@ module.exports = [{
       agreement.funding = funding.map(x => x.code)
 
       await cache.update(request, { agreement })
+      await save(request)
       return h.redirect('/task-list')
     }
   }
