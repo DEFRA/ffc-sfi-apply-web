@@ -1,21 +1,19 @@
-const { create } = require('../agreement')
+const Joi = require('joi')
 const cache = require('../cache')
-const schema = require('./schemas/sbi')
+const sbiSchema = require('./schemas/sbi')
+const agreementNumberSchema = require('./schemas/agreement-number')
+const getOrganisationInformation = require('./models/start-application')
+
+const { create } = require('../agreement')
+const { getByAgreementNumber } = require('../agreement/get')
 
 module.exports = [{
   method: 'GET',
   path: '/start-application',
   options: {
     handler: async (request, h) => {
-      const { agreement, data } = await cache.get(request)
-
-      // if SBI not provided as query parameter, then use previously selected organisation from cache if exists.
-      const sbi = request.query?.sbi ?? agreement?.organisation?.sbi
-      if (sbi) {
-        const organisation = data.eligibleOrganisations.find(x => x.sbi === parseInt(sbi))
-        return h.view('start-application', { organisation })
-      }
-      return h.view('404')
+      const { organisation, agreements } = await getOrganisationInformation(request)
+      return h.view('start-application', { organisation, agreements })
     }
   }
 }, {
@@ -23,25 +21,44 @@ module.exports = [{
   path: '/start-application',
   options: {
     validate: {
-      payload: schema
+      payload: Joi.object()
+        .concat(sbiSchema)
+        .concat(agreementNumberSchema),
+      failAction: async (request, h, error) => {
+        const { organisation, agreements } = getOrganisationInformation(request)
+        return h.view('start-application', { organisation, agreements, error }).code(400).takeover()
+      }
     },
     handler: async (request, h) => {
-      let { agreement, data, callerId, crn } = await cache.get(request)
+      let agreement
+      const { data, callerId, crn } = await cache.get(request)
+      const sbi = parseInt(request.payload.sbi)
 
-      // if no existing agreement or SBI no longer matches cached agreement then start new agreement
-      if (!agreement || agreement?.organisation?.sbi !== request.payload.sbi) {
-        await cache.reset(request)
+      const agreementNumber = request.payload.agreementNumber
+
+      await cache.reset(request)
+      if (!agreementNumber) {
         agreement = create()
         // Need to include caller Id as part of agreement to support downstream services
         // Expect to remove once Defra Identity integrated
         agreement.callerId = callerId
         agreement.crn = crn
+        const selectedOrganisation = data.eligibleOrganisations.find(x => x.sbi === sbi)
+
+        if (selectedOrganisation) {
+          agreement.organisation = selectedOrganisation
+        }
+      } else {
+        const incompleteApplications = await getByAgreementNumber(agreementNumber, sbi)
+
+        if (!incompleteApplications) {
+          return h.view('404')
+        }
+
+        agreement = incompleteApplications.agreementData
       }
 
-      const selectedOrganisation = data.eligibleOrganisations.find(x => x.sbi === request.payload.sbi)
-
-      if (selectedOrganisation) {
-        agreement.organisation = selectedOrganisation
+      if (agreement.organisation) {
         await cache.update(request, { agreement })
         return h.redirect('/task-list')
       }
