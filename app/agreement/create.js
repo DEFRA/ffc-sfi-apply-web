@@ -19,10 +19,10 @@ const AGREEMENT = {
       actionsComplete: false,
       optionalActionsComplete: false,
       canTestOrganicMatter: undefined,
-      canAssessSoil: undefined,
       canProducePlan: undefined,
       canHaveGreenCover: undefined,
       canAddOrganicMatter: undefined,
+      canAssessSoil: undefined,
       canDiversifySpecies: undefined,
       landCovers: [],
       paymentAmount: 100
@@ -32,9 +32,9 @@ const AGREEMENT = {
       actionsComplete: false,
       optionalActionsComplete: false,
       canTestOrganicMatter: undefined,
-      canAssessSoil: undefined,
       canProducePlan: undefined,
       canHaveGreenCover: undefined,
+      canAssessSoil: undefined,
       canEstablishHerbalLeys: undefined,
       landCovers: [],
       paymentAmount: 100

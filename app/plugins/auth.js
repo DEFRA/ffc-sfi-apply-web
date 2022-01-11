@@ -11,7 +11,8 @@ module.exports = {
           ttl: 1000 * 60 * 60 * 24 * 3, // 3 days
           isSameSite: config.isSameSite,
           isSecure: config.isSecure,
-          isHttpOnly: config.isHttpOnly
+          isHttpOnly: config.isHttpOnly,
+          path: '/'
         },
         keepAlive: true,
         redirectTo: '/login',
