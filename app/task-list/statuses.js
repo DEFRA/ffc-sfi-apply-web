@@ -1,0 +1,7 @@
+const NOT_STARTED_YET = 'NOT STARTED YET'
+const COMPLETED = 'COMPLETED'
+
+module.exports = {
+  NOT_STARTED_YET,
+  COMPLETED
+}
