@@ -19,6 +19,7 @@ function ViewModel (eligibleFunding, selected, error) {
 
   if (error) {
     this.model.error = {
+      titleText: 'There is a problem',
       errorList: [
         {
           text: 'Select an option'
