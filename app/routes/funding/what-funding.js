@@ -56,7 +56,7 @@ module.exports = [{
 
       await cache.update(request, { agreement })
       await save(request)
-      return h.redirect('/how-much')
+      return h.redirect('/task-list')
     }
   }
 }]
