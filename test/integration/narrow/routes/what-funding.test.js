@@ -12,7 +12,6 @@ describe('what-funding route', () => {
   let server
   let auth
 
-  // new session cache upto this page
   const initialCache = {
     crn: 123456789,
     callerId: 1234567,
@@ -81,10 +80,7 @@ describe('what-funding route', () => {
       eligibleFunding: []
     }
   }
-  // user selects arable and grassland
   let populatedCache
-  // user returns, deselects grassland and only selects arable
-  let returningCache
 
   beforeEach(async () => {
     auth = { strategy: 'session', credentials: { name: 'A Farmer' } }
@@ -95,10 +91,6 @@ describe('what-funding route', () => {
     populatedCache.agreement.funding = ['sfi-arable-soil', 'sfi-improved-grassland']
     populatedCache.agreement.action['sfi-arable-soil'].active = true
     populatedCache.agreement.action['sfi-improved-grassland'].active = true
-
-    returningCache = JSON.parse(JSON.stringify(populatedCache))
-    returningCache.agreement.funding = ['sfi-moorland']
-    returningCache.agreement.action['sfi-improved-grassland'].active = false
 
     getFunding.mockResolvedValue([{
       code: 'sfi-arable-soil',
@@ -116,8 +108,6 @@ describe('what-funding route', () => {
       landCovers: []
     }
     ])
-
-    // populatedCache.data.eligibleFunding = await getFunding()
 
     createServer = require('../../../../app/server')
     server = await createServer()
@@ -251,12 +241,6 @@ describe('what-funding route', () => {
 
     expect(result.request.response.variety).toBe('view')
     expect(result.request.response.source.template).toBe('funding/what-funding')
-  })
-
-  test('getFunding returns moorland or rough grazing as an option', async () => {
-    const result = await getFunding()
-
-    expect(result.items.map(item => item.value).includes('sfi-moorland')).toBe(true)
   })
 
   test('GET /what-funding with 1 previously selected funding option returns this standard as a string array within agreement cache', async () => {
