@@ -110,6 +110,10 @@ describe('what-funding route', () => {
       name: 'improved grassland soil',
       landCovers:
       [{ parcelId: 'ZZ98765432', code: '130', area: '14.00' }, { parcelId: 'YY98765432', code: '130', area: '1.72' }, { parcelId: 'XX98765432', code: '130', area: '5.22' }]
+    }, {
+      code: 'sfi-moorland',
+      name: 'moorland or rough grazing',
+      landCovers: []
     }
     ])
 
@@ -247,6 +251,12 @@ describe('what-funding route', () => {
 
     expect(result.request.response.variety).toBe('view')
     expect(result.request.response.source.template).toBe('funding/what-funding')
+  })
+
+  test('getFunding returns moorland or rough grazing as an option', async () => {
+    const result = await getFunding()
+
+    expect(result.items.map(item => item.value).includes('sfi-moorland')).toBe(true)
   })
 
   test('GET /what-funding with 1 previously selected funding option returns this standard as a string array within agreement cache', async () => {

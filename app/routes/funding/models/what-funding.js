@@ -14,7 +14,7 @@ function ViewModel (eligibleFunding, selected, error) {
     hint: {
       text: 'Choose all that apply.'
     },
-    items: mapStandards(eligibleFunding, selected)
+    items: mapStandards(eligibleFunding, selected).map(funding => { funding.checked = isChecked(selected, funding.value); return funding })
   }
 
   if (error) {
@@ -26,6 +26,13 @@ function ViewModel (eligibleFunding, selected, error) {
       ]
     }
   }
+}
+
+const isChecked = (selected, value) => {
+  if (selected.length) {
+    return selected.includes(value)
+  }
+  return false
 }
 
 module.exports = ViewModel

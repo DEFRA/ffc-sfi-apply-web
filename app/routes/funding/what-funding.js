@@ -30,20 +30,17 @@ module.exports = [{
         standard: Joi.array().items(Joi.string()).single().required()
       }),
       failAction: async (request, h, error) => {
-        const { agreement } = await cache.get(request)
-        const { funding } = agreement
-
         const eligibleFunding = await getFunding(request) ?? undefined
 
         if (!eligibleFunding) {
           return h.view('no-response').takeover()
         }
 
-        return h.view('funding/what-funding', new ViewModel(eligibleFunding, funding, error)).code(400).takeover()
+        return h.view('funding/what-funding', new ViewModel(eligibleFunding, [], error)).code(400).takeover()
       }
     },
     handler: async (request, h) => {
-      const { standard } = request.payload.standard
+      const { standard } = request.payload
       const { data, agreement } = await cache.get(request)
 
       const eligibleFunding = (data?.eligibleFunding ?? []).filter(fundingObj => standard.includes(fundingObj.code))
@@ -56,8 +53,6 @@ module.exports = [{
         agreement.action[option].active = eligibleFunding.some(x => x.code === option)
       }
       agreement.funding = eligibleFunding.map(x => x.code)
-
-      cache.update(request, { agreement })
 
       await cache.update(request, { agreement })
       await save(request)
