@@ -1,6 +1,5 @@
    Feature: Apply for sustainable farming funding
       Scenario: User successfully start new application
-        Given I open the url "/logout"
         When I open the url "/login"
         Then I expect that element "h1" contains the text "Sign in"
         When I clear the inputfield "#crn"
@@ -14,5 +13,6 @@
         When I pause for 1000ms
         Then I expect that the url contains "/start-application?sbi=107700399"
         And I click on the element "#start-application"
+        When I pause for 1000ms
         Then I expect that the url contains "/task-list"
         And I expect that element "h1" contains the text "Apply for sustainable farming funding"

@@ -1,6 +1,5 @@
 Feature: Sign-in for Single Organisation details page
   Scenario: User can successfully signin on single organisation page
-    Given I open the url "/logout"
     When I open the url "/login"
     Then I expect that element "h1" contains the text "Sign in"
     When I clear the inputfield "#crn"
@@ -17,7 +16,6 @@ Feature: Sign-in for Single Organisation details page
     Then I expect that element "h1" contains the text "Sustainable farming funding applications for this organisation"
     
   Scenario: User cannot successfully signin with invalid crn
-    Given I open the url "/logout"
     When I open the url "/login"
     Then I expect that element "h1" contains the text "Sign in"
     When I clear the inputfield "#crn"
@@ -33,7 +31,6 @@ Feature: Sign-in for Single Organisation details page
     Then I expect that element "div.govuk-error-summary__body" contains the text "length must be 10 characters long"
   
 Scenario: User cannot successfully signin with invalid callerID
-    Given I open the url "/logout"
     When I open the url "/login"
     Then I expect that element "h1" contains the text "Sign in"
     When I clear the inputfield "#crn"

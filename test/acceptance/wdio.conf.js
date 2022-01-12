@@ -81,16 +81,27 @@ exports.config = {
     global.should = chai.should()
   },
 
-  afterStep: async (featureName, feature, result, ctx) => {
+  afterStep: async (step, scenario, result, context) => {
     if (result.passed) {
       return
     }
+
     const path = require('path')
     const moment = require('moment')
-    const screenshotFileName = feature.uri.split('.feature')[0].split('/').slice(-1)[0]
+    const screenshotFileName = scenario.uri.split('.feature')[0].split('/').slice(-1)[0]
     const timestamp = moment().format('YYYYMMDD-HHmmss.SSS')
     const filepath = path.join('./html-reports/screenshots/', screenshotFileName + '-' + timestamp + '.png')
     await browser.saveScreenshot(filepath)
     process.emit('test:screenshot', filepath)
+  },
+
+  /**
+   *
+   * Runs before a Cucumber Scenario.
+   * @param {ITestCaseHookParameter} world    world object containing information on pickle and test step
+   * @param {Object}                 context  Cucumber World object
+   */
+  beforeScenario: async (world, context) => {
+    await browser.deleteCookie('ffc_sfi_identity')
   }
 }

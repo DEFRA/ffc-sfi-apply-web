@@ -1,7 +1,6 @@
 Feature: Sign-in for Multiple Organisation details page
 
   Scenario: User can successfully signin on multiple organisation page
-    Given I open the url "/logout"
     When I open the url "/login"
     And I pause for 500ms
     When I clear the inputfield "#crn"
@@ -34,7 +33,6 @@ Feature: Sign-in for Multiple Organisation details page
 
   
   Scenario Outline: User can click on all organisations on eligible page
-    Given I open the url "/logout"
     When I open the url "/login"
     When I clear the inputfield "#crn"
     And I enter crn number 9867012345
@@ -61,7 +59,6 @@ Feature: Sign-in for Multiple Organisation details page
     |tenthOrganisation  |106940295 |
     
     Scenario: User can start new application after signing in
-    Given I open the url "/logout"
     When I open the url "/login"
     Then I expect that element "h1" contains the text "Sign in"
     When I clear the inputfield "#crn"
@@ -82,7 +79,6 @@ Feature: Sign-in for Multiple Organisation details page
     Then I expect that the url contains "/task-list"
    
     Scenario Outline: User can search for sbi number 
-    Given I open the url "/logout"
     When I open the url "/login"
     When I clear the inputfield "#crn"
     And I enter crn number 9867012345
@@ -107,7 +103,6 @@ Feature: Sign-in for Multiple Organisation details page
    
 
     Scenario Outline: User cannot search for sbi number with invalid sbi
-    Given I open the url "/logout"
     When I open the url "/login"
     When I clear the inputfield "#crn"
     And I enter crn number 9867012345
@@ -131,7 +126,6 @@ Feature: Sign-in for Multiple Organisation details page
     |10688dssa |The SBI must be a number.|
 
     Scenario: User can click on the pagination link and navigate forward and backward pagination pages
-    Given I open the url "/logout"
     When I open the url "/login"
     When I clear the inputfield "#crn"
     And I enter crn number 9867012345
@@ -158,7 +152,6 @@ Feature: Sign-in for Multiple Organisation details page
     Then I expect that the url contains "/eligible-organisations?page=1"
     
     Scenario: Verify count of eligible organisation in pagination
-    Given I open the url "/logout"
     When I open the url "/login"
     When I clear the inputfield "#crn"
     And I enter crn number 9867012345
