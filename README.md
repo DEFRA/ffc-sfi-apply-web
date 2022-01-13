@@ -120,6 +120,9 @@ scripts/test
 
 # Run tests with file watch
 scripts/test -w
+
+# Run tests with debugger attachable
+scripts/test -d
 ```
 
 ## CI pipeline

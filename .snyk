@@ -57,4 +57,17 @@ ignore:
     - '@azure/identity > keytar > prebuild-install > npmlog > gauge > wide-align > string-width > strip-ansi > ansi-regex':
         reason: no fix
         expires: '2021-12-13T09:49:32.062Z'
+  SNYK-JS-FOLLOWREDIRECTS-2332181:
+    - '@azure/identity > @azure/msal-node > axios > follow-redirects':
+        reason: None given
+        expires: '2022-02-11T16:50:24.571Z'
+    - '@azure/identity > axios > follow-redirects':
+        reason: None given
+        expires: '2022-02-11T16:50:24.571Z'
+    - '@pact-foundation/pact > http-proxy > follow-redirects':
+        reason: None given
+        expires: '2022-02-11T16:50:24.571Z'
+    - ffc-messaging > @azure/identity > @azure/msal-node > axios > follow-redirects:
+        reason: None given
+        expires: '2022-02-11T16:50:24.571Z'
 patch: {}

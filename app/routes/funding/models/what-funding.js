@@ -1,3 +1,5 @@
+const { mapStandards } = require('../../../what-funding')
+
 function ViewModel (eligibleFunding, selected, error) {
   this.model = {
     id: 'standard',
@@ -9,12 +11,20 @@ function ViewModel (eligibleFunding, selected, error) {
         classes: 'govuk-fieldset__legend--l'
       }
     },
-    items: mapStandards(eligibleFunding, selected)
+    hint: {
+      text: 'Choose all that apply.'
+    },
+    items: mapStandards(eligibleFunding, selected).map(funding => { funding.checked = isChecked(selected, funding.value); return funding })
   }
 
   if (error) {
-    this.model.errorMessage = {
-      text: 'Please choose the funding you would like to apply for '
+    this.model.error = {
+      titleText: 'There is a problem',
+      errorList: [
+        {
+          text: 'Select an option'
+        }
+      ]
     }
   }
 }
@@ -24,17 +34,6 @@ const isChecked = (selected, value) => {
     return selected.includes(value)
   }
   return false
-}
-
-const mapStandards = (eligibleFunding, selected) => {
-  return eligibleFunding.filter(item => item.landCovers.length > 0)
-    .map(x => {
-      return {
-        text: x.name,
-        value: x.code,
-        checked: isChecked(selected, x.code)
-      }
-    })
 }
 
 module.exports = ViewModel
