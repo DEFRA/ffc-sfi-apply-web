@@ -1,6 +1,6 @@
 import chai from 'chai'
 import { expect } from 'chai'
-import Page from './page'
+import Page from '../domain/page'
 
 class eligibleOrganisation extends Page {
   //sbi number
