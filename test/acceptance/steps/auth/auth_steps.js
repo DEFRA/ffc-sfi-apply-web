@@ -1,8 +1,8 @@
 import { Given, Then } from '@wdio/cucumber-framework'
-import AuthService from '../../domain/auth/auth_service'
+import AuthService from '../../domain/auth/auth-service'
 
-Given("a farmer signs in with org details {string} {string} {string}", async (crn, callerId, password) => {
-  await AuthService.loginWith(crn, callerId, password)
+Given("a farmer signs in with org details {string} {string} {string}", async (crn, callerId, passwordValue) => {
+  await AuthService.loginWith({ crn, callerId, passwordValue })
 })
 
 Then("a session cookie present should be {string}", async (value) => {
