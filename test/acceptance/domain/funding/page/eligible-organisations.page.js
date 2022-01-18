@@ -9,6 +9,7 @@ class EligibleOrganisationsPage {
   #hrefSelector = '.start-application-link'
 
   async selectRandomOrganisation () {
+    browser.pause(1000)
     const randomInt = await this.#getRandomInt(await this.#tableParent.$$(this.#hrefSelector).length)
     await this.#tableParent.$$(this.#hrefSelector)[randomInt].click()
   }
