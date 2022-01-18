@@ -8,16 +8,13 @@ class WhatFundFlow {
   get submit () { return $('#submit') }
 
   async complete (fundingOptions) {
-    await browser.$('.app-task-list .app-task-list__task-name a[href*="/what-funding"]').click()
-
     for (const option in fundingOptions) {
-      await this.#checkBox(option, fundingOptions[option])
+      await this.#checkOption(option, fundingOptions[option])
     }
-
     await this.#continue()
   }
 
-  async #checkBox (optionName, optionValue) {
+  async #checkOption (optionName, optionValue) {
     if (!optionValue) {
       return
     }
