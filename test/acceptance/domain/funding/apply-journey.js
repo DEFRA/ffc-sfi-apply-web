@@ -19,6 +19,10 @@ class ApplyJourney {
   async applicationStatusFor (sections) {
     return await taskListPage.statuses(sections)
   }
+
+  async start() {
+    await Application.start()
+  }
 }
 
 export default new ApplyJourney()

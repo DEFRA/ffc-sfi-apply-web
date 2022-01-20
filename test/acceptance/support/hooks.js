@@ -38,9 +38,8 @@ exports.hooks = {
      */
   beforeSession: async function (config, capabilities, specs) {
     if (process.env.PR_BUILD) {
-      console.log('=========BEGIN UPLOADING MOCK RESPONSE==============')
       await mockResponse.uploadMocks()
-      console.log('=========END UPLOADING MOCK RESPONSE==============')
+      console.log('=========UPLOADED MOCK RESPONSES==============')
     }
   },
   /**

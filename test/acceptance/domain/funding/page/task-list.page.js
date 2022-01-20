@@ -6,6 +6,10 @@ class TaskListPage {
 
   async completeSection (number) {
     await this.#taskListParent.$$(this.#taskListLinkSelector)[number - 1].click()
+    const url = await browser.getUrl()
+    if(url.includes('#')){
+      return
+    }
   }
 
   async statuses (sections) {

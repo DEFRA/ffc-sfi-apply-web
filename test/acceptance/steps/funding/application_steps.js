@@ -18,11 +18,10 @@ When( "Bob applies for farming fund", async function () {
   await ApplyJourney.apply(eligibleSingleOrg)
 });
 
-When( 'Bob applies for farming fund for any of his organisation', async function () {
-
+When( 'Bob can start application for any of his organisation(s)', async function () {
   await waitForLoginPageToDisappear()
   await EligibleOrganisation.selectRandomOrganisation()
-  await ApplyJourney.apply(eligibleMultipleOrg)
+  await ApplyJourney.start()
 });
 
 Then( 'the following section(s) should show as status', async (dataTable) => {
