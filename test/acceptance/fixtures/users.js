@@ -10,9 +10,9 @@ const eligibleSingleOrg = {
     informationCorrect: true
   },
   fundingOptions: {
-    arableSoil: true,
-    improvedGrassland: true,
-    moorland: false
+    'sfi-arable-soil': true,
+    'sfi-improved-grassland': true,
+    'sfi-moorland': false
   },
   soilActions: {
     testOrganicMatter: true,
@@ -36,9 +36,9 @@ const eligibleMultipleOrg = {
     informationCorrect: true
   },
   fundingOptions: {
-    arableSoil: true,
-    improvedGrassland: false,
-    moorland: false
+    'sfi-arable-soil': true,
+    'sfi-improved-grassland': true,
+    'sfi-moorland': false
   },
   soilActions: {
     testOrganicMatter: true,

@@ -1,6 +1,10 @@
 class ApplicationPage {
+
+  get startButton () { return $('#start-application') }
+
   async start () {
-    await browser.$('#start-application').click()
+    await this.startButton.waitForDisplayed()
+    await this.startButton.click()
   }
 }
 
