@@ -3,7 +3,7 @@ import AuthService from '../../domain/auth/auth-service'
 import ApplyJourney from '../../domain/funding/apply-journey'
 import { eligibleMultipleOrg, eligibleSingleOrg } from '../../fixtures/users'
 import EligibleOrganisation from '../../domain/funding/page/eligible-organisations.page'
-import { waitForLoginPageToDisappear } from '../../domain/element-utils/wait-util'
+import { waitForLoginPageToDisappear } from '../../support/element-utils/wait-util'
 import __ from 'hamjest'
 
 Given( "Bob has management control of only one eligible organisation", async function () {

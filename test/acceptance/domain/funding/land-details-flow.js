@@ -1,4 +1,4 @@
-import { selectRadioButton } from '../element-utils/select'
+import { selectRadioButton } from '../../support/element-utils/select'
 
 class LandDetailsFlow {
   get #yesIsCorrect () { return $('#isLandCorrect') }

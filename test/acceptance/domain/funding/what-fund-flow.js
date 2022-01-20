@@ -1,4 +1,4 @@
-import { checkBoxByValue } from '../element-utils/select'
+import { checkBoxByValue } from '../../support/element-utils/select'
 
 class WhatFundFlow {
   get #submit () { return $('#submit') }

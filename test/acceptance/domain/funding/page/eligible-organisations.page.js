@@ -1,4 +1,4 @@
-import { getDataByRow, rowCount } from '../../element-utils/table-helper-util'
+import { getDataByRow, rowCount } from '../../../support/element-utils/table-helper-util'
 
 class EligibleOrganisationsPage {
   get #searchField () { return $('#user-search') }
