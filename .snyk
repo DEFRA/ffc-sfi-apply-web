@@ -70,4 +70,11 @@ ignore:
     - ffc-messaging > @azure/identity > @azure/msal-node > axios > follow-redirects:
         reason: None given
         expires: '2022-02-11T16:50:24.571Z'
+  SNYK-JS-NODEFETCH-2342118:
+    - '@azure/storage-blob > @azure/core-http > node-fetch':
+        reason: None given
+        expires: '2022-02-17T11:09:15.859Z'
+    - ffc-messaging > @azure/service-bus > @azure/core-http > node-fetch:
+        reason: None given
+        expires: '2022-02-17T11:09:15.859Z'
 patch: {}

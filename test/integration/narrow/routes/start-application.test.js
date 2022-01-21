@@ -2,7 +2,10 @@ describe('start-application route', () => {
   jest.mock('ffc-messaging')
   jest.mock('../../../../app/plugins/crumb')
   jest.mock('../../../../app/cache')
+  jest.mock('../../../../app/agreement/get')
+
   const mockCache = require('../../../../app/cache')
+  const mockAgreement = require('../../../../app/agreement/get')
 
   let createServer
   let server
@@ -22,6 +25,31 @@ describe('start-application route', () => {
     address: 'address1, address2, address3, postalCode'
   }]
 
+  const applications = {
+    agreements: [
+      {
+        agreementNumber: 'SFIA123456',
+        agreementData: {
+          land: 'land',
+          funding: 'funding',
+          action: 'action',
+          confirmed: true,
+          submitted: true
+        }
+      },
+      {
+        agreementNumber: 'SFIA654321',
+        agreementData: {
+          land: 'land',
+          funding: 'funding',
+          action: 'action',
+          confirmed: true,
+          submitted: true
+        }
+      }
+    ]
+  }
+
   beforeEach(async () => {
     auth = { strategy: 'session', credentials: { name: 'A Farmer' } }
 
@@ -32,6 +60,8 @@ describe('start-application route', () => {
           eligibleOrganisations: organisations
         }
       })
+
+    mockAgreement.getBySbi.mockResolvedValue(applications)
 
     createServer = require('../../../../app/server')
     server = await createServer()
@@ -78,7 +108,7 @@ describe('start-application route', () => {
     expect(result.statusCode).toBe(302)
   })
 
-  test('POST /start-application returns 400 if no SBI supplied', async () => {
+  test('POST /start-application returns 400 if no payload supplied', async () => {
     const options = {
       method: 'POST',
       url: '/start-application',
@@ -87,5 +117,30 @@ describe('start-application route', () => {
 
     const result = await server.inject(options)
     expect(result.statusCode).toBe(400)
+  })
+
+  test('POST /start-application redirects to task-list when a new application is created', async () => {
+    const options = {
+      method: 'POST',
+      url: '/start-application',
+      payload: { sbi: '123456789' },
+      auth
+    }
+
+    const result = await server.inject(options)
+    expect(result.statusCode).toBe(302)
+    expect(result.headers.location).toBe('/task-list')
+  })
+
+  test('POST /start-application returns 404 page if agreementNumber does not exist', async () => {
+    const options = {
+      method: 'POST',
+      url: '/start-application',
+      payload: { sbi: '123456789', agreementNumber: 'SFIA652172' },
+      auth
+    }
+
+    const result = await server.inject(options)
+    expect(result.request.response.source.template).toBe('404')
   })
 })

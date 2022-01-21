@@ -4,6 +4,8 @@
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
 {% from "govuk/components/details/macro.njk" import govukDetails %}
+{% from "govuk/components/tag/macro.njk" import govukTag %}
+{% from "macros/status.njk" import taskLink %}
 
 {% block beforeContent %}
   {{ govukBackLink({
@@ -44,4 +46,52 @@
         </form>
       </div>
     </div>
+
+    {% if agreements.length > 0 %}
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+        <hr class="govuk-section-break govuk-section-break--xl govuk-section-break--visible">
+        <table class="govuk-table">
+          <caption class="govuk-table__caption govuk-table__caption--m">Applications</caption>
+          <thead class="govuk-table__head">
+            <tr class="govuk-table__row">
+              <th scope="col" class="govuk-table__header">Application</th>
+              <th scope="col" class="govuk-table__header">Last updated</th>
+              <th scope="col" class="govuk-table__header">Status</th>
+              <th scope="col" class="govuk-table__header"></th>
+            </tr>
+          </thead>
+          <tbody class="govuk-table__body">
+            {% for agreement in agreements|sort(true, false, 'updatedAtFormatted') %}
+            <tr class="govuk-table__row">
+              <td class="govuk-table__cell">{{ agreement.agreementNumber }}</td>
+              <td class="govuk-table__cell">{{ agreement.updatedAtFormatted }}</td>
+
+              <td class="govuk-table__cell">
+                {{ taskLink(agreement.status.status) }}
+              </td>
+
+              <td class="govuk-table__cell">
+                {% if agreement.status.status === 'In Progress' %}
+                  <form method="POST" action="/start-application" novalidate>
+                    <input type="hidden" name="crumb" value="{{ crumb }}"/>
+                    <input type="hidden" name="sbi" value="{{ organisation.sbi }}"/>
+                    <input type="hidden" name="agreementNumber" value="{{ agreement.agreementNumber }}"/>
+                    <button class="govuk-button-link govuk-!-font-size-19" data-module="govuk-button">
+                      Continue application
+                    </button>
+                  </form>
+                {% elif agreement.status.status === 'Submitted' %}
+                  <button class="govuk-button-link govuk-!-font-size-19" data-module="govuk-button">
+                    View application
+                  </button>
+                {% endif %}
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        </div>
+      </div>
+    {% endif %}
   {% endblock %}
