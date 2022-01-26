@@ -4,7 +4,7 @@ import ApplyJourney from '../../domain/funding/apply-journey'
 import { eligibleMultipleOrg, eligibleSingleOrg } from '../../fixtures/users'
 import EligibleOrganisation from '../../domain/funding/page/eligible-organisations.page'
 import { waitForLoginPageToDisappear } from '../../support/element-utils/wait-util'
-import __ from 'hamjest'
+import {assertThat, equalTo} from 'hamjest'
 
 Given( "Bob has management control of only one eligible organisation", async function () {
   await AuthService.loginWith(eligibleSingleOrg.auth)
@@ -26,7 +26,7 @@ When( 'Bob can start application for any of his organisation(s)', async function
 
 Then( 'the following section(s) should show as status', async (dataTable) => {
   const sections = dataTable.hashes()
-  await __.assertThat(await ApplyJourney.applicationStatusFor(sections), __.equalTo(sections))
+  await assertThat(await ApplyJourney.applicationStatusFor(sections), equalTo(sections))
 });
 
 

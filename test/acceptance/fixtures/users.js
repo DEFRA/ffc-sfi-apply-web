@@ -3,7 +3,8 @@ const eligibleSingleOrg = {
   auth:{
     crn: 9867012345,
     callerId: 5100150,
-    passwordValue: 'tyyteryyeru'
+    passwordValue: 'tyyteryyeru',
+    multiOrg: false
   },
   landCoverDetails:{
     managementControl: true,
@@ -29,7 +30,8 @@ const eligibleMultipleOrg = {
   auth:{
     crn: 9867012345,
     callerId: 5316557,
-    passwordValue: 'tyyteryyeru'
+    passwordValue: 'tyyteryyeru',
+    multiOrg: true
   },
   landCoverDetails:{
     managementControl: true,

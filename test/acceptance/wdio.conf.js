@@ -64,7 +64,6 @@ exports.config = {
    * @param {Array.<Object>} capabilities list of capabilities details
    */
   onPrepare: async function (config, capabilities) {
-    console.log("config", config)
     const reportAggregator = new ReportAggregator({
       outputDir: './html-reports/',
       filename: 'acceptance-test-suite-report.html',
@@ -102,7 +101,8 @@ exports.config = {
    * @param {Object}                 context  Cucumber World object
    */
   beforeScenario: async (world, context) => {
-    await browser.deleteCookie('ffc_sfi_identity')
+    console.log("Clearing SFI Cookie")
+    await browser.deleteAllCookies()
   },
   ...hooks
 }

@@ -8,7 +8,6 @@
 // WebdriverIO will wait until that promise is resolved to continue.
 //
 
-const mockResponse = require('./mock-utils/mockResponse')
 exports.hooks = {
   /**
    * Gets executed once before all workers get launched.
@@ -36,12 +35,8 @@ exports.hooks = {
      * @param {Array.<Object>} capabilities list of capabilities details
      * @param {Array.<String>} specs List of spec file paths that are to be run
      */
-  beforeSession: async function (config, capabilities, specs) {
-    if (process.env.PR_BUILD) {
-      await mockResponse.uploadMocks()
-      console.log('=========UPLOADED MOCK RESPONSES==============')
-    }
-  },
+  // beforeSession: async function (config, capabilities, specs) {
+  // },
   /**
    * Gets executed before test execution begins. At this point you can access to all global
    * variables like `browser`. It is the perfect place to define custom commands.
@@ -138,7 +133,7 @@ exports.hooks = {
      * @param {String} oldSessionId session ID of the old session
      * @param {String} newSessionId session ID of the new session
      */
-  // onReload: function (oldSessionId, newSessionId) {
+  // onReload: async function (oldSessionId, newSessionId) {
   // },
   /**
      * Cucumber-specific hooks
@@ -151,7 +146,7 @@ exports.hooks = {
   // },
   // afterStep: function ({uri, feature, step}, context, {error, result, duration, passed}) {
   // },
-  // afterScenario: function (uri, feature, scenario, result, sourceLocation) {
+  // afterScenario: async function (uri, feature, scenario, result, sourceLocation) {
   // },
   // afterFeature: function (uri, feature, scenarios) {
   // }

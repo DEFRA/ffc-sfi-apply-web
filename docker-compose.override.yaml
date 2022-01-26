@@ -7,6 +7,9 @@ services:
   ffc-sfi-apply-web:
     depends_on:
       - ffc-sfi-apply-web-redis
+      - ffc-sfi-apply-web-test-azurite
+      - mock-json-server
+
     build:
       target: development
     image: ffc-sfi-apply-web-development
@@ -15,11 +18,13 @@ services:
       - "3000:3000"
       - "9229:9229"
     environment:
-      AZURE_STORAGE_CONNECTION_STRING: ${AZURE_STORAGE_CONNECTION_STRING:-"DefaultEndpointsProtocol=http;AccountName=devstoreaccount1;AccountKey=Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==;BlobEndpoint=http://ffc-sfi-agreement-calculator-azurite:10000/devstoreaccount1;"}
+      AZURE_STORAGE_CONNECTION_STRING: ${AZURE_STORAGE_CONNECTION_STRING:-"DefaultEndpointsProtocol=http;AccountName=devstoreaccount1;AccountKey=Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==;BlobEndpoint=http://ffc-sfi-apply-web-test-azurite:10000/devstoreaccount1;"}
       REDIS_HOSTNAME: ffc-sfi-apply-web-redis
+      AGREEMENT_API_ENDPOINT: http://mock-json-server:80
     volumes:
       - ./app:/home/node/app
-      - ./package.json:/home/node/package.json
+      - ./mocks/azurite:/home/node/azurite
+      - ./package.data:/home/node/package.data
 
   ffc-sfi-apply-web-redis:
     image: redis:4.0.14
@@ -28,5 +33,21 @@ services:
     ports:
       - "6379:6379"
 
+  ffc-sfi-apply-web-test-azurite:
+    image: mcr.microsoft.com/azure-storage/azurite
+    ports:
+      - "10007:10000"
+    command: "azurite-blob --loose --blobHost 0.0.0.0"
+    volumes:
+      - azurite_data:/data
+  mock-json-server:
+    image: clue/json-server
+    ports:
+      - "10008:80"
+    command: "--routes routes.json"
+    volumes:
+      - ./mocks/data:/data
+
 volumes:
   redis_data:
+  azurite_data:

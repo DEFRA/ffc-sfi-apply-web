@@ -1,8 +1,11 @@
 import mockResponseMessage from './mockResponseMessage'
 import { subscriptionConfig } from './mqConfig'
+import { BlobServiceClient } from '@azure/storage-blob'
+import { uploadParcelSpatialFile } from './upload-to-blob-storage'
 
 const organisationId = 5426800
 const standardsBody = require('../data/standards.json')
+const mockSpatialFile = require('../../fixtures/5426800.json')
 
 async function mockConfirmDetails () {
   const receiverConfig = {
@@ -10,17 +13,20 @@ async function mockConfirmDetails () {
     address: process.env.PARCELSPATIAL_SUBSCRIPTION_ADDRESS,
     topic: process.env.PARCELSPATIAL_TOPIC_ADDRESS
   }
+
   const baseResponseMessage = {
     body: {
       organisationId,
       filename: `${organisationId}.json`,
-      storageUrl: `https://ffclandmock.blob.core.windows.net/parcels-spatial/${organisationId}.json`
     },
     source: 'ffc-sfi-agreement-calculator',
     type: 'uk.gov.sfi.agreement.parcel.spatial.request.response'
   }
+
+  await uploadParcelSpatialFile(`${organisationId}.json`, mockSpatialFile)
   await mockResponseMessage(baseResponseMessage, process.env.PARCELSPATIALRESPONSE_QUEUE_ADDRESS, receiverConfig)
 }
+
 
 async function mockHowMuch () {
   const receiverConfig = {
@@ -215,16 +221,6 @@ async function mockEligibleOrganisations () {
   }
   await mockResponseMessage(baseResponseMessage, process.env.ELIGIBILITYRESPONSE_QUEUE_ADDRESS, receiverConfig)
 }
-
-async function uploadMocks () {
-  await mockSignIn()
-  await mockEligibleOrganisations()
-  await mockConfirmDetails()
-  await mockWhatFunding()
-  await mockWhatPaymentLevel()
-  await mockHowMuch()
-}
-
 /**
  * Mock async request/response.
  *
@@ -261,4 +257,4 @@ export default async responseType => {
     console.log('PR environment not found. Mocking is not active.')
   }
 }
-export { uploadMocks }
+export { mockSignIn, mockConfirmDetails, mockWhatFunding, mockEligibleOrganisations, mockHowMuch,mockWhatPaymentLevel }

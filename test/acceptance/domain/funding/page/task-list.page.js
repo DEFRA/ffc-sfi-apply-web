@@ -1,3 +1,5 @@
+import { mockConfirmDetails, mockWhatFunding, mockWhatPaymentLevel } from '../../../support/mock-utils/mockResponse'
+
 class TaskListPage {
   get #taskListParent () { return $('.app-task-list') }
 
@@ -6,9 +8,24 @@ class TaskListPage {
 
   async completeSection (number) {
     await this.#taskListParent.$$(this.#taskListLinkSelector)[number - 1].click()
+    if (process.env.PR_BUILD) {
+      switch (number) {
+        case     1 :
+          await mockConfirmDetails();
+          break
+        case     2 :
+          await mockWhatFunding();
+          break
+        case    3 :
+          await mockWhatPaymentLevel();
+          break
+        default    :
+          console.log("Section not recognised");
+      }
+    }
+
     const url = await browser.getUrl()
-    if(url.includes('#')){
-      return
+    if (url.includes('#')) {
     }
   }
 
