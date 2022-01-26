@@ -24,9 +24,7 @@ then
   echo "=============================="
   echo "Running Test on your machine"
   echo "=============================="
-  export TEST_ENVIRONMENT_ROOT_URL=http://localhost:3000
   npm run test:local
-  export TEST_ENVIRONMENT_ROOT_URL=''
 else
   echo "==================================="
   echo "Running Test using Docker Image"
