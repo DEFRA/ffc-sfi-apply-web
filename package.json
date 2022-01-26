@@ -34,7 +34,7 @@
   ],
   "license": "OGL-UK-3.0",
   "dependencies": {
-    "@azure/identity": "^1.5.2",
+    "@azure/identity": "^2.0.1",
     "@azure/storage-blob": "^12.8.0",
     "@hapi/boom": "^9.1.1",
     "@hapi/catbox-redis": "^6.0.2",
