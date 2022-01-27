@@ -6,6 +6,7 @@ test/acceptance/*.log
 test/acceptance/reports
 test/acceptance/html-reports
 .standard-v12-cache/
+.run
 .vscode
 app/static/stylesheets/*.css*
 lcov.info

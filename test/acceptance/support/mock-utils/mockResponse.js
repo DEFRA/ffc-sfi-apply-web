@@ -1,8 +1,11 @@
 import mockResponseMessage from './mockResponseMessage'
 import { subscriptionConfig } from './mqConfig'
+import { BlobServiceClient } from '@azure/storage-blob'
+import { uploadParcelSpatialFile } from './upload-to-blob-storage'
 
 const organisationId = 5426800
 const standardsBody = require('../data/standards.json')
+const mockSpatialFile = require('../../fixtures/5426800.json')
 
 async function mockConfirmDetails () {
   const receiverConfig = {
@@ -10,17 +13,20 @@ async function mockConfirmDetails () {
     address: process.env.PARCELSPATIAL_SUBSCRIPTION_ADDRESS,
     topic: process.env.PARCELSPATIAL_TOPIC_ADDRESS
   }
+
   const baseResponseMessage = {
     body: {
       organisationId,
       filename: `${organisationId}.json`,
-      storageUrl: `https://ffclandmock.blob.core.windows.net/parcels-spatial/${organisationId}.json`
     },
     source: 'ffc-sfi-agreement-calculator',
     type: 'uk.gov.sfi.agreement.parcel.spatial.request.response'
   }
+
+  await uploadParcelSpatialFile(`${organisationId}.json`, mockSpatialFile)
   await mockResponseMessage(baseResponseMessage, process.env.PARCELSPATIALRESPONSE_QUEUE_ADDRESS, receiverConfig)
 }
+
 
 async function mockHowMuch () {
   const receiverConfig = {
@@ -79,7 +85,14 @@ async function mockSignIn () {
     topic: process.env.ELIGIBILITY_TOPIC_ADDRESS
   }
   const baseResponseMessage = {
-    body: { eligibility: [ { sbi: 107700399, name: 'Test user', organisationId, address: 'A farm, Somewhere near, Somewhere far, AB12 3CD' } ] },
+    body: {
+      eligibility: [{
+        sbi: 107700399,
+        name: 'Test user',
+        organisationId,
+        address: 'A farm, Somewhere near, Somewhere far, AB12 3CD'
+      }]
+    },
     source: 'ffc-sfi-agreement-calculator',
     type: 'uk.gov.sfi.agreement.eligibility.request.response'
   }
@@ -92,35 +105,122 @@ async function mockEligibleOrganisations () {
     address: process.env.ELIGIBILITY_SUBSCRIPTION_ADDRESS,
     topic: process.env.ELIGIBILITY_TOPIC_ADDRESS
   }
+
   const baseResponseMessage = {
-    body: { eligibility: [
-         { sbi: 107103820, name: 'first', organisationId, address: 'Farm one, the field, long lane, AB12 4EF' },
-         { sbi: 106982014, name: 'second', organisationId, address: 'Farm two, paddy field, house martin, AB12 5GH' },
-         { sbi: 107365827, name: 'third', organisationId, address: 'Farm three, paddy field, house martin, AB12 5GH' },        
-         { sbi: 106899089, name: 'fourthOrganisation', organisationId, address: 'Farm one, the field, long lane, AB12 4EF' },
-         { sbi: 106889602, name: 'fifthOrganisation', organisationId, address: 'Farm two, paddy field, house martin, AB12 5GH' },
-         { sbi: 200656757, name: 'sixthOrganisation', organisationId, address: 'Farm three, paddy field, house martin, AB12 5GH' },           
-         { sbi: 107008163, name: 'seventhOrganisation', organisationId, address: 'Farm one, the field, long lane, AB12 4EF' },
-         { sbi: 122200885, name: 'eighthOrganisation', organisationId, address: 'Farm two, paddy field, house martin, AB12 5GH' },
-         { sbi: 107082108, name: 'ninthOrganisation', organisationId, address: 'Farm three, paddy field, house martin, AB12 5GH' },        
-         { sbi: 106940295, name: 'tenthOrganisation', organisationId, address: 'Farm one, the field, long lane, AB12 4EF' },
-         { sbi: 200156320, name: 'elevenOrganisation', organisationId, address: 'Farm two, paddy field, house martin, AB12 5GH' },
-         { sbi: 106505265, name: 'twelveOrganisation', organisationId, address: 'Farm one, the field, long lane, AB12 4EF' },       
-         { sbi: 113377765, name: 'thirteenOrganisation', organisationId, address: 'Farm three, paddy field, house martin, AB12 5GH' },            
-         { sbi: 120950220, name: 'fourteenOrganisation', organisationId, address: 'Farm one, the field, long lane, AB12 4EF' },
-         { sbi: 106980125, name: 'fifteenOrganisation', organisationId, address: 'Farm two, paddy field, house martin, AB12 5GH' },
-         { sbi: 106929871, name: 'sixteenOrganisation', organisationId, address: 'Farm three, paddy field, house martin, AB12 5GH' },        
-         { sbi: 111766409, name: 'seventeenOrganisation', organisationId, address: 'Farm one, the field, long lane, AB12 4EF' },
-         { sbi: 107114300, name: 'eighteenOrganisation', organisationId, address: 'Farm two, paddy field, house martin, AB12 5GH' },
-         { sbi: 122327923, name: 'nineteenOrganisation', organisationId, address: 'Farm three, paddy field, house martin, AB12 5GH' },         
-         { sbi: 107700399, name: 'Test user', organisationId, address: 'A farm, Somewhere near, Somewhere far, AB12 3CD' } 
-        ] },
+    body: {
+      eligibility: [
+        { sbi: 107103820, name: 'first', organisationId, address: 'Farm one, the field, long lane, AB12 4EF' },
+        { sbi: 106982014, name: 'second', organisationId, address: 'Farm two, paddy field, house martin, AB12 5GH' },
+        { sbi: 107365827, name: 'third', organisationId, address: 'Farm three, paddy field, house martin, AB12 5GH' },
+        {
+          sbi: 106899089,
+          name: 'fourthOrganisation',
+          organisationId,
+          address: 'Farm one, the field, long lane, AB12 4EF'
+        },
+        {
+          sbi: 106889602,
+          name: 'fifthOrganisation',
+          organisationId,
+          address: 'Farm two, paddy field, house martin, AB12 5GH'
+        },
+        {
+          sbi: 200656757,
+          name: 'sixthOrganisation',
+          organisationId,
+          address: 'Farm three, paddy field, house martin, AB12 5GH'
+        },
+        {
+          sbi: 107008163,
+          name: 'seventhOrganisation',
+          organisationId,
+          address: 'Farm one, the field, long lane, AB12 4EF'
+        },
+        {
+          sbi: 122200885,
+          name: 'eighthOrganisation',
+          organisationId,
+          address: 'Farm two, paddy field, house martin, AB12 5GH'
+        },
+        {
+          sbi: 107082108,
+          name: 'ninthOrganisation',
+          organisationId,
+          address: 'Farm three, paddy field, house martin, AB12 5GH'
+        },
+        {
+          sbi: 106940295,
+          name: 'tenthOrganisation',
+          organisationId,
+          address: 'Farm one, the field, long lane, AB12 4EF'
+        },
+        {
+          sbi: 200156320,
+          name: 'elevenOrganisation',
+          organisationId,
+          address: 'Farm two, paddy field, house martin, AB12 5GH'
+        },
+        {
+          sbi: 106505265,
+          name: 'twelveOrganisation',
+          organisationId,
+          address: 'Farm one, the field, long lane, AB12 4EF'
+        },
+        {
+          sbi: 113377765,
+          name: 'thirteenOrganisation',
+          organisationId,
+          address: 'Farm three, paddy field, house martin, AB12 5GH'
+        },
+        {
+          sbi: 120950220,
+          name: 'fourteenOrganisation',
+          organisationId,
+          address: 'Farm one, the field, long lane, AB12 4EF'
+        },
+        {
+          sbi: 106980125,
+          name: 'fifteenOrganisation',
+          organisationId,
+          address: 'Farm two, paddy field, house martin, AB12 5GH'
+        },
+        {
+          sbi: 106929871,
+          name: 'sixteenOrganisation',
+          organisationId,
+          address: 'Farm three, paddy field, house martin, AB12 5GH'
+        },
+        {
+          sbi: 111766409,
+          name: 'seventeenOrganisation',
+          organisationId,
+          address: 'Farm one, the field, long lane, AB12 4EF'
+        },
+        {
+          sbi: 107114300,
+          name: 'eighteenOrganisation',
+          organisationId,
+          address: 'Farm two, paddy field, house martin, AB12 5GH'
+        },
+        {
+          sbi: 122327923,
+          name: 'nineteenOrganisation',
+          organisationId,
+          address: 'Farm three, paddy field, house martin, AB12 5GH'
+        },
+        {
+          sbi: 107700399,
+          name: 'Test user',
+          organisationId,
+          address: 'A farm, Somewhere near, Somewhere far, AB12 3CD'
+        }
+      ]
+    },
     source: 'ffc-sfi-agreement-calculator',
     type: 'uk.gov.sfi.agreement.eligibility.request.response'
   }
   await mockResponseMessage(baseResponseMessage, process.env.ELIGIBILITYRESPONSE_QUEUE_ADDRESS, receiverConfig)
 }
-
 /**
  * Mock async request/response.
  *
@@ -157,3 +257,4 @@ export default async responseType => {
     console.log('PR environment not found. Mocking is not active.')
   }
 }
+export { mockSignIn, mockConfirmDetails, mockWhatFunding, mockEligibleOrganisations, mockHowMuch,mockWhatPaymentLevel }

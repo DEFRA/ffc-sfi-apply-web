@@ -17,7 +17,7 @@ import setCookie from '../support/action/setCookie'
 import setInputField from '../support/action/setInputField'
 import setPromptText from '../support/action/setPromptText'
 import whatFund from '../page-objects/what-fund'
-import signIn from '../page-objects/login'
+import signIn from '../domain/auth/page/signin.page'
 
 
 import { When } from '@wdio/cucumber-framework'

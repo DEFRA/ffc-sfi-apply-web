@@ -1,4 +1,4 @@
-import Page from './page'
+import Page from '../domain/page'
 
 class StartPage extends Page {
   get startNewClaim () { return $('.govuk-button--start') }

@@ -10,11 +10,11 @@
 
 exports.hooks = {
   /**
-     * Gets executed once before all workers get launched.
-     * @param {Object} config wdio configuration object
-     * @param {Array.<Object>} capabilities list of capabilities details
-     */
-  // onPrepare: function (config, capabilities) {
+   * Gets executed once before all workers get launched.
+   * @param {Object} config wdio configuration object
+   * @param {Array.<Object>} capabilities list of capabilities details
+   */
+  // onPrepare: async function (config, capabilities) {
   // },
   /**
      * Gets executed before a worker process is spawned & can be used to initialize specific service
@@ -35,21 +35,22 @@ exports.hooks = {
      * @param {Array.<Object>} capabilities list of capabilities details
      * @param {Array.<String>} specs List of spec file paths that are to be run
      */
-  // beforeSession: function (config, capabilities, specs) {
+  // beforeSession: async function (config, capabilities, specs) {
   // },
   /**
-     * Gets executed before test execution begins. At this point you can access to all global
-     * variables like `browser`. It is the perfect place to define custom commands.
-     * @param {Array.<Object>} capabilities list of capabilities details
-     * @param {Array.<String>} specs List of spec file paths that are to be run
-     */
-  // before: function (capabilities, specs) {
+   * Gets executed before test execution begins. At this point you can access to all global
+   * variables like `browser`. It is the perfect place to define custom commands.
+   * @param {Array.<Object>} capabilities list of capabilities details
+   * @param {Array.<String>} specs        List of spec file paths that are to be run
+   * @param {Object}         browser      instance of created browser/device session
+   */
+  // before: async function (capabilities, specs, browser) {
   // },
   /**
      * Gets executed before the suite starts.
      * @param {Object} suite suite details
      */
-  // beforeSuite: function (suite) {
+  // beforeSuite: async function (suite) {
   // },
   /**
      * This hook gets executed _before_ every hook within the suite starts.
@@ -132,7 +133,7 @@ exports.hooks = {
      * @param {String} oldSessionId session ID of the old session
      * @param {String} newSessionId session ID of the new session
      */
-  // onReload: function (oldSessionId, newSessionId) {
+  // onReload: async function (oldSessionId, newSessionId) {
   // },
   /**
      * Cucumber-specific hooks
@@ -145,7 +146,7 @@ exports.hooks = {
   // },
   // afterStep: function ({uri, feature, step}, context, {error, result, duration, passed}) {
   // },
-  // afterScenario: function (uri, feature, scenario, result, sourceLocation) {
+  // afterScenario: async function (uri, feature, scenario, result, sourceLocation) {
   // },
   // afterFeature: function (uri, feature, scenarios) {
   // }

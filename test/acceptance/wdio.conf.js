@@ -1,6 +1,7 @@
 const { ReportAggregator, HtmlReporter } = require('@rpii/wdio-html-reporter')
 const log4js = require('@log4js-node/log4js-api')
 const path = require('path')
+const { hooks } = require('./support/hooks')
 const logger = log4js.getLogger('default')
 const envRoot = (process.env.TEST_ENVIRONMENT_ROOT_URL || 'http://host.docker.internal:3000')
 const chromeArgs = process.env.CHROME_ARGS ? process.env.CHROME_ARGS.split(' ') : []
@@ -57,6 +58,11 @@ exports.config = {
   // ====
   // Hooks
   // =====
+  /**
+   * Gets executed once before all workers get launched.
+   * @param {Object} config wdio configuration object
+   * @param {Array.<Object>} capabilities list of capabilities details
+   */
   onPrepare: async function (config, capabilities) {
     const reportAggregator = new ReportAggregator({
       outputDir: './html-reports/',
@@ -72,13 +78,6 @@ exports.config = {
     (async () => {
       await global.reportAggregator.createReport()
     })()
-  },
-
-  before: function () {
-    const chai = require('chai')
-    global.expect = chai.expect
-    global.assert = chai.assert
-    global.should = chai.should()
   },
 
   afterStep: async (step, scenario, result, context) => {
@@ -102,6 +101,8 @@ exports.config = {
    * @param {Object}                 context  Cucumber World object
    */
   beforeScenario: async (world, context) => {
-    await browser.deleteCookie('ffc_sfi_identity')
-  }
+    console.log("Clearing SFI Cookie")
+    await browser.deleteAllCookies()
+  },
+  ...hooks
 }

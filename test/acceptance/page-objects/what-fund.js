@@ -1,4 +1,4 @@
-import Page from './page'
+import Page from '../domain/page'
 
 class whatFund extends Page {
   get arableSoil () { return $('#standard') }
