@@ -31,15 +31,15 @@ module.exports = [{
   active: false,
   completed: false,
   tasks: [{
-    name: 'Arable and horticultural soil actions',
+    name: 'Work on arable and horticultural soil',
     url: '/arable/organic-matter',
     status: 'NOT STARTED YET'
   }, {
     name: 'Select arable and horticultural soil land parcels',
-    url: '#',
+    url: '/arable/select-arable-parcels',
     status: 'CANNOT START YET'
   }, {
-    name: 'Optional arable and horticultural soil actions',
+    name: 'Additional work on arable and horticultural soil',
     url: '#',
     status: 'CANNOT START YET'
   }]
@@ -48,7 +48,7 @@ module.exports = [{
   active: false,
   completed: false,
   tasks: [{
-    name: 'Improved grassland soil actions',
+    name: 'Work on improved grassland soil',
     url: '#',
     status: 'CANNOT START YET'
   }, {
@@ -56,7 +56,7 @@ module.exports = [{
     url: '#',
     status: 'CANNOT START YET'
   }, {
-    name: 'Optional improved grassland soil actions',
+    name: 'Additional work on improved grassland soil',
     url: '#',
     status: 'CANNOT START YET'
   }]
@@ -65,7 +65,7 @@ module.exports = [{
   active: false,
   completed: false,
   tasks: [{
-    name: 'Moorlands and rough grazing actions',
+    name: 'Work on moorlands and rough grazing',
     url: '#',
     status: 'CANNOT START YET'
   }]

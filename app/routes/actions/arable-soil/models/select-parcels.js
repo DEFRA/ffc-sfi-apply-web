@@ -1,4 +1,4 @@
-const { convertToInteger, convertToDecimal } = require('../../../conversion')
+const { convertToInteger, convertToDecimal } = require('../../../../conversion')
 
 function ViewModel (selectedLandCovers, parcelStandards, payload) {
   const parcels = groupParcels(parcelStandards.landCovers)

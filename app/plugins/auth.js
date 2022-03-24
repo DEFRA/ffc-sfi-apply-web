@@ -31,6 +31,13 @@ module.exports = {
         }
       })
       server.auth.default({ strategy: 'session', mode: 'required' })
+      server.ext('onPreResponse', (request, h) => {
+        const statusCode = request.response.statusCode
+        if (request.response.variety === 'view' && statusCode !== 404 && statusCode !== 500 && request.response.source.manager._context) {
+          request.response.source.manager._context.isAuthenticated = request.auth.isAuthenticated
+        }
+        return h.continue
+      })
     }
   }
 }
