@@ -28,9 +28,16 @@
           <form method="POST" autocomplete="off" novalidate>
             <input type="hidden" name="crumb" value="{{crumb}}"/>
 
-            <h1 class="govuk-heading-l">
-              How much land do you want to use in the scheme?
-            </h1>
+            <span class="govuk-caption-l">Arable and horticultural soil</span>
+            <h1 class="govuk-heading-l">Select arable and horticultural land parcels </h1>
+            <p class="govuk-body">Select the parcels you want to use. Do not include areas of peat or unimproved grassland.</p>
+            <h2 class="govuk-heading-m">Making changes to the selected land</h2>
+            <p class="govuk-body">As part of the yearly review of your agreement you can:</p>
+            <ul class="govuk-list govuk-list--bullet">
+              <li>add more land </li>
+              <li>change what you do on the land </li>
+            </ul>
+            <p class="govuk-body">You will not be able to remove land until the end of your agreement.</p>
 
           {% if map.apiKey != '' %}
           <div class="govuk-form-group">
