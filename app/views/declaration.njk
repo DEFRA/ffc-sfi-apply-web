@@ -29,29 +29,36 @@
       <form method="POST" action="/declaration" novalidate>
         <input type="hidden" name="crumb" value="{{crumb}}"/>
 
-        <h1 class="govuk-heading-l">Declaration</h1>
+        <h1 class="govuk-heading-l">
+          Submit your application 
+        </h1>
 
-        <p class="govuk-body">
-        By sending the application you agree that:
-      </p>
-
+        <p class="govuk-body">By submitting the application you confirm that:</p>
         <ul class="govuk-list govuk-list--bullet">
-          <li>the information you’ve given is correct</li>
-          <li>you’ll carry out the land actions in your agreement</li>
-          <li>you’ll follow the <a href="#">cross-compliance</a> rules</li>
+          <li>the information you've given is correct </li>
+          <li>you can do the work you have chosen</li>
         </ul>
 
-        {{ govukWarningText({
-        text: "You could be prosecuted or have to pay a financial penalty if you deliberately give the wrong or incomplete information, or don’t report changes.",
-        iconFallbackText: "Warning"
-      }) }}
+        <p class="govuk-body">If you give the wrong information you may: </p>
+        <ul class="govuk-list govuk-list--bullet">
+          <li>be refused funding </li>
+          <li>have to pay money back if you don't correct any errors before you sign your agreement</li>
+          <li>have to wait longer to get an agreement or funding </li>
+        </ul>
+
+        <p class="govuk-body">You will be able make changes to the agreement every 12 months. This may include:</p>
+        <ul class="govuk-list govuk-list--bullet">
+          <li>adding more land </li>
+          <li>agreeing to do more work on the land </li>
+          <li>changing what you do on the land</li>
+        </ul>
 
         {{ govukButton({
-        text: "I agree - send my application",
-        attributes: {
-          id: "submit"
-        }
-      }) }}
+          text: "Submit my application",
+          attributes: {
+            id: "submit"
+          }
+        }) }}
 
       </form>
     </div>

@@ -75,7 +75,7 @@ module.exports = [{
   completed: false,
   tasks: [{
     name: 'Check your answers',
-    url: '#',
+    url: '/check-answers',
     status: 'CANNOT START YET'
   }]
 }, {

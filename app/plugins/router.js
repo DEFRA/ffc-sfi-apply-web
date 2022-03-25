@@ -22,6 +22,7 @@ const routes = [].concat(
   require('../routes/actions/arable-soil/diversify-species'),
   require('../routes/actions/arable-soil/qualify-extra'),
   require('../routes/save'),
+  require('../routes/check-answers'),
   require('../routes/declaration'),
   require('../routes/confirmation')
 )
