@@ -4,7 +4,6 @@ const status = require('./status')
 const inProgress = status.find(x => x.name === 'In progress')
 
 // Undefined values added to make intended structure clear
-// TODO: set values back to 0 once calculation added
 const AGREEMENT = {
   agreementNumber: undefined,
   confirmed: false,
@@ -29,7 +28,8 @@ const AGREEMENT = {
       canAssessSoil: undefined,
       canDiversifySpecies: undefined,
       landCovers: [],
-      paymentAmount: 100
+      rate: 0,
+      paymentAmount: 0
     },
     'sfi-improved-grassland': {
       active: false,
@@ -41,13 +41,15 @@ const AGREEMENT = {
       canAssessSoil: undefined,
       canEstablishHerbalLeys: undefined,
       landCovers: [],
-      paymentAmount: 100
+      rate: 0,
+      paymentAmount: 0
     },
     'sfi-moorland': {
       active: false,
       actionsComplete: false,
       optionalActionsComplete: false,
-      paymentAmount: 100
+      rate: 0,
+      paymentAmount: 0
     },
     paymentAmount: 300
   }

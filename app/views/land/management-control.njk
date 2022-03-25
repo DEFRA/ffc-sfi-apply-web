@@ -34,13 +34,19 @@
           name: "hasManagementControl",
           fieldset: {
             legend: {
-              text: "Do you have management control of this land?",
+              text: "Will you have management control of this land?",
               isPageHeading: true,
               classes: "govuk-fieldset__legend--l"
             }
           },
           hint: {
-            text: "You must have a land management control agreement to apply for the scheme."
+            html: "<p class=\"govuk-body\">You should have land management control for the full 3 years of the agreement.</p>
+                  <p class=\"govuk-body\">If you have less than 2 years left on the term of your tenancy, you will only be able to apply for funding if you:</p>
+                  <ul class='govuk-list govuk-list--bullet'>
+                    <li>renew the tenancy early</li>
+                    <li>wait until you have renewed the tenancy and apply after</li>
+                  </ul>
+                  <p class=\"govuk-body\">If you have a licence arrangement, contact the Rural Payments Agency.</p>"
           },
           items: [
             {

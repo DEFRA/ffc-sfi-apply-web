@@ -87,8 +87,8 @@ module.exports = {
     }),
     new HtmlWebpackPlugin({
       inject: false,
-      filename: '../views/funding/how-much.njk',
-      template: 'app/views/funding/how-much.template.njk',
+      filename: '../views/actions/arable-soil/select-parcels.njk',
+      template: 'app/views/actions/arable-soil/select-parcels.template.njk',
       chunks: ['map']
     }),
     new MiniCssExtractPlugin({

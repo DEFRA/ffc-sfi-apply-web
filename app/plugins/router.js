@@ -13,12 +13,16 @@ const routes = [].concat(
   require('../routes/land/management-control'),
   require('../routes/land/change-land-details'),
   require('../routes/funding/what-funding'),
-  require('../routes/funding/how-much'),
   require('../routes/actions/arable-soil/organic-matter'),
   require('../routes/actions/arable-soil/produce-plan'),
   require('../routes/actions/arable-soil/green-cover'),
   require('../routes/actions/arable-soil/add-organic-matter'),
+  require('../routes/actions/arable-soil/select-parcels'),
+  require('../routes/actions/arable-soil/qualify'),
+  require('../routes/actions/arable-soil/diversify-species'),
+  require('../routes/actions/arable-soil/qualify-extra'),
   require('../routes/save'),
+  require('../routes/check-answers'),
   require('../routes/declaration'),
   require('../routes/confirmation')
 )
