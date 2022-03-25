@@ -18,6 +18,7 @@ const routes = [].concat(
   require('../routes/actions/arable-soil/green-cover'),
   require('../routes/actions/arable-soil/add-organic-matter'),
   require('../routes/actions/arable-soil/select-parcels'),
+  require('../routes/actions/arable-soil/qualify'),
   require('../routes/save'),
   require('../routes/declaration'),
   require('../routes/confirmation')

@@ -64,7 +64,7 @@ module.exports = [{
         return h.view('actions/arable-soil/select-parcels', viewModel).code(400).takeover()
       }
       await save(request)
-      return h.redirect('/task-list')
+      return h.redirect('/arable/qualify-for-arable-funding')
     }
   }
 }]

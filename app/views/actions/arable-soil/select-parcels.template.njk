@@ -56,17 +56,7 @@
           <p id="parcelInfo" class="govuk-body"></p>
           <div class="govuk-hint">
         Choose the land parcels you want to use and add the number of hectares. You cannot use land designated as SSSI or peat.
-      </div>
-          {% if model.invalidValues %}
-            {{ govukErrorSummary({
-          titleText: "There is a problem",
-          errorList: [
-            {
-              text: "Please enter valid values"
-            }
-          ]
-        }) }}
-          {% endif %}
+      </div>         
 
           {% if model.error %}
             <span id="parcels-error" class="govuk-error-message">

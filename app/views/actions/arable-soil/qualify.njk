@@ -1,0 +1,53 @@
+{% extends '_layout.njk' %}
+{% set mainClasses = "govuk-main-wrapper--auto-spacing" %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+
+{% block beforeContent %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-one-half">
+      {{ govukBackLink({
+        text: "Back",
+        href: "/arable/select-parcels",
+        attributes: {
+          id: "back"
+        }
+        }) 
+      }}
+    </div>
+    <div class="govuk-grid-column-one-half">
+      {% include "save/save.njk" %}
+    </div>
+  </div>
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <span class="govuk-caption-l">Arable and horticultural soil</span>
+      <h1 class="govuk-heading-l">
+        You qualify for funding
+      </h1>
+
+      <p class="govuk-body">Based on your answers you qualify for £{{ paymentAmount }} per year of funding.</p>
+
+      <p class="govuk-body">This is based on £{{ rate }} per hectare.</p>
+
+
+      <h2 class="govuk-heading-m">Get more sustainable farming funding</h2>
+
+      <p class="govuk-body">You can get an extra £18 per hectare if you are able to do more sustainable farming work on the arable and horticultural soil.</p>
+
+
+      {{ govukButton({
+        text: "Continue",
+        href: "/task-list",
+        attributes: {
+          id: "submit"
+        }
+      }) }}
+    </div>
+  </div>
+{% endblock %}
