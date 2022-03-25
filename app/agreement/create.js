@@ -4,7 +4,6 @@ const status = require('./status')
 const inProgress = status.find(x => x.name === 'In progress')
 
 // Undefined values added to make intended structure clear
-// TODO: set values back to 0 once calculation added
 const AGREEMENT = {
   agreementNumber: undefined,
   confirmed: false,

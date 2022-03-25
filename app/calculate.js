@@ -4,7 +4,7 @@ const { sendMessage, receiveMessage } = require('./messaging')
 const { v4: uuidv4 } = require('uuid')
 const util = require('util')
 
-const getCalculation = async (request, standardCode, level) => {
+const getCalculation = async (request, standardCode, level, additional = false) => {
   const { agreement } = await cache.get(request)
   const { action } = agreement
   const calculation = await requestCalculation(standardCode, action[standardCode].landCovers)
