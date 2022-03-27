@@ -29,7 +29,8 @@ const AGREEMENT = {
       canDiversifySpecies: undefined,
       landCovers: [],
       rate: 0,
-      paymentAmount: 0
+      paymentAmount: 0,
+      additionalPaymentAmount: 0
     },
     'sfi-improved-grassland': {
       active: false,
@@ -42,16 +43,18 @@ const AGREEMENT = {
       canEstablishHerbalLeys: undefined,
       landCovers: [],
       rate: 0,
-      paymentAmount: 0
+      paymentAmount: 0,
+      additionalPaymentAmount: 0
     },
     'sfi-moorland': {
       active: false,
       actionsComplete: false,
       optionalActionsComplete: false,
       rate: 0,
-      paymentAmount: 0
+      paymentAmount: 0,
+      additionalPaymentAmount: 0
     },
-    paymentAmount: 300
+    paymentAmount: 0
   }
 }
 

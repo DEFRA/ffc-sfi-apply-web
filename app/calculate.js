@@ -9,7 +9,11 @@ const getCalculation = async (request, standardCode, level, additional = false) 
   const { action } = agreement
   const calculation = await requestCalculation(standardCode, action[standardCode].landCovers)
   const { paymentAmount, rate } = calculation[level]
-  await cache.update(request, { action: { standardCode: { paymentAmount, rate } } })
+  if (!additional) {
+    await cache.update(request, { action: { standardCode: { paymentAmount, rate } } })
+  } else {
+    await cache.update(request, { action: { standardCode: { additionalPaymentAmount: paymentAmount } } })
+  }
   return { paymentAmount, rate }
 }
 
