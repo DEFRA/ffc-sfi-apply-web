@@ -7,7 +7,7 @@ module.exports = [{
   path: '/arable/qualify-for-extra-arable-funding',
   options: {
     handler: async (request, h) => {
-      const calculation = await getCalculation(request, STANDARD_CODE, LEVEL)
+      const calculation = await getCalculation(request, STANDARD_CODE, LEVEL, true)
       if (!calculation) {
         return h.view('no-response')
       }
