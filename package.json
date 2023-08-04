@@ -50,7 +50,7 @@
     "ffc-messaging": "^2.3.1",
     "govuk-frontend": "^3.14.0",
     "hapi-pino": "^8.3.0",
-    "joi": "^17.4.0",
+    "joi": "^17.9.2",
     "nunjucks": "^3.2.3",
     "ol": "^6.5.0",
     "uuid": "^8.3.2"
