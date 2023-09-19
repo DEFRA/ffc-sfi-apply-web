@@ -38,10 +38,10 @@ Values for development are set in the Docker Compose configuration. Default
 values for production-like deployments are set in the Helm chart and may be
 overridden by build and release pipelines.
 
-| Name           | Description                      |
-| ----           | -----------                      |
-| CH_API_GATEWAY | API Gatway URL for Crown Hosting |
-| OS_MAP_API_KEY | Ordnance Survey API key          |
+| Name           | Description                       |
+| ----           | -----------                       |
+| CH_API_GATEWAY | API Gateway URL for Crown Hosting |
+| OS_MAP_API_KEY | Ordnance Survey API key           |
 
 ## Running the application
 
