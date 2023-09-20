@@ -1,7 +1,7 @@
 const hoek = require('@hapi/hoek')
 
 const getKey = (request) => {
-  return request.state.ffc_sfi_identity.sid
+  return request.auth.credentials.sessionId
 }
 
 const getCache = (request) => {
