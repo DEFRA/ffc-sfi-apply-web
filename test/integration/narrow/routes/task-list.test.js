@@ -9,7 +9,7 @@ describe('change land details route', () => {
   let cachedData
 
   beforeEach(async () => {
-    auth = { strategy: 'jwt', credentials: { name: 'A Farmer' } } 
+    auth = { strategy: 'jwt', credentials: { name: 'A Farmer' } }
     cachedData = {
       crn: 123456789,
       agreement: createAgreement()
