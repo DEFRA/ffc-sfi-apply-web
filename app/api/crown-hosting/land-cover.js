@@ -1,8 +1,8 @@
 const { convertToInteger, convertToDecimal } = require('../../conversion')
 const { get } = require('./base')
 
-const getLandCovers = async (organisationId, callerId) => {
-  const parcels = await get(`/lms/organisation/${organisationId}/land-covers`, callerId)
+const getLandCovers = async (organisationId, crn, token) => {
+  const parcels = await get(`/lms/organisation/${organisationId}/land-covers`, crn, token)
   const landCovers = []
 
   for (const parcel of parcels.payload) {

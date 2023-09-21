@@ -4,11 +4,12 @@ const cache = require('../cache')
 const getParcelSpatial = require('./parcel-spatial')
 const { downloadParcelSpatialFile } = require('../storage')
 const { getLandCovers } = require('../api/crown-hosting/land-cover')
+const { AUTH_COOKIE_NAME } = require('../constants/cookies')
 
 const getLand = async (request, parcels) => {
-  const { agreement, callerId } = await cache.get(request)
+  const { agreement, crn } = await cache.get(request)
   const { organisation } = agreement
-  const { totalHectares, landCovers } = await getLandCovers(organisation.organisationId, callerId)
+  const { totalHectares, landCovers } = await getLandCovers(organisation.organisationId, crn, request.state[AUTH_COOKIE_NAME])
 
   const mapStyle = ''
   const apiKey = config.osMapApiKey || ''
