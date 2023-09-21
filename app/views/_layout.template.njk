@@ -55,12 +55,7 @@
 
 {% block beforeContent %}
   {% if auth.isAuthenticated %}
-    <div class="gov-grid-row">
-      <div style="float:right;clear:both;text-align:right;">
-        <p class="govuk-body govuk-!-margin-bottom-0">Signed in as <a href="/start-application" class="govuk-link">{{ auth.credentials.name }}</a></p>
-        <p class="govuk-body"><a href="/sign-out" class="govuk-link">Sign out</a></p>
-      </div>
-    </div>
+    <a href="/logout" class="govuk-link">Sign out</a>
   {% endif %}
 {% endblock %}
 
