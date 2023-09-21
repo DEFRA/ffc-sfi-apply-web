@@ -23,15 +23,15 @@ describe('change land details route', () => {
     await server.stop()
   })
 
-  test('GET /change-land-details without auth returns 302', async () => {
+  test('GET /change-land-details without auth returns 401', async () => {
     const options = {
       method: 'GET',
       url: '/change-land-details'
     }
 
     const result = await server.inject(options)
-    expect(result.statusCode).toBe(302)
-    expect(result.headers.location).toBe('/login')
+    expect(result.statusCode).toBe(401)
+    expect(result.headers.location).toBe('/sign-in')
   })
 
   test('GET /change-land-details with auth returns 200', async () => {

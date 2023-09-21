@@ -66,7 +66,7 @@ describe('eligible-organisations route', () => {
     }
 
     const result = await server.inject(options)
-    expect(result.statusCode).toBe(302)
+    expect(result.statusCode).toBe(401)
   })
 
   test('GET /eligible-organisations returns eligible-organisations view', async () => {
