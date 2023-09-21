@@ -40,6 +40,7 @@ const getEligibility = require('../../app/eligibility')
 
 describe('process eligibility message', () => {
   const request = {
+    auth: { credentials: { sessionId: '1234567890' } },
     state: { [AUTH_COOKIE_NAME]: { sessionId: '1234567890' } },
     server: {
       app: {
