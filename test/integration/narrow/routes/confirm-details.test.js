@@ -9,10 +9,10 @@ describe('confirm details route', () => {
   const mockCache = require('../../../../app/cache')
   let server
   let auth
-  const callerId = 123456789
+  const crn = 123456789
 
   beforeEach(async () => {
-    auth = { strategy: 'session', credentials: { name: 'A Farmer' } }
+    auth = { strategy: 'jwt', credentials: { name: 'A Farmer' } }
 
     mockGetLand.mockResolvedValue(
       {
@@ -21,7 +21,7 @@ describe('confirm details route', () => {
     )
 
     mockCache.get.mockResolvedValue({
-      callerId
+      crn
     })
 
     server = await createServer()

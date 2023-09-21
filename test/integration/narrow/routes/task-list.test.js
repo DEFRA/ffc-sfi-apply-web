@@ -9,9 +9,9 @@ describe('change land details route', () => {
   let cachedData
 
   beforeEach(async () => {
-    auth = { strategy: 'session', credentials: { name: 'A Farmer' } }
+    auth = { strategy: 'jwt', credentials: { name: 'A Farmer' } }
     cachedData = {
-      callerId: 1234567,
+      crn: 123456789,
       agreement: createAgreement()
     }
     mockCache.get.mockResolvedValue(cachedData)

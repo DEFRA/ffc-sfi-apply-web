@@ -11,7 +11,7 @@ describe('arable soil green cover route', () => {
   let cachedData
 
   beforeEach(async () => {
-    auth = { strategy: 'session', credentials: { name: 'A Farmer' } }
+    auth = { strategy: 'jwt', credentials: { name: 'A Farmer' } }
     cachedData = {
       agreement: {
         action: {

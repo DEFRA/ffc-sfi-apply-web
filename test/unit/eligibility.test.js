@@ -1,4 +1,3 @@
-const callerId = 123456
 const crn = 1234567890
 const organisationId = 1234567
 const name = 'Title Forename LastName'
@@ -36,15 +35,16 @@ jest.mock('ffc-messaging', () => {
   }
 })
 
+const { AUTH_COOKIE_NAME } = require('../../app/constants/cookies')
 const getEligibility = require('../../app/eligibility')
 
 describe('process eligibility message', () => {
   const request = {
-    state: { ffc_sfi_identity: { sid: '1234567890' } },
+    state: { [AUTH_COOKIE_NAME]: { sessionId: '1234567890' } },
     server: {
       app: {
         cache: {
-          get: () => ({ crn, callerId }),
+          get: () => ({ crn }),
           set: () => jest.fn()
         }
       }

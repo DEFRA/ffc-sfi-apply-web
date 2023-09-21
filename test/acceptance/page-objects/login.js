@@ -3,7 +3,6 @@ import Page from './page'
 class signIn extends Page {
 
   get crnField () { return $('#crn') }
-  get callerIdField () { return $('#callerId') }
   get pwdField () { return $('#password') }
   get signin () {return $('#submit')}
   get otherSigninLink () { return $('//summary/span') }
@@ -22,10 +21,6 @@ class signIn extends Page {
 
   async clearCrnNumber() {
     await (await this.crnField).clearValue()
-  }
-
-  async enterCallerIDNumber(callerId) {
-    await (await this.callerIdField).setValue(callerId);
   }
 
   async enterPassword(passwordNumber) {

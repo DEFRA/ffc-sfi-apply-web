@@ -11,7 +11,7 @@ describe('arable soil organic matter route', () => {
   let cachedData
 
   beforeEach(async () => {
-    auth = { strategy: 'session', credentials: { name: 'A Farmer' } }
+    auth = { strategy: 'jwt', credentials: { name: 'A Farmer' } }
     cachedData = {
       agreement: {
         action: {

@@ -14,7 +14,6 @@ describe('what-funding route', () => {
 
   const initialCache = {
     crn: 123456789,
-    callerId: 1234567,
     navigation: {
       previous: 'task-list'
     },
@@ -83,7 +82,7 @@ describe('what-funding route', () => {
   let populatedCache
 
   beforeEach(async () => {
-    auth = { strategy: 'session', credentials: { name: 'A Farmer' } }
+    auth = { strategy: 'jwt', credentials: { name: 'A Farmer' } }
 
     mockCache.get.mockResolvedValue(initialCache)
 
