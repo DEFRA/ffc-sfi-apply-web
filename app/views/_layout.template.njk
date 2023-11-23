@@ -54,7 +54,7 @@
 {% endblock %}
 
 {% block beforeContent %}
-  {% if isAuthenticated %}
+  {% if auth.isAuthenticated %}
     <a href="/logout" class="govuk-link">Sign out</a>
   {% endif %}
 {% endblock %}

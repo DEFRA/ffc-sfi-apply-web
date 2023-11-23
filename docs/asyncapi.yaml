@@ -37,9 +37,9 @@ components:
           crn:
             type: number
             description: Customer Reference Number
-          callerId:
-            type: number
-            description: Unique agreement reference for CRN
+          token:
+            type: string
+            description: Defra ID token
     EligibilityResponse:
       contentType: application/json
       payload:
@@ -80,9 +80,9 @@ components:
           organisationId:
             type: number
             description: Unique organisation reference
-          callerId:
-            type: number
-            description: Unique agreement reference for CRN
+          token:
+            type: string
+            description: Defra ID token
           sbi:
             type: number
             description: Single Business Identifier

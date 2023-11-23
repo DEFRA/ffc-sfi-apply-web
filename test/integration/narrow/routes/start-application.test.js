@@ -10,7 +10,7 @@ describe('start-application route', () => {
   let createServer
   let server
   let auth
-  const callerId = 123456789
+  const crn = 123456789
 
   const organisations = [{
     sbi: 123456789,
@@ -51,11 +51,11 @@ describe('start-application route', () => {
   }
 
   beforeEach(async () => {
-    auth = { strategy: 'session', credentials: { name: 'A Farmer' } }
+    auth = { strategy: 'jwt', credentials: { name: 'A Farmer' } }
 
     mockCache.get.mockResolvedValue(
       {
-        callerId,
+        crn,
         data: {
           eligibleOrganisations: organisations
         }

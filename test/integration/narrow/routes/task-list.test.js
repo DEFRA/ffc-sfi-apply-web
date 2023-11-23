@@ -9,9 +9,9 @@ describe('change land details route', () => {
   let cachedData
 
   beforeEach(async () => {
-    auth = { strategy: 'session', credentials: { name: 'A Farmer' } }
+    auth = { strategy: 'jwt', credentials: { name: 'A Farmer' } }
     cachedData = {
-      callerId: 1234567,
+      crn: 123456789,
       agreement: createAgreement()
     }
     mockCache.get.mockResolvedValue(cachedData)
@@ -24,15 +24,15 @@ describe('change land details route', () => {
     await server.stop()
   })
 
-  test('GET /task-list without auth returns 302', async () => {
+  test('GET /task-list without auth returns 401', async () => {
     const options = {
       method: 'GET',
       url: '/task-list'
     }
 
     const result = await server.inject(options)
-    expect(result.statusCode).toBe(302)
-    expect(result.headers.location).toBe('/login')
+    expect(result.statusCode).toBe(401)
+    expect(result.headers.location).toBe('/sign-in')
   })
 
   test('GET /task-list with auth returns 200', async () => {

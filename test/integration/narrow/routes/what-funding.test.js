@@ -14,7 +14,6 @@ describe('what-funding route', () => {
 
   const initialCache = {
     crn: 123456789,
-    callerId: 1234567,
     navigation: {
       previous: 'task-list'
     },
@@ -83,7 +82,7 @@ describe('what-funding route', () => {
   let populatedCache
 
   beforeEach(async () => {
-    auth = { strategy: 'session', credentials: { name: 'A Farmer' } }
+    auth = { strategy: 'jwt', credentials: { name: 'A Farmer' } }
 
     mockCache.get.mockResolvedValue(initialCache)
 
@@ -119,15 +118,15 @@ describe('what-funding route', () => {
     await server.stop()
   })
 
-  test('GET /what-funding without auth returns 302', async () => {
+  test('GET /what-funding without auth returns 401', async () => {
     const options = {
       method: 'GET',
       url: '/what-funding'
     }
 
     const result = await server.inject(options)
-    expect(result.statusCode).toBe(302)
-    expect(result.headers.location).toBe('/login')
+    expect(result.statusCode).toBe(401)
+    expect(result.headers.location).toBe('/sign-in')
   })
 
   test('GET /what-funding with auth returns 200', async () => {

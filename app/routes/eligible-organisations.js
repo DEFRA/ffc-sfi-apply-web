@@ -14,7 +14,7 @@ module.exports = [{
         page: Joi.number().integer().greater(0).default(1)
       }),
       failAction: async (request, h, error) => {
-        const eligibility = (await cache.get('agreement', request.yar.id)).application.eligibleOrganisations
+        const eligibility = (await cache.get(request)).application.eligibleOrganisations
         return h.view('eligible-organisations', { organisations: eligibility, ...new ViewModel() }).code(400).takeover()
       }
     },

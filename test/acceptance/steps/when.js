@@ -191,10 +191,6 @@ When(/^I clear crn number $/, async () => {
   await signIn.clearCrnNumber()
 })
 
-When(/^I enter callerId number (.*)$/, async (callerId) => {
-  await signIn.enterCallerIDNumber(callerId)
-})
-
 When(/^I enter password (.*)$/, async (passwordNumber) => {
   await signIn.enterPassword(passwordNumber)
 })

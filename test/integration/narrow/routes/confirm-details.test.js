@@ -9,10 +9,10 @@ describe('confirm details route', () => {
   const mockCache = require('../../../../app/cache')
   let server
   let auth
-  const callerId = 123456789
+  const crn = 123456789
 
   beforeEach(async () => {
-    auth = { strategy: 'session', credentials: { name: 'A Farmer' } }
+    auth = { strategy: 'jwt', credentials: { name: 'A Farmer' } }
 
     mockGetLand.mockResolvedValue(
       {
@@ -21,7 +21,7 @@ describe('confirm details route', () => {
     )
 
     mockCache.get.mockResolvedValue({
-      callerId
+      crn
     })
 
     server = await createServer()
@@ -55,15 +55,15 @@ describe('confirm details route', () => {
     expect(result.request.response.source.template).toBe('land/confirm-details')
   })
 
-  test('GET /confirm-details without auth returns 302', async () => {
+  test('GET /confirm-details without auth returns 401', async () => {
     const options = {
       method: 'GET',
       url: '/confirm-details'
     }
 
     const result = await server.inject(options)
-    expect(result.statusCode).toBe(302)
-    expect(result.headers.location).toBe('/login')
+    expect(result.statusCode).toBe(401)
+    expect(result.headers.location).toBe('/sign-in')
   })
 
   test('GET /confirm-details with auth no parcels returns /no-response view ', async () => {
@@ -80,15 +80,15 @@ describe('confirm details route', () => {
     expect(result.request.response.source.template).toBe('no-response')
   })
 
-  test('POST /confirm-details without auth returns 302', async () => {
+  test('POST /confirm-details without auth returns 401', async () => {
     const options = {
       method: 'POST',
       url: '/confirm-details'
     }
 
     const result = await server.inject(options)
-    expect(result.statusCode).toBe(302)
-    expect(result.headers.location).toBe('/login')
+    expect(result.statusCode).toBe(401)
+    expect(result.headers.location).toBe('/sign-in')
   })
 
   test('POST /confirm-details with auth redirects to /management-control', async () => {

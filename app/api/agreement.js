@@ -1,7 +1,7 @@
 const wreck = require('@hapi/wreck')
 const config = require('../config')
 
-const get = async (url, callerId) => {
+const get = async (url) => {
   return wreck.get(`${config.agreementApiEndpoint}${url}`, { json: true })
 }
 

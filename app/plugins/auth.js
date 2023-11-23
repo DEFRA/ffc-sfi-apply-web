@@ -1,43 +1,20 @@
-const config = require('../config').cookieConfig
+const { getKeys, validateToken } = require('../auth')
+const { RS256 } = require('../constants/algorithms')
+const { AUTH_COOKIE_NAME } = require('../constants/cookies')
 
 module.exports = {
   plugin: {
     name: 'auth',
-    register: async (server, options) => {
-      server.auth.strategy('session', 'cookie', {
-        cookie: {
-          name: 'ffc_sfi_identity',
-          password: config.password,
-          ttl: 1000 * 60 * 60 * 24 * 3, // 3 days
-          isSameSite: config.isSameSite,
-          isSecure: config.isSecure,
-          isHttpOnly: config.isHttpOnly,
-          path: '/'
-        },
-        keepAlive: true,
-        redirectTo: '/login',
-        validateFunc: async (request, session) => {
-          const sessionCache = await request.server.app.cache.get(session.sid)
-          const valid = !!sessionCache
-          const result = { valid }
-          if (valid) {
-            // TODO: replace with Defra Customer account
-            result.credentials = { name: 'A Farmer' }
-          } else {
-            console.log(`Session has no cache: ${session.sid}`)
-          }
+    register: async (server, _options) => {
+      const { publicKey } = await getKeys()
 
-          return result
-        }
+      server.auth.strategy('jwt', 'jwt', {
+        key: publicKey,
+        cookieKey: AUTH_COOKIE_NAME,
+        validate: validateToken,
+        verifyOptions: { algorithms: [RS256] }
       })
-      server.auth.default({ strategy: 'session', mode: 'required' })
-      server.ext('onPreResponse', (request, h) => {
-        const statusCode = request.response.statusCode
-        if (request.response.variety === 'view' && statusCode !== 404 && statusCode !== 500 && request.response.source.manager._context) {
-          request.response.source.manager._context.isAuthenticated = request.auth.isAuthenticated
-        }
-        return h.continue
-      })
+      server.auth.default({ strategy: 'jwt', mode: 'required' })
     }
   }
 }

@@ -11,7 +11,7 @@ describe('arable soil produce plan route', () => {
   let cachedData
 
   beforeEach(async () => {
-    auth = { strategy: 'session', credentials: { name: 'A Farmer' } }
+    auth = { strategy: 'jwt', credentials: { name: 'A Farmer' } }
     cachedData = {
       agreement: {
         action: {
@@ -32,15 +32,15 @@ describe('arable soil produce plan route', () => {
     await server.stop()
   })
 
-  test('GET /arable/produce-plan without auth returns 302', async () => {
+  test('GET /arable/produce-plan without auth returns 4016 ', async () => {
     const options = {
       method: 'GET',
       url: '/arable/produce-plan'
     }
 
     const result = await server.inject(options)
-    expect(result.statusCode).toBe(302)
-    expect(result.headers.location).toBe('/login')
+    expect(result.statusCode).toBe(401)
+    expect(result.headers.location).toBe('/sign-in')
   })
 
   test('GET /arable/produce-plan with auth returns 200', async () => {

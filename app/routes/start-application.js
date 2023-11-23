@@ -6,6 +6,7 @@ const getOrganisationInformation = require('./models/start-application')
 
 const { create } = require('../agreement')
 const { getByAgreementNumber } = require('../agreement/get')
+const { AUTH_COOKIE_NAME } = require('../constants/cookies')
 
 module.exports = [{
   method: 'GET',
@@ -31,7 +32,7 @@ module.exports = [{
     },
     handler: async (request, h) => {
       let agreement
-      const { data, callerId, crn } = await cache.get(request)
+      const { data, crn } = await cache.get(request)
       const sbi = parseInt(request.payload.sbi)
 
       const agreementNumber = request.payload.agreementNumber
@@ -39,9 +40,9 @@ module.exports = [{
       await cache.reset(request)
       if (!agreementNumber) {
         agreement = create()
-        // Need to include caller Id as part of agreement to support downstream services
-        // Expect to remove once Defra Identity integrated
-        agreement.callerId = callerId
+        // Need to include token as part of agreement to support downstream services
+        // Expect to remove once Defra Identity service account is available
+        agreement.token = request.state[AUTH_COOKIE_NAME]
         agreement.crn = crn
         const selectedOrganisation = data.eligibleOrganisations.find(x => x.sbi === sbi)
 
