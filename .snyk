@@ -59,8 +59,8 @@ ignore:
         expires: '2021-12-13T09:49:32.062Z'
     - '*':
         reason: None Given
-        expires: 2023-10-19T12:06:51.062Z
-        created: 2023-09-19T12:06:51.073Z
+        expires: 2023-12-24T13:11:18.370Z
+        created: 2023-11-24T13:11:18.376Z
   SNYK-JS-FOLLOWREDIRECTS-2332181:
     - '@azure/identity > @azure/msal-node > axios > follow-redirects':
         reason: None given
