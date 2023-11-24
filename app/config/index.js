@@ -4,6 +4,7 @@ const mqConfig = require('./message')
 const cookieConfig = require('./cookie')
 const storageConfig = require('./storage')
 const authConfig = require('./auth')
+const apiConfig = require('./api')
 
 // Define config schema
 const schema = Joi.object({
@@ -64,6 +65,7 @@ value.cacheConfig = cacheConfig
 value.storageConfig = storageConfig
 value.cookieConfig = cookieConfig
 value.authConfig = authConfig
+value.apiConfig = apiConfig
 
 value.isDev = value.env === 'development'
 value.isTest = value.env === 'test'

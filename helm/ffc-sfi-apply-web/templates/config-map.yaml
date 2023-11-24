@@ -51,4 +51,9 @@ data:
   {{ else }}
   DEFRA_ID_REDIRECT_URL: https://{{ .Values.ingress.endpoint }}.{{ .Values.ingress.server }}/{{ .Values.container.defraIdRedirectUrl }}
   {{- end }}
+  APIM_CLIENT_ID: {{ .Values.container.apimClientId }}
+  APIM_CLIENT_SECRET: {{ .Values.container.apimClientSecret }}
+  APIM_SCOPE: {{ .Values.container.apimScope }}
+  APIM_OCP_SUBSCRIPTION_KEY: {{ .Values.container.apimOcpSubscriptionKey }}
+  APIM_AUTHORIZATION_URL: {{ .Values.container.apimAuthorizationUrl }}
 {{- end -}}

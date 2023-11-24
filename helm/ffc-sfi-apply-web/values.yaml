@@ -78,6 +78,11 @@ container:
   defraIdServiceId: not-a-real-serviceID
   defraIdPolicy: not-a-real-policy
   defraIdRedirectUrl: sign-in-oidc
+  apimClientId:
+  apimClientSecret:
+  apimScope:
+  apimOcpSubscriptionKey:
+  apimAuthorizationUrl:
 
 ingress:
   class: nginx
