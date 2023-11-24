@@ -81,4 +81,9 @@ ignore:
     - ffc-messaging > @azure/service-bus > @azure/core-http > node-fetch:
         reason: None given
         expires: '2022-02-17T11:09:15.859Z'
+  SNYK-JS-AXIOS-6032459:
+    - '*':
+        reason: None Given
+        expires: 2023-12-24T13:14:47.233Z
+        created: 2023-11-24T13:14:47.238Z
 patch: {}
