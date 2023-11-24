@@ -19,6 +19,7 @@ services:
       APIM_CLIENT_ID: test
       APIM_CLIENT_SECRET: test
       APIM_OCP_SUBSCRIPTION_KEY: test
+      APIM_SCOPE: test
       APIM_AUTHORIZATION_URL: test.com
     volumes:
       - ./test:/home/node/test
