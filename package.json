@@ -50,7 +50,7 @@
     "applicationinsights": "1.8.10",
     "ffc-messaging": "2.7.0",
     "govuk-frontend": "3.14.0",
-    "hapi-auth-jwt2": "10.4.0",
+    "hapi-auth-jwt2": "10.7.0",
     "hapi-pino": "8.3.0",
     "joi": "17.4.0",
     "jsonwebtoken": "9.0.2",
