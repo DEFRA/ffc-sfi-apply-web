@@ -44,7 +44,7 @@
     "@hapi/hoek": "11.0.2",
     "@hapi/inert": "7.1.0",
     "@hapi/vision": "7.0.3",
-    "@hapi/wreck": "18.0.1",
+    "@hapi/wreck": "18.1.0",
     "@pact-foundation/pact": "9.18.1",
     "@turf/turf": "6.3.0",
     "applicationinsights": "1.8.10",
